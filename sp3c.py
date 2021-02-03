@@ -5,6 +5,7 @@ import requests
 import pickle
 import pandas
 import json
+import datetime
 
 sp3_url = 'https://cats.oxfordfun.com'
 s = requests.Session()
@@ -84,21 +85,67 @@ def fetch(fetch_name):
 
     print(json.dumps(json.loads(r.text), indent=4))
 
-def is_fetch_ready(fetch_uuid):
+def check_fetch(fetch_uuid):
     load_cookies()
     u = sp3_url + f'/fetch_details/{fetch_uuid}?api=v1'
     r = s.get(u)
+    print(json.loads(r.text)['status'])
+
+def run_clockwork(flow_name, fetch_uuid):
+    load_cookies()
+    u = sp3_url + f'/flow/{ flow_name }/new'
+    timestamp = datetime.datetime.now().strftime("%Y%m%d_%H%M%S")
+    run_name = f'sp3c-{ flow_name }-{ timestamp }'
+    kraken2_db = '/data/databases/clockworkcloud/kraken2/minikraken2_v2_8GB_201904_UPDATE'
+    input_file_dir = f'/data/inputs/local/{ fetch_uuid }'
+
+    data = { 'fetch_uuid': fetch_uuid,
+             'ref_uuid': "",
+             'run_name': run_name,
+             'context': 'local',
+             'kraken2_db-and---kraken2_db': kraken2_db,
+             'indir-and---indir': input_file_dir,
+             'input_filetype-and---input_filetype': 'fastq.gz',
+             'readpat-and---readpat': '*_C{1,2}.fastq.gz',
+             'ref-and---ref': 'AUTO',
+             'save_rmdup_bam-and---save_rmdup_bam': 'false',
+             'save_samtools_gvcf-and---save_samtools_gvcf': 'false',
+             'api': 'v1'
+            }
+
+    r = s.post(u, data=data)
+
     print(json.dumps(json.loads(r.text), indent=4))
 
-def is_run_ready(flow_name, run_uuid):
+
+def check_run(flow_name, run_uuid):
     load_cookies()
     u = sp3_url + f'/flow/{ flow_name }/details/{ run_uuid }?api=v1'
     r = s.get(u)
+
     data = json.loads(r.text)
-    print(data['data'][0][3])
+    if not data['data']:
+        print("Error")
+        return
+    status = data['data'][0][3]
+    if status == '-':
+        print("Running")
+    else:
+        print(status)
+
+def download_url(flow_name, run_uuid):
+    load_cookies()
+    u = f"{ sp3_url }/files/{ run_uuid }/"
+    print(u)
+
+def download_cmd(flow_name, run_uuid):
+    load_cookies()
+    u = f"wget -m -nH --cut-dirs=1 -np -R 'index.*' { sp3_url }/files/{ run_uuid }/"
+    print(u)
 
 if __name__ == "__main__":
     parser = argh.ArghParser()
     parser.add_commands([login, dashboard, pipelines, runs, samples, fetch,
-                         is_fetch_ready, is_run_ready])
+                         check_fetch, check_run, download_cmd, download_url,
+                         run_clockwork])
     parser.dispatch()
