@@ -1,11 +1,9 @@
 import argh
-from io import StringIO
-from tabulate import tabulate
 import requests
 import pickle
-import pandas
 import json
 import datetime
+import time
 
 sp3_url = 'https://cats.oxfordfun.com'
 s = requests.Session()
@@ -24,55 +22,6 @@ def login(username, password):
     r = s.post(sp3_url + '/login', data=data)
     save_cookies()
 
-def dashboard():
-    load_cookies()
-    r = s.get(sp3_url + '/?api=v1')
-    t = list()
-    table_names = ['Running', 'Recent OK', 'Recent failed']
-    headers=['Run UUID', 'Pipeline name', 'Run name']
-    for table_name, table in zip(table_names, json.loads(r.text)):
-        t = [[x[14], x[9], x[19]] for x in table]
-        print(f'\n\t{table_name}\n')
-        print(tabulate(t, tablefmt="fancy_grid", headers=headers))
-
-def pipelines():
-    load_cookies()
-    r = s.get(sp3_url + '/flows?api=v1')
-    t = list()
-    headers=['Pipeline name', 'git version']
-    for pipeline in json.loads(r.text):
-        t.append([pipeline['name'], pipeline['git_version']])
-    print(tabulate(t, tablefmt="fancy_grid", headers=headers))
-
-def runs(pipeline_name):
-    load_cookies()
-    u = sp3_url + f'/flow/{pipeline_name}?api=v1'
-    print(u)
-    r = s.get(u)
-    t = list()
-    headers = ['Run UUID', 'Run name']
-    for run in json.loads(r.text):
-        t.append([run[14], run[19]])
-    print(tabulate(t, tablefmt="fancy_grid", headers=headers))
-
-def samples(pipeline_name, run_uuid):
-    load_cookies()
-    u = sp3_url + f'/flow/{pipeline_name}/details/{run_uuid}?api=v1'
-    print(u)
-    r = s.get(u)
-    headers=['Sample name', 'tags']
-    t = list()
-    data = json.loads(r.text)
-    sample_names = list(data['trace_nice'].keys())
-    sample_names.remove('unknown')
-    for sample_name in sample_names:
-        if sample_name in data['tags']:
-            tags_str = ', '.join([': '.join(x) for x in data['tags'][sample_name]])
-            t.append([sample_name, tags_str])
-        else:
-            t.append(list())
-    print(tabulate(t, tablefmt="fancy_grid", headers=headers))
-
 def fetch(fetch_name):
     load_cookies()
     u = sp3_url + f'/fetch_new'
@@ -83,13 +32,13 @@ def fetch(fetch_name):
                            'fetch_method': fetch_method,
                            'is_api': True })
 
-    print(json.dumps(json.loads(r.text), indent=4))
+    return json.loads(r.text)
 
 def check_fetch(fetch_uuid):
     load_cookies()
     u = sp3_url + f'/fetch_details/{fetch_uuid}?api=v1'
     r = s.get(u)
-    print(json.loads(r.text)['status'])
+    return json.loads(r.text)['status']
 
 def run_clockwork(flow_name, fetch_uuid):
     load_cookies()
@@ -115,8 +64,7 @@ def run_clockwork(flow_name, fetch_uuid):
 
     r = s.post(u, data=data)
 
-    print(json.dumps(json.loads(r.text), indent=4))
-
+    return json.loads(r.text)
 
 def check_run(flow_name, run_uuid):
     load_cookies()
@@ -125,27 +73,63 @@ def check_run(flow_name, run_uuid):
 
     data = json.loads(r.text)
     if not data['data']:
-        print("Error")
+        return "Error"
         return
     status = data['data'][0][3]
     if status == '-':
-        print("Running")
+        return "Running"
     else:
-        print(status)
+        return status
 
-def download_url(flow_name, run_uuid):
+def download_url(run_uuid):
     load_cookies()
     u = f"{ sp3_url }/files/{ run_uuid }/"
     print(u)
 
-def download_cmd(flow_name, run_uuid):
+def download_cmd(run_uuid):
     load_cookies()
     u = f"wget -m -nH --cut-dirs=1 -np -R 'index.*' { sp3_url }/files/{ run_uuid }/"
-    print(u)
+    return u
 
+def go(fetch_name):
+    load_cookies()
+    print(f'fetching { fetch_name }')
+    r = fetch(fetch_name)
+    fetch_uuid = r['guid']
+
+    while True:
+        r = check_fetch(fetch_uuid)
+        if r == 'failed':
+            print('fetch failed: check web site for log')
+            return
+        if r == 'success':
+            break
+        time.sleep(1)
+
+    print('fetch successful')
+
+    print('running clockwork')
+    r = run_clockwork("sp3test1-Clockwork_combined", fetch_uuid)
+    run_uuid = r['run_uuid']
+
+    while True:
+        r = check_run("sp3test1-Clockwork_combined", run_uuid)
+        if r == 'ERR' or r == "Error":
+            print('run failed: check web site for log')
+            return
+        if r == 'OK':
+            break
+        time.sleep(5)
+
+    print('run successful')
+    print('downloading')
+
+    cmd = download_cmd(run_uuid)
+    print(f"{cmd} | bash")
+    
 if __name__ == "__main__":
     parser = argh.ArghParser()
-    parser.add_commands([login, dashboard, pipelines, runs, samples, fetch,
+    parser.add_commands([login, fetch,
                          check_fetch, check_run, download_cmd, download_url,
-                         run_clockwork])
+                         run_clockwork, go])
     parser.dispatch()
