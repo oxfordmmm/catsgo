@@ -5,6 +5,8 @@ import json
 import datetime
 import time
 
+from getpass import getpass
+
 def load_config(config_file):
     with open(config_file) as f:
         cfg = json.loads(f.read())
@@ -24,7 +26,8 @@ def load_cookies():
     with open('cookies', 'rb') as f:
         s.cookies.update(pickle.load(f))
 
-def login(username, password):
+def login(username):
+    password = getpass()
     data = { 'username': username,
              'password': password }
     r = s.post(sp3_url + '/login', data=data)
