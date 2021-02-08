@@ -5,7 +5,15 @@ import json
 import datetime
 import time
 
-sp3_url = 'https://cats.oxfordfun.com'
+def load_config(config_file):
+    with open(config_file) as f:
+        cfg = json.loads(f.read())
+    return cfg
+
+config = load_config("config.json")
+sp3_url = config["sp3_url"]
+flow_name = config["clockwork_flow_name"]
+
 s = requests.Session()
 
 def save_cookies():
@@ -45,20 +53,19 @@ def run_clockwork(flow_name, fetch_uuid):
     u = sp3_url + f'/flow/{ flow_name }/new'
     timestamp = datetime.datetime.now().strftime("%Y%m%d_%H%M%S")
     run_name = f'sp3c-{ flow_name }-{ timestamp }'
-    kraken2_db = '/data/databases/clockworkcloud/kraken2/minikraken2_v2_8GB_201904_UPDATE'
     input_file_dir = f'/data/inputs/local/{ fetch_uuid }'
 
-    data = { 'fetch_uuid': fetch_uuid,
+    data = { 'fetch_uuid':  fetch_uuid,
              'ref_uuid': "",
-             'run_name': run_name,
+             'run_name':  run_name,
              'context': 'local',
-             'kraken2_db-and---kraken2_db': kraken2_db,
-             'indir-and---indir': input_file_dir,
-             'input_filetype-and---input_filetype': 'fastq.gz',
-             'readpat-and---readpat': '*_C{1,2}.fastq.gz',
-             'ref-and---ref': 'AUTO',
-             'save_rmdup_bam-and---save_rmdup_bam': 'false',
-             'save_samtools_gvcf-and---save_samtools_gvcf': 'false',
+             'kraken2_db-and---kraken2_db':  config["kraken2_db"],
+             'indir-and---indir':  input_file_dir,
+             'input_filetype-and---input_filetype':  config["input_file_type"],
+             'readpat-and---readpat':  config["read_pattern"],
+             'ref-and---ref': config["reference"],
+             'save_rmdup_bam-and---save_rmdup_bam': config["save_rmdup_bam"],
+             'save_samtools_gvcf-and---save_samtools_gvcf': config["save_samtools_gvcf"],
              'api': 'v1'
             }
 
