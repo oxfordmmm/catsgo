@@ -1,3 +1,5 @@
+#! /usr/bin/env python3
+
 import argh
 import requests
 import pickle
@@ -26,12 +28,28 @@ def load_cookies():
     with open('cookies', 'rb') as f:
         session.cookies.update(pickle.load(f))
 
-def login(username):
+def login():
+    username = input(f"Username:")
     password = getpass()
     data = { 'username': username,
              'password': password }
     response =  session.post(sp3_url + '/login', data=data)
     save_cookies()
+
+def logout():
+    session = requests.Session()
+    save_cookies()
+    print("You are logged out.")
+
+def check_login():
+    load_cookies()
+    url = sp3_url + '/am_i_logged_in'
+    response = session.get(url)
+    if 'html' in response.text:
+        print(f'You are not logged in. Please login.')
+        login()
+    else:
+        print(f'{ response.text } is logged in.')
 
 def fetch(fetch_name):
     load_cookies()
@@ -102,8 +120,9 @@ def download_cmd(run_uuid):
     return(url)
 
 def go(fetch_name):
+    check_login()
     load_cookies()
-    print(f'fetching { fetch_name }')
+    print(f'Fetching { fetch_name }')
     response =  fetch(fetch_name)
     fetch_uuid = response['guid']
 
@@ -141,7 +160,8 @@ def go(fetch_name):
     
 if __name__ == "__main__":
     parser = argh.ArghParser()
-    parser.add_commands([login, fetch,
-                         check_fetch, check_run, download_cmd, download_url,
+    parser.add_commands([login, logout, fetch,
+                         check_login, check_fetch, check_run,
+                         download_cmd, download_url,
                          run_clockwork, go])
     parser.dispatch()
