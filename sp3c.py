@@ -52,7 +52,7 @@ def check_login():
         print(f'{ response.text } is logged in.')
 
 def fetch(fetch_name):
-    load_cookies()
+    check_login()
     url =  sp3_url + f'/fetch_new'
     fetch_kind = 'local1'
     fetch_method = 'copy'
@@ -60,17 +60,16 @@ def fetch(fetch_name):
                            'fetch_kind': fetch_kind,
                            'fetch_method': fetch_method,
                            'is_api': True })
-
     return json.loads(response.text)
 
 def check_fetch(fetch_uuid):
-    load_cookies()
+    check_login()
     url =  sp3_url + f'/fetch_details/{fetch_uuid}?api=v1'
     response =  session.get(url)
-    return json.loads(response.text)['status']
+    return json.loads(response.text)
 
 def run_clockwork(flow_name, fetch_uuid):
-    load_cookies()
+    check_login()
     url =  sp3_url + f'/flow/{ flow_name }/new'
     timestamp = datetime.datetime.now().strftime("%Y%m%d_%H%M%S")
     run_name = f'sp3c-{ flow_name }-{ timestamp }'
@@ -95,7 +94,7 @@ def run_clockwork(flow_name, fetch_uuid):
     return json.loads(response.text)
 
 def check_run(flow_name, run_uuid):
-    load_cookies()
+    check_login()
     url =  sp3_url + f'/flow/{ flow_name }/details/{ run_uuid }?api=v1'
     response =  session.get(url)
 
@@ -110,31 +109,34 @@ def check_run(flow_name, run_uuid):
         return status
 
 def download_url(run_uuid):
-    load_cookies()
+    check_login()
     url =  f"{ sp3_url }/files/{ run_uuid }/"
     print(url)
 
 def download_cmd(run_uuid):
-    load_cookies()
+    check_login()
     url =  f"wget -m -nH --cut-dirs=1 -np -R 'index.*' { sp3_url }/files/{ run_uuid }/"
     return(url)
 
 def go(fetch_name):
     check_login()
-    load_cookies()
     print(f'Fetching { fetch_name }')
     response =  fetch(fetch_name)
     fetch_uuid = response['guid']
 
     while True:
-        load_cookies()
+        check_login()
         response =  check_fetch(fetch_uuid)
-        if response == 'failed':
+        if response['status'] == 'failed':
             print('fetch failed: check web site for log')
             return
-        if response == 'success':
+        if response['status'] == 'success':
             break
         time.sleep(1)
+
+    if response['total'] == 0:
+        print(f'Error: empty dataset. Fetch ID: {fetch_uuid}')
+        return
 
     print(f'Dataset fetched successfully. Fetch ID: {fetch_uuid}')
 
