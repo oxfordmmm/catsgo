@@ -16,44 +16,44 @@ config = load_config("config.json")
 sp3_url = config["sp3_url"]
 flow_name = config["clockwork_flow_name"]
 
-s = requests.Session()
+session = requests.Session()
 
 def save_cookies():
     with open('cookies', 'wb') as f:
-        pickle.dump(s.cookies, f)
+        pickle.dump(session.cookies, f)
 
 def load_cookies():
     with open('cookies', 'rb') as f:
-        s.cookies.update(pickle.load(f))
+        session.cookies.update(pickle.load(f))
 
 def login(username):
     password = getpass()
     data = { 'username': username,
              'password': password }
-    r = s.post(sp3_url + '/login', data=data)
+    response =  session.post(sp3_url + '/login', data=data)
     save_cookies()
 
 def fetch(fetch_name):
     load_cookies()
-    u = sp3_url + f'/fetch_new'
+    url =  sp3_url + f'/fetch_new'
     fetch_kind = 'local1'
     fetch_method = 'copy'
-    r = s.post(u, data = { 'fetch_name': fetch_name,
+    response =  session.post(url, data = { 'fetch_name': fetch_name,
                            'fetch_kind': fetch_kind,
                            'fetch_method': fetch_method,
                            'is_api': True })
 
-    return json.loads(r.text)
+    return json.loads(response.text)
 
 def check_fetch(fetch_uuid):
     load_cookies()
-    u = sp3_url + f'/fetch_details/{fetch_uuid}?api=v1'
-    r = s.get(u)
-    return json.loads(r.text)['status']
+    url =  sp3_url + f'/fetch_details/{fetch_uuid}?api=v1'
+    response =  session.get(url)
+    return json.loads(response.text)['status']
 
 def run_clockwork(flow_name, fetch_uuid):
     load_cookies()
-    u = sp3_url + f'/flow/{ flow_name }/new'
+    url =  sp3_url + f'/flow/{ flow_name }/new'
     timestamp = datetime.datetime.now().strftime("%Y%m%d_%H%M%S")
     run_name = f'sp3c-{ flow_name }-{ timestamp }'
     input_file_dir = f'/data/inputs/local/{ fetch_uuid }'
@@ -72,16 +72,16 @@ def run_clockwork(flow_name, fetch_uuid):
              'api': 'v1'
             }
 
-    r = s.post(u, data=data)
+    response =  session.post(url, data=data)
 
-    return json.loads(r.text)
+    return json.loads(response.text)
 
 def check_run(flow_name, run_uuid):
     load_cookies()
-    u = sp3_url + f'/flow/{ flow_name }/details/{ run_uuid }?api=v1'
-    r = s.get(u)
+    url =  sp3_url + f'/flow/{ flow_name }/details/{ run_uuid }?api=v1'
+    response =  session.get(url)
 
-    data = json.loads(r.text)
+    data = json.loads(response.text)
     if not data['data']:
         return "Error"
         return
@@ -93,46 +93,48 @@ def check_run(flow_name, run_uuid):
 
 def download_url(run_uuid):
     load_cookies()
-    u = f"{ sp3_url }/files/{ run_uuid }/"
-    print(u)
+    url =  f"{ sp3_url }/files/{ run_uuid }/"
+    print(url)
 
 def download_cmd(run_uuid):
     load_cookies()
-    u = f"wget -m -nH --cut-dirs=1 -np -R 'index.*' { sp3_url }/files/{ run_uuid }/"
-    return u
+    url =  f"wget -m -nH --cut-dirs=1 -np -R 'index.*' { sp3_url }/files/{ run_uuid }/"
+    return(url)
 
 def go(fetch_name):
     load_cookies()
     print(f'fetching { fetch_name }')
-    r = fetch(fetch_name)
-    fetch_uuid = r['guid']
+    response =  fetch(fetch_name)
+    fetch_uuid = response['guid']
 
     while True:
-        r = check_fetch(fetch_uuid)
-        if r == 'failed':
+        load_cookies()
+        response =  check_fetch(fetch_uuid)
+        if response == 'failed':
             print('fetch failed: check web site for log')
             return
-        if r == 'success':
+        if response == 'success':
             break
         time.sleep(1)
 
-    print('fetch successful')
+    print(f'Dataset fetched successfully. Fetch ID: {fetch_uuid}')
 
-    print('running clockwork')
-    r = run_clockwork("sp3test1-Clockwork_combined", fetch_uuid)
-    run_uuid = r['run_uuid']
+    response =  run_clockwork(flow_name, fetch_uuid)
+    run_uuid = response['run_uuid']
+
+    print(f'Running clockwork. Run ID: {run_uuid}')
 
     while True:
-        r = check_run("sp3test1-Clockwork_combined", run_uuid)
-        if r == 'ERR' or r == "Error":
+        response =  check_run(flow_name, run_uuid)
+        if response == 'ERR' or response == "Error":
             print('run failed: check web site for log')
             return
-        if r == 'OK':
+        if response == 'OK':
             break
         time.sleep(5)
 
-    print('run successful')
-    print('downloading')
+    print(f'Run completed successfully.')
+    print(f'Downloading run output.')
 
     cmd = download_cmd(run_uuid)
     print(f"{cmd} | bash")
