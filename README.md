@@ -22,7 +22,7 @@ Since this file contains your login details, please ensure that it is only reada
 
 # Running
 
-- Downloads report:
+- Download report:
 
     $ python3 catsgo.py download-report <run_uuid> <sample_name>
 
