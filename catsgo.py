@@ -1,13 +1,13 @@
 #! /usr/bin/env python3
 
-import argh
-import requests
 import pickle
 import json
 import datetime
 import time
+import sys
 
-from getpass import getpass
+import argh
+import requests
 
 def load_config(config_file):
     with open(config_file) as f:
@@ -16,7 +16,6 @@ def load_config(config_file):
 
 config = load_config("config.json")
 sp3_url = config["sp3_url"]
-flow_name = config["clockwork_flow_name"]
 
 session = requests.Session()
 
@@ -29,30 +28,22 @@ def load_cookies():
         session.cookies.update(pickle.load(f))
 
 def login():
-    username = input(f"Username:")
-    password = getpass()
-    data = { 'username': username,
-             'password': password }
-    response =  session.post(sp3_url + '/login', data=data)
-    save_cookies()
-
-def logout():
-    session = requests.Session()
-    save_cookies()
-    print("You are logged out.")
-
-def check_login():
     load_cookies()
-    url = sp3_url + '/am_i_logged_in'
-    response = session.get(url)
-    if 'html' in response.text:
-        print(f'You are not logged in. Please login.')
-        login()
+    response = session.get(sp3_url + '/am_i_logged_in')
+    if response.text == 'yes':
+        return
     else:
-        print(f'{ response.text } is logged in.')
+        data = { 'username': config['username'],
+                 'password': config['password'] }
+        response =  session.post(sp3_url + '/login?api=v1', data=data)
+        response = session.get(sp3_url + '/am_i_logged_in')
+        if response.text != 'yes':
+            print("Error: Couldn't log in")
+            sys.exit(1)
+        save_cookies()
 
 def fetch(fetch_name):
-    check_login()
+    login()
     url =  sp3_url + f'/fetch_new'
     fetch_kind = 'local1'
     fetch_method = 'copy'
@@ -63,13 +54,13 @@ def fetch(fetch_name):
     return json.loads(response.text)
 
 def check_fetch(fetch_uuid):
-    check_login()
+    login()
     url =  sp3_url + f'/fetch_details/{fetch_uuid}?api=v1'
     response =  session.get(url)
     return json.loads(response.text)
 
 def run_clockwork(flow_name, fetch_uuid):
-    check_login()
+    login()
     url =  sp3_url + f'/flow/{ flow_name }/new'
     timestamp = datetime.datetime.now().strftime("%Y%m%d_%H%M%S")
     run_name = f'sp3c-{ flow_name }-{ timestamp }'
@@ -90,11 +81,10 @@ def run_clockwork(flow_name, fetch_uuid):
             }
 
     response =  session.post(url, data=data)
-
     return json.loads(response.text)
 
 def check_run(flow_name, run_uuid):
-    check_login()
+    login()
     url =  sp3_url + f'/flow/{ flow_name }/details/{ run_uuid }?api=v1'
     response =  session.get(url)
 
@@ -109,23 +99,50 @@ def check_run(flow_name, run_uuid):
         return status
 
 def download_url(run_uuid):
-    check_login()
+    login()
     url =  f"{ sp3_url }/files/{ run_uuid }/"
     print(url)
 
 def download_cmd(run_uuid):
-    check_login()
+    login()
     url =  f"wget -m -nH --cut-dirs=1 -np -R 'index.*' { sp3_url }/files/{ run_uuid }/"
     return(url)
 
+def download_report(run_uuid, dataset_id, do_print=True):
+    login()
+    url = f"{ sp3_url }/flow/{ run_uuid }/{ dataset_id }/report?api=v1"
+    response = session.get(url)
+    if do_print:
+        return json.dumps(response.json(), indent=4)
+    else:
+        return response.json()
+
+def run_info(pipeline_name, run_uuid, do_print=True):
+    login()
+    url = f"{ sp3_url }/flow/{ flow_name }/details/{ run_uuid }?api=v1"
+    response = session.get(url)
+    if do_print:
+        return json.dumps(response.json(), indent=4)
+    else:
+        return response.json()
+
+def download_reports(pipeline_name, run_uuid):
+    login()
+    info = run_info(pipeline_name, run_uuid, do_print=False)
+    sample_names = list(info["trace_nice"].keys())
+    sample_names.remove('unknown')
+    out = dict()
+    for sample_name in sample_names:
+        out[sample_name] = download_report(run_uuid, sample_name, do_print=False)
+    print(json.dumps(out, indent=4))
+
 def go(fetch_name):
-    check_login()
+    login()
     print(f'Fetching { fetch_name }')
     response =  fetch(fetch_name)
     fetch_uuid = response['guid']
 
     while True:
-        check_login()
         response =  check_fetch(fetch_uuid)
         if response['status'] == 'failed':
             print('fetch failed: check web site for log')
@@ -159,11 +176,11 @@ def go(fetch_name):
 
     cmd = download_cmd(run_uuid)
     print(f"{cmd} | bash")
-    
+
 if __name__ == "__main__":
     parser = argh.ArghParser()
-    parser.add_commands([login, logout, fetch,
-                         check_login, check_fetch, check_run,
-                         download_cmd, download_url,
-                         run_clockwork, go])
+    parser.add_commands([login, fetch,
+                         check_fetch, check_run, download_reports,
+                         download_cmd, download_url, run_info,
+                         run_clockwork, go, download_report])
     parser.dispatch()
