@@ -20,10 +20,6 @@ The rest of the configuration relates to running the clockwork pipeline in an au
 
 Since this file contains your login details, please ensure that it is only readable by you.
 
-Once you have edited `config.json`, you must login once:
-
-    $ python3 catsgo.py login
-
 # Running
 
 - Download report:

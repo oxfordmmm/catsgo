@@ -28,7 +28,10 @@ def load_cookies():
         session.cookies.update(pickle.load(f))
 
 def login():
-    load_cookies()
+    try:
+        load_cookies()
+    except:
+        pass
     response = session.get(sp3_url + '/am_i_logged_in')
     if response.text == 'yes':
         return
