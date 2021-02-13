@@ -120,7 +120,7 @@ def download_report(run_uuid, dataset_id, do_print=True):
     else:
         return response.json()
 
-def run_info(pipeline_name, run_uuid, do_print=True):
+def run_info(flow_name, run_uuid, do_print=True):
     login()
     url = f"{ sp3_url }/flow/{ flow_name }/details/{ run_uuid }?api=v1"
     response = session.get(url)
@@ -129,9 +129,9 @@ def run_info(pipeline_name, run_uuid, do_print=True):
     else:
         return response.json()
 
-def download_reports(pipeline_name, run_uuid):
+def download_reports(flow_name, run_uuid):
     login()
-    info = run_info(pipeline_name, run_uuid, do_print=False)
+    info = run_info(flow_name, run_uuid, do_print=False)
     sample_names = list(info["trace_nice"].keys())
     sample_names.remove('unknown')
     out = dict()
