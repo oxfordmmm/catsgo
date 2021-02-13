@@ -1,6 +1,8 @@
 {
+    "username": "your_username",
+    "password": "your_password",
     "sp3_url": "https://cats.oxfordfun.com",
-    "clockwork_flow_name": "sp3test1-Clockwork_combined",
+    "clockwork_flow_name": "your_pipeline_name",
     "kraken2_db" : "/data/databases/clockworkcloud/kraken2/minikraken2_v2_8GB_201904_UPDATE",
     "input_file_type": "fastq.gz",
     "read_pattern": "*_R{1,2}_001.fastq.gz",
