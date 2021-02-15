@@ -49,7 +49,7 @@ def fetch(fetch_name):
     login()
     url =  sp3_url + f'/fetch_new'
     fetch_kind = 'local1'
-    fetch_method = 'copy'
+    fetch_method = config['fetch_method']
     response =  session.post(url, data = { 'fetch_name': fetch_name,
                            'fetch_kind': fetch_kind,
                            'fetch_method': fetch_method,
