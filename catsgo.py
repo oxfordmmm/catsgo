@@ -160,13 +160,13 @@ def go(fetch_name):
 
     print(f'Dataset fetched successfully. Fetch ID: {fetch_uuid}')
 
-    response =  run_clockwork(flow_name, fetch_uuid)
+    response =  run_clockwork(config['clockwork_flow_name'], fetch_uuid)
     run_uuid = response['run_uuid']
 
     print(f'Running clockwork. Run ID: {run_uuid}')
 
     while True:
-        response =  check_run(flow_name, run_uuid)
+        response =  check_run(config['clockwork_flow_name'], run_uuid)
         if response == 'ERR' or response == "Error":
             print('run failed: check web site for log')
             return
