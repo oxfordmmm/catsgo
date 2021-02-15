@@ -101,6 +101,17 @@ def check_run(flow_name, run_uuid):
     else:
         return status
 
+def check_run_resume(run_uuid):
+    while True:
+        response =  check_run(config['clockwork_flow_name'], run_uuid)
+        print(f'Run {run_uuid} is {response}')
+        if response == 'ERR' or response == "Error":
+            print('run failed: check web site for log')
+            return
+        if response == 'OK':
+            break
+        time.sleep(60)
+        
 def download_url(run_uuid):
     login()
     url =  f"{ sp3_url }/files/{ run_uuid }/"
@@ -172,7 +183,7 @@ def go(fetch_name):
             return
         if response == 'OK':
             break
-        time.sleep(5)
+        time.sleep(60)
 
     print(f'Run completed successfully.')
     print(f'Downloading run output.')
@@ -182,7 +193,7 @@ def go(fetch_name):
 
 if __name__ == "__main__":
     parser = argh.ArghParser()
-    parser.add_commands([login, fetch,
+    parser.add_commands([login, fetch, check_run_resume,
                          check_fetch, check_run, download_reports,
                          download_cmd, download_url, run_info,
                          run_clockwork, go, download_report])
