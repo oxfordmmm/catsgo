@@ -150,6 +150,15 @@ def download_reports(flow_name, run_uuid):
         out[sample_name] = download_report(run_uuid, sample_name, do_print=False)
     print(json.dumps(out, indent=4))
 
+def download_nextflow_task_data(flow_name, run_uuid, do_print=True):
+    login()
+    url = f"{ sp3_url }/flow/{ flow_name }/report/{ run_uuid }?api=v1"
+    response = session.get(url)
+    if do_print:
+        return response.text
+    else:
+        return response.json()
+
 def go(fetch_name):
     login()
     print(f'Fetching { fetch_name }')
@@ -196,5 +205,5 @@ if __name__ == "__main__":
     parser.add_commands([login, fetch, check_run_resume,
                          check_fetch, check_run, download_reports,
                          download_cmd, download_url, run_info,
-                         run_clockwork, go, download_report])
+                         run_clockwork, go, download_report, download_nextflow_task_data])
     parser.dispatch()
