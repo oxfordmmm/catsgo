@@ -125,11 +125,20 @@ def download_cmd(run_uuid):
 def download_report(run_uuid, dataset_id, do_print=True):
     login()
     url = f"{ sp3_url }/flow/{ run_uuid }/{ dataset_id }/report?api=v1"
-    response = session.get(url)
-    if do_print:
-        return json.dumps(response.json(), indent=4)
-    else:
-        return response.json()
+    attempt = 0
+    while True:
+        attempt = attempt + 1
+        if attempt >= 10:
+            sys.stderr.write("Couldn't download report { run_uuid }/{ dataset_id } after 10 tries")
+            sys.exit(1)
+        response = session.get(url)
+        try:
+            if do_print:
+                return json.dumps(response.json(), indent=4)
+            else:
+                return response.json()
+        except:
+            pass
 
 def run_info(flow_name, run_uuid, do_print=True):
     login()
@@ -145,9 +154,12 @@ def download_reports(flow_name, run_uuid):
     info = run_info(flow_name, run_uuid, do_print=False)
     sample_names = list(info["trace_nice"].keys())
     sample_names.remove('unknown')
+    sys.stderr.write(f"downloading { len(sample_names) } reports")
     out = dict()
-    for sample_name in sample_names:
+    for i, sample_name in enumerate(sample_names):
+        sys.stderr.write(f"Downloading report {i}. { run_uuid }/{ sample_name }")
         out[sample_name] = download_report(run_uuid, sample_name, do_print=False)
+        sys.stderr.write(f"Downloaded report {i}. { run_uuid }/{ sample_name } len: { len(out[sample_name]) }")
     print(json.dumps(out, indent=4))
 
 def download_nextflow_task_data(flow_name, run_uuid, do_print=True):
