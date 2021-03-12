@@ -159,6 +159,16 @@ def download_nextflow_task_data(flow_name, run_uuid, do_print=True):
     else:
         return response.json()
 
+def download_nextflow_task_data_csv(flow_name, run_uuid, do_print=True):
+    login()
+    url = f"{ sp3_url }/flow/{ flow_name }/report/{ run_uuid }?api=v1"
+    response = session.get(url)
+    import pandas, io
+    trace = json.dumps(json.loads(response.text)['trace'])
+    table = pandas.read_json(io.StringIO(trace))
+    table = table.drop(["script", "env"], axis=1)
+    return table.sort_values("tag").to_csv(index=False)
+
 def go(fetch_name):
     login()
     print(f'Fetching { fetch_name }')
@@ -205,5 +215,5 @@ if __name__ == "__main__":
     parser.add_commands([login, fetch, check_run_resume,
                          check_fetch, check_run, download_reports,
                          download_cmd, download_url, run_info,
-                         run_clockwork, go, download_report, download_nextflow_task_data])
+                         run_clockwork, go, download_report, download_nextflow_task_data, download_nextflow_task_data_csv])
     parser.dispatch()
