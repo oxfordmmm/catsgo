@@ -182,7 +182,7 @@ def go(fetch_name):
             return
         if response['status'] == 'success':
             break
-        time.sleep(1)
+        time.sleep(60)
 
     if response['total'] == 0:
         print(f'Error: empty dataset. Fetch ID: {fetch_uuid}')
