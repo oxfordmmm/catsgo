@@ -41,7 +41,7 @@ def login():
         response =  session.post(sp3_url + '/login?api=v1', data=data)
         response = session.get(sp3_url + '/am_i_logged_in')
         if response.text != 'yes':
-            print("Error: Couldn't log in")
+            sys.stderr.write("Error: Couldn't log in\n")
             sys.exit(1)
         save_cookies()
 
@@ -129,7 +129,7 @@ def download_report(run_uuid, dataset_id, do_print=True):
     while True:
         attempt = attempt + 1
         if attempt >= 10:
-            sys.stderr.write("Couldn't download report { run_uuid }/{ dataset_id } after 10 tries")
+            sys.stderr.write("Couldn't download report { run_uuid }/{ dataset_id } after 10 tries\n")
             sys.exit(1)
         response = session.get(url)
         try:
@@ -154,12 +154,12 @@ def download_reports(flow_name, run_uuid):
     info = run_info(flow_name, run_uuid, do_print=False)
     sample_names = list(info["trace_nice"].keys())
     sample_names.remove('unknown')
-    sys.stderr.write(f"downloading { len(sample_names) } reports")
+    sys.stderr.write(f"downloading { len(sample_names) } reports\n")
     out = dict()
     for i, sample_name in enumerate(sample_names):
-        sys.stderr.write(f"Downloading report {i}. { run_uuid }/{ sample_name }")
+        sys.stderr.write(f"Downloading report {i}. { run_uuid }/{ sample_name }\n")
         out[sample_name] = download_report(run_uuid, sample_name, do_print=False)
-        sys.stderr.write(f"Downloaded report {i}. { run_uuid }/{ sample_name } len: { len(out[sample_name]) }")
+        sys.stderr.write(f"Downloaded report {i}. { run_uuid }/{ sample_name } len: { len(out[sample_name]) }\n")
     print(json.dumps(out, indent=4))
 
 def download_nextflow_task_data(flow_name, run_uuid, do_print=True):
