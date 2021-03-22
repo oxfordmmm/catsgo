@@ -5,6 +5,7 @@ import json
 import datetime
 import time
 import sys
+import logging
 
 import argh
 import requests
@@ -56,11 +57,26 @@ def fetch(fetch_name):
                            'is_api': True })
     return json.loads(response.text)
 
+def try_n_times(proc, n, sleep_dur):
+    attempt = 0
+    while True:
+        attempt = attempt + 1
+        if attempt > 10:
+            logging.error(f"Error: failed { proc.__name__ } after { n } tries.")
+            sys.exit(1)
+        try:
+            return proc()
+        except Exception as e:
+            logging.warning(f"Warning: failed { proc.__name__ } attempt { attempt }. Exception: { str(e) }. Retrying after { sleep_dur } seconds.")
+            time.sleep(sleep_dur)
+
 def check_fetch(fetch_uuid):
-    login()
-    url =  sp3_url + f'/fetch_details/{fetch_uuid}?api=v1'
-    response =  session.get(url)
-    return json.loads(response.text)
+    def check_fetch_inner():
+        login()
+        url =  sp3_url + f'/fetch_details/{fetch_uuid}?api=v1'
+        response =  session.get(url)
+        return json.loads(response.text)
+    return try_n_times(check_fetch_inner, 10, 60)
 
 def run_clockwork(flow_name, fetch_uuid):
     login()
@@ -105,19 +121,20 @@ def run_covid_illumina(flow_name, input_dir):
     return json.loads(response.text)
 
 def check_run(flow_name, run_uuid):
-    login()
-    url =  sp3_url + f'/flow/{ flow_name }/details/{ run_uuid }?api=v1'
-    response =  session.get(url)
+    def check_run_inner():
+        login()
+        url =  sp3_url + f'/flow/{ flow_name }/details/{ run_uuid }?api=v1'
+        response =  session.get(url)
 
-    data = json.loads(response.text)['data']
-    if not data['data']:
-        return "Error"
-        return
-    status = data['data'][0][3]
-    if status == '-':
-        return "Running"
-    else:
-        return status
+        data = json.loads(response.text)['data']
+        if not data['data']:
+            return "Error"
+        status = data['data'][0][3]
+        if status == '-':
+            return "Running"
+        else:
+            return status
+    return try_n_times(check_run_inner, 10, 60)
 
 def check_run_resume(run_uuid):
     while True:
@@ -128,7 +145,7 @@ def check_run_resume(run_uuid):
             return
         if response == 'OK':
             break
-        time.sleep(60)
+        time.sleep(5 * 60)
 
 def download_url(run_uuid):
     login()
@@ -141,31 +158,26 @@ def download_cmd(run_uuid):
     return(url)
 
 def download_report(run_uuid, dataset_id, do_print=True):
-    login()
-    url = f"{ sp3_url }/flow/{ run_uuid }/{ dataset_id }/report?api=v1"
-    attempt = 0
-    while True:
-        attempt = attempt + 1
-        if attempt >= 10:
-            sys.stderr.write("Couldn't download report { run_uuid }/{ dataset_id } after 10 tries\n")
-            sys.exit(1)
+    def download_report_inner():
+        login()
+        url = f"{ sp3_url }/flow/{ run_uuid }/{ dataset_id }/report?api=v1"
         response = session.get(url)
-        try:
-            if do_print:
-                return json.dumps(response.json(), indent=4)
-            else:
-                return response.json()
-        except:
-            pass
+        if do_print:
+            return json.dumps(response.json(), indent=4)
+        else:
+            return response.json()
+    return try_n_times(download_report_inner, 10, 60)
 
 def run_info(flow_name, run_uuid, do_print=True):
-    login()
-    url = f"{ sp3_url }/flow/{ flow_name }/details/{ run_uuid }?api=v1"
-    response = session.get(url)
-    if do_print:
-        return json.dumps(response.json(), indent=4)
-    else:
-        return response.json()
+    def run_info_inner():
+        login()
+        url = f"{ sp3_url }/flow/{ flow_name }/details/{ run_uuid }?api=v1"
+        response = session.get(url)
+        if do_print:
+            return json.dumps(response.json(), indent=4)
+        else:
+            return response.json()
+    return try_n_times(run_info_inner, 10, 60)
 
 def download_reports(flow_name, run_uuid):
     login()
@@ -199,7 +211,7 @@ def download_nextflow_task_data_csv(flow_name, run_uuid, do_print=True):
     table = table.drop(["script", "env"], axis=1)
     return table.sort_values("tag").to_csv(index=False)
 
-def go(fetch_name):
+def go_clockwork(fetch_name):
     login()
     print(f'Fetching { fetch_name }')
     response =  fetch(fetch_name)
@@ -212,7 +224,7 @@ def go(fetch_name):
             return
         if response['status'] == 'success':
             break
-        time.sleep(60)
+        time.sleep(5 * 60)
 
     if response['total'] == 0:
         print(f'Error: empty dataset. Fetch ID: {fetch_uuid}')
@@ -232,7 +244,7 @@ def go(fetch_name):
             return
         if response == 'OK':
             break
-        time.sleep(60)
+        time.sleep(5 * 60)
 
     print(f'Run completed successfully.')
     print(f'Downloading run output.')
