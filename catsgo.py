@@ -211,7 +211,7 @@ def download_nextflow_task_data_csv(flow_name, run_uuid, do_print=True):
     table = table.drop(["script", "env"], axis=1)
     return table.sort_values("tag").to_csv(index=False)
 
-def go_clockwork(fetch_name):
+def go(fetch_name):
     login()
     print(f'Fetching { fetch_name }')
     response =  fetch(fetch_name)
