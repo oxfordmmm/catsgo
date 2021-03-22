@@ -1,0 +1,7 @@
+{
+    "username": "test_user",
+    "password": "test_user_password",
+    "fetch_method": "link",
+    "sp3_url": "sp3_covid_site",
+    "pattern": "*{1,2}.fastq.gz"    
+}

@@ -86,6 +86,24 @@ def run_clockwork(flow_name, fetch_uuid):
     response =  session.post(url, data=data)
     return json.loads(response.text)
 
+def run_covid_illumina(flow_name, input_dir):
+    login()
+    url =  sp3_url + f'/flow/{ flow_name }/new'
+    timestamp = datetime.datetime.now().strftime("%Y%m%d_%H%M%S")
+    run_name = f'sp3c-{ flow_name }-{ timestamp }'
+    input_file_dir = f'{ input_dir }'
+
+    data = { 'fetch_uuid': '',
+             'run_name':  run_name,
+             'context': 'local',
+             'indir-and---directory':  input_file_dir,
+             'readpat-and---pattern':  config["pattern"],
+             'api': 'v1'
+            }
+
+    response =  session.post(url, data=data)
+    return json.loads(response.text)
+
 def check_run(flow_name, run_uuid):
     login()
     url =  sp3_url + f'/flow/{ flow_name }/details/{ run_uuid }?api=v1'
@@ -111,7 +129,7 @@ def check_run_resume(run_uuid):
         if response == 'OK':
             break
         time.sleep(60)
-        
+
 def download_url(run_uuid):
     login()
     url =  f"{ sp3_url }/files/{ run_uuid }/"
@@ -171,6 +189,16 @@ def download_nextflow_task_data(flow_name, run_uuid, do_print=True):
     else:
         return response.json()
 
+def download_nextflow_task_data_csv(flow_name, run_uuid, do_print=True):
+    login()
+    url = f"{ sp3_url }/flow/{ flow_name }/report/{ run_uuid }?api=v1"
+    response = session.get(url)
+    import pandas, io
+    trace = json.dumps(json.loads(response.text)['trace'])
+    table = pandas.read_json(io.StringIO(trace))
+    table = table.drop(["script", "env"], axis=1)
+    return table.sort_values("tag").to_csv(index=False)
+
 def go(fetch_name):
     login()
     print(f'Fetching { fetch_name }')
@@ -184,7 +212,7 @@ def go(fetch_name):
             return
         if response['status'] == 'success':
             break
-        time.sleep(1)
+        time.sleep(60)
 
     if response['total'] == 0:
         print(f'Error: empty dataset. Fetch ID: {fetch_uuid}')
@@ -217,5 +245,7 @@ if __name__ == "__main__":
     parser.add_commands([login, fetch, check_run_resume,
                          check_fetch, check_run, download_reports,
                          download_cmd, download_url, run_info,
-                         run_clockwork, go, download_report, download_nextflow_task_data])
+                         run_clockwork, go,
+                         download_report, download_nextflow_task_data, download_nextflow_task_data_csv,
+                         run_covid_illumina])
     parser.dispatch()
