@@ -1,3 +1,10 @@
 cookies
 config.json
 env
+
+__pycache__/
+htmlcov/
+.coverage
+
+clockwork_config.json
+covid_config.json

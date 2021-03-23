@@ -30,17 +30,17 @@ Since this file contains your login details, please ensure that it is only reada
 
     $ python3 catsgo.py go <fetch_path> 
 
-- Download report:
+- Download report
 
     $ python3 catsgo.py download-report <run_uuid> <sample_name>
 
-- Download reports for run:
+- Download reports for run
 
     $ python3 catsgo.py download-reports <pipeline_name> <run_uuid>
 
 ## Run Covid pipeline
 
-- Illumina pipeline:
+- Illumina pipeline
 
     $ python3 catsgo.py run-covid-illumina <pipeline_name> <data_path> 
 
