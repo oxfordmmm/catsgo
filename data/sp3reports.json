@@ -1,0 +1,1883 @@
+{
+    "SRR6152648": {
+        "samtools_qc": {
+            "data": {
+                "raw total sequences:": "5977756",
+                "filtered sequences:": "0",
+                "sequences:": "5977756",
+                "is sorted:": "1",
+                "1st fragments:": "2988878",
+                "last fragments:": "2988878",
+                "reads mapped:": "5929700",
+                "reads mapped and paired:": "5920228",
+                "reads unmapped:": "48056",
+                "reads properly paired:": "5716744",
+                "reads paired:": "5977756",
+                "reads duplicated:": "28640",
+                "reads MQ0:": "106489",
+                "reads QC failed:": "0",
+                "non-primary alignments:": "0",
+                "total length:": "747219500",
+                "bases mapped:": "741212500",
+                "bases mapped (cigar):": "734062215",
+                "bases trimmed:": "0",
+                "bases duplicated:": "3580000",
+                "mismatches:": "1534818",
+                "error rate:": "2.090856e-03",
+                "average length:": "125",
+                "maximum length:": "125",
+                "average quality:": "35.7",
+                "insert size average:": "499.4",
+                "insert size standard deviation:": "1305.9",
+                "inward oriented pairs:": "2871126",
+                "outward oriented pairs:": "26942",
+                "pairs with other orientation:": "47311",
+                "pairs on different chromosomes:": "0"
+            },
+            "finished_epochtime": "2020/11/20 09:58"
+        },
+        "pick_reference": {
+            "data": {
+                "mykrobe_species": "Mycobacterium_tuberculosis",
+                "dataset_id": "SRR6152648",
+                "pick_taxid": "NC_000962.3",
+                "reference_dir": "/data/references/clockwork/qc_vc/Reference.NC_000962.3/"
+            },
+            "finished_epochtime": "2020/11/20 09:58"
+        },
+        "resistance": {
+            "data": {
+                "resistance_effects": {
+                    "LEV": [
+                        {
+                            "gene_name": "gyrA",
+                            "mutation_name": "E21Q",
+                            "drug_name": "LEV",
+                            "prediction": "S",
+                            "source": "phylosnp"
+                        },
+                        {
+                            "gene_name": "gyrA",
+                            "mutation_name": "S95T",
+                            "drug_name": "LEV",
+                            "prediction": "S",
+                            "source": "phylosnp"
+                        },
+                        {
+                            "gene_name": "gyrA",
+                            "mutation_name": "G668D",
+                            "drug_name": "LEV",
+                            "prediction": "S",
+                            "source": "phylosnp"
+                        }
+                    ],
+                    "MXF": [
+                        {
+                            "gene_name": "gyrA",
+                            "mutation_name": "E21Q",
+                            "drug_name": "MXF",
+                            "prediction": "S",
+                            "source": "phylosnp"
+                        },
+                        {
+                            "gene_name": "gyrA",
+                            "mutation_name": "S95T",
+                            "drug_name": "MXF",
+                            "prediction": "S",
+                            "source": "phylosnp"
+                        },
+                        {
+                            "gene_name": "gyrA",
+                            "mutation_name": "G668D",
+                            "drug_name": "MXF",
+                            "prediction": "S",
+                            "source": "phylosnp"
+                        }
+                    ],
+                    "OFX": [
+                        {
+                            "gene_name": "gyrA",
+                            "mutation_name": "E21Q",
+                            "drug_name": "OFX",
+                            "prediction": "U",
+                            "source": "phylosnp"
+                        },
+                        {
+                            "gene_name": "gyrA",
+                            "mutation_name": "S95T",
+                            "drug_name": "OFX",
+                            "prediction": "S",
+                            "source": "phylosnp"
+                        },
+                        {
+                            "gene_name": "gyrA",
+                            "mutation_name": "G668D",
+                            "drug_name": "OFX",
+                            "prediction": "U",
+                            "source": "phylosnp"
+                        }
+                    ],
+                    "INH": [
+                        {
+                            "gene_name": "katG",
+                            "mutation_name": "R463L",
+                            "drug_name": "INH",
+                            "prediction": "S",
+                            "source": "phylosnp"
+                        }
+                    ]
+                },
+                "res_rev_index": {
+                    "gyrA_E21Q": [
+                        {
+                            "gene_name": "gyrA",
+                            "mutation_name": "E21Q",
+                            "drug_name": "LEV",
+                            "prediction": "S",
+                            "source": "phylosnp"
+                        },
+                        {
+                            "gene_name": "gyrA",
+                            "mutation_name": "E21Q",
+                            "drug_name": "MXF",
+                            "prediction": "S",
+                            "source": "phylosnp"
+                        },
+                        {
+                            "gene_name": "gyrA",
+                            "mutation_name": "E21Q",
+                            "drug_name": "OFX",
+                            "prediction": "U",
+                            "source": "phylosnp"
+                        }
+                    ],
+                    "gyrA_S95T": [
+                        {
+                            "gene_name": "gyrA",
+                            "mutation_name": "S95T",
+                            "drug_name": "LEV",
+                            "prediction": "S",
+                            "source": "phylosnp"
+                        },
+                        {
+                            "gene_name": "gyrA",
+                            "mutation_name": "S95T",
+                            "drug_name": "MXF",
+                            "prediction": "S",
+                            "source": "phylosnp"
+                        },
+                        {
+                            "gene_name": "gyrA",
+                            "mutation_name": "S95T",
+                            "drug_name": "OFX",
+                            "prediction": "S",
+                            "source": "phylosnp"
+                        }
+                    ],
+                    "gyrA_G668D": [
+                        {
+                            "gene_name": "gyrA",
+                            "mutation_name": "G668D",
+                            "drug_name": "LEV",
+                            "prediction": "S",
+                            "source": "phylosnp"
+                        },
+                        {
+                            "gene_name": "gyrA",
+                            "mutation_name": "G668D",
+                            "drug_name": "MXF",
+                            "prediction": "S",
+                            "source": "phylosnp"
+                        },
+                        {
+                            "gene_name": "gyrA",
+                            "mutation_name": "G668D",
+                            "drug_name": "OFX",
+                            "prediction": "U",
+                            "source": "phylosnp"
+                        }
+                    ],
+                    "katG_R463L": [
+                        {
+                            "gene_name": "katG",
+                            "mutation_name": "R463L",
+                            "drug_name": "INH",
+                            "prediction": "S",
+                            "source": "phylosnp"
+                        }
+                    ]
+                },
+                "effects": [
+                    {
+                        "gene_name": "embA",
+                        "mutation_name": "C76C",
+                        "drug_name": "EMB",
+                        "prediction": "S",
+                        "source": ""
+                    },
+                    {
+                        "gene_name": "gyrA",
+                        "mutation_name": "E21Q",
+                        "drug_name": "LEV",
+                        "prediction": "S",
+                        "source": "phylosnp"
+                    },
+                    {
+                        "gene_name": "gyrA",
+                        "mutation_name": "E21Q",
+                        "drug_name": "MXF",
+                        "prediction": "S",
+                        "source": "phylosnp"
+                    },
+                    {
+                        "gene_name": "gyrA",
+                        "mutation_name": "E21Q",
+                        "drug_name": "OFX",
+                        "prediction": "U",
+                        "source": "phylosnp"
+                    },
+                    {
+                        "gene_name": "gyrA",
+                        "mutation_name": "S95T",
+                        "drug_name": "LEV",
+                        "prediction": "S",
+                        "source": "phylosnp"
+                    },
+                    {
+                        "gene_name": "gyrA",
+                        "mutation_name": "S95T",
+                        "drug_name": "MXF",
+                        "prediction": "S",
+                        "source": "phylosnp"
+                    },
+                    {
+                        "gene_name": "gyrA",
+                        "mutation_name": "S95T",
+                        "drug_name": "OFX",
+                        "prediction": "S",
+                        "source": "phylosnp"
+                    },
+                    {
+                        "gene_name": "gyrA",
+                        "mutation_name": "G668D",
+                        "drug_name": "LEV",
+                        "prediction": "S",
+                        "source": "phylosnp"
+                    },
+                    {
+                        "gene_name": "gyrA",
+                        "mutation_name": "G668D",
+                        "drug_name": "MXF",
+                        "prediction": "S",
+                        "source": "phylosnp"
+                    },
+                    {
+                        "gene_name": "gyrA",
+                        "mutation_name": "G668D",
+                        "drug_name": "OFX",
+                        "prediction": "U",
+                        "source": "phylosnp"
+                    },
+                    {
+                        "gene_name": "katG",
+                        "mutation_name": "R463L",
+                        "drug_name": "INH",
+                        "prediction": "S",
+                        "source": "phylosnp"
+                    },
+                    {
+                        "gene_name": "rpoB",
+                        "mutation_name": "A1075A",
+                        "drug_name": "RIF",
+                        "prediction": "S",
+                        "source": ""
+                    },
+                    {
+                        "gene_name": "tlyA",
+                        "mutation_name": "L11L",
+                        "drug_name": "CAP",
+                        "prediction": "S",
+                        "source": ""
+                    }
+                ],
+                "mutations": [
+                    {
+                        "genome_index": NaN,
+                        "vcf_filename": null,
+                        "gene_name": "embA",
+                        "variant_type": null,
+                        "mutation_name": "C76C",
+                        "element_type": "GENE",
+                        "position": 76.0,
+                        "promoter": false,
+                        "cds": true,
+                        "synonymous": true,
+                        "nonsynonymous": false,
+                        "insertion": null,
+                        "deletion": null,
+                        "ref": "tgc",
+                        "alt": "tgt",
+                        "indel_1": "",
+                        "indel_2": "",
+                        "indel_3": null,
+                        "ref_coverage": null,
+                        "alt_coverage": null,
+                        "gt_conf": 985.72998046875,
+                        "minos_score": null,
+                        "number_nucleotide_changes": 1
+                    },
+                    {
+                        "genome_index": NaN,
+                        "vcf_filename": null,
+                        "gene_name": "gyrA",
+                        "variant_type": null,
+                        "mutation_name": "E21Q",
+                        "element_type": "GENE",
+                        "position": 21.0,
+                        "promoter": false,
+                        "cds": true,
+                        "synonymous": false,
+                        "nonsynonymous": true,
+                        "insertion": null,
+                        "deletion": null,
+                        "ref": "gag",
+                        "alt": "cag",
+                        "indel_1": "",
+                        "indel_2": "",
+                        "indel_3": null,
+                        "ref_coverage": null,
+                        "alt_coverage": null,
+                        "gt_conf": 1312.02001953125,
+                        "minos_score": null,
+                        "number_nucleotide_changes": 1
+                    },
+                    {
+                        "genome_index": NaN,
+                        "vcf_filename": null,
+                        "gene_name": "gyrA",
+                        "variant_type": null,
+                        "mutation_name": "S95T",
+                        "element_type": "GENE",
+                        "position": 95.0,
+                        "promoter": false,
+                        "cds": true,
+                        "synonymous": false,
+                        "nonsynonymous": true,
+                        "insertion": null,
+                        "deletion": null,
+                        "ref": "agc",
+                        "alt": "acc",
+                        "indel_1": "",
+                        "indel_2": "",
+                        "indel_3": null,
+                        "ref_coverage": null,
+                        "alt_coverage": null,
+                        "gt_conf": 1172.1500244140625,
+                        "minos_score": null,
+                        "number_nucleotide_changes": 1
+                    },
+                    {
+                        "genome_index": NaN,
+                        "vcf_filename": null,
+                        "gene_name": "gyrA",
+                        "variant_type": null,
+                        "mutation_name": "G668D",
+                        "element_type": "GENE",
+                        "position": 668.0,
+                        "promoter": false,
+                        "cds": true,
+                        "synonymous": false,
+                        "nonsynonymous": true,
+                        "insertion": null,
+                        "deletion": null,
+                        "ref": "ggc",
+                        "alt": "gac",
+                        "indel_1": "",
+                        "indel_2": "",
+                        "indel_3": null,
+                        "ref_coverage": null,
+                        "alt_coverage": null,
+                        "gt_conf": 1202.8399658203125,
+                        "minos_score": null,
+                        "number_nucleotide_changes": 1
+                    },
+                    {
+                        "genome_index": NaN,
+                        "vcf_filename": null,
+                        "gene_name": "katG",
+                        "variant_type": null,
+                        "mutation_name": "R463L",
+                        "element_type": "GENE",
+                        "position": 463.0,
+                        "promoter": false,
+                        "cds": true,
+                        "synonymous": false,
+                        "nonsynonymous": true,
+                        "insertion": null,
+                        "deletion": null,
+                        "ref": "cgg",
+                        "alt": "ctg",
+                        "indel_1": "",
+                        "indel_2": "",
+                        "indel_3": null,
+                        "ref_coverage": null,
+                        "alt_coverage": null,
+                        "gt_conf": 1234.4100341796875,
+                        "minos_score": null,
+                        "number_nucleotide_changes": 1
+                    },
+                    {
+                        "genome_index": NaN,
+                        "vcf_filename": null,
+                        "gene_name": "rpoB",
+                        "variant_type": null,
+                        "mutation_name": "A1075A",
+                        "element_type": "GENE",
+                        "position": 1075.0,
+                        "promoter": false,
+                        "cds": true,
+                        "synonymous": true,
+                        "nonsynonymous": false,
+                        "insertion": null,
+                        "deletion": null,
+                        "ref": "gct",
+                        "alt": "gcc",
+                        "indel_1": "",
+                        "indel_2": "",
+                        "indel_3": null,
+                        "ref_coverage": null,
+                        "alt_coverage": null,
+                        "gt_conf": 1179.449951171875,
+                        "minos_score": null,
+                        "number_nucleotide_changes": 1
+                    },
+                    {
+                        "genome_index": NaN,
+                        "vcf_filename": null,
+                        "gene_name": "tlyA",
+                        "variant_type": null,
+                        "mutation_name": "L11L",
+                        "element_type": "GENE",
+                        "position": 11.0,
+                        "promoter": false,
+                        "cds": true,
+                        "synonymous": true,
+                        "nonsynonymous": false,
+                        "insertion": null,
+                        "deletion": null,
+                        "ref": "cta",
+                        "alt": "ctg",
+                        "indel_1": "",
+                        "indel_2": "",
+                        "indel_3": null,
+                        "ref_coverage": null,
+                        "alt_coverage": null,
+                        "gt_conf": 1041.260009765625,
+                        "minos_score": null,
+                        "number_nucleotide_changes": 1
+                    }
+                ],
+                "prediction_ex": {
+                    "INH": "S",
+                    "RIF": "S",
+                    "PZA": "S",
+                    "EMB": "S",
+                    "AMI": "S",
+                    "KAN": "S",
+                    "LEV": "S",
+                    "STM": "S"
+                },
+                "INH": [
+                    {
+                        "gene_name": "katG",
+                        "mutation_name": "R463L",
+                        "drug_name": "INH",
+                        "prediction": "S",
+                        "source": "phylosnp"
+                    }
+                ],
+                "RIF": [
+                    {
+                        "gene_name": "rpoB",
+                        "mutation_name": "A1075A",
+                        "drug_name": "RIF",
+                        "prediction": "S",
+                        "source": ""
+                    }
+                ],
+                "PZA": [],
+                "EMB": [
+                    {
+                        "gene_name": "embA",
+                        "mutation_name": "C76C",
+                        "drug_name": "EMB",
+                        "prediction": "S",
+                        "source": ""
+                    }
+                ],
+                "AMI": [],
+                "KAN": [],
+                "LEV": [
+                    {
+                        "gene_name": "gyrA",
+                        "mutation_name": "E21Q",
+                        "drug_name": "LEV",
+                        "prediction": "S",
+                        "source": "phylosnp"
+                    },
+                    {
+                        "gene_name": "gyrA",
+                        "mutation_name": "S95T",
+                        "drug_name": "LEV",
+                        "prediction": "S",
+                        "source": "phylosnp"
+                    },
+                    {
+                        "gene_name": "gyrA",
+                        "mutation_name": "G668D",
+                        "drug_name": "LEV",
+                        "prediction": "S",
+                        "source": "phylosnp"
+                    }
+                ],
+                "STM": []
+            },
+            "raw_data": "{\"status\": \"success\", \"data\": {\"vcf_filepath\": \"/work/reports/resistanceapi/vcfs/e680139a-a7b2-47e4-a5c1-069f59d0f45b.vcf\", \"metadata\": {\"WGS_PREDICTION_EMB\": \"S\", \"WGS_PREDICTION_INH\": \"S\", \"WGS_PREDICTION_PZA\": \"S\", \"WGS_PREDICTION_RIF\": \"S\", \"WGS_PREDICTION_MXF\": \"S\", \"WGS_PREDICTION_OFX\": \"U\", \"WGS_PREDICTION_AMI\": \"S\", \"WGS_PREDICTION_KAN\": \"S\", \"WGS_PREDICTION_CAP\": \"S\", \"WGS_PREDICTION_STM\": \"S\", \"WGS_PREDICTION_ETH\": \"S\", \"WGS_PREDICTION_LEV\": \"S\", \"WGS_PREDICTION_PTO\": \"S\", \"WGS_PREDICTION_RFB\": \"S\", \"WGS_PREDICTION_LZD\": \"S\", \"WGS_PREDICTION_CFZ\": \"S\", \"WGS_PREDICTION_BDQ\": \"S\", \"WGS_PREDICTION_DLM\": \"S\", \"WGS_PREDICTION_PAS\": \"S\"}, \"effects\": [{\"gene_name\": \"embA\", \"mutation_name\": \"C76C\", \"drug_name\": \"EMB\", \"prediction\": \"S\"}, {\"gene_name\": \"gyrA\", \"mutation_name\": \"E21Q\", \"drug_name\": \"LEV\", \"prediction\": \"S\"}, {\"gene_name\": \"gyrA\", \"mutation_name\": \"E21Q\", \"drug_name\": \"MXF\", \"prediction\": \"S\"}, {\"gene_name\": \"gyrA\", \"mutation_name\": \"E21Q\", \"drug_name\": \"OFX\", \"prediction\": \"U\"}, {\"gene_name\": \"gyrA\", \"mutation_name\": \"S95T\", \"drug_name\": \"LEV\", \"prediction\": \"S\"}, {\"gene_name\": \"gyrA\", \"mutation_name\": \"S95T\", \"drug_name\": \"MXF\", \"prediction\": \"S\"}, {\"gene_name\": \"gyrA\", \"mutation_name\": \"S95T\", \"drug_name\": \"OFX\", \"prediction\": \"S\"}, {\"gene_name\": \"gyrA\", \"mutation_name\": \"G668D\", \"drug_name\": \"LEV\", \"prediction\": \"S\"}, {\"gene_name\": \"gyrA\", \"mutation_name\": \"G668D\", \"drug_name\": \"MXF\", \"prediction\": \"S\"}, {\"gene_name\": \"gyrA\", \"mutation_name\": \"G668D\", \"drug_name\": \"OFX\", \"prediction\": \"U\"}, {\"gene_name\": \"katG\", \"mutation_name\": \"R463L\", \"drug_name\": \"INH\", \"prediction\": \"S\"}, {\"gene_name\": \"rpoB\", \"mutation_name\": \"A1075A\", \"drug_name\": \"RIF\", \"prediction\": \"S\"}, {\"gene_name\": \"tlyA\", \"mutation_name\": \"L11L\", \"drug_name\": \"CAP\", \"prediction\": \"S\"}], \"mutations\": [{\"genome_index\": NaN, \"vcf_filename\": null, \"gene_name\": \"embA\", \"variant_type\": null, \"mutation_name\": \"C76C\", \"element_type\": \"GENE\", \"position\": 76.0, \"promoter\": false, \"cds\": true, \"synonymous\": true, \"nonsynonymous\": false, \"insertion\": null, \"deletion\": null, \"ref\": \"tgc\", \"alt\": \"tgt\", \"indel_1\": \"\", \"indel_2\": \"\", \"indel_3\": null, \"ref_coverage\": null, \"alt_coverage\": null, \"gt_conf\": 985.72998046875, \"minos_score\": null, \"number_nucleotide_changes\": 1}, {\"genome_index\": NaN, \"vcf_filename\": null, \"gene_name\": \"gyrA\", \"variant_type\": null, \"mutation_name\": \"E21Q\", \"element_type\": \"GENE\", \"position\": 21.0, \"promoter\": false, \"cds\": true, \"synonymous\": false, \"nonsynonymous\": true, \"insertion\": null, \"deletion\": null, \"ref\": \"gag\", \"alt\": \"cag\", \"indel_1\": \"\", \"indel_2\": \"\", \"indel_3\": null, \"ref_coverage\": null, \"alt_coverage\": null, \"gt_conf\": 1312.02001953125, \"minos_score\": null, \"number_nucleotide_changes\": 1}, {\"genome_index\": NaN, \"vcf_filename\": null, \"gene_name\": \"gyrA\", \"variant_type\": null, \"mutation_name\": \"S95T\", \"element_type\": \"GENE\", \"position\": 95.0, \"promoter\": false, \"cds\": true, \"synonymous\": false, \"nonsynonymous\": true, \"insertion\": null, \"deletion\": null, \"ref\": \"agc\", \"alt\": \"acc\", \"indel_1\": \"\", \"indel_2\": \"\", \"indel_3\": null, \"ref_coverage\": null, \"alt_coverage\": null, \"gt_conf\": 1172.1500244140625, \"minos_score\": null, \"number_nucleotide_changes\": 1}, {\"genome_index\": NaN, \"vcf_filename\": null, \"gene_name\": \"gyrA\", \"variant_type\": null, \"mutation_name\": \"G668D\", \"element_type\": \"GENE\", \"position\": 668.0, \"promoter\": false, \"cds\": true, \"synonymous\": false, \"nonsynonymous\": true, \"insertion\": null, \"deletion\": null, \"ref\": \"ggc\", \"alt\": \"gac\", \"indel_1\": \"\", \"indel_2\": \"\", \"indel_3\": null, \"ref_coverage\": null, \"alt_coverage\": null, \"gt_conf\": 1202.8399658203125, \"minos_score\": null, \"number_nucleotide_changes\": 1}, {\"genome_index\": NaN, \"vcf_filename\": null, \"gene_name\": \"katG\", \"variant_type\": null, \"mutation_name\": \"R463L\", \"element_type\": \"GENE\", \"position\": 463.0, \"promoter\": false, \"cds\": true, \"synonymous\": false, \"nonsynonymous\": true, \"insertion\": null, \"deletion\": null, \"ref\": \"cgg\", \"alt\": \"ctg\", \"indel_1\": \"\", \"indel_2\": \"\", \"indel_3\": null, \"ref_coverage\": null, \"alt_coverage\": null, \"gt_conf\": 1234.4100341796875, \"minos_score\": null, \"number_nucleotide_changes\": 1}, {\"genome_index\": NaN, \"vcf_filename\": null, \"gene_name\": \"rpoB\", \"variant_type\": null, \"mutation_name\": \"A1075A\", \"element_type\": \"GENE\", \"position\": 1075.0, \"promoter\": false, \"cds\": true, \"synonymous\": true, \"nonsynonymous\": false, \"insertion\": null, \"deletion\": null, \"ref\": \"gct\", \"alt\": \"gcc\", \"indel_1\": \"\", \"indel_2\": \"\", \"indel_3\": null, \"ref_coverage\": null, \"alt_coverage\": null, \"gt_conf\": 1179.449951171875, \"minos_score\": null, \"number_nucleotide_changes\": 1}, {\"genome_index\": NaN, \"vcf_filename\": null, \"gene_name\": \"tlyA\", \"variant_type\": null, \"mutation_name\": \"L11L\", \"element_type\": \"GENE\", \"position\": 11.0, \"promoter\": false, \"cds\": true, \"synonymous\": true, \"nonsynonymous\": false, \"insertion\": null, \"deletion\": null, \"ref\": \"cta\", \"alt\": \"ctg\", \"indel_1\": \"\", \"indel_2\": \"\", \"indel_3\": null, \"ref_coverage\": null, \"alt_coverage\": null, \"gt_conf\": 1041.260009765625, \"minos_score\": null, \"number_nucleotide_changes\": 1}]}, \"message\": {\"config\": {\"vcf_location\": \"/work/reports/resistanceapi/vcfs\", \"genome_object\": \"/data/reports/resistance/pickles/H37rV_v3_20201015.pkl.gz\", \"catalogue_file\": \"/data/reports/resistance/catalogues/NC_000962.3_CRyPTIC_v1.2_GARC1_RUS.csv\"}}}",
+            "message": {
+                "config": {
+                    "vcf_location": "/work/reports/resistanceapi/vcfs",
+                    "genome_object": "/data/reports/resistance/pickles/H37rV_v3_20201015.pkl.gz",
+                    "catalogue_file": "/data/reports/resistance/catalogues/NC_000962.3_CRyPTIC_v1.2_GARC1_RUS.csv"
+                }
+            },
+            "finished_epochtime": "2020/11/20 10:01",
+            "status": "success"
+        },
+        "mykrobe_speciation": {
+            "data": {
+                "mykrobe-predictor_version": "v0.9.0",
+                "mykrobe-atlas_version": "v0.9.0",
+                "phylo_group": {
+                    "Mycobacterium_tuberculosis_complex": {
+                        "percent_coverage": 99.601,
+                        "median_depth": 142
+                    }
+                },
+                "sub_complex": {
+                    "Unknown": {
+                        "percent_coverage": -1,
+                        "median_depth": -1
+                    }
+                },
+                "species": {
+                    "Mycobacterium_tuberculosis": {
+                        "percent_coverage": 98.558,
+                        "median_depth": 137
+                    }
+                },
+                "lineages": [
+                    "lineage2.2.4"
+                ],
+                "lineage2.2.4": {
+                    "lineage2": {
+                        "G497491A": {
+                            "percent_coverage": 100.0,
+                            "median_depth": 103,
+                            "min_non_zero_depth": 100,
+                            "kmer_count": 2060,
+                            "klen": 21
+                        }
+                    },
+                    "lineage2.2": {
+                        "G2505085A": {
+                            "percent_coverage": 100.0,
+                            "median_depth": 159,
+                            "min_non_zero_depth": 150,
+                            "kmer_count": 3162,
+                            "klen": 21
+                        }
+                    },
+                    "lineage2.2.4": {
+                        "A782634G": {
+                            "percent_coverage": 100.0,
+                            "median_depth": 171,
+                            "min_non_zero_depth": 169,
+                            "kmer_count": 3419,
+                            "klen": 21
+                        }
+                    }
+                }
+            },
+            "finished_epochtime": "2020/11/20 09:58"
+        },
+        "kraken2_speciation": {
+            "data": {
+                "Family": [
+                    {
+                        "reads": 2976981,
+                        "percentage": 99.58,
+                        "name": "Mycobacteriaceae",
+                        "taxon": 1762
+                    }
+                ],
+                "Genus": [
+                    {
+                        "reads": 2976538,
+                        "percentage": 99.57,
+                        "name": "Mycobacterium",
+                        "taxon": 1763
+                    }
+                ],
+                "Species complex": [
+                    {
+                        "reads": 482946,
+                        "percentage": 16.15,
+                        "name": "Mycobacterium tuberculosis complex",
+                        "taxon": 77643
+                    }
+                ],
+                "Species": [
+                    {
+                        "reads": 226697,
+                        "percentage": 7.58,
+                        "name": "Mycobacterium tuberculosis",
+                        "taxon": 1773
+                    },
+                    {
+                        "reads": 602,
+                        "percentage": 0.02,
+                        "name": "Homo sapiens",
+                        "taxon": 9606
+                    }
+                ],
+                "Warnings": {
+                    "mykrobe": true,
+                    "notes": "For higher-resolution classification, see Mykrobe report."
+                }
+            },
+            "finished_epochtime": "2020/11/20 09:58"
+        }
+    },
+    "SRR6152649": {
+        "samtools_qc": {
+            "data": {
+                "raw total sequences:": "6692858",
+                "filtered sequences:": "0",
+                "sequences:": "6692858",
+                "is sorted:": "1",
+                "1st fragments:": "3346429",
+                "last fragments:": "3346429",
+                "reads mapped:": "6624846",
+                "reads mapped and paired:": "6607428",
+                "reads unmapped:": "68012",
+                "reads properly paired:": "6488894",
+                "reads paired:": "6692858",
+                "reads duplicated:": "44687",
+                "reads MQ0:": "119134",
+                "reads QC failed:": "0",
+                "non-primary alignments:": "0",
+                "total length:": "836607250",
+                "bases mapped:": "828105750",
+                "bases mapped (cigar):": "823013907",
+                "bases trimmed:": "0",
+                "bases duplicated:": "5585875",
+                "mismatches:": "1770216",
+                "error rate:": "2.150894e-03",
+                "average length:": "125",
+                "maximum length:": "125",
+                "average quality:": "35.9",
+                "insert size average:": "388.4",
+                "insert size standard deviation:": "859.4",
+                "inward oriented pairs:": "3251217",
+                "outward oriented pairs:": "15182",
+                "pairs with other orientation:": "29220",
+                "pairs on different chromosomes:": "0"
+            },
+            "finished_epochtime": "2020/11/20 09:58"
+        },
+        "pick_reference": {
+            "data": {
+                "mykrobe_species": "Mycobacterium_tuberculosis",
+                "dataset_id": "SRR6152649",
+                "pick_taxid": "NC_000962.3",
+                "reference_dir": "/data/references/clockwork/qc_vc/Reference.NC_000962.3/"
+            },
+            "finished_epochtime": "2020/11/20 09:58"
+        },
+        "resistance": {
+            "data": {
+                "resistance_effects": {
+                    "EMB": [
+                        {
+                            "gene_name": "embA",
+                            "mutation_name": "P913S",
+                            "drug_name": "EMB",
+                            "prediction": "S",
+                            "source": "phylosnp"
+                        },
+                        {
+                            "gene_name": "embB",
+                            "mutation_name": "E378A",
+                            "drug_name": "EMB",
+                            "prediction": "S",
+                            "source": "phylosnp"
+                        }
+                    ],
+                    "LEV": [
+                        {
+                            "gene_name": "gyrA",
+                            "mutation_name": "E21Q",
+                            "drug_name": "LEV",
+                            "prediction": "S",
+                            "source": "phylosnp"
+                        },
+                        {
+                            "gene_name": "gyrA",
+                            "mutation_name": "S95T",
+                            "drug_name": "LEV",
+                            "prediction": "S",
+                            "source": "phylosnp"
+                        },
+                        {
+                            "gene_name": "gyrA",
+                            "mutation_name": "A384V",
+                            "drug_name": "LEV",
+                            "prediction": "S",
+                            "source": "phylosnp"
+                        },
+                        {
+                            "gene_name": "gyrA",
+                            "mutation_name": "G668D",
+                            "drug_name": "LEV",
+                            "prediction": "S",
+                            "source": "phylosnp"
+                        },
+                        {
+                            "gene_name": "gyrB",
+                            "mutation_name": "M291I",
+                            "drug_name": "LEV",
+                            "prediction": "S",
+                            "source": "phylosnp"
+                        }
+                    ],
+                    "MXF": [
+                        {
+                            "gene_name": "gyrA",
+                            "mutation_name": "E21Q",
+                            "drug_name": "MXF",
+                            "prediction": "S",
+                            "source": "phylosnp"
+                        },
+                        {
+                            "gene_name": "gyrA",
+                            "mutation_name": "S95T",
+                            "drug_name": "MXF",
+                            "prediction": "S",
+                            "source": "phylosnp"
+                        },
+                        {
+                            "gene_name": "gyrA",
+                            "mutation_name": "A384V",
+                            "drug_name": "MXF",
+                            "prediction": "S",
+                            "source": "phylosnp"
+                        },
+                        {
+                            "gene_name": "gyrA",
+                            "mutation_name": "G668D",
+                            "drug_name": "MXF",
+                            "prediction": "S",
+                            "source": "phylosnp"
+                        }
+                    ],
+                    "OFX": [
+                        {
+                            "gene_name": "gyrA",
+                            "mutation_name": "E21Q",
+                            "drug_name": "OFX",
+                            "prediction": "U",
+                            "source": "phylosnp"
+                        },
+                        {
+                            "gene_name": "gyrA",
+                            "mutation_name": "S95T",
+                            "drug_name": "OFX",
+                            "prediction": "S",
+                            "source": "phylosnp"
+                        },
+                        {
+                            "gene_name": "gyrA",
+                            "mutation_name": "A384V",
+                            "drug_name": "OFX",
+                            "prediction": "U",
+                            "source": "phylosnp"
+                        },
+                        {
+                            "gene_name": "gyrA",
+                            "mutation_name": "G668D",
+                            "drug_name": "OFX",
+                            "prediction": "U",
+                            "source": "phylosnp"
+                        },
+                        {
+                            "gene_name": "gyrB",
+                            "mutation_name": "M291I",
+                            "drug_name": "OFX",
+                            "prediction": "U",
+                            "source": "phylosnp"
+                        }
+                    ],
+                    "INH": [
+                        {
+                            "gene_name": "katG",
+                            "mutation_name": "R463L",
+                            "drug_name": "INH",
+                            "prediction": "S",
+                            "source": "phylosnp"
+                        }
+                    ],
+                    "CAP": [
+                        {
+                            "gene_name": "tlyA",
+                            "mutation_name": "R84G",
+                            "drug_name": "CAP",
+                            "prediction": "U",
+                            "source": ""
+                        }
+                    ]
+                },
+                "res_rev_index": {
+                    "embA_P913S": [
+                        {
+                            "gene_name": "embA",
+                            "mutation_name": "P913S",
+                            "drug_name": "EMB",
+                            "prediction": "S",
+                            "source": "phylosnp"
+                        }
+                    ],
+                    "embB_E378A": [
+                        {
+                            "gene_name": "embB",
+                            "mutation_name": "E378A",
+                            "drug_name": "EMB",
+                            "prediction": "S",
+                            "source": "phylosnp"
+                        }
+                    ],
+                    "gyrA_E21Q": [
+                        {
+                            "gene_name": "gyrA",
+                            "mutation_name": "E21Q",
+                            "drug_name": "LEV",
+                            "prediction": "S",
+                            "source": "phylosnp"
+                        },
+                        {
+                            "gene_name": "gyrA",
+                            "mutation_name": "E21Q",
+                            "drug_name": "MXF",
+                            "prediction": "S",
+                            "source": "phylosnp"
+                        },
+                        {
+                            "gene_name": "gyrA",
+                            "mutation_name": "E21Q",
+                            "drug_name": "OFX",
+                            "prediction": "U",
+                            "source": "phylosnp"
+                        }
+                    ],
+                    "gyrA_S95T": [
+                        {
+                            "gene_name": "gyrA",
+                            "mutation_name": "S95T",
+                            "drug_name": "LEV",
+                            "prediction": "S",
+                            "source": "phylosnp"
+                        },
+                        {
+                            "gene_name": "gyrA",
+                            "mutation_name": "S95T",
+                            "drug_name": "MXF",
+                            "prediction": "S",
+                            "source": "phylosnp"
+                        },
+                        {
+                            "gene_name": "gyrA",
+                            "mutation_name": "S95T",
+                            "drug_name": "OFX",
+                            "prediction": "S",
+                            "source": "phylosnp"
+                        }
+                    ],
+                    "gyrA_A384V": [
+                        {
+                            "gene_name": "gyrA",
+                            "mutation_name": "A384V",
+                            "drug_name": "LEV",
+                            "prediction": "S",
+                            "source": "phylosnp"
+                        },
+                        {
+                            "gene_name": "gyrA",
+                            "mutation_name": "A384V",
+                            "drug_name": "MXF",
+                            "prediction": "S",
+                            "source": "phylosnp"
+                        },
+                        {
+                            "gene_name": "gyrA",
+                            "mutation_name": "A384V",
+                            "drug_name": "OFX",
+                            "prediction": "U",
+                            "source": "phylosnp"
+                        }
+                    ],
+                    "gyrA_G668D": [
+                        {
+                            "gene_name": "gyrA",
+                            "mutation_name": "G668D",
+                            "drug_name": "LEV",
+                            "prediction": "S",
+                            "source": "phylosnp"
+                        },
+                        {
+                            "gene_name": "gyrA",
+                            "mutation_name": "G668D",
+                            "drug_name": "MXF",
+                            "prediction": "S",
+                            "source": "phylosnp"
+                        },
+                        {
+                            "gene_name": "gyrA",
+                            "mutation_name": "G668D",
+                            "drug_name": "OFX",
+                            "prediction": "U",
+                            "source": "phylosnp"
+                        }
+                    ],
+                    "gyrB_M291I": [
+                        {
+                            "gene_name": "gyrB",
+                            "mutation_name": "M291I",
+                            "drug_name": "LEV",
+                            "prediction": "S",
+                            "source": "phylosnp"
+                        },
+                        {
+                            "gene_name": "gyrB",
+                            "mutation_name": "M291I",
+                            "drug_name": "OFX",
+                            "prediction": "U",
+                            "source": "phylosnp"
+                        }
+                    ],
+                    "katG_R463L": [
+                        {
+                            "gene_name": "katG",
+                            "mutation_name": "R463L",
+                            "drug_name": "INH",
+                            "prediction": "S",
+                            "source": "phylosnp"
+                        }
+                    ],
+                    "tlyA_R84G": [
+                        {
+                            "gene_name": "tlyA",
+                            "mutation_name": "R84G",
+                            "drug_name": "CAP",
+                            "prediction": "U",
+                            "source": ""
+                        }
+                    ]
+                },
+                "effects": [
+                    {
+                        "gene_name": "embA",
+                        "mutation_name": "V116V",
+                        "drug_name": "EMB",
+                        "prediction": "S",
+                        "source": ""
+                    },
+                    {
+                        "gene_name": "embA",
+                        "mutation_name": "V396V",
+                        "drug_name": "EMB",
+                        "prediction": "S",
+                        "source": ""
+                    },
+                    {
+                        "gene_name": "embA",
+                        "mutation_name": "P913S",
+                        "drug_name": "EMB",
+                        "prediction": "S",
+                        "source": "phylosnp"
+                    },
+                    {
+                        "gene_name": "embB",
+                        "mutation_name": "L355L",
+                        "drug_name": "EMB",
+                        "prediction": "S",
+                        "source": ""
+                    },
+                    {
+                        "gene_name": "embB",
+                        "mutation_name": "E378A",
+                        "drug_name": "EMB",
+                        "prediction": "S",
+                        "source": "phylosnp"
+                    },
+                    {
+                        "gene_name": "fabG1",
+                        "mutation_name": "G241G",
+                        "drug_name": "ETH",
+                        "prediction": "S",
+                        "source": ""
+                    },
+                    {
+                        "gene_name": "fabG1",
+                        "mutation_name": "G241G",
+                        "drug_name": "INH",
+                        "prediction": "S",
+                        "source": ""
+                    },
+                    {
+                        "gene_name": "fabG1",
+                        "mutation_name": "G241G",
+                        "drug_name": "PTO",
+                        "prediction": "S",
+                        "source": ""
+                    },
+                    {
+                        "gene_name": "gyrA",
+                        "mutation_name": "E21Q",
+                        "drug_name": "LEV",
+                        "prediction": "S",
+                        "source": "phylosnp"
+                    },
+                    {
+                        "gene_name": "gyrA",
+                        "mutation_name": "E21Q",
+                        "drug_name": "MXF",
+                        "prediction": "S",
+                        "source": "phylosnp"
+                    },
+                    {
+                        "gene_name": "gyrA",
+                        "mutation_name": "E21Q",
+                        "drug_name": "OFX",
+                        "prediction": "U",
+                        "source": "phylosnp"
+                    },
+                    {
+                        "gene_name": "gyrA",
+                        "mutation_name": "S95T",
+                        "drug_name": "LEV",
+                        "prediction": "S",
+                        "source": "phylosnp"
+                    },
+                    {
+                        "gene_name": "gyrA",
+                        "mutation_name": "S95T",
+                        "drug_name": "MXF",
+                        "prediction": "S",
+                        "source": "phylosnp"
+                    },
+                    {
+                        "gene_name": "gyrA",
+                        "mutation_name": "S95T",
+                        "drug_name": "OFX",
+                        "prediction": "S",
+                        "source": "phylosnp"
+                    },
+                    {
+                        "gene_name": "gyrA",
+                        "mutation_name": "A384V",
+                        "drug_name": "LEV",
+                        "prediction": "S",
+                        "source": "phylosnp"
+                    },
+                    {
+                        "gene_name": "gyrA",
+                        "mutation_name": "A384V",
+                        "drug_name": "MXF",
+                        "prediction": "S",
+                        "source": "phylosnp"
+                    },
+                    {
+                        "gene_name": "gyrA",
+                        "mutation_name": "A384V",
+                        "drug_name": "OFX",
+                        "prediction": "U",
+                        "source": "phylosnp"
+                    },
+                    {
+                        "gene_name": "gyrA",
+                        "mutation_name": "I614I",
+                        "drug_name": "LEV",
+                        "prediction": "S",
+                        "source": ""
+                    },
+                    {
+                        "gene_name": "gyrA",
+                        "mutation_name": "I614I",
+                        "drug_name": "MXF",
+                        "prediction": "S",
+                        "source": ""
+                    },
+                    {
+                        "gene_name": "gyrA",
+                        "mutation_name": "I614I",
+                        "drug_name": "OFX",
+                        "prediction": "S",
+                        "source": ""
+                    },
+                    {
+                        "gene_name": "gyrA",
+                        "mutation_name": "L653L",
+                        "drug_name": "LEV",
+                        "prediction": "S",
+                        "source": ""
+                    },
+                    {
+                        "gene_name": "gyrA",
+                        "mutation_name": "L653L",
+                        "drug_name": "MXF",
+                        "prediction": "S",
+                        "source": ""
+                    },
+                    {
+                        "gene_name": "gyrA",
+                        "mutation_name": "L653L",
+                        "drug_name": "OFX",
+                        "prediction": "S",
+                        "source": ""
+                    },
+                    {
+                        "gene_name": "gyrA",
+                        "mutation_name": "G668D",
+                        "drug_name": "LEV",
+                        "prediction": "S",
+                        "source": "phylosnp"
+                    },
+                    {
+                        "gene_name": "gyrA",
+                        "mutation_name": "G668D",
+                        "drug_name": "MXF",
+                        "prediction": "S",
+                        "source": "phylosnp"
+                    },
+                    {
+                        "gene_name": "gyrA",
+                        "mutation_name": "G668D",
+                        "drug_name": "OFX",
+                        "prediction": "U",
+                        "source": "phylosnp"
+                    },
+                    {
+                        "gene_name": "gyrB",
+                        "mutation_name": "M291I",
+                        "drug_name": "LEV",
+                        "prediction": "S",
+                        "source": "phylosnp"
+                    },
+                    {
+                        "gene_name": "gyrB",
+                        "mutation_name": "M291I",
+                        "drug_name": "OFX",
+                        "prediction": "U",
+                        "source": "phylosnp"
+                    },
+                    {
+                        "gene_name": "katG",
+                        "mutation_name": "R463L",
+                        "drug_name": "INH",
+                        "prediction": "S",
+                        "source": "phylosnp"
+                    },
+                    {
+                        "gene_name": "rpoB",
+                        "mutation_name": "A1075A",
+                        "drug_name": "RIF",
+                        "prediction": "S",
+                        "source": ""
+                    },
+                    {
+                        "gene_name": "tlyA",
+                        "mutation_name": "L11L",
+                        "drug_name": "CAP",
+                        "prediction": "S",
+                        "source": ""
+                    },
+                    {
+                        "gene_name": "tlyA",
+                        "mutation_name": "R84G",
+                        "drug_name": "CAP",
+                        "prediction": "U",
+                        "source": ""
+                    }
+                ],
+                "mutations": [
+                    {
+                        "genome_index": NaN,
+                        "vcf_filename": null,
+                        "gene_name": "embA",
+                        "variant_type": null,
+                        "mutation_name": "V116V",
+                        "element_type": "GENE",
+                        "position": 116.0,
+                        "promoter": false,
+                        "cds": true,
+                        "synonymous": true,
+                        "nonsynonymous": false,
+                        "insertion": null,
+                        "deletion": null,
+                        "ref": "gtg",
+                        "alt": "gta",
+                        "indel_1": "",
+                        "indel_2": "",
+                        "indel_3": null,
+                        "ref_coverage": null,
+                        "alt_coverage": null,
+                        "gt_conf": 1418.7099609375,
+                        "minos_score": null,
+                        "number_nucleotide_changes": 1
+                    },
+                    {
+                        "genome_index": NaN,
+                        "vcf_filename": null,
+                        "gene_name": "embA",
+                        "variant_type": null,
+                        "mutation_name": "V396V",
+                        "element_type": "GENE",
+                        "position": 396.0,
+                        "promoter": false,
+                        "cds": true,
+                        "synonymous": true,
+                        "nonsynonymous": false,
+                        "insertion": null,
+                        "deletion": null,
+                        "ref": "gtg",
+                        "alt": "gtc",
+                        "indel_1": "",
+                        "indel_2": "",
+                        "indel_3": null,
+                        "ref_coverage": null,
+                        "alt_coverage": null,
+                        "gt_conf": 1509.8900146484375,
+                        "minos_score": null,
+                        "number_nucleotide_changes": 1
+                    },
+                    {
+                        "genome_index": NaN,
+                        "vcf_filename": null,
+                        "gene_name": "embA",
+                        "variant_type": null,
+                        "mutation_name": "P913S",
+                        "element_type": "GENE",
+                        "position": 913.0,
+                        "promoter": false,
+                        "cds": true,
+                        "synonymous": false,
+                        "nonsynonymous": true,
+                        "insertion": null,
+                        "deletion": null,
+                        "ref": "ccg",
+                        "alt": "tcg",
+                        "indel_1": "",
+                        "indel_2": "",
+                        "indel_3": null,
+                        "ref_coverage": null,
+                        "alt_coverage": null,
+                        "gt_conf": 1382.8800048828125,
+                        "minos_score": null,
+                        "number_nucleotide_changes": 1
+                    },
+                    {
+                        "genome_index": NaN,
+                        "vcf_filename": null,
+                        "gene_name": "embB",
+                        "variant_type": null,
+                        "mutation_name": "L355L",
+                        "element_type": "GENE",
+                        "position": 355.0,
+                        "promoter": false,
+                        "cds": true,
+                        "synonymous": true,
+                        "nonsynonymous": false,
+                        "insertion": null,
+                        "deletion": null,
+                        "ref": "ctg",
+                        "alt": "cta",
+                        "indel_1": "",
+                        "indel_2": "",
+                        "indel_3": null,
+                        "ref_coverage": null,
+                        "alt_coverage": null,
+                        "gt_conf": 1424.8199462890625,
+                        "minos_score": null,
+                        "number_nucleotide_changes": 1
+                    },
+                    {
+                        "genome_index": NaN,
+                        "vcf_filename": null,
+                        "gene_name": "embB",
+                        "variant_type": null,
+                        "mutation_name": "E378A",
+                        "element_type": "GENE",
+                        "position": 378.0,
+                        "promoter": false,
+                        "cds": true,
+                        "synonymous": false,
+                        "nonsynonymous": true,
+                        "insertion": null,
+                        "deletion": null,
+                        "ref": "gag",
+                        "alt": "gcg",
+                        "indel_1": "",
+                        "indel_2": "",
+                        "indel_3": null,
+                        "ref_coverage": null,
+                        "alt_coverage": null,
+                        "gt_conf": 1443.1400146484375,
+                        "minos_score": null,
+                        "number_nucleotide_changes": 1
+                    },
+                    {
+                        "genome_index": NaN,
+                        "vcf_filename": null,
+                        "gene_name": "fabG1",
+                        "variant_type": null,
+                        "mutation_name": "G241G",
+                        "element_type": "GENE",
+                        "position": 241.0,
+                        "promoter": false,
+                        "cds": true,
+                        "synonymous": true,
+                        "nonsynonymous": false,
+                        "insertion": null,
+                        "deletion": null,
+                        "ref": "ggc",
+                        "alt": "ggt",
+                        "indel_1": "",
+                        "indel_2": "",
+                        "indel_3": null,
+                        "ref_coverage": null,
+                        "alt_coverage": null,
+                        "gt_conf": 1111.3399658203125,
+                        "minos_score": null,
+                        "number_nucleotide_changes": 1
+                    },
+                    {
+                        "genome_index": NaN,
+                        "vcf_filename": null,
+                        "gene_name": "gyrA",
+                        "variant_type": null,
+                        "mutation_name": "E21Q",
+                        "element_type": "GENE",
+                        "position": 21.0,
+                        "promoter": false,
+                        "cds": true,
+                        "synonymous": false,
+                        "nonsynonymous": true,
+                        "insertion": null,
+                        "deletion": null,
+                        "ref": "gag",
+                        "alt": "cag",
+                        "indel_1": "",
+                        "indel_2": "",
+                        "indel_3": null,
+                        "ref_coverage": null,
+                        "alt_coverage": null,
+                        "gt_conf": 1388.0400390625,
+                        "minos_score": null,
+                        "number_nucleotide_changes": 1
+                    },
+                    {
+                        "genome_index": NaN,
+                        "vcf_filename": null,
+                        "gene_name": "gyrA",
+                        "variant_type": null,
+                        "mutation_name": "S95T",
+                        "element_type": "GENE",
+                        "position": 95.0,
+                        "promoter": false,
+                        "cds": true,
+                        "synonymous": false,
+                        "nonsynonymous": true,
+                        "insertion": null,
+                        "deletion": null,
+                        "ref": "agc",
+                        "alt": "acc",
+                        "indel_1": "",
+                        "indel_2": "",
+                        "indel_3": null,
+                        "ref_coverage": null,
+                        "alt_coverage": null,
+                        "gt_conf": 1521.9599609375,
+                        "minos_score": null,
+                        "number_nucleotide_changes": 1
+                    },
+                    {
+                        "genome_index": NaN,
+                        "vcf_filename": null,
+                        "gene_name": "gyrA",
+                        "variant_type": null,
+                        "mutation_name": "A384V",
+                        "element_type": "GENE",
+                        "position": 384.0,
+                        "promoter": false,
+                        "cds": true,
+                        "synonymous": false,
+                        "nonsynonymous": true,
+                        "insertion": null,
+                        "deletion": null,
+                        "ref": "gca",
+                        "alt": "gta",
+                        "indel_1": "",
+                        "indel_2": "",
+                        "indel_3": null,
+                        "ref_coverage": null,
+                        "alt_coverage": null,
+                        "gt_conf": 1599.9000244140625,
+                        "minos_score": null,
+                        "number_nucleotide_changes": 1
+                    },
+                    {
+                        "genome_index": NaN,
+                        "vcf_filename": null,
+                        "gene_name": "gyrA",
+                        "variant_type": null,
+                        "mutation_name": "I614I",
+                        "element_type": "GENE",
+                        "position": 614.0,
+                        "promoter": false,
+                        "cds": true,
+                        "synonymous": true,
+                        "nonsynonymous": false,
+                        "insertion": null,
+                        "deletion": null,
+                        "ref": "att",
+                        "alt": "atc",
+                        "indel_1": "",
+                        "indel_2": "",
+                        "indel_3": null,
+                        "ref_coverage": null,
+                        "alt_coverage": null,
+                        "gt_conf": 1290.0699462890625,
+                        "minos_score": null,
+                        "number_nucleotide_changes": 1
+                    },
+                    {
+                        "genome_index": NaN,
+                        "vcf_filename": null,
+                        "gene_name": "gyrA",
+                        "variant_type": null,
+                        "mutation_name": "L653L",
+                        "element_type": "GENE",
+                        "position": 653.0,
+                        "promoter": false,
+                        "cds": true,
+                        "synonymous": true,
+                        "nonsynonymous": false,
+                        "insertion": null,
+                        "deletion": null,
+                        "ref": "ctg",
+                        "alt": "ctc",
+                        "indel_1": "",
+                        "indel_2": "",
+                        "indel_3": null,
+                        "ref_coverage": null,
+                        "alt_coverage": null,
+                        "gt_conf": 1437.93994140625,
+                        "minos_score": null,
+                        "number_nucleotide_changes": 1
+                    },
+                    {
+                        "genome_index": NaN,
+                        "vcf_filename": null,
+                        "gene_name": "gyrA",
+                        "variant_type": null,
+                        "mutation_name": "G668D",
+                        "element_type": "GENE",
+                        "position": 668.0,
+                        "promoter": false,
+                        "cds": true,
+                        "synonymous": false,
+                        "nonsynonymous": true,
+                        "insertion": null,
+                        "deletion": null,
+                        "ref": "ggc",
+                        "alt": "gac",
+                        "indel_1": "",
+                        "indel_2": "",
+                        "indel_3": null,
+                        "ref_coverage": null,
+                        "alt_coverage": null,
+                        "gt_conf": 1338.6600341796875,
+                        "minos_score": null,
+                        "number_nucleotide_changes": 1
+                    },
+                    {
+                        "genome_index": NaN,
+                        "vcf_filename": null,
+                        "gene_name": "gyrB",
+                        "variant_type": null,
+                        "mutation_name": "M291I",
+                        "element_type": "GENE",
+                        "position": 291.0,
+                        "promoter": false,
+                        "cds": true,
+                        "synonymous": false,
+                        "nonsynonymous": true,
+                        "insertion": null,
+                        "deletion": null,
+                        "ref": "atg",
+                        "alt": "atc",
+                        "indel_1": "",
+                        "indel_2": "",
+                        "indel_3": null,
+                        "ref_coverage": null,
+                        "alt_coverage": null,
+                        "gt_conf": 1641.530029296875,
+                        "minos_score": null,
+                        "number_nucleotide_changes": 1
+                    },
+                    {
+                        "genome_index": NaN,
+                        "vcf_filename": null,
+                        "gene_name": "katG",
+                        "variant_type": null,
+                        "mutation_name": "R463L",
+                        "element_type": "GENE",
+                        "position": 463.0,
+                        "promoter": false,
+                        "cds": true,
+                        "synonymous": false,
+                        "nonsynonymous": true,
+                        "insertion": null,
+                        "deletion": null,
+                        "ref": "cgg",
+                        "alt": "ctg",
+                        "indel_1": "",
+                        "indel_2": "",
+                        "indel_3": null,
+                        "ref_coverage": null,
+                        "alt_coverage": null,
+                        "gt_conf": 1599.9000244140625,
+                        "minos_score": null,
+                        "number_nucleotide_changes": 1
+                    },
+                    {
+                        "genome_index": NaN,
+                        "vcf_filename": null,
+                        "gene_name": "rpoB",
+                        "variant_type": null,
+                        "mutation_name": "A1075A",
+                        "element_type": "GENE",
+                        "position": 1075.0,
+                        "promoter": false,
+                        "cds": true,
+                        "synonymous": true,
+                        "nonsynonymous": false,
+                        "insertion": null,
+                        "deletion": null,
+                        "ref": "gct",
+                        "alt": "gcc",
+                        "indel_1": "",
+                        "indel_2": "",
+                        "indel_3": null,
+                        "ref_coverage": null,
+                        "alt_coverage": null,
+                        "gt_conf": 1424.8199462890625,
+                        "minos_score": null,
+                        "number_nucleotide_changes": 1
+                    },
+                    {
+                        "genome_index": NaN,
+                        "vcf_filename": null,
+                        "gene_name": "tlyA",
+                        "variant_type": null,
+                        "mutation_name": "L11L",
+                        "element_type": "GENE",
+                        "position": 11.0,
+                        "promoter": false,
+                        "cds": true,
+                        "synonymous": true,
+                        "nonsynonymous": false,
+                        "insertion": null,
+                        "deletion": null,
+                        "ref": "cta",
+                        "alt": "ctg",
+                        "indel_1": "",
+                        "indel_2": "",
+                        "indel_3": null,
+                        "ref_coverage": null,
+                        "alt_coverage": null,
+                        "gt_conf": 1406.4599609375,
+                        "minos_score": null,
+                        "number_nucleotide_changes": 1
+                    },
+                    {
+                        "genome_index": NaN,
+                        "vcf_filename": null,
+                        "gene_name": "tlyA",
+                        "variant_type": null,
+                        "mutation_name": "R84G",
+                        "element_type": "GENE",
+                        "position": 84.0,
+                        "promoter": false,
+                        "cds": true,
+                        "synonymous": false,
+                        "nonsynonymous": true,
+                        "insertion": null,
+                        "deletion": null,
+                        "ref": "cgg",
+                        "alt": "ggg",
+                        "indel_1": "",
+                        "indel_2": "",
+                        "indel_3": null,
+                        "ref_coverage": null,
+                        "alt_coverage": null,
+                        "gt_conf": 1270.1300048828125,
+                        "minos_score": null,
+                        "number_nucleotide_changes": 1
+                    }
+                ],
+                "prediction_ex": {
+                    "INH": "S",
+                    "RIF": "S",
+                    "PZA": "S",
+                    "EMB": "S",
+                    "AMI": "S",
+                    "KAN": "S",
+                    "LEV": "S",
+                    "STM": "S"
+                },
+                "INH": [
+                    {
+                        "gene_name": "fabG1",
+                        "mutation_name": "G241G",
+                        "drug_name": "INH",
+                        "prediction": "S",
+                        "source": ""
+                    },
+                    {
+                        "gene_name": "katG",
+                        "mutation_name": "R463L",
+                        "drug_name": "INH",
+                        "prediction": "S",
+                        "source": "phylosnp"
+                    }
+                ],
+                "RIF": [
+                    {
+                        "gene_name": "rpoB",
+                        "mutation_name": "A1075A",
+                        "drug_name": "RIF",
+                        "prediction": "S",
+                        "source": ""
+                    }
+                ],
+                "PZA": [],
+                "EMB": [
+                    {
+                        "gene_name": "embA",
+                        "mutation_name": "V116V",
+                        "drug_name": "EMB",
+                        "prediction": "S",
+                        "source": ""
+                    },
+                    {
+                        "gene_name": "embA",
+                        "mutation_name": "V396V",
+                        "drug_name": "EMB",
+                        "prediction": "S",
+                        "source": ""
+                    },
+                    {
+                        "gene_name": "embA",
+                        "mutation_name": "P913S",
+                        "drug_name": "EMB",
+                        "prediction": "S",
+                        "source": "phylosnp"
+                    },
+                    {
+                        "gene_name": "embB",
+                        "mutation_name": "L355L",
+                        "drug_name": "EMB",
+                        "prediction": "S",
+                        "source": ""
+                    },
+                    {
+                        "gene_name": "embB",
+                        "mutation_name": "E378A",
+                        "drug_name": "EMB",
+                        "prediction": "S",
+                        "source": "phylosnp"
+                    }
+                ],
+                "AMI": [],
+                "KAN": [],
+                "LEV": [
+                    {
+                        "gene_name": "gyrA",
+                        "mutation_name": "E21Q",
+                        "drug_name": "LEV",
+                        "prediction": "S",
+                        "source": "phylosnp"
+                    },
+                    {
+                        "gene_name": "gyrA",
+                        "mutation_name": "S95T",
+                        "drug_name": "LEV",
+                        "prediction": "S",
+                        "source": "phylosnp"
+                    },
+                    {
+                        "gene_name": "gyrA",
+                        "mutation_name": "A384V",
+                        "drug_name": "LEV",
+                        "prediction": "S",
+                        "source": "phylosnp"
+                    },
+                    {
+                        "gene_name": "gyrA",
+                        "mutation_name": "I614I",
+                        "drug_name": "LEV",
+                        "prediction": "S",
+                        "source": ""
+                    },
+                    {
+                        "gene_name": "gyrA",
+                        "mutation_name": "L653L",
+                        "drug_name": "LEV",
+                        "prediction": "S",
+                        "source": ""
+                    },
+                    {
+                        "gene_name": "gyrA",
+                        "mutation_name": "G668D",
+                        "drug_name": "LEV",
+                        "prediction": "S",
+                        "source": "phylosnp"
+                    },
+                    {
+                        "gene_name": "gyrB",
+                        "mutation_name": "M291I",
+                        "drug_name": "LEV",
+                        "prediction": "S",
+                        "source": "phylosnp"
+                    }
+                ],
+                "STM": []
+            },
+            "raw_data": "{\"status\": \"success\", \"data\": {\"vcf_filepath\": \"/work/reports/resistanceapi/vcfs/c76ffe90-858e-4e34-b39b-83fd9391903f.vcf\", \"metadata\": {\"WGS_PREDICTION_EMB\": \"S\", \"WGS_PREDICTION_INH\": \"S\", \"WGS_PREDICTION_PZA\": \"S\", \"WGS_PREDICTION_RIF\": \"S\", \"WGS_PREDICTION_MXF\": \"S\", \"WGS_PREDICTION_OFX\": \"U\", \"WGS_PREDICTION_AMI\": \"S\", \"WGS_PREDICTION_KAN\": \"S\", \"WGS_PREDICTION_CAP\": \"U\", \"WGS_PREDICTION_STM\": \"S\", \"WGS_PREDICTION_ETH\": \"S\", \"WGS_PREDICTION_LEV\": \"S\", \"WGS_PREDICTION_PTO\": \"S\", \"WGS_PREDICTION_RFB\": \"S\", \"WGS_PREDICTION_LZD\": \"S\", \"WGS_PREDICTION_CFZ\": \"S\", \"WGS_PREDICTION_BDQ\": \"S\", \"WGS_PREDICTION_DLM\": \"S\", \"WGS_PREDICTION_PAS\": \"S\"}, \"effects\": [{\"gene_name\": \"embA\", \"mutation_name\": \"V116V\", \"drug_name\": \"EMB\", \"prediction\": \"S\"}, {\"gene_name\": \"embA\", \"mutation_name\": \"V396V\", \"drug_name\": \"EMB\", \"prediction\": \"S\"}, {\"gene_name\": \"embA\", \"mutation_name\": \"P913S\", \"drug_name\": \"EMB\", \"prediction\": \"S\"}, {\"gene_name\": \"embB\", \"mutation_name\": \"L355L\", \"drug_name\": \"EMB\", \"prediction\": \"S\"}, {\"gene_name\": \"embB\", \"mutation_name\": \"E378A\", \"drug_name\": \"EMB\", \"prediction\": \"S\"}, {\"gene_name\": \"fabG1\", \"mutation_name\": \"G241G\", \"drug_name\": \"ETH\", \"prediction\": \"S\"}, {\"gene_name\": \"fabG1\", \"mutation_name\": \"G241G\", \"drug_name\": \"INH\", \"prediction\": \"S\"}, {\"gene_name\": \"fabG1\", \"mutation_name\": \"G241G\", \"drug_name\": \"PTO\", \"prediction\": \"S\"}, {\"gene_name\": \"gyrA\", \"mutation_name\": \"E21Q\", \"drug_name\": \"LEV\", \"prediction\": \"S\"}, {\"gene_name\": \"gyrA\", \"mutation_name\": \"E21Q\", \"drug_name\": \"MXF\", \"prediction\": \"S\"}, {\"gene_name\": \"gyrA\", \"mutation_name\": \"E21Q\", \"drug_name\": \"OFX\", \"prediction\": \"U\"}, {\"gene_name\": \"gyrA\", \"mutation_name\": \"S95T\", \"drug_name\": \"LEV\", \"prediction\": \"S\"}, {\"gene_name\": \"gyrA\", \"mutation_name\": \"S95T\", \"drug_name\": \"MXF\", \"prediction\": \"S\"}, {\"gene_name\": \"gyrA\", \"mutation_name\": \"S95T\", \"drug_name\": \"OFX\", \"prediction\": \"S\"}, {\"gene_name\": \"gyrA\", \"mutation_name\": \"A384V\", \"drug_name\": \"LEV\", \"prediction\": \"S\"}, {\"gene_name\": \"gyrA\", \"mutation_name\": \"A384V\", \"drug_name\": \"MXF\", \"prediction\": \"S\"}, {\"gene_name\": \"gyrA\", \"mutation_name\": \"A384V\", \"drug_name\": \"OFX\", \"prediction\": \"U\"}, {\"gene_name\": \"gyrA\", \"mutation_name\": \"I614I\", \"drug_name\": \"LEV\", \"prediction\": \"S\"}, {\"gene_name\": \"gyrA\", \"mutation_name\": \"I614I\", \"drug_name\": \"MXF\", \"prediction\": \"S\"}, {\"gene_name\": \"gyrA\", \"mutation_name\": \"I614I\", \"drug_name\": \"OFX\", \"prediction\": \"S\"}, {\"gene_name\": \"gyrA\", \"mutation_name\": \"L653L\", \"drug_name\": \"LEV\", \"prediction\": \"S\"}, {\"gene_name\": \"gyrA\", \"mutation_name\": \"L653L\", \"drug_name\": \"MXF\", \"prediction\": \"S\"}, {\"gene_name\": \"gyrA\", \"mutation_name\": \"L653L\", \"drug_name\": \"OFX\", \"prediction\": \"S\"}, {\"gene_name\": \"gyrA\", \"mutation_name\": \"G668D\", \"drug_name\": \"LEV\", \"prediction\": \"S\"}, {\"gene_name\": \"gyrA\", \"mutation_name\": \"G668D\", \"drug_name\": \"MXF\", \"prediction\": \"S\"}, {\"gene_name\": \"gyrA\", \"mutation_name\": \"G668D\", \"drug_name\": \"OFX\", \"prediction\": \"U\"}, {\"gene_name\": \"gyrB\", \"mutation_name\": \"M291I\", \"drug_name\": \"LEV\", \"prediction\": \"S\"}, {\"gene_name\": \"gyrB\", \"mutation_name\": \"M291I\", \"drug_name\": \"OFX\", \"prediction\": \"U\"}, {\"gene_name\": \"katG\", \"mutation_name\": \"R463L\", \"drug_name\": \"INH\", \"prediction\": \"S\"}, {\"gene_name\": \"rpoB\", \"mutation_name\": \"A1075A\", \"drug_name\": \"RIF\", \"prediction\": \"S\"}, {\"gene_name\": \"tlyA\", \"mutation_name\": \"L11L\", \"drug_name\": \"CAP\", \"prediction\": \"S\"}, {\"gene_name\": \"tlyA\", \"mutation_name\": \"R84G\", \"drug_name\": \"CAP\", \"prediction\": \"U\"}], \"mutations\": [{\"genome_index\": NaN, \"vcf_filename\": null, \"gene_name\": \"embA\", \"variant_type\": null, \"mutation_name\": \"V116V\", \"element_type\": \"GENE\", \"position\": 116.0, \"promoter\": false, \"cds\": true, \"synonymous\": true, \"nonsynonymous\": false, \"insertion\": null, \"deletion\": null, \"ref\": \"gtg\", \"alt\": \"gta\", \"indel_1\": \"\", \"indel_2\": \"\", \"indel_3\": null, \"ref_coverage\": null, \"alt_coverage\": null, \"gt_conf\": 1418.7099609375, \"minos_score\": null, \"number_nucleotide_changes\": 1}, {\"genome_index\": NaN, \"vcf_filename\": null, \"gene_name\": \"embA\", \"variant_type\": null, \"mutation_name\": \"V396V\", \"element_type\": \"GENE\", \"position\": 396.0, \"promoter\": false, \"cds\": true, \"synonymous\": true, \"nonsynonymous\": false, \"insertion\": null, \"deletion\": null, \"ref\": \"gtg\", \"alt\": \"gtc\", \"indel_1\": \"\", \"indel_2\": \"\", \"indel_3\": null, \"ref_coverage\": null, \"alt_coverage\": null, \"gt_conf\": 1509.8900146484375, \"minos_score\": null, \"number_nucleotide_changes\": 1}, {\"genome_index\": NaN, \"vcf_filename\": null, \"gene_name\": \"embA\", \"variant_type\": null, \"mutation_name\": \"P913S\", \"element_type\": \"GENE\", \"position\": 913.0, \"promoter\": false, \"cds\": true, \"synonymous\": false, \"nonsynonymous\": true, \"insertion\": null, \"deletion\": null, \"ref\": \"ccg\", \"alt\": \"tcg\", \"indel_1\": \"\", \"indel_2\": \"\", \"indel_3\": null, \"ref_coverage\": null, \"alt_coverage\": null, \"gt_conf\": 1382.8800048828125, \"minos_score\": null, \"number_nucleotide_changes\": 1}, {\"genome_index\": NaN, \"vcf_filename\": null, \"gene_name\": \"embB\", \"variant_type\": null, \"mutation_name\": \"L355L\", \"element_type\": \"GENE\", \"position\": 355.0, \"promoter\": false, \"cds\": true, \"synonymous\": true, \"nonsynonymous\": false, \"insertion\": null, \"deletion\": null, \"ref\": \"ctg\", \"alt\": \"cta\", \"indel_1\": \"\", \"indel_2\": \"\", \"indel_3\": null, \"ref_coverage\": null, \"alt_coverage\": null, \"gt_conf\": 1424.8199462890625, \"minos_score\": null, \"number_nucleotide_changes\": 1}, {\"genome_index\": NaN, \"vcf_filename\": null, \"gene_name\": \"embB\", \"variant_type\": null, \"mutation_name\": \"E378A\", \"element_type\": \"GENE\", \"position\": 378.0, \"promoter\": false, \"cds\": true, \"synonymous\": false, \"nonsynonymous\": true, \"insertion\": null, \"deletion\": null, \"ref\": \"gag\", \"alt\": \"gcg\", \"indel_1\": \"\", \"indel_2\": \"\", \"indel_3\": null, \"ref_coverage\": null, \"alt_coverage\": null, \"gt_conf\": 1443.1400146484375, \"minos_score\": null, \"number_nucleotide_changes\": 1}, {\"genome_index\": NaN, \"vcf_filename\": null, \"gene_name\": \"fabG1\", \"variant_type\": null, \"mutation_name\": \"G241G\", \"element_type\": \"GENE\", \"position\": 241.0, \"promoter\": false, \"cds\": true, \"synonymous\": true, \"nonsynonymous\": false, \"insertion\": null, \"deletion\": null, \"ref\": \"ggc\", \"alt\": \"ggt\", \"indel_1\": \"\", \"indel_2\": \"\", \"indel_3\": null, \"ref_coverage\": null, \"alt_coverage\": null, \"gt_conf\": 1111.3399658203125, \"minos_score\": null, \"number_nucleotide_changes\": 1}, {\"genome_index\": NaN, \"vcf_filename\": null, \"gene_name\": \"gyrA\", \"variant_type\": null, \"mutation_name\": \"E21Q\", \"element_type\": \"GENE\", \"position\": 21.0, \"promoter\": false, \"cds\": true, \"synonymous\": false, \"nonsynonymous\": true, \"insertion\": null, \"deletion\": null, \"ref\": \"gag\", \"alt\": \"cag\", \"indel_1\": \"\", \"indel_2\": \"\", \"indel_3\": null, \"ref_coverage\": null, \"alt_coverage\": null, \"gt_conf\": 1388.0400390625, \"minos_score\": null, \"number_nucleotide_changes\": 1}, {\"genome_index\": NaN, \"vcf_filename\": null, \"gene_name\": \"gyrA\", \"variant_type\": null, \"mutation_name\": \"S95T\", \"element_type\": \"GENE\", \"position\": 95.0, \"promoter\": false, \"cds\": true, \"synonymous\": false, \"nonsynonymous\": true, \"insertion\": null, \"deletion\": null, \"ref\": \"agc\", \"alt\": \"acc\", \"indel_1\": \"\", \"indel_2\": \"\", \"indel_3\": null, \"ref_coverage\": null, \"alt_coverage\": null, \"gt_conf\": 1521.9599609375, \"minos_score\": null, \"number_nucleotide_changes\": 1}, {\"genome_index\": NaN, \"vcf_filename\": null, \"gene_name\": \"gyrA\", \"variant_type\": null, \"mutation_name\": \"A384V\", \"element_type\": \"GENE\", \"position\": 384.0, \"promoter\": false, \"cds\": true, \"synonymous\": false, \"nonsynonymous\": true, \"insertion\": null, \"deletion\": null, \"ref\": \"gca\", \"alt\": \"gta\", \"indel_1\": \"\", \"indel_2\": \"\", \"indel_3\": null, \"ref_coverage\": null, \"alt_coverage\": null, \"gt_conf\": 1599.9000244140625, \"minos_score\": null, \"number_nucleotide_changes\": 1}, {\"genome_index\": NaN, \"vcf_filename\": null, \"gene_name\": \"gyrA\", \"variant_type\": null, \"mutation_name\": \"I614I\", \"element_type\": \"GENE\", \"position\": 614.0, \"promoter\": false, \"cds\": true, \"synonymous\": true, \"nonsynonymous\": false, \"insertion\": null, \"deletion\": null, \"ref\": \"att\", \"alt\": \"atc\", \"indel_1\": \"\", \"indel_2\": \"\", \"indel_3\": null, \"ref_coverage\": null, \"alt_coverage\": null, \"gt_conf\": 1290.0699462890625, \"minos_score\": null, \"number_nucleotide_changes\": 1}, {\"genome_index\": NaN, \"vcf_filename\": null, \"gene_name\": \"gyrA\", \"variant_type\": null, \"mutation_name\": \"L653L\", \"element_type\": \"GENE\", \"position\": 653.0, \"promoter\": false, \"cds\": true, \"synonymous\": true, \"nonsynonymous\": false, \"insertion\": null, \"deletion\": null, \"ref\": \"ctg\", \"alt\": \"ctc\", \"indel_1\": \"\", \"indel_2\": \"\", \"indel_3\": null, \"ref_coverage\": null, \"alt_coverage\": null, \"gt_conf\": 1437.93994140625, \"minos_score\": null, \"number_nucleotide_changes\": 1}, {\"genome_index\": NaN, \"vcf_filename\": null, \"gene_name\": \"gyrA\", \"variant_type\": null, \"mutation_name\": \"G668D\", \"element_type\": \"GENE\", \"position\": 668.0, \"promoter\": false, \"cds\": true, \"synonymous\": false, \"nonsynonymous\": true, \"insertion\": null, \"deletion\": null, \"ref\": \"ggc\", \"alt\": \"gac\", \"indel_1\": \"\", \"indel_2\": \"\", \"indel_3\": null, \"ref_coverage\": null, \"alt_coverage\": null, \"gt_conf\": 1338.6600341796875, \"minos_score\": null, \"number_nucleotide_changes\": 1}, {\"genome_index\": NaN, \"vcf_filename\": null, \"gene_name\": \"gyrB\", \"variant_type\": null, \"mutation_name\": \"M291I\", \"element_type\": \"GENE\", \"position\": 291.0, \"promoter\": false, \"cds\": true, \"synonymous\": false, \"nonsynonymous\": true, \"insertion\": null, \"deletion\": null, \"ref\": \"atg\", \"alt\": \"atc\", \"indel_1\": \"\", \"indel_2\": \"\", \"indel_3\": null, \"ref_coverage\": null, \"alt_coverage\": null, \"gt_conf\": 1641.530029296875, \"minos_score\": null, \"number_nucleotide_changes\": 1}, {\"genome_index\": NaN, \"vcf_filename\": null, \"gene_name\": \"katG\", \"variant_type\": null, \"mutation_name\": \"R463L\", \"element_type\": \"GENE\", \"position\": 463.0, \"promoter\": false, \"cds\": true, \"synonymous\": false, \"nonsynonymous\": true, \"insertion\": null, \"deletion\": null, \"ref\": \"cgg\", \"alt\": \"ctg\", \"indel_1\": \"\", \"indel_2\": \"\", \"indel_3\": null, \"ref_coverage\": null, \"alt_coverage\": null, \"gt_conf\": 1599.9000244140625, \"minos_score\": null, \"number_nucleotide_changes\": 1}, {\"genome_index\": NaN, \"vcf_filename\": null, \"gene_name\": \"rpoB\", \"variant_type\": null, \"mutation_name\": \"A1075A\", \"element_type\": \"GENE\", \"position\": 1075.0, \"promoter\": false, \"cds\": true, \"synonymous\": true, \"nonsynonymous\": false, \"insertion\": null, \"deletion\": null, \"ref\": \"gct\", \"alt\": \"gcc\", \"indel_1\": \"\", \"indel_2\": \"\", \"indel_3\": null, \"ref_coverage\": null, \"alt_coverage\": null, \"gt_conf\": 1424.8199462890625, \"minos_score\": null, \"number_nucleotide_changes\": 1}, {\"genome_index\": NaN, \"vcf_filename\": null, \"gene_name\": \"tlyA\", \"variant_type\": null, \"mutation_name\": \"L11L\", \"element_type\": \"GENE\", \"position\": 11.0, \"promoter\": false, \"cds\": true, \"synonymous\": true, \"nonsynonymous\": false, \"insertion\": null, \"deletion\": null, \"ref\": \"cta\", \"alt\": \"ctg\", \"indel_1\": \"\", \"indel_2\": \"\", \"indel_3\": null, \"ref_coverage\": null, \"alt_coverage\": null, \"gt_conf\": 1406.4599609375, \"minos_score\": null, \"number_nucleotide_changes\": 1}, {\"genome_index\": NaN, \"vcf_filename\": null, \"gene_name\": \"tlyA\", \"variant_type\": null, \"mutation_name\": \"R84G\", \"element_type\": \"GENE\", \"position\": 84.0, \"promoter\": false, \"cds\": true, \"synonymous\": false, \"nonsynonymous\": true, \"insertion\": null, \"deletion\": null, \"ref\": \"cgg\", \"alt\": \"ggg\", \"indel_1\": \"\", \"indel_2\": \"\", \"indel_3\": null, \"ref_coverage\": null, \"alt_coverage\": null, \"gt_conf\": 1270.1300048828125, \"minos_score\": null, \"number_nucleotide_changes\": 1}]}, \"message\": {\"config\": {\"vcf_location\": \"/work/reports/resistanceapi/vcfs\", \"genome_object\": \"/data/reports/resistance/pickles/H37rV_v3_20201015.pkl.gz\", \"catalogue_file\": \"/data/reports/resistance/catalogues/NC_000962.3_CRyPTIC_v1.2_GARC1_RUS.csv\"}}}",
+            "message": {
+                "config": {
+                    "vcf_location": "/work/reports/resistanceapi/vcfs",
+                    "genome_object": "/data/reports/resistance/pickles/H37rV_v3_20201015.pkl.gz",
+                    "catalogue_file": "/data/reports/resistance/catalogues/NC_000962.3_CRyPTIC_v1.2_GARC1_RUS.csv"
+                }
+            },
+            "finished_epochtime": "2020/11/20 10:05",
+            "status": "success"
+        },
+        "mykrobe_speciation": {
+            "data": {
+                "mykrobe-predictor_version": "v0.9.0",
+                "mykrobe-atlas_version": "v0.9.0",
+                "phylo_group": {
+                    "Mycobacterium_tuberculosis_complex": {
+                        "percent_coverage": 99.652,
+                        "median_depth": 156
+                    }
+                },
+                "sub_complex": {
+                    "Unknown": {
+                        "percent_coverage": -1,
+                        "median_depth": -1
+                    }
+                },
+                "species": {
+                    "Mycobacterium_tuberculosis": {
+                        "percent_coverage": 81.934,
+                        "median_depth": 151
+                    }
+                },
+                "lineages": [
+                    "lineage1.2.1"
+                ],
+                "lineage1.2.1": {
+                    "lineage1": {
+                        "G615938A": {
+                            "percent_coverage": 100.0,
+                            "median_depth": 148,
+                            "min_non_zero_depth": 147,
+                            "kmer_count": 2973,
+                            "klen": 21
+                        }
+                    },
+                    "lineage1.2.1": {
+                        "C3479545A": {
+                            "percent_coverage": 100.0,
+                            "median_depth": 230,
+                            "min_non_zero_depth": 215,
+                            "kmer_count": 4544,
+                            "klen": 21
+                        }
+                    }
+                }
+            },
+            "finished_epochtime": "2020/11/20 09:58"
+        },
+        "kraken2_speciation": {
+            "data": {
+                "Family": [
+                    {
+                        "reads": 3336280,
+                        "percentage": 99.68,
+                        "name": "Mycobacteriaceae",
+                        "taxon": 1762
+                    }
+                ],
+                "Genus": [
+                    {
+                        "reads": 3335921,
+                        "percentage": 99.66,
+                        "name": "Mycobacterium",
+                        "taxon": 1763
+                    }
+                ],
+                "Species complex": [
+                    {
+                        "reads": 545442,
+                        "percentage": 16.3,
+                        "name": "Mycobacterium tuberculosis complex",
+                        "taxon": 77643
+                    }
+                ],
+                "Species": [
+                    {
+                        "reads": 250944,
+                        "percentage": 7.5,
+                        "name": "Mycobacterium tuberculosis",
+                        "taxon": 1773
+                    },
+                    {
+                        "reads": 714,
+                        "percentage": 0.02,
+                        "name": "Homo sapiens",
+                        "taxon": 9606
+                    }
+                ],
+                "Warnings": {
+                    "mykrobe": true,
+                    "notes": "For higher-resolution classification, see Mykrobe report."
+                }
+            },
+            "finished_epochtime": "2020/11/20 09:58"
+        }
+    }
+}

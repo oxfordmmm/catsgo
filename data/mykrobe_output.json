@@ -1,0 +1,289 @@
+{
+    "tb_sample_id": {
+        "susceptibility": {
+            "Ofloxacin": {
+                "predict": "S"
+            },
+            "Moxifloxacin": {
+                "predict": "S"
+            },
+            "Isoniazid": {
+                "predict": "R",
+                "called_by": {
+                    "fabG1_C-15X-C1673425T": {
+                        "variant": null,
+                        "genotype": [
+                            1,
+                            1
+                        ],
+                        "genotype_likelihoods": [
+                            -12203.367984597273,
+                            -99999999,
+                            -82.61223328458154
+                        ],
+                        "info": {
+                            "coverage": {
+                                "reference": {
+                                    "percent_coverage": 0.0,
+                                    "median_depth": 0,
+                                    "min_non_zero_depth": 0,
+                                    "kmer_count": 0,
+                                    "klen": 21
+                                },
+                                "alternate": {
+                                    "percent_coverage": 100.0,
+                                    "median_depth": 104,
+                                    "min_non_zero_depth": 101,
+                                    "kmer_count": 2094,
+                                    "klen": 21
+                                }
+                            },
+                            "expected_depths": [
+                                88
+                            ],
+                            "contamination_depths": [],
+                            "filter": [],
+                            "conf": 12121
+                        },
+                        "_cls": "Call.VariantCall"
+                    }
+                }
+            },
+            "Kanamycin": {
+                "predict": "S"
+            },
+            "Ethambutol": {
+                "predict": "S"
+            },
+            "Streptomycin": {
+                "predict": "S"
+            },
+            "Ciprofloxacin": {
+                "predict": "S"
+            },
+            "Pyrazinamide": {
+                "predict": "S"
+            },
+            "Rifampicin": {
+                "predict": "S"
+            },
+            "Amikacin": {
+                "predict": "S"
+            },
+            "Capreomycin": {
+                "predict": "S"
+            }
+        },
+        "phylogenetics": {
+            "phylo_group": {
+                "Mycobacterium_tuberculosis_complex": {
+                    "percent_coverage": 99.31,
+                    "median_depth": 88
+                }
+            },
+            "sub_complex": {
+                "Unknown": {
+                    "percent_coverage": -1,
+                    "median_depth": -1
+                }
+            },
+            "species": {
+                "Mycobacterium_tuberculosis": {
+                    "percent_coverage": 97.906,
+                    "median_depth": 86.0
+                }
+            },
+            "lineage": {
+                "lineage": [
+                    "lineage4.4.1.1"
+                ],
+                "calls_summary": {
+                    "lineage4.4.1.1": {
+                        "good_nodes": 4,
+                        "tree_depth": 4,
+                        "genotypes": {
+                            "lineage4": 1,
+                            "lineage4.4": 1,
+                            "lineage4.4.1": 1,
+                            "lineage4.4.1.1": 1
+                        }
+                    }
+                },
+                "calls": {
+                    "lineage4.4.1.1": {
+                        "lineage4": {
+                            "T931123C": {
+                                "variant": "ref-T931123C?var_name=T931123C&num_alts=1&ref=NC_000962.3&enum=0&gene=NA&mut=T931123C",
+                                "genotype": [
+                                    0,
+                                    0
+                                ],
+                                "genotype_likelihoods": [
+                                    -80.31932501105702,
+                                    -99999999,
+                                    -10297.35328818602
+                                ],
+                                "info": {
+                                    "coverage": {
+                                        "reference": {
+                                            "percent_coverage": 100.0,
+                                            "median_depth": 82,
+                                            "min_non_zero_depth": 73,
+                                            "kmer_count": 1629,
+                                            "klen": 21
+                                        },
+                                        "alternate": {
+                                            "percent_coverage": 0.0,
+                                            "median_depth": 0,
+                                            "min_non_zero_depth": 0,
+                                            "kmer_count": 0,
+                                            "klen": 21
+                                        }
+                                    },
+                                    "expected_depths": [
+                                        88
+                                    ],
+                                    "contamination_depths": [],
+                                    "filter": [],
+                                    "conf": 10217
+                                },
+                                "_cls": "Call.VariantCall"
+                            }
+                        },
+                        "lineage4.4": {
+                            "G4307886A": {
+                                "variant": "ref-G4307886A?var_name=G4307886A&num_alts=1&ref=NC_000962.3&enum=0&gene=NA&mut=G4307886A",
+                                "genotype": [
+                                    1,
+                                    1
+                                ],
+                                "genotype_likelihoods": [
+                                    -10429.227849430375,
+                                    -99999999,
+                                    -65.92657555703994
+                                ],
+                                "info": {
+                                    "coverage": {
+                                        "reference": {
+                                            "percent_coverage": 5.0,
+                                            "median_depth": 0,
+                                            "min_non_zero_depth": 1,
+                                            "kmer_count": 1,
+                                            "klen": 21
+                                        },
+                                        "alternate": {
+                                            "percent_coverage": 100.0,
+                                            "median_depth": 85,
+                                            "min_non_zero_depth": 80,
+                                            "kmer_count": 1708,
+                                            "klen": 21
+                                        }
+                                    },
+                                    "expected_depths": [
+                                        88
+                                    ],
+                                    "contamination_depths": [],
+                                    "filter": [],
+                                    "conf": 10363
+                                },
+                                "_cls": "Call.VariantCall"
+                            }
+                        },
+                        "lineage4.4.1": {
+                            "G4151558A": {
+                                "variant": "ref-G4151558A?var_name=G4151558A&num_alts=1&ref=NC_000962.3&enum=0&gene=NA&mut=G4151558A",
+                                "genotype": [
+                                    1,
+                                    1
+                                ],
+                                "genotype_likelihoods": [
+                                    -11613.31267316468,
+                                    -99999999,
+                                    -69.81449631955992
+                                ],
+                                "info": {
+                                    "coverage": {
+                                        "reference": {
+                                            "percent_coverage": 0.0,
+                                            "median_depth": 0,
+                                            "min_non_zero_depth": 0,
+                                            "kmer_count": 0,
+                                            "klen": 21
+                                        },
+                                        "alternate": {
+                                            "percent_coverage": 100.0,
+                                            "median_depth": 98,
+                                            "min_non_zero_depth": 94,
+                                            "kmer_count": 1953,
+                                            "klen": 21
+                                        }
+                                    },
+                                    "expected_depths": [
+                                        88
+                                    ],
+                                    "contamination_depths": [],
+                                    "filter": [],
+                                    "conf": 11543
+                                },
+                                "_cls": "Call.VariantCall"
+                            }
+                        },
+                        "lineage4.4.1.1": {
+                            "G355181A": {
+                                "variant": "ref-G355181A?var_name=G355181A&num_alts=1&ref=NC_000962.3&enum=0&gene=NA&mut=G355181A",
+                                "genotype": [
+                                    1,
+                                    1
+                                ],
+                                "genotype_likelihoods": [
+                                    -9911.478582828902,
+                                    -99999999,
+                                    -95.6591040356533
+                                ],
+                                "info": {
+                                    "coverage": {
+                                        "reference": {
+                                            "percent_coverage": 0.0,
+                                            "median_depth": 0,
+                                            "min_non_zero_depth": 0,
+                                            "kmer_count": 0,
+                                            "klen": 21
+                                        },
+                                        "alternate": {
+                                            "percent_coverage": 100.0,
+                                            "median_depth": 73,
+                                            "min_non_zero_depth": 70,
+                                            "kmer_count": 1531,
+                                            "klen": 21
+                                        }
+                                    },
+                                    "expected_depths": [
+                                        88
+                                    ],
+                                    "contamination_depths": [],
+                                    "filter": [],
+                                    "conf": 9816
+                                },
+                                "_cls": "Call.VariantCall"
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "kmer": 21,
+        "probe_sets": [
+            "/usr/local/lib/python3.8/dist-packages/mykrobe/data/tb/tb-species-170421.fasta.gz",
+            "/usr/local/lib/python3.8/dist-packages/mykrobe/data/tb/tb-hunt-probe-set-jan-03-2019.fasta.gz",
+            "/usr/local/lib/python3.8/dist-packages/mykrobe/data/tb/tb.lineage.20200930.probes.fa.gz"
+        ],
+        "files": [
+            "ad698b73-1c7f-4e37-a95c-8c062b202ed2.bam"
+        ],
+        "version": {
+            "mykrobe-predictor": "v0.9.0",
+            "mykrobe-atlas": "v0.9.0"
+        },
+        "genotype_model": "kmer_count"
+    }
+}
