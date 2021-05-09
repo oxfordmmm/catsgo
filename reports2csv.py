@@ -62,7 +62,29 @@ def main(reports_json_file):
                "mykrobe_speciation.data.phylo_group",
                "mykrobe_speciation.data.sub_complex",
                "mykrobe_speciation.data.species",
-               "mykrobe_speciation.data.lineages"
+               "mykrobe_speciation.data.lineages",
+               "mykrobe_speciation.data.susceptibility.Ofloxacin.predict",
+               "mykrobe_speciation.data.susceptibility.Ofloxacin.called_by",
+               "mykrobe_speciation.data.susceptibility.Moxifloxacin.predict",
+               "mykrobe_speciation.data.susceptibility.Moxifloxacin.called_by",
+               "mykrobe_speciation.data.susceptibility.Isoniazid.predict",
+               "mykrobe_speciation.data.susceptibility.Isoniazid.called_by",
+               "mykrobe_speciation.data.susceptibility.Kanamycin.predict",
+               "mykrobe_speciation.data.susceptibility.Kanamycin.called_by",
+               "mykrobe_speciation.data.susceptibility.Ethambutol.predict",
+               "mykrobe_speciation.data.susceptibility.Ethambutol.called_by",
+               "mykrobe_speciation.data.susceptibility.Streptomycin.predict",
+               "mykrobe_speciation.data.susceptibility.Streptomycin.called_by",
+               "mykrobe_speciation.data.susceptibility.Ciprofloxacin.predict",
+               "mykrobe_speciation.data.susceptibility.Ciprofloxacin.called_by",
+               "mykrobe_speciation.data.susceptibility.Pyrazinamide.predict",
+               "mykrobe_speciation.data.susceptibility.Pyrazinamide.called_by",
+               "mykrobe_speciation.data.susceptibility.Rifampicin.predict",
+               "mykrobe_speciation.data.susceptibility.Rifampicin.called_by",
+               "mykrobe_speciation.data.susceptibility.Amikacin.predict",
+               "mykrobe_speciation.data.susceptibility.Amikacin.called_by",
+               "mykrobe_speciation.data.susceptibility.Capreomycin.predict",
+               "mykrobe_speciation.data.susceptibility.Capreomycin.called_by"
                ]
 
     out = list()
@@ -71,7 +93,7 @@ def main(reports_json_file):
     header.append("sample_name")
     for col in my_cols:
         parts = col.split(".")
-        header.append(parts[-1])
+        header.append(parts[-2] + '|' + parts[-1])
     print(",".join(header))
 
     for k, v in report_data.items():
