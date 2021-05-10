@@ -8,8 +8,6 @@ Python 3.6+
 
 ## Installation
 
-$ virualenv -p python3 env
-$ source env/bin/activate
 $ pip3 install -r requirements.txt
 
 ## Setup
@@ -31,26 +29,33 @@ Since this file contains your login details, please ensure that it is only reada
 
     $ python3 catsgo.py go <fetch_path>
 
+    e.g $ python3 catsgo.py go /data/inputs/system/sp3_test_data 
+
 ## Download TB reports
 
 ### Download report of one sample
 
     $ python3 catsgo.py download-report {run_uuid} {sample_name} > one_report.json
 
+    e.g. $ python3 catsgo.py download-report 87b3e6dc-9b6c-42f2-8574-0a1eab0f6c90 SRR7800670 > SRR7800670.json
 
 ### Download reports of a run
 
     $ python3 catsgo.py download-reports {pipeline_name} {run_uuid} > run_reports.json
+    
+    e.g. $ python3 catsgo.py download-reports  oxforduni-Clockwork_combined 87b3e6dc-9b6c-42f2-8574-0a1eab0f6c90 > run_87b3e6dc.json
 
-### Transform json report to csv format (with output of above)
+### Transform json report to csv format (with above output)
 
     $ python3 report2csv.py run_reports.json > run_reports.csv
+    
+    e.g. $ python3 report2csv.py run_87b3e6dc.json > run_87b3e6dc.csv
 
 ## Run Covid pipeline
 
 - Illumina pipeline
 
-    $ python3 catsgo.py run-covid-illumina <pipeline_name> <data_path>
+    $ python3 catsgo.py run-covid-illumina {pipeline_name} {data_path}
 
 ## Issues
 
