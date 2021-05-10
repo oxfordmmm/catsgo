@@ -10,7 +10,7 @@ CLI client for SP3
 
 $ pip3 install -r requirements.txt
 
-# Setup 
+# Setup
 
 ## Setup TB pipeline
 Copy `config.json-example` to `config.json` and edit it
@@ -24,25 +24,31 @@ The rest of the configuration relates to running the TB or Covid pipeline in an 
 
 Since this file contains your login details, please ensure that it is only readable by you.
 
-# Running 
-## Run TB pipeline
-- Fetch, run and download output
+# Run TB pipeline
+## Fetch, run and download output
 
-    $ python3 catsgo.py go <fetch_path> 
+    $ python3 catsgo.py go <fetch_path>
 
-- Download report
+# Download TB reports
 
-    $ python3 catsgo.py download-report <run_uuid> <sample_name>
+## Download report
 
-- Download reports for run
+    $ python3 catsgo.py download-report {run_uuid} {sample_name} > one_report.json
 
-    $ python3 catsgo.py download-reports <pipeline_name> <run_uuid>
+
+## Download reports for a run
+
+    $ python3 catsgo.py download-reports {pipeline_name} {run_uuid} > run_reports.json
+
+## Transform json report to csv format (with output of above)
+
+    $ python3 report2csv.py run_reports.json > run_reports.csv
 
 ## Run Covid pipeline
 
 - Illumina pipeline
 
-    $ python3 catsgo.py run-covid-illumina <pipeline_name> <data_path> 
+    $ python3 catsgo.py run-covid-illumina <pipeline_name> <data_path>
 
 # Issues
 
