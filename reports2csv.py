@@ -8,7 +8,7 @@ def get_list_value(dict1,path1):
     result = gyrA_E21Q|gyrA_S95T
     '''
     key = path1.split('|')[0]
-    keys = path1.split('|')[1].split(',')
+    keys = path1.split('|')[1].split('/')
 
     list1 = dict1[key]
 
@@ -43,30 +43,33 @@ def get_val_from_dict(dict1, path1):
 def main(reports_json_file):
     report_data = json.loads(open(reports_json_file).read())
 
-    my_cols = ["resistance.data.prediction_ex.INH",
-               "resistance.data.INH|gene_name,mutation_name",
+    piezo_cols = ["resistance.data.prediction_ex.INH",
+               "resistance.data.INH|gene_name/mutation_name",
                "resistance.data.prediction_ex.RIF",
-               "resistance.data.RIF|gene_name,mutation_name",
+               "resistance.data.RIF|gene_name/mutation_name",
                "resistance.data.prediction_ex.PZA",
-               "resistance.data.PZA|gene_name,mutation_name",
+               "resistance.data.PZA|gene_name/mutation_name",
                "resistance.data.prediction_ex.EMB",
-               "resistance.data.EMB|gene_name,mutation_name",
+               "resistance.data.EMB|gene_name/mutation_name",
                "resistance.data.prediction_ex.AMI",
-               "resistance.data.AMI|gene_name,mutation_name",
+               "resistance.data.AMI|gene_name/mutation_name",
                "resistance.data.prediction_ex.KAN",
-               "resistance.data.KAN|gene_name,mutation_name",
+               "resistance.data.KAN|gene_name/mutation_name",
                "resistance.data.prediction_ex.STM",
-               "resistance.data.STM|gene_name,mutation_name",
+               "resistance.data.STM|gene_name/mutation_name",
                "resistance.data.prediction_ex.OFX",
-               "resistance.data.OFX|gene_name,mutation_name",
+               "resistance.data.OFX|gene_name/mutation_name",
                "resistance.data.prediction_ex.MXF",
-               "resistance.data.MXF|gene_name,mutation_name",
+               "resistance.data.MXF|gene_name/mutation_name",
                "resistance.data.prediction_ex.LEV",
-               "resistance.data.LEV|gene_name,mutation_name",
+               "resistance.data.LEV|gene_name/mutation_name",
                "mykrobe_speciation.data.phylo_group",
                "mykrobe_speciation.data.sub_complex",
                "mykrobe_speciation.data.species",
-               "mykrobe_speciation.data.lineages",
+               "mykrobe_speciation.data.lineages"
+            ]
+
+    mykrobe_cols = [
                "mykrobe_speciation.data.susceptibility.Isoniazid.predict",
                "mykrobe_speciation.data.susceptibility.Isoniazid.called_by",
                "mykrobe_speciation.data.susceptibility.Rifampicin.predict",
@@ -95,15 +98,23 @@ def main(reports_json_file):
 
     header = list()
     header.append("sample_name")
-    for col in my_cols:
+    for col in piezo_cols:
         parts = col.split(".")
-        header.append(parts[-2] + '|' + parts[-1])
+        header_col = parts[-1]
+        header_simple = header_col.replace('_name','').replace('/', '_')
+        header.append(header_simple)
+
+    for col in mykrobe_cols:
+        parts = col.split(".")
+        header.append(f'{parts[-2]} | {parts[-1]}')
     print(",".join(header))
+
+    all_cols = piezo_cols + mykrobe_cols
 
     for k, v in report_data.items():
         row = list()
         row.append(k)
-        for col in my_cols:
+        for col in all_cols:
             row.append(get_val_from_dict(v, col))
         out.append(",".join(row))
     return out
