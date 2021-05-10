@@ -2,20 +2,22 @@
 
 CLI client for SP3
 
-# Requirements
+## Requirements: 
 
-- python 3.6 with pip3
+Python 3.6+
 
-# Installation
+## Installation
 
+$ virualenv -p python3 env
+$ source env/bin/activate
 $ pip3 install -r requirements.txt
 
-# Setup
+## Setup
 
-## Setup TB pipeline
+### Setup TB pipeline
 Copy `config.json-example` to `config.json` and edit it
 
-## Setup Covid pipeline
+### Setup Covid pipeline
 Copy `config.json-covid` to `config.json` and edit it
 
 You must edit at least `username`, `password` and `sp3_url`
@@ -24,23 +26,23 @@ The rest of the configuration relates to running the TB or Covid pipeline in an 
 
 Since this file contains your login details, please ensure that it is only readable by you.
 
-# Run TB pipeline
-## Fetch, run and download output
+## Run TB pipeline
+### Fetch, run and download output
 
     $ python3 catsgo.py go <fetch_path>
 
-# Download TB reports
+## Download TB reports
 
-## Download report
+### Download report of one sample
 
     $ python3 catsgo.py download-report {run_uuid} {sample_name} > one_report.json
 
 
-## Download reports for a run
+### Download reports of a run
 
     $ python3 catsgo.py download-reports {pipeline_name} {run_uuid} > run_reports.json
 
-## Transform json report to csv format (with output of above)
+### Transform json report to csv format (with output of above)
 
     $ python3 report2csv.py run_reports.json > run_reports.csv
 
@@ -50,7 +52,7 @@ Since this file contains your login details, please ensure that it is only reada
 
     $ python3 catsgo.py run-covid-illumina <pipeline_name> <data_path>
 
-# Issues
+## Issues
 
 It is possible (but unlikely) that the sp3 server will clear your session between the login and the next request resulting in an unhandled failure.
 
