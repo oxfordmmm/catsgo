@@ -162,7 +162,7 @@ def check_run(flow_name, run_uuid):
         url =  sp3_url + f'/flow/{ flow_name }/details/{ run_uuid }?api=v1'
         response =  session.get(url)
 
-        data = json.loads(response.text)['data']
+        data = json.loads(response.text)
         if not data['data']:
             return "Error"
         status = data['data'][0][3]
