@@ -1,15 +1,21 @@
 doc = """
 watches a directory and runs a pipeline on any new subdirectories
+submits metadata to api
 """
 
 import logging
 import os
 import time
 from pathlib import Path
+import csv
+import datetime
+import json
+from collections import defaultdict
 
 import argh
 import gridfs
 import pymongo
+import requests
 
 import catsgo
 
@@ -44,6 +50,80 @@ def add_to_cached_dirlist(watch_dir, new_dir, run_uuid):
     )
 
 
+def send_metadata_to_api(watch_dir, new_dir, apex_metadata_endpoint):
+    data_file = Path(watch_dir) / new_dir / "sp3data.csv"
+    if not data_file.is_file():
+        logging.error("send_metadata_to_api(): {data_file} not a file")
+        return
+
+    with open(data_file, newline="") as f:
+        rows = list(csv.DictReader(f))
+
+    if not rows:
+        logging.error("send_metadata_to_api(): {data_file} no rows")
+        return
+
+    out = {"batch": {"samples": list()}}
+
+    rows_by_sample = defaultdict(list)
+    for row in rows:
+        rows_by_sample[row.get("sample_uuid4")].append(row)
+
+    seen_sample_uuid4s = set()
+    for row in rows:
+        if row.get("sample_uuid4") in seen_sample_uuid4s:
+            continue
+        seen_sample_uuid4s.add(row.get("sample_uuid4"))
+
+        metadata = {
+            "fileName": "",
+            "uploadedOn": datetime.datetime.now().isoformat() + "Z",
+            "uploadedBy": row.get("submitter_email", ""),
+            "organisation": row.get("submitter_organisation", ""),
+            "site": row.get("submitter_site", ""),
+            "errorMsg": "",
+        }
+        p = {
+            "errorMsg": "",
+            "name": row.get("sample_uuid4", ""),
+            "host": row.get("sample_host", ""),
+            "collectionDate": row.get("sample_collection_date", ""),
+            "country": row.get("sample_country", ""),
+            "fileName": "",
+            "specimenOrganism": row.get("sample_organism", ""),
+            "specimenSource": row.get("sample_source", ""),
+            "status": "Uploaded",
+            "submissionTitle": row.get("submission_title", ""),
+            "submissionDescription": row.get("submission_description", ""),
+            "instrument": {
+                "platform": row.get("instrument_platform", ""),
+                "model": row.get("instrument_model", ""),
+                "flowcell": row.get("instrument_flowcell", ""),
+            },
+        }
+        rows_for_sample = rows_by_sample.get(row.get("sample_uuid4"))
+        if len(rows_for_sample) == 1:
+            p["seReads"] = [{ "uri": "",
+                              "sp3_filepath": str(Path(watch_dir) / new_dir / rows_for_sample[0].get("sample_filename")),
+                              "md5": rows_for_sample[0].get("clean_file_md5", "") }]
+        if len(rows_for_sample) == 2:
+            p["peReads"] = [{ "r1_uri": "",
+                              "r1_sp3_filepath": str(Path(watch_dir) / new_dir / rows_for_sample[0].get("sample_filename")),
+                              "r1_md5": rows_for_sample[0].get("clean_file_md5", ""),
+                              "r2_uri": "",
+                              "r2_sp3_filepath": str(Path(watch_dir) / new_dir / rows_for_sample[1].get("sample_filename")),
+                              "r2_md5": rows_for_sample[1].get("clean_file_md5", "") }]
+
+
+        out["batch"]["samples"].append(p)
+    for k, v in metadata.items():
+        out["batch"][k] = v
+
+    # post out to api
+
+    print(json.dumps(out, indent=4))
+
+
 def remove_from_cached_dirlist(watch_dir, new_dir):
     logging.debug(f"removing {new_dir}")
     dirlist.update_one(
@@ -51,7 +131,7 @@ def remove_from_cached_dirlist(watch_dir, new_dir):
     )
 
 
-def process_dir(new_dir, watch_dir, pipeline, flow_name, bucket_name):
+def process_dir(new_dir, watch_dir, pipeline, flow_name, bucket_name, apex_metadata_endpoint):
     if not (watch_dir / new_dir).is_dir():
         logging.warning(f"dir_watcher: {new_dir}: expected a directory, found a file")
         return
@@ -70,9 +150,16 @@ def process_dir(new_dir, watch_dir, pipeline, flow_name, bucket_name):
             logging.error(
                 f"dir_watcher: pipeline run exception: pipeline: {pipeline}, new_dir: {new_dir}, watch_dir: {str(watch_dir)}, exception: {str(e)}"
             )
+        if apex_metadata_endpoint:
+            try:
+                send_metadata_to_api(flow_name, watch_dir, apex_metadata_endpoint)
+            except Exception as e:
+                logging.error(
+                    f"dir_watcher: pipeline run exception: pipeline: {pipeline}, new_dir: {new_dir}, watch_dir: {str(watch_dir)}, exception: {str(e)}"
+                )
 
 
-def watch(watch_dir, pipeline, flow_name, bucket_name):
+def watch(watch_dir, pipeline, flow_name, bucket_name, apex_metadata_endpoint=""):
     print(doc)
     watch_dir = Path(watch_dir)
     if not watch_dir.is_dir():
@@ -87,10 +174,9 @@ def watch(watch_dir, pipeline, flow_name, bucket_name):
         for new_dir in new_dirs:
             process_dir(new_dir, watch_dir, pipeline, flow_name, bucket_name)
 
-        logging.info("sleeping for 60")
+        logging.debug("sleeping for 60")
         time.sleep(60)
-
 
 if __name__ == "__main__":
     logging.getLogger().setLevel(logging.INFO)
-    argh.dispatch_commands([watch, remove_from_cached_dirlist])
+    argh.dispatch_commands([watch, remove_from_cached_dirlist, send_metadata_to_api])
