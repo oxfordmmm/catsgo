@@ -139,6 +139,14 @@ def run_covid_illumina_catsup(flow_name, indir, bucket_name, catsup_uuid):
     response =  session.post(url, data=data)
     return json.loads(response.text)
 
+
+def get_run_uuids(flow_name):
+    url = sp3_url + f"/flow/{ flow_name }?api=v2"
+    login()
+    response = session.get(url)
+    return response.json()
+
+
 def check_run(flow_name, run_uuid):
     def check_run_inner():
         login()
@@ -277,5 +285,5 @@ if __name__ == "__main__":
                          check_fetch, check_run, download_reports,
                          download_cmd, download_url, run_info,
                          run_clockwork, go,
-                         download_report, download_nextflow_task_data, download_nextflow_task_data_csv, run_covid_illumina, run_covid_illumina_catsup])
+                         download_report, download_nextflow_task_data, download_nextflow_task_data_csv, run_covid_illumina, run_covid_illumina_catsup, get_run_uuids])
     parser.dispatch()
