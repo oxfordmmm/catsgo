@@ -120,6 +120,23 @@ def run_covid_illumina(flow_name, input_dir):
     response =  session.post(url, data=data)
     return json.loads(response.text)
 
+def run_covid_illumina_objstore(flow_name, obj_csv):
+    url =  sp3_url + f'/flow/{ flow_name }/new'
+    timestamp = datetime.datetime.now().strftime("%Y%m%d_%H%M%S")
+    run_name = f'sp3c-{ flow_name }-{ timestamp }'
+
+    data = { 'fetch_uuid': '',
+             'run_name':  run_name,
+             'context': 'local',
+             'objstore-and---objstore': obj_csv,
+             'varcaller-and---varCaller': 'viridian',
+             'api': 'v1',
+            }
+
+    login()
+    response =  session.post(url, data=data)
+    return json.loads(response.text)
+
 def run_covid_illumina_catsup(flow_name, indir, bucket_name, catsup_uuid):
     url =  sp3_url + f'/flow/{ flow_name }/new'
     timestamp = datetime.datetime.now().strftime("%Y%m%d_%H%M%S")
@@ -153,7 +170,7 @@ def check_run(flow_name, run_uuid):
         url =  sp3_url + f'/flow/{ flow_name }/details/{ run_uuid }?api=v1'
         response =  session.get(url)
 
-        data = json.loads(response.text)['data']
+        data = json.loads(response.text)
         if not data['data']:
             return "Error"
         status = data['data'][0][3]
@@ -285,5 +302,5 @@ if __name__ == "__main__":
                          check_fetch, check_run, download_reports,
                          download_cmd, download_url, run_info,
                          run_clockwork, go,
-                         download_report, download_nextflow_task_data, download_nextflow_task_data_csv, run_covid_illumina, run_covid_illumina_catsup, get_run_uuids])
+                         download_report, download_nextflow_task_data, download_nextflow_task_data_csv, run_covid_illumina, run_covid_illumina_objstore, run_covid_illumina_catsup, get_run_uuids])
     parser.dispatch()
