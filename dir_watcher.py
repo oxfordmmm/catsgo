@@ -229,26 +229,27 @@ def process_dir(new_dir, watch_dir, pipeline, flow_name, bucket_name):
         logging.info(f"dir_watcher: {new_dir} upload in progress?")
         return
     if pipeline == "covid_illumina":
-        # submit the pipeline run
-        ret = catsgo.run_covid_illumina_catsup(
-            flow_name, str(watch_dir / new_dir), bucket_name, new_dir
-        )
-        logging.info(ret)
-        # add to it list of stuff already run
-        data = json.loads(get_and_format_metadata(watch_dir, new_dir))
-        apex_batch, apex_samples = post_metadata_to_apex(new_dir, data)
-        add_to_cached_dirlist(
-            str(watch_dir),
-            new_dir,
-            ret.get("run_uuid", ""),
-            apex_batch,
-            apex_samples,
-            data,
-        )
-        # except Exception as e:
-        #    logging.error(
-        #        f"dir_watcher: exception: pipeline: {pipeline}, new_dir: {new_dir}, watch_dir: {str(watch_dir)}, exception: {str(e)}"
-        #    )
+        try:
+            # submit the pipeline run
+            ret = catsgo.run_covid_illumina_catsup(
+                flow_name, str(watch_dir / new_dir), bucket_name, new_dir
+            )
+            logging.info(ret)
+            # add to it list of stuff already run
+            data = json.loads(get_and_format_metadata(watch_dir, new_dir))
+            apex_batch, apex_samples = post_metadata_to_apex(new_dir, data, apex_token)
+            add_to_cached_dirlist(
+                str(watch_dir),
+                new_dir,
+                ret.get("run_uuid", ""),
+                apex_batch,
+                apex_samples,
+                data,
+            )
+        except Exception as e:
+            logging.error(
+                f"dir_watcher: exception: pipeline: {pipeline}, new_dir: {new_dir}, watch_dir: {str(watch_dir)}, exception: {str(e)}"
+            )
 
 
 def watch(
