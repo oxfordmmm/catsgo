@@ -157,8 +157,15 @@ def run_covid_illumina_catsup(flow_name, indir, bucket_name, catsup_uuid):
     return json.loads(response.text)
 
 
-def get_run_uuids(flow_name):
+def get_all_runs(flow_name):
     url = sp3_url + f"/flow/{ flow_name }?api=v2"
+    login()
+    response = session.get(url)
+    return response.json()
+
+
+def get_all_runs2(flow_name):
+    url = sp3_url + f"/flow/{ flow_name }?api=v3"
     login()
     response = session.get(url)
     return response.json()
@@ -302,5 +309,5 @@ if __name__ == "__main__":
                          check_fetch, check_run, download_reports,
                          download_cmd, download_url, run_info,
                          run_clockwork, go,
-                         download_report, download_nextflow_task_data, download_nextflow_task_data_csv, run_covid_illumina, run_covid_illumina_objstore, run_covid_illumina_catsup, get_run_uuids])
+                         download_report, download_nextflow_task_data, download_nextflow_task_data_csv, run_covid_illumina, run_covid_illumina_objstore, run_covid_illumina_catsup, get_all_runs, get_all_runs2])
     parser.dispatch()
