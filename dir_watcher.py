@@ -193,8 +193,7 @@ def get_apex_token():
     return access_token
 
 
-def post_metadata_to_apex(new_dir, data):
-    apex_token = get_apex_token()
+def post_metadata_to_apex(new_dir, data, apex_token):
 
     batch_response = requests.post(
         "https://apex.oracle.com/pls/apex/catnip/xyz/batches",
@@ -215,7 +214,7 @@ def post_metadata_to_apex(new_dir, data):
     return apex_batch, apex_samples
 
 
-def process_dir(new_dir, watch_dir, pipeline, flow_name, bucket_name):
+def process_dir(new_dir, watch_dir, pipeline, flow_name, bucket_name, apex_token):
     """
     the watch process has detected a new upload. this processes it
 
@@ -282,8 +281,12 @@ def watch(
         # get directories that need to be checked
         new_dirs = candidate_dirs.difference(cached_dirlist)
 
+        if new_dirs:
+            apex_token = get_apex_token()
         for new_dir in new_dirs:  #  new_dir is the catsup upload uuid
-            process_dir(new_dir, watch_dir, pipeline, flow_name, bucket_name)
+            process_dir(
+                new_dir, watch_dir, pipeline, flow_name, bucket_name, apex_token
+            )
 
         logging.debug("sleeping for 60")
         time.sleep(60)

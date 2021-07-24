@@ -118,10 +118,7 @@ def submit_sample_data(apex_database_sample_name, data, apex_token):
     return sample_data_response.text
 
 
-def send_output_data_to_api(new_run_uuid):
-    # apex_token = get_apex_token()
-    apex_token = "asdf"
-
+def send_output_data_to_api(new_run_uuid, apex_token):
     sample_map = get_sample_map_for_run(new_run_uuid)
     if not sample_map:
         return
@@ -146,8 +143,8 @@ def send_output_data_to_api(new_run_uuid):
         submit_sample_data(apex_database_sample_name, sample_data, apex_token)
 
 
-def process_run(new_run_uuid):
-    send_output_data_to_api(new_run_uuid)
+def process_run(new_run_uuid, apex_token):
+    send_output_data_to_api(new_run_uuid, apex_token)
 
 
 def watch(flow_name="oxforduni-ncov2019-artic-nf-illumina"):
@@ -157,10 +154,13 @@ def watch(flow_name="oxforduni-ncov2019-artic-nf-illumina"):
 
         new_runs_to_submit = finished_ok_sp3_runs.difference(submitted_runs)
 
+        if new_runs_to_submit:
+            apex_token = get_apex_token()
+
         for new_run_uuid in new_runs_to_submit:
             logging.info(f"new run: {new_run_uuid}")
-            process_run(new_run_uuid)
-            add_to_submitted_runlist(pipeline_name, new_run_uuid)
+            process_run(new_run_uuid, apex_token)
+            add_to_submitted_runlist(flow_name, new_run_uuid)
 
         logging.info("sleeping for 60")
         time.sleep(60)
