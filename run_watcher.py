@@ -95,6 +95,31 @@ def get_apex_token():
 
 
 def make_sample_data(new_run_uuid, sp3_sample_name):
+    results = csv.reader(
+        Path("/work/output")
+        / new_run_uuid
+        / "analysis/report/illumina/analysisReport.tsv",
+        delimiter="\t",
+    )
+    sample = {}
+    assert len(results) >= 1
+    for row in results:
+        sample["lineageDescription"] = row["lineage"]
+        sample["pipelineVersion"] = "Pipeline Version"  # row["pangoLEARN_version"]
+        sample["pipelineDescription"] = "Pipeline Description"  # "Pipeline Description"
+        sample["vocVersion"] = ""  # row["phe-label"]
+        sample["vocPheLabel"] = "VOC-20DEC-01"  # row["unique-id"]
+        sample["assemblies"] = []
+        sample["vcfRecords"] = []
+        sample["variants"] = []
+
+        for i in row["aaSubstitutions"].split(","):
+            gene, name = i.split(":")
+            sample["variants"].append({"gene": gene, "name": name})
+
+        # let's get this working with the first row of analysis results for now
+        break
+
     # all outputs are in /work/output/<run_uuid>
     # for example:
     #
@@ -106,10 +131,13 @@ def make_sample_data(new_run_uuid, sp3_sample_name):
     # /work/output/c0ac178c-0b4c-438f-8080-046f4d638d9e/analysis/nextclade/illumina/150b5feb-61e1-4b6d-892a-170e6be09f71.tsv
     # /work/output/c0ac178c-0b4c-438f-8080-046f4d638d9e/consensus_seqs/150b5feb-61e1-4b6d-892a-170e6be09f71.fasta
     #
-    return dict()
+    return sample
 
 
 def submit_sample_data(apex_database_sample_name, data, apex_token):
+    data = {
+        "sample": {"operations": [{"op": "add", "path": "analysis", "value": [data]}]}
+    }
     sample_data_response = requests.put(
         f"https://apex.oracle.com/pls/apex/catnip/xyz/samples/{apex_database_sample_name}",
         headers={"Authorization": f"Bearer {apex_token}"},
@@ -124,22 +152,15 @@ def send_output_data_to_api(new_run_uuid, apex_token):
         return
     sample_map = json.loads(sample_map)
 
-    # sample_map maps sp3 sample names (upload UUIDs) to oracle apex database ids (which have to be used in the url to submit the data)
-    # for example:
-    # {
-    #     "150b5feb-61e1-4b6d-892a-170e6be09f71": "265607845790590810012715982906470974749",
-    #     "6992059b-cc98-423c-bacd-fa05af0d92d7": "265607845790593227864355212164820387101"}
-    # }
-
     for sp3_sample_name, apex_database_sample_name in sample_map.items():
         logging.info(
             f"processing sample {sp3_sample_name} (oracle id: {apex_database_sample_name})"
         )
-        # TODO:
         sample_data = make_sample_data(new_run_uuid, sp3_sample_name)
+
         # Consider:
-        save_sample_data(new_run_uuid, sp3_sample_name, sample_data)
-        # TODO:
+        # save_sample_data(new_run_uuid, sp3_sample_name, sample_data)
+
         submit_sample_data(apex_database_sample_name, sample_data, apex_token)
 
 
