@@ -104,14 +104,16 @@ def make_sample_data(new_run_uuid, sp3_sample_name):
     sample = {}
     assert len(results) >= 1
     for row in results:
-        sample["lineageDescription"] = row["lineage"]
-        sample["pipelineVersion"] = "Pipeline Version"  # row["pangoLEARN_version"]
-        sample["pipelineDescription"] = "Pipeline Description"  # "Pipeline Description"
-        sample["vocVersion"] = ""  # row["phe-label"]
-        sample["vocPheLabel"] = "VOC-20DEC-01"  # row["unique-id"]
-        sample["assemblies"] = []
-        sample["vcfRecords"] = []
-        sample["variants"] = []
+        sample = {
+            "lineageDescription": row["lineage"],
+            "pipelineVersion": "Pipeline Version",  # row["pangoLEARN_version"]
+            "pipelineDescription": "Pipeline Description",  # "Pipeline Description"
+            "vocVersion": "",  # row["phe-label"]
+            "vocPheLabel": "VOC-20DEC-01",  # row["unique-id"]
+            "assemblies": [],
+            "vcfRecords": [],
+            "variants": [],
+        }
 
         for i in row["aaSubstitutions"].split(","):
             gene, name = i.split(":")
