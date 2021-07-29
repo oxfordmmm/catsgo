@@ -18,6 +18,7 @@ import pymongo
 import requests
 
 import catsgo
+from db import Config
 
 myclient = pymongo.MongoClient("mongodb://localhost:27017/")
 mydb = myclient["dir_watcher"]
@@ -79,6 +80,7 @@ def remove_from_cached_dirlist(watch_dir, new_dir):
 
 
 def get_and_format_metadata(watch_dir, new_dir):
+    config = Config("config.ini")
     data_file = Path(watch_dir) / new_dir / "sp3data.csv"
     if not data_file.is_file():
         logging.error(f"get_and_format_metadata: {data_file} not a file")
@@ -108,9 +110,9 @@ def get_and_format_metadata(watch_dir, new_dir):
         metadata = {
             "fileName": row.get("submission_uuid4", ""),
             "uploadedOn": uploadedOn,
-            "uploadedBy": row.get("submitter_email", ""),
-            "organisation": row.get("submitter_organisation", ""),
-            "site": row.get("submitter_site", ""),
+            "uploadedBy": config.user,  # row.get("submitter_email", ""),
+            "organisation": "PHE",  # row.get("submitter_organisation", ""),
+            "site": "PHE OUH",  # row.get("submitter_site", ""),
             "errorMsg": "",
         }
         p = {
@@ -194,15 +196,17 @@ def get_apex_token():
 
 
 def post_metadata_to_apex(new_dir, data, apex_token):
-
+    logging.info(apex_token)
     batch_response = requests.post(
         "https://apex.oracle.com/pls/apex/catnip/xyz/batches",
         headers={"Authorization": f"Bearer {apex_token}"},
         json=data,
     )
     apex_batch = batch_response.json()
+    logging.info(apex_batch)
 
     batch_id = apex_batch.get("id")
+    assert batch_id
     print(batch_id)
 
     samples_response = requests.get(
@@ -228,31 +232,35 @@ def process_dir(new_dir, watch_dir, pipeline, flow_name, bucket_name, apex_token
         logging.info(f"dir_watcher: {new_dir} upload in progress?")
         return
     if pipeline == "covid_illumina":
-        try:
-            # submit the pipeline run
-            ret = catsgo.run_covid_illumina_catsup(
-                flow_name, str(watch_dir / new_dir), bucket_name, new_dir
-            )
-            logging.info(ret)
-            # add to it list of stuff already run
-            data = json.loads(get_and_format_metadata(watch_dir, new_dir))
-            apex_batch, apex_samples = post_metadata_to_apex(new_dir, data, apex_token)
-            add_to_cached_dirlist(
-                str(watch_dir),
-                new_dir,
-                ret.get("run_uuid", ""),
-                apex_batch,
-                apex_samples,
-                data,
-            )
-        except Exception as e:
-            logging.error(
-                f"dir_watcher: exception: pipeline: {pipeline}, new_dir: {new_dir}, watch_dir: {str(watch_dir)}, exception: {str(e)}"
-            )
+        #        try:
+        # submit the pipeline run
+        ret = catsgo.run_covid_illumina_catsup(
+            flow_name, str(watch_dir / new_dir), bucket_name, new_dir
+        )
+        logging.info(ret)
+        # add to it list of stuff already run
+        data = json.loads(get_and_format_metadata(watch_dir, new_dir))
+        logging.info(data)
+        apex_batch, apex_samples = post_metadata_to_apex(new_dir, data, apex_token)
+        add_to_cached_dirlist(
+            str(watch_dir),
+            new_dir,
+            ret.get("run_uuid", ""),
+            apex_batch,
+            apex_samples,
+            data,
+        )
+
+
+#        except Exception as e:
+#            logging.error(
+#                f"dir_watcher: exception: pipeline: {pipeline}, new_dir: {new_dir}, watch_dir: {str(watch_dir)}, exception: {str(e)}"
+#            )
 
 
 def watch(
-    watch_dir="/data/inputs/s3/oracle-test",
+    #    watch_dir="/data/inputs/s3/oracle-test",
+    watch_dir="/data/inputs/users/admin",
     pipeline="covid_illumina",
     flow_name="oxforduni-ncov2019-artic-nf-illumina",
     bucket_name="catsup-test",

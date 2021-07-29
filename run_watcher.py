@@ -15,7 +15,8 @@ import gridfs
 import pymongo
 import requests
 
-import catsgo
+from db import get_analysis, Config
+from glob import glob
 
 myclient = pymongo.MongoClient("mongodb://localhost:27017/")
 mydb = myclient["dir_watcher"]
@@ -24,11 +25,14 @@ runlist = mydb["runlist"]
 
 
 def get_finished_ok_sp3_runs(pipeline_name):
-    return (
-        catsgo.get_all_runs2(pipeline_name)
-        .get("status_to_run_uuid", dict())
-        .get("OK", list())
-    )
+    pass
+
+
+#    return (
+#        catsgo.get_all_runs2(pipeline_name)
+#        .get("status_to_run_uuid", dict())
+#        .get("OK", list())
+#    )
 
 
 def get_submitted_runlist(pipeline_name):
@@ -62,6 +66,7 @@ def get_data_for_run(new_run_uuid):
 
 def get_sample_map_for_run(new_run_uuid):
     data = get_data_for_run(new_run_uuid)
+    # logging.info(f"getting data for run {data}")
 
     if not data:
         return None
@@ -95,32 +100,35 @@ def get_apex_token():
 
 
 def make_sample_data(new_run_uuid, sp3_sample_name):
-    results = csv.reader(
+    sample = {}
+    fn = (
         Path("/work/output")
         / new_run_uuid
-        / "analysis/report/illumina/analysisReport.tsv",
-        delimiter="\t",
+        / "analysis/report/illumina/analysisReport.tsv"
     )
-    sample = {}
-    assert len(results) >= 1
-    for row in results:
-        sample = {
-            "lineageDescription": row["lineage"],
-            "pipelineVersion": "Pipeline Version",  # row["pangoLEARN_version"]
-            "pipelineDescription": "Pipeline Description",  # "Pipeline Description"
-            "vocVersion": "",  # row["phe-label"]
-            "vocPheLabel": "VOC-20DEC-01",  # row["unique-id"]
-            "assemblies": [],
-            "vcfRecords": [],
-            "variants": [],
-        }
+    logging.info(f"opening analysis report: {fn}")
+    with open(fn) as report:
 
-        for i in row["aaSubstitutions"].split(","):
-            gene, name = i.split(":")
-            sample["variants"].append({"gene": gene, "name": name})
+        results = csv.DictReader(report, delimiter="\t")
+        for row in results:
+            sample = {
+                "lineageDescription": row["lineage"],
+                "pipelineVersion": "Pipeline Version",  # row["pangoLEARN_version"]
+                "pipelineDescription": "Pipeline Description",  # "Pipeline Description"
+                "vocVersion": "",  # row["phe-label"]
+                "vocPheLabel": "VOC-20DEC-01",  # row["unique-id"]
+                "assemblies": [],
+                "vcfRecords": [],
+                "variants": [],
+            }
 
-        # let's get this working with the first row of analysis results for now
-        break
+            for i in row["aaSubstitutions"].split(","):
+                gene, name = i.split(":")
+                sample["variants"].append({"gene": gene, "name": name})
+
+            # let's get this working with the first row of analysis results for now
+            # should just have to skip E483K or whatever, really
+            break
 
     # all outputs are in /work/output/<run_uuid>
     # for example:
@@ -150,6 +158,7 @@ def submit_sample_data(apex_database_sample_name, data, apex_token):
 
 def send_output_data_to_api(new_run_uuid, apex_token):
     sample_map = get_sample_map_for_run(new_run_uuid)
+    logging.info(f"sample map {sample_map}")
     if not sample_map:
         return
     sample_map = json.loads(sample_map)
@@ -159,7 +168,7 @@ def send_output_data_to_api(new_run_uuid, apex_token):
             f"processing sample {sp3_sample_name} (oracle id: {apex_database_sample_name})"
         )
         sample_data = make_sample_data(new_run_uuid, sp3_sample_name)
-
+        logging.info(sample_data)
         # Consider:
         # save_sample_data(new_run_uuid, sp3_sample_name, sample_data)
 
@@ -170,18 +179,61 @@ def process_run(new_run_uuid, apex_token):
     send_output_data_to_api(new_run_uuid, apex_token)
 
 
-def watch(flow_name="oxforduni-ncov2019-artic-nf-illumina"):
-    while True:
-        finished_ok_sp3_runs = set(get_finished_ok_sp3_runs(flow_name))
-        submitted_runs = set(get_submitted_runlist(flow_name))
+def analysis_complete(run_uuid):
+    return Path(
+        f"/work/output/{run_uuid}/analysis/report/illumina/analysisReport.tsv"
+    ).exists()
 
-        new_runs_to_submit = finished_ok_sp3_runs.difference(submitted_runs)
+
+def get_run_uuids(pattern="/work/output/*/analysis/report/illumina/analysisReport.tsv"):
+    for report in glob(pattern):
+        yield report.split("/")[3]
+
+
+def config_gpas(apex_token):
+    conf = Config("config.ini")
+    conf.token = apex_token
+    return conf
+
+
+def watch(flow_name="oxforduni-ncov2019-artic-nf-illumina"):
+    apex_token = get_apex_token()  # run this every ten hours
+    logging.info(f"using apex token {apex_token}")
+    config = config_gpas(apex_token)
+    while True:
+        # work-around because this requires an sp3 api call:
+        # finished_ok_sp3_runs = set(get_finished_ok_sp3_runs(flow_name))
+        new_runs_to_submit = set()
+        for run_uuid in get_run_uuids():
+            s = get_sample_map_for_run(run_uuid)
+            if not s:
+                continue
+            s = json.loads(s)
+            assert len(s) == 1
+            guid, oracle_id = list(s.items())[0]
+            # logging.info(f"{run_uuid} {guid} {oracle_id}")
+            analyses = get_analysis(oracle_id, config=config)
+            if analyses is None:
+                logging.info(f"failed to fetch analyses for {oracle_id}. bad token?")
+                continue
+            if len(analyses) > 0:
+                logging.info(
+                    f"skipping completed and processed run: {run_uuid} ({oracle_id})"
+                )
+            else:
+                new_runs_to_submit.add(run_uuid)
+
+        logging.info(f"new runs to submit: {new_runs_to_submit}")
+        #        submitted_runs = set(get_submitted_runlist(flow_name))
 
         if new_runs_to_submit:
-            apex_token = get_apex_token()
+            pass  # generate a new token here if < 10 hours have elapsed
+        #            apex_token = get_apex_token()
 
         for new_run_uuid in new_runs_to_submit:
-            logging.info(f"new run: {new_run_uuid}")
+            logging.info(
+                f"new run: {new_run_uuid}, complete: {analysis_complete(new_run_uuid)}"
+            )
             process_run(new_run_uuid, apex_token)
             add_to_submitted_runlist(flow_name, new_run_uuid)
 
