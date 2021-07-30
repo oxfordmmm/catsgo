@@ -220,7 +220,7 @@ def watch(flow_name="oxforduni-ncov2019-artic-nf-illumina"):
                 logging.info(
                     f"skipping completed and processed run: {run_uuid} ({oracle_id})"
                 )
-            else:
+            if len(analyses) == 0:
                 new_runs_to_submit.add(run_uuid)
 
         logging.info(f"new runs to submit: {new_runs_to_submit}")
