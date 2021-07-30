@@ -154,9 +154,11 @@ def get_analysis(sample_id, config=config):
     except:
         print(f"empty response from host: {url}", file=sys.stderr)
         return None
-    if "analysis" in j:
-        return j["analysis"]
-    return []
+    analyses = []
+    for sample in j:
+        if "analysis" in sample:
+            analyses.append(sample["analysis"])
+    return analyses
 
 
 def get_samples(batch_id, query=None, negate_query=False, config=config):
