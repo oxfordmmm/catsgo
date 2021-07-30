@@ -145,8 +145,12 @@ def get_analysis(sample_id, config=config):
     headers = {"Authorization": f"Bearer {config.token}"}
     response = requests.get(url, headers=headers)
     #   assert print(response) # is 200
+    print(f"{response}, {response.text}")
+    safe_response = response.text.replace(
+        "Pipeline Description", '"Pipeline Description"'
+    )
     try:
-        j = response.json()
+        j = json.loads(safe_response)
     except:
         print(f"empty response from host: {url}", file=sys.stderr)
         return None
