@@ -89,11 +89,8 @@ def get_apex_token():
         client_secret = c.get("client_secret")
 
     access_token_response = requests.post(
-        "{idcs}",
-        data={
-            "grant_type": "client_credentials",
-            "scope": "{config.url}",
-        },
+        "{config.idcs}",
+        data={"grant_type": "client_credentials", "scope": "{config.url}",},
         verify=False,
         allow_redirects=False,
         auth=(client_id, client_secret),

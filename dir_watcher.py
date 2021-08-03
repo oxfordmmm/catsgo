@@ -25,6 +25,8 @@ mydb = myclient["dir_watcher"]
 dirlist = mydb["dirlist"]
 metadata = mydb["metadata"]
 
+config = Config("config.ini")
+
 
 def get_cached_dirlist(watch_dir):
     """
@@ -81,7 +83,6 @@ def remove_from_cached_dirlist(watch_dir, new_dir):
 
 
 def get_and_format_metadata(watch_dir, new_dir):
-    config = Config("config.ini")
     data_file = Path(watch_dir) / new_dir / "sp3data.csv"
     logging.info(f"processing {data_file}")
     if not data_file.is_file():
