@@ -89,13 +89,19 @@ def get_apex_token():
         client_secret = c.get("client_secret")
 
     access_token_response = requests.post(
-        "https://apex.oracle.com/pls/apex/catnip/oauth/token",
-        data={"grant_type": "client_credentials"},
+        "{idcs}",
+        data={
+            "grant_type": "client_credentials",
+            "scope": "{config.url}",
+        },
         verify=False,
         allow_redirects=False,
         auth=(client_id, client_secret),
     )
     access_token = access_token_response.json().get("access_token")
+    if not access_token:
+        logging.error(f"Error generating token: {access_token_response.text}")
+        exit(1)
     return access_token
 
 
@@ -144,19 +150,19 @@ def make_sample_data(new_run_uuid, sp3_sample_name):
     return sample
 
 
-def submit_sample_data(apex_database_sample_name, data, apex_token):
+def submit_sample_data(apex_database_sample_name, data, config):
     data = {
         "sample": {"operations": [{"op": "add", "path": "analysis", "value": [data]}]}
     }
     sample_data_response = requests.put(
-        f"https://apex.oracle.com/pls/apex/catnip/xyz/samples/{apex_database_sample_name}",
-        headers={"Authorization": f"Bearer {apex_token}"},
+        f"{config.url}/{apex_database_sample_name}",
+        headers={"Authorization": f"Bearer {config.token}"},
         json=data,
     )
     return sample_data_response.text
 
 
-def send_output_data_to_api(new_run_uuid, apex_token):
+def send_output_data_to_api(new_run_uuid, config):
     sample_map = get_sample_map_for_run(new_run_uuid)
     logging.info(f"sample map {sample_map}")
     if not sample_map:
@@ -172,7 +178,7 @@ def send_output_data_to_api(new_run_uuid, apex_token):
         # Consider:
         # save_sample_data(new_run_uuid, sp3_sample_name, sample_data)
 
-        submit_sample_data(apex_database_sample_name, sample_data, apex_token)
+        submit_sample_data(apex_database_sample_name, sample_data, config)
 
 
 def process_run(new_run_uuid, apex_token):

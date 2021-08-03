@@ -57,6 +57,7 @@ def add_to_cached_dirlist(
     dirlist.update_one(
         {"watch_dir": watch_dir}, {"$push": {"dirs": new_dir}}, upsert=True
     )
+    logging.info(f"{run_uuid}, {submitted_metadata}, {apex_batch}")
     metadata.update_one(
         {"catsup_uuid": new_dir},
         {
@@ -82,6 +83,7 @@ def remove_from_cached_dirlist(watch_dir, new_dir):
 def get_and_format_metadata(watch_dir, new_dir):
     config = Config("config.ini")
     data_file = Path(watch_dir) / new_dir / "sp3data.csv"
+    logging.info(f"processing {data_file}")
     if not data_file.is_file():
         logging.error(f"get_and_format_metadata: {data_file} not a file")
         return
@@ -118,7 +120,7 @@ def get_and_format_metadata(watch_dir, new_dir):
         p = {
             "name": row.get("sample_uuid4", ""),
             "host": row.get("sample_host", ""),
-            "collectionDate": row.get("sample_collection_date", ""),
+            "collectionDate": uploadedOn,  # row.get("sample_collection_date", ""),
             "country": row.get("sample_country", ""),
             "fileName": row.get("sample_uuid4", ""),
             "specimenOrganism": row.get("sample_organism", "SARS-CoV-2"),
@@ -185,32 +187,33 @@ def get_apex_token():
         client_secret = c.get("client_secret")
 
     access_token_response = requests.post(
-        "https://apex.oracle.com/pls/apex/catnip/oauth/token",
-        data={"grant_type": "client_credentials"},
+        "{config.idcs}",
+        data={"grant_type": "client_credentials", "scope": "{config.url}",},
         verify=False,
         allow_redirects=False,
         auth=(client_id, client_secret),
     )
     access_token = access_token_response.json().get("access_token")
+    logging.info(f"got apex token {access_token}")
     return access_token
 
 
 def post_metadata_to_apex(new_dir, data, apex_token):
     logging.info(apex_token)
     batch_response = requests.post(
-        "https://apex.oracle.com/pls/apex/catnip/xyz/batches",
+        "{config.url}/batches",
         headers={"Authorization": f"Bearer {apex_token}"},
         json=data,
     )
+    logging.info(f"apex response: {batch_response.text}")
     apex_batch = batch_response.json()
-    logging.info(apex_batch)
 
     batch_id = apex_batch.get("id")
     assert batch_id
     print(batch_id)
 
     samples_response = requests.get(
-        f"https://apex.oracle.com/pls/apex/catnip/xyz/batches/{batch_id}",
+        f"{config.url}/batches/{batch_id}",
         headers={"Authorization": f"Bearer {apex_token}"},
     )
     apex_samples = samples_response.json()
@@ -239,7 +242,8 @@ def process_dir(new_dir, watch_dir, pipeline, flow_name, bucket_name, apex_token
         )
         logging.info(ret)
         # add to it list of stuff already run
-        data = json.loads(get_and_format_metadata(watch_dir, new_dir))
+        data_x = get_and_format_metadata(watch_dir, new_dir)
+        data = json.loads(data_x)
         logging.info(data)
         apex_batch, apex_samples = post_metadata_to_apex(new_dir, data, apex_token)
         add_to_cached_dirlist(
