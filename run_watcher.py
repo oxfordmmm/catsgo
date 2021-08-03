@@ -89,8 +89,8 @@ def get_apex_token():
         client_secret = c.get("client_secret")
 
     access_token_response = requests.post(
-        "{config.idcs}",
-        data={"grant_type": "client_credentials", "scope": "{config.url}",},
+        config.idcs,
+        data={"grant_type": "client_credentials", "scope": config.url,},
         verify=False,
         allow_redirects=False,
         auth=(client_id, client_secret),
@@ -113,17 +113,19 @@ def make_sample_data(new_run_uuid, sp3_sample_name):
     with open(fn) as report:
 
         results = csv.DictReader(report, delimiter="\t")
+        sample = {
+            "pipelineVersion": "Pipeline Version",  # row["pangoLEARN_version"]
+            "pipelineDescription": "Pipeline Description",  # "Pipeline Description"
+            "vocVersion": "",  # row["phe-label"]
+            "vocPheLabel": "VOC-20DEC-01",  # row["unique-id"]
+            "assemblies": [],
+            "vcfRecords": [],
+            "variants": [],
+        }
+
         for row in results:
-            sample = {
-                "lineageDescription": row["lineage"],
-                "pipelineVersion": "Pipeline Version",  # row["pangoLEARN_version"]
-                "pipelineDescription": "Pipeline Description",  # "Pipeline Description"
-                "vocVersion": "",  # row["phe-label"]
-                "vocPheLabel": "VOC-20DEC-01",  # row["unique-id"]
-                "assemblies": [],
-                "vcfRecords": [],
-                "variants": [],
-            }
+            logging.info(f"lineage call: {row['lineage']}")
+            sample["lineageDescription"] = row["lineage"]
 
             for i in row["aaSubstitutions"].split(","):
                 gene, name = i.split(":")
@@ -131,7 +133,6 @@ def make_sample_data(new_run_uuid, sp3_sample_name):
 
             # let's get this working with the first row of analysis results for now
             # should just have to skip E483K or whatever, really
-            break
 
     # all outputs are in /work/output/<run_uuid>
     # for example:
@@ -221,7 +222,7 @@ def watch(flow_name="oxforduni-ncov2019-artic-nf-illumina"):
                 continue
             if len(analyses) > 0:
                 logging.info(
-                    f"skipping completed and processed run: {run_uuid} ({oracle_id})"
+                    f"skipping completed and processed run: {run_uuid} ({oracle_id}) analyses: {analyses}"
                 )
             if len(analyses) == 0:
                 new_runs_to_submit.add(run_uuid)
@@ -230,8 +231,8 @@ def watch(flow_name="oxforduni-ncov2019-artic-nf-illumina"):
         #        submitted_runs = set(get_submitted_runlist(flow_name))
 
         if new_runs_to_submit:
-            pass  # generate a new token here if < 10 hours have elapsed
-        #            apex_token = get_apex_token()
+            config.token = get_apex_token()
+            # generate a new token here if < N hours have elapsed
 
         for new_run_uuid in new_runs_to_submit:
             logging.info(
