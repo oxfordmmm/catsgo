@@ -9,6 +9,7 @@ class Config:
     token = None
     host = None
     user = None
+    idcs = None
 
     def __init__(self, fn):
         c = configparser.ConfigParser()
@@ -16,6 +17,7 @@ class Config:
         self.token = c["oracle_rest"]["token"]
         self.host = c["oracle_rest"]["host"]
         self.user = c["oracle_rest"]["user"]
+        self.idcs = c["oracle_rest"]["idcs"]
 
 
 config = Config("config.ini")

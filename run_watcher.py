@@ -87,10 +87,11 @@ def get_apex_token():
         c = json.load(f)
         client_id = c.get("client_id")
         client_secret = c.get("client_secret")
+    config = Config("config.ini")
 
     access_token_response = requests.post(
         config.idcs,
-        data={"grant_type": "client_credentials", "scope": config.url,},
+        data={"grant_type": "client_credentials", "scope": config.host,},
         verify=False,
         allow_redirects=False,
         auth=(client_id, client_secret),
@@ -153,7 +154,7 @@ def submit_sample_data(apex_database_sample_name, data, config):
         "sample": {"operations": [{"op": "add", "path": "analysis", "value": [data]}]}
     }
     sample_data_response = requests.put(
-        f"{config.url}/{apex_database_sample_name}",
+        f"{config.host}/{apex_database_sample_name}",
         headers={"Authorization": f"Bearer {config.token}"},
         json=data,
     )
@@ -231,7 +232,7 @@ def watch(flow_name="oxforduni-ncov2019-artic-nf-illumina"):
         #        submitted_runs = set(get_submitted_runlist(flow_name))
 
         if new_runs_to_submit:
-            config.token = get_apex_token()
+            pass
             # generate a new token here if < N hours have elapsed
 
         for new_run_uuid in new_runs_to_submit:
@@ -243,6 +244,7 @@ def watch(flow_name="oxforduni-ncov2019-artic-nf-illumina"):
 
         logging.info("sleeping for 60")
         time.sleep(60)
+        config.token = get_apex_token()
 
 
 if __name__ == "__main__":

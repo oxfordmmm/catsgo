@@ -188,8 +188,8 @@ def get_apex_token():
         client_secret = c.get("client_secret")
 
     access_token_response = requests.post(
-        "{config.idcs}",
-        data={"grant_type": "client_credentials", "scope": "{config.url}",},
+        config.idcs,
+        data={"grant_type": "client_credentials", "scope": config.host,},
         verify=False,
         allow_redirects=False,
         auth=(client_id, client_secret),
@@ -202,7 +202,7 @@ def get_apex_token():
 def post_metadata_to_apex(new_dir, data, apex_token):
     logging.info(apex_token)
     batch_response = requests.post(
-        "{config.url}/batches",
+        f"{config.host}/batches",
         headers={"Authorization": f"Bearer {apex_token}"},
         json=data,
     )
@@ -214,7 +214,7 @@ def post_metadata_to_apex(new_dir, data, apex_token):
     print(batch_id)
 
     samples_response = requests.get(
-        f"{config.url}/batches/{batch_id}",
+        f"{config.host}/batches/{batch_id}",
         headers={"Authorization": f"Bearer {apex_token}"},
     )
     apex_samples = samples_response.json()
@@ -283,7 +283,7 @@ def watch(
     watch_dir = Path(watch_dir)
     if not watch_dir.is_dir():
         logging.error(f"{watch_dir} is not a directory")
-        os.exit(1)
+        exit(1)
 
     while True:
         # get all directories in bucket
