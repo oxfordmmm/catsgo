@@ -25,8 +25,6 @@ mydb = myclient["dir_watcher"]
 dirlist = mydb["dirlist"]
 metadata = mydb["metadata"]
 
-config = Config("config.ini")
-
 
 def get_cached_dirlist(watch_dir):
     """
@@ -83,6 +81,7 @@ def remove_from_cached_dirlist(watch_dir, new_dir):
 
 
 def get_and_format_metadata(watch_dir, new_dir):
+    config = Config("config.ini")
     data_file = Path(watch_dir) / new_dir / "sp3data.csv"
     logging.info(f"processing {data_file}")
     if not data_file.is_file():
@@ -195,12 +194,12 @@ def get_apex_token():
         auth=(client_id, client_secret),
     )
     access_token = access_token_response.json().get("access_token")
-    logging.info(f"got apex token {access_token}")
+    logging.debug(f"got apex token {access_token}")
     return access_token
 
 
 def post_metadata_to_apex(new_dir, data, apex_token):
-    logging.info(apex_token)
+    # logging.info(apex_token)
     batch_response = requests.post(
         f"{config.host}/batches",
         headers={"Authorization": f"Bearer {apex_token}"},
@@ -210,7 +209,8 @@ def post_metadata_to_apex(new_dir, data, apex_token):
     apex_batch = batch_response.json()
 
     batch_id = apex_batch.get("id")
-    assert batch_id
+    if not batch_id:
+        return None, None
     print(batch_id)
 
     samples_response = requests.get(
@@ -245,8 +245,11 @@ def process_dir(new_dir, watch_dir, pipeline, flow_name, bucket_name, apex_token
         # add to it list of stuff already run
         data_x = get_and_format_metadata(watch_dir, new_dir)
         data = json.loads(data_x)
-        logging.info(data)
+        # logging.info(data)
         apex_batch, apex_samples = post_metadata_to_apex(new_dir, data, apex_token)
+        if not apex_batch:
+            return
+
         add_to_cached_dirlist(
             str(watch_dir),
             new_dir,
@@ -264,8 +267,8 @@ def process_dir(new_dir, watch_dir, pipeline, flow_name, bucket_name, apex_token
 
 
 def watch(
-    #    watch_dir="/data/inputs/s3/oracle-test",
-    watch_dirs=None,
+    watch_dir="/data/inputs/s3/oracle-test",
+    # watch_dir="/data/inputs/users/admin",
     pipeline="covid_illumina",
     flow_name="oxforduni-ncov2019-artic-nf-illumina",
     bucket_name="catsup-test",
@@ -278,38 +281,28 @@ def watch(
     flow_name: the sp3 flow name (currently oxforduni-ncov2019-artic-nf-illumina)
     bucket_name: the bucket name that's mounted in the watch_dir directory (used by the pipeline to fetch the sample files)
     """
+
     print(doc)
-    watch_dirs = [f"/data/inputs/s3/{bucket}" for bucket in config.buckets]
-    for watch_dir in watch_dirs:
-        watch_dir = Path(watch_dir)
-        if not watch_dir.is_dir():
-            logging.error(f"{watch_dir} is not a directory")
-            exit(1)
+    watch_dir = Path(watch_dir)
+    if not watch_dir.is_dir():
+        logging.error(f"{watch_dir} is not a directory")
+        os.exit(1)
 
     while True:
         # get all directories in bucket
         # note that directories are named after submission uuids, so this is effectively a list of submission uuids
-        candidate_dirs = set()
-        for watch_dir in watch_dirs:
-            for x in Path(watch_dir).glob("*"):
-                if x.is_dir():
-                    candidate_dirs.add(x.name)
-
+        candidate_dirs = set([x.name for x in Path(watch_dir).glob("*") if x.is_dir()])
         # get directories that have already been processed
-        cached_dirlist = set()
-        for watch_dir in watch_dirs:
-            for d in get_cached_dirlist(str(watch_dir)):
-                cached_dirlist.add(d)
+        cached_dirlist = set(get_cached_dirlist(str(watch_dir)))
         # get directories that need to be checked
         new_dirs = candidate_dirs.difference(cached_dirlist)
 
         if new_dirs:
             apex_token = get_apex_token()
-        for watch_dir in watch_dirs:
-            for new_dir in new_dirs:  #  new_dir is the catsup upload uuid
-                process_dir(
-                    new_dir, watch_dir, pipeline, flow_name, bucket_name, apex_token
-                )
+        for new_dir in new_dirs:  #  new_dir is the catsup upload uuid
+            process_dir(
+                new_dir, watch_dir, pipeline, flow_name, bucket_name, apex_token
+            )
 
         logging.debug("sleeping for 60")
         time.sleep(60)

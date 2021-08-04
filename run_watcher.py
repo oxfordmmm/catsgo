@@ -87,6 +87,7 @@ def get_apex_token():
         c = json.load(f)
         client_id = c.get("client_id")
         client_secret = c.get("client_secret")
+
     config = Config("config.ini")
 
     access_token_response = requests.post(
@@ -115,7 +116,6 @@ def make_sample_data(new_run_uuid, sp3_sample_name):
 
         results = csv.DictReader(report, delimiter="\t")
         sample = {
-            "pipelineVersion": "Pipeline Version",  # row["pangoLEARN_version"]
             "pipelineDescription": "Pipeline Description",  # "Pipeline Description"
             "vocVersion": "",  # row["phe-label"]
             "vocPheLabel": "VOC-20DEC-01",  # row["unique-id"]
@@ -127,6 +127,8 @@ def make_sample_data(new_run_uuid, sp3_sample_name):
         for row in results:
             logging.info(f"lineage call: {row['lineage']}")
             sample["lineageDescription"] = row["lineage"]
+            sample["pipelineVersion"] = row["version"]
+            sample["status"] = "Ready to Release"
 
             for i in row["aaSubstitutions"].split(","):
                 gene, name = i.split(":")
@@ -154,16 +156,18 @@ def submit_sample_data(apex_database_sample_name, data, config):
         "sample": {"operations": [{"op": "add", "path": "analysis", "value": [data]}]}
     }
     sample_data_response = requests.put(
-        f"{config.host}/{apex_database_sample_name}",
+        f"{config.host}/samples/{apex_database_sample_name}",
         headers={"Authorization": f"Bearer {config.token}"},
         json=data,
     )
+    logging.info(f"POSTing to {config.host}/samples/{apex_database_sample_name}")
+    logging.info(f"{data}")
     return sample_data_response.text
 
 
 def send_output_data_to_api(new_run_uuid, config):
     sample_map = get_sample_map_for_run(new_run_uuid)
-    logging.info(f"sample map {sample_map}")
+    # logging.info(f"sample map {sample_map}")
     if not sample_map:
         return
     sample_map = json.loads(sample_map)
@@ -177,11 +181,12 @@ def send_output_data_to_api(new_run_uuid, config):
         # Consider:
         # save_sample_data(new_run_uuid, sp3_sample_name, sample_data)
 
-        submit_sample_data(apex_database_sample_name, sample_data, config)
+        r = submit_sample_data(apex_database_sample_name, sample_data, config)
+        logging.info(f"received {r}")
 
 
-def process_run(new_run_uuid, apex_token):
-    send_output_data_to_api(new_run_uuid, apex_token)
+def process_run(new_run_uuid, config):
+    send_output_data_to_api(new_run_uuid, config)
 
 
 def analysis_complete(run_uuid):
@@ -214,17 +219,30 @@ def watch(flow_name="oxforduni-ncov2019-artic-nf-illumina"):
             if not s:
                 continue
             s = json.loads(s)
-            assert len(s) == 1
+            if len(s) != 1:
+                logging.info(f"got multiple fields? {s}")
             guid, oracle_id = list(s.items())[0]
             # logging.info(f"{run_uuid} {guid} {oracle_id}")
             analyses = get_analysis(oracle_id, config=config)
             if analyses is None:
                 logging.info(f"failed to fetch analyses for {oracle_id}. bad token?")
                 continue
+            analyses = analyses[0]
             if len(analyses) > 0:
                 logging.info(
-                    f"skipping completed and processed run: {run_uuid} ({oracle_id}) analyses: {analyses}"
+                    f"run already had analyses: {run_uuid} ({oracle_id}) analyses: {analyses}"
                 )
+                all_null = True
+                for analysis in analyses:
+                    logging.info(f"analysis: {analysis}")
+                    if (
+                        analysis["pipelineVersion"] is not None
+                    ):  # and analysis["pipelineVersion"] != "Pipeline Version":
+                        all_null = False
+                if all_null:
+                    logging.info(f"all analyses are null: {analyses}")
+                    new_runs_to_submit.add(run_uuid)
+
             if len(analyses) == 0:
                 new_runs_to_submit.add(run_uuid)
 
@@ -239,7 +257,7 @@ def watch(flow_name="oxforduni-ncov2019-artic-nf-illumina"):
             logging.info(
                 f"new run: {new_run_uuid}, complete: {analysis_complete(new_run_uuid)}"
             )
-            process_run(new_run_uuid, apex_token)
+            process_run(new_run_uuid, config)
             add_to_submitted_runlist(flow_name, new_run_uuid)
 
         logging.info("sleeping for 60")
