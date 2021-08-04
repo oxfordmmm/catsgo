@@ -10,6 +10,7 @@ class Config:
     host = None
     user = None
     idcs = None
+    buckets = []
 
     def __init__(self, fn):
         c = configparser.ConfigParser()
@@ -18,6 +19,7 @@ class Config:
         self.host = c["oracle_rest"]["host"]
         self.user = c["oracle_rest"]["user"]
         self.idcs = c["oracle_rest"]["idcs"]
+        self.buckets = c["user_buckets"]["buckets"]
 
 
 config = Config("config.ini")

@@ -265,7 +265,7 @@ def process_dir(new_dir, watch_dir, pipeline, flow_name, bucket_name, apex_token
 
 def watch(
     #    watch_dir="/data/inputs/s3/oracle-test",
-    watch_dir="/data/inputs/users/admin",
+    watch_dirs=None,
     pipeline="covid_illumina",
     flow_name="oxforduni-ncov2019-artic-nf-illumina",
     bucket_name="catsup-test",
@@ -278,28 +278,38 @@ def watch(
     flow_name: the sp3 flow name (currently oxforduni-ncov2019-artic-nf-illumina)
     bucket_name: the bucket name that's mounted in the watch_dir directory (used by the pipeline to fetch the sample files)
     """
-
     print(doc)
-    watch_dir = Path(watch_dir)
-    if not watch_dir.is_dir():
-        logging.error(f"{watch_dir} is not a directory")
-        exit(1)
+    watch_dirs = [f"/data/inputs/s3/{bucket}" for bucket in config.buckets]
+    for watch_dir in watch_dirs:
+        watch_dir = Path(watch_dir)
+        if not watch_dir.is_dir():
+            logging.error(f"{watch_dir} is not a directory")
+            exit(1)
 
     while True:
         # get all directories in bucket
         # note that directories are named after submission uuids, so this is effectively a list of submission uuids
-        candidate_dirs = set([x.name for x in Path(watch_dir).glob("*") if x.is_dir()])
+        candidate_dirs = set()
+        for watch_dir in watch_dirs:
+            for x in Path(watch_dir).glob("*"):
+                if x.is_dir():
+                    candidate_dirs.add(x.name)
+
         # get directories that have already been processed
-        cached_dirlist = set(get_cached_dirlist(str(watch_dir)))
+        cached_dirlist = set()
+        for watch_dir in watch_dirs:
+            for d in get_cached_dirlist(str(watch_dir)):
+                cached_dirlist.add(d)
         # get directories that need to be checked
         new_dirs = candidate_dirs.difference(cached_dirlist)
 
         if new_dirs:
             apex_token = get_apex_token()
-        for new_dir in new_dirs:  #  new_dir is the catsup upload uuid
-            process_dir(
-                new_dir, watch_dir, pipeline, flow_name, bucket_name, apex_token
-            )
+        for watch_dir in watch_dirs:
+            for new_dir in new_dirs:  #  new_dir is the catsup upload uuid
+                process_dir(
+                    new_dir, watch_dir, pipeline, flow_name, bucket_name, apex_token
+                )
 
         logging.debug("sleeping for 60")
         time.sleep(60)
