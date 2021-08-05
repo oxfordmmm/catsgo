@@ -112,15 +112,15 @@ def get_and_format_metadata(watch_dir, new_dir):
         metadata = {
             "fileName": row.get("submission_uuid4", ""),
             "uploadedOn": uploadedOn,
-            "uploadedBy": config.user,  # row.get("submitter_email", ""),
-            "organisation": "PHE",  # row.get("submitter_organisation", ""),
-            "site": "PHE OUH",  # row.get("submitter_site", ""),
+            "uploadedBy": row.get("submitter_email", ""),
+            "organisation": row.get("submitter_organisation", ""),
+            "site": row.get("submitter_site", ""),
             "errorMsg": "",
         }
         p = {
             "name": row.get("sample_uuid4", ""),
             "host": row.get("sample_host", ""),
-            "collectionDate": uploadedOn,  # row.get("sample_collection_date", ""),
+            "collectionDate": uploadedOn,  # TODO row.get("sample_collection_date", ""),
             "country": row.get("sample_country", ""),
             "fileName": row.get("sample_uuid4", ""),
             "specimenOrganism": row.get("sample_organism", "SARS-CoV-2"),
@@ -190,7 +190,6 @@ def get_apex_token():
     access_token_response = requests.post(
         config.idcs,
         data={"grant_type": "client_credentials", "scope": config.host,},
-        #    verify=False,
         allow_redirects=False,
         auth=(client_id, client_secret),
     )
@@ -245,7 +244,6 @@ def process_dir(new_dir, watch_dir, pipeline, flow_name, bucket_name, apex_token
     if pipeline == "covid_illumina":
         #        try:
         # submit the pipeline run
-        logging.info(ret)
         # add to it list of stuff already run
         data_x = get_and_format_metadata(watch_dir, new_dir)
         data = json.loads(data_x)
@@ -257,6 +255,7 @@ def process_dir(new_dir, watch_dir, pipeline, flow_name, bucket_name, apex_token
             flow_name, str(watch_dir / new_dir), bucket_name, new_dir
         )
 
+        logging.info(ret)
         add_to_cached_dirlist(
             str(watch_dir),
             new_dir,
