@@ -186,10 +186,11 @@ def get_apex_token():
         client_id = c.get("client_id")
         client_secret = c.get("client_secret")
 
+    config = Config("config.ini")
     access_token_response = requests.post(
         config.idcs,
         data={"grant_type": "client_credentials", "scope": config.host,},
-        verify=False,
+        #    verify=False,
         allow_redirects=False,
         auth=(client_id, client_secret),
     )
@@ -200,13 +201,19 @@ def get_apex_token():
 
 def post_metadata_to_apex(new_dir, data, apex_token):
     # logging.info(apex_token)
+    config = Config("config.ini")
     batch_response = requests.post(
         f"{config.host}/batches",
         headers={"Authorization": f"Bearer {apex_token}"},
         json=data,
     )
-    logging.info(f"apex response: {batch_response.text}")
-    apex_batch = batch_response.json()
+
+    try:
+        apex_batch = batch_response.json()
+    except:
+        logging.info(f"apex response was not json: {batch_response.text}")
+        logging.info(f"submitted data: {data}")
+        return None, None
 
     batch_id = apex_batch.get("id")
     if not batch_id:
@@ -238,9 +245,6 @@ def process_dir(new_dir, watch_dir, pipeline, flow_name, bucket_name, apex_token
     if pipeline == "covid_illumina":
         #        try:
         # submit the pipeline run
-        ret = catsgo.run_covid_illumina_catsup(
-            flow_name, str(watch_dir / new_dir), bucket_name, new_dir
-        )
         logging.info(ret)
         # add to it list of stuff already run
         data_x = get_and_format_metadata(watch_dir, new_dir)
@@ -249,6 +253,9 @@ def process_dir(new_dir, watch_dir, pipeline, flow_name, bucket_name, apex_token
         apex_batch, apex_samples = post_metadata_to_apex(new_dir, data, apex_token)
         if not apex_batch:
             return
+        ret = catsgo.run_covid_illumina_catsup(
+            flow_name, str(watch_dir / new_dir), bucket_name, new_dir
+        )
 
         add_to_cached_dirlist(
             str(watch_dir),

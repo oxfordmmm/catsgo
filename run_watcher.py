@@ -93,7 +93,7 @@ def get_apex_token():
     access_token_response = requests.post(
         config.idcs,
         data={"grant_type": "client_credentials", "scope": config.host,},
-        verify=False,
+        #    verify=False,
         allow_redirects=False,
         auth=(client_id, client_secret),
     )
@@ -214,39 +214,45 @@ def watch(flow_name="oxforduni-ncov2019-artic-nf-illumina"):
         # work-around because this requires an sp3 api call:
         # finished_ok_sp3_runs = set(get_finished_ok_sp3_runs(flow_name))
         new_runs_to_submit = set()
-        for run_uuid in get_run_uuids():
+        run_uuids = list(get_run_uuids())
+        nsamples = 0
+        for run_uuid in run_uuids:
             s = get_sample_map_for_run(run_uuid)
             if not s:
                 continue
             s = json.loads(s)
-            if len(s) != 1:
-                logging.info(f"got multiple fields? {s}")
-            guid, oracle_id = list(s.items())[0]
-            # logging.info(f"{run_uuid} {guid} {oracle_id}")
-            analyses = get_analysis(oracle_id, config=config)
-            if analyses is None:
-                logging.info(f"failed to fetch analyses for {oracle_id}. bad token?")
-                continue
-            analyses = analyses[0]
-            if len(analyses) > 0:
-                logging.info(
-                    f"run already had analyses: {run_uuid} ({oracle_id}) analyses: {analyses}"
-                )
-                all_null = True
-                for analysis in analyses:
-                    logging.info(f"analysis: {analysis}")
-                    if (
-                        analysis["pipelineVersion"] is not None
-                    ):  # and analysis["pipelineVersion"] != "Pipeline Version":
-                        all_null = False
-                if all_null:
-                    logging.info(f"all analyses are null: {analyses}")
+            for guid, oracle_id in s.items():
+                nsamples += 1
+                # logging.info(f"{run_uuid} {guid} {oracle_id}")
+                analyses = get_analysis(oracle_id, config=config)
+                if analyses is None:
+                    logging.info(
+                        f"failed to fetch analyses for {oracle_id}. bad token?"
+                    )
+                    continue
+                analyses = analyses[0]
+                if len(analyses) > 0:
+                    # logging.info(
+                    # f"run already had analyses: {run_uuid} ({oracle_id}) analyses: {analyses}"
+                    # )
+                    all_null = True
+                    for analysis in analyses:
+                        # logging.info(f"analysis: {analysis}")
+                        if (
+                            analysis["pipelineVersion"] is not None
+                            and analysis["pipelineVersion"] != "Pipeline Version"
+                        ):
+                            all_null = False
+                    if all_null:
+                        # logging.info(f"all analyses are null: {analyses}")
+                        new_runs_to_submit.add(run_uuid)
+
+                if len(analyses) == 0:
                     new_runs_to_submit.add(run_uuid)
 
-            if len(analyses) == 0:
-                new_runs_to_submit.add(run_uuid)
-
-        logging.info(f"new runs to submit: {new_runs_to_submit}")
+        logging.info(
+            f"there are {len(run_uuids)} runs. {nsamples} samples. {len(new_runs_to_submit)} new runs to submit."
+        )
         #        submitted_runs = set(get_submitted_runlist(flow_name))
 
         if new_runs_to_submit:

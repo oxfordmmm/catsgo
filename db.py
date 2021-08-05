@@ -53,8 +53,8 @@ def get_sample(sample_id, config=config):
     headers = {"Authorization": f"Bearer {config.token}"}
     response = requests.get(url, headers=headers)
     #   assert print(response) # is 200
-    print(response)
-    print(response.text)
+    # print(response)
+    # print(response.text)
     try:
         return response.json()
     except:
@@ -149,7 +149,7 @@ def get_analysis(sample_id, config=config):
     headers = {"Authorization": f"Bearer {config.token}"}
     response = requests.get(url, headers=headers)
     #   assert print(response) # is 200
-    print(f"{response}, {response.text}")
+    # print(f"{response}, {response.text}")
     safe_response = response.text.replace(
         "Pipeline Description", '"Pipeline Description"'
     )
