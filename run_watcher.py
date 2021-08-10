@@ -109,7 +109,8 @@ def make_sample_data(new_run_uuid, sp3_sample_name):
     fn = (
         Path("/work/output")
         / new_run_uuid
-        / "analysis/report/illumina/analysisReport.tsv"
+        / "analysis/report/illumina"
+        / f"{sp3_sample_name}_report.tsv"
     )
     logging.info(f"opening analysis report: {fn}")
     with open(fn) as report:
