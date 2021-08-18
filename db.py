@@ -102,47 +102,6 @@ def submit_batch(batch, config=config):
     return response
 
 
-def batch_from_csv(fn):
-    fd = open(fn)
-    header = fd.readline().strip().split(",")
-    time = datetime.now().isoformat(timespec="milliseconds")
-    batch = {
-        "fileName": fn,
-        "uploadedOn": f"{time}Z",
-        "uploadedBy": config.user,
-        "organisation": "PHE",
-        "site": "PHE OUH",
-        "errorMsg": "",
-        "samples": [],
-    }
-
-    for line in fd:
-        r = dict(zip(header, line.strip().split(",")))
-        if not r["object_store_bucket"]:
-            continue
-        collection_date = datetime.fromisoformat(r["sample_date"]).isoformat(
-            timespec="milliseconds"
-        )
-        batch["samples"].append(
-            {
-                "name": r["experiment_accession"],
-                "host": "Homo sapiens",
-                "collectionDate": f"{collection_date}Z",
-                "country": r["ena_country"],
-                "fileName": r["submitted_ftp"],
-                "specimenOrganism": "SARS-CoV-2",
-                "specimenSource": "swab",
-                "status": "Uploaded",
-                "instrument": {
-                    "platform": r["instrument_platform"],
-                    "model": "test",
-                    "flowcell": "96",
-                },
-            }
-        )
-    return {"batch": batch}
-
-
 def get_analysis(sample_id, config=config):
     url = f"{config.host}/samples/{sample_id}"
     method = "GET"
