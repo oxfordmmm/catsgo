@@ -26,6 +26,13 @@ dirlist = mydb["dirlist"]
 metadata = mydb["metadata"]
 
 
+logging.basicConfig(
+    level=logging.DEBUG,
+    format='%(asctime)s.%(msecs)03d %(levelname)s %(module)s - %(funcName)s: %(message)s',
+    datefmt='%Y-%m-%d %H:%M:%S',
+)
+
+
 def get_cached_dirlist(watch_dir):
     """
     get the list of uuids that have already run

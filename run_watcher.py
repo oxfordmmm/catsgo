@@ -24,6 +24,13 @@ metadata = mydb["metadata"]
 runlist = mydb["runlist"]
 
 
+logging.basicConfig(
+    level=logging.DEBUG,
+    format='%(asctime)s.%(msecs)03d %(levelname)s %(module)s - %(funcName)s: %(message)s',
+    datefmt='%Y-%m-%d %H:%M:%S',
+)
+
+
 def get_finished_ok_sp3_runs(pipeline_name):
     pass
 
