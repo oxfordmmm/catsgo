@@ -223,6 +223,8 @@ def post_metadata_to_apex(new_dir, data, apex_token):
 
     batch_id = apex_batch.get("id")
     if not batch_id:
+        logging.info(f"failed to get batch id: {data}")
+        logging.info(f"apex returned: {apex_batch}")
         return None, None
     print(batch_id)
 
