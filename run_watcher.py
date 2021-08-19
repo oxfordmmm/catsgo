@@ -8,6 +8,7 @@ import logging
 import os
 import time
 from collections import defaultdict
+from glob import glob
 from pathlib import Path
 
 import argh
@@ -15,8 +16,7 @@ import gridfs
 import pymongo
 import requests
 
-from db import get_analysis, Config
-from glob import glob
+from db import Config, get_analysis
 
 myclient = pymongo.MongoClient("mongodb://localhost:27017/")
 mydb = myclient["dir_watcher"]
@@ -26,20 +26,9 @@ runlist = mydb["runlist"]
 
 logging.basicConfig(
     level=logging.DEBUG,
-    format='%(asctime)s.%(msecs)03d %(levelname)s %(module)s - %(funcName)s: %(message)s',
-    datefmt='%Y-%m-%d %H:%M:%S',
+    format="%(asctime)s.%(msecs)03d %(levelname)s %(module)s - %(funcName)s: %(message)s",
+    datefmt="%Y-%m-%d %H:%M:%S",
 )
-
-
-def get_finished_ok_sp3_runs(pipeline_name):
-    pass
-
-
-#    return (
-#        catsgo.get_all_runs2(pipeline_name)
-#        .get("status_to_run_uuid", dict())
-#        .get("OK", list())
-#    )
 
 
 def get_submitted_runlist(pipeline_name):
@@ -73,7 +62,6 @@ def get_data_for_run(new_run_uuid):
 
 def get_sample_map_for_run(new_run_uuid):
     data = get_data_for_run(new_run_uuid)
-    # logging.info(f"getting data for run {data}")
 
     if not data:
         return None
@@ -99,8 +87,10 @@ def get_apex_token():
 
     access_token_response = requests.post(
         config.idcs,
-        data={"grant_type": "client_credentials", "scope": config.host,},
-        #    verify=False,
+        data={
+            "grant_type": "client_credentials",
+            "scope": config.host,
+        },
         allow_redirects=False,
         auth=(client_id, client_secret),
     )
@@ -119,6 +109,10 @@ def make_sample_data(new_run_uuid, sp3_sample_name):
         / "analysis/report/illumina"
         / f"{sp3_sample_name}_report.tsv"
     )
+    if not fn.is_file():
+        logging.warning(f"file {fn} not found")
+        return None
+
     logging.info(f"opening analysis report: {fn}")
     with open(fn) as report:
 
@@ -133,7 +127,6 @@ def make_sample_data(new_run_uuid, sp3_sample_name):
         }
 
         for row in results:
-            logging.info(f"lineage call: {row['lineage']}")
             sample["lineageDescription"] = row["lineage"]
             sample["pipelineVersion"] = row["version"]
             sample["status"] = "Ready to Release"
@@ -142,20 +135,6 @@ def make_sample_data(new_run_uuid, sp3_sample_name):
                 gene, name = i.split(":")
                 sample["variants"].append({"gene": gene, "name": name})
 
-            # let's get this working with the first row of analysis results for now
-            # should just have to skip E483K or whatever, really
-
-    # all outputs are in /work/output/<run_uuid>
-    # for example:
-    #
-    # /work/output/c0ac178c-0b4c-438f-8080-046f4d638d9e/analysis/pango/illumina/150b5feb-61e1-4b6d-892a-170e6be09f71_lineage_report.csv
-    # /work/output/c0ac178c-0b4c-438f-8080-046f4d638d9e/analysis/report/illumina/analysisReport.tsv
-    # /work/output/c0ac178c-0b4c-438f-8080-046f4d638d9e/analysis/report/illumina/150b5feb-61e1-4b6d-892a-170e6be09f71_report.json
-    # /work/output/c0ac178c-0b4c-438f-8080-046f4d638d9e/analysis/report/illumina/150b5feb-61e1-4b6d-892a-170e6be09f71_report.tsv
-    # /work/output/c0ac178c-0b4c-438f-8080-046f4d638d9e/analysis/aln2type/illumina/150b5feb-61e1-4b6d-892a-170e6be09f71.csv
-    # /work/output/c0ac178c-0b4c-438f-8080-046f4d638d9e/analysis/nextclade/illumina/150b5feb-61e1-4b6d-892a-170e6be09f71.tsv
-    # /work/output/c0ac178c-0b4c-438f-8080-046f4d638d9e/consensus_seqs/150b5feb-61e1-4b6d-892a-170e6be09f71.fasta
-    #
     return sample
 
 
@@ -175,7 +154,6 @@ def submit_sample_data(apex_database_sample_name, data, config):
 
 def send_output_data_to_api(new_run_uuid, config):
     sample_map = get_sample_map_for_run(new_run_uuid)
-    # logging.info(f"sample map {sample_map}")
     if not sample_map:
         return
     sample_map = json.loads(sample_map)
@@ -185,11 +163,13 @@ def send_output_data_to_api(new_run_uuid, config):
             f"processing sample {sp3_sample_name} (oracle id: {apex_database_sample_name})"
         )
         sample_data = make_sample_data(new_run_uuid, sp3_sample_name)
-        logging.info(sample_data)
-        # Consider:
-        # save_sample_data(new_run_uuid, sp3_sample_name, sample_data)
 
-        r = submit_sample_data(apex_database_sample_name, sample_data, config)
+        if sample_data:
+            r = submit_sample_data(apex_database_sample_name, sample_data, config)
+        else:
+            logging.warning(
+                f"Couldn't get sample data for {sp3_sample_name} (oracle id: {apex_database_sample_name})"
+            )
         logging.info(f"received {r}")
 
 
@@ -203,7 +183,9 @@ def analysis_complete(run_uuid):
     ).exists()
 
 
-def get_run_uuids(pattern="/work/output/*/analysis/report/illumina/analysisReport.tsv"):
+def get_run_sample_uuids(
+    pattern="/work/output/*/analysis/report/illumina/analysisReport.tsv",
+):
     for report in glob(pattern):
         yield report.split("/")[3]
 
@@ -219,19 +201,14 @@ def watch(flow_name="oxforduni-ncov2019-artic-nf-illumina"):
     logging.info(f"using apex token {apex_token}")
     config = config_gpas(apex_token)
     while True:
-        # work-around because this requires an sp3 api call:
-        # finished_ok_sp3_runs = set(get_finished_ok_sp3_runs(flow_name))
         new_runs_to_submit = set()
-        run_uuids = list(get_run_uuids())
-        nsamples = 0
+        run_uuids = list(get_run_sample_uuids())
         for run_uuid in run_uuids:
-            s = get_sample_map_for_run(run_uuid)
+            sample_map = get_sample_map_for_run(run_uuid)
             if not s:
                 continue
-            s = json.loads(s)
-            for guid, oracle_id in s.items():
-                nsamples += 1
-                # logging.info(f"{run_uuid} {guid} {oracle_id}")
+            sample_map = json.loads(s)
+            for guid, oracle_id in sample_map.items():
                 analyses = get_analysis(oracle_id, config=config)
                 if analyses is None:
                     logging.info(
@@ -240,32 +217,18 @@ def watch(flow_name="oxforduni-ncov2019-artic-nf-illumina"):
                     continue
                 analyses = analyses[0]
                 if len(analyses) > 0:
-                    # logging.info(
-                    # f"run already had analyses: {run_uuid} ({oracle_id}) analyses: {analyses}"
-                    # )
                     all_null = True
                     for analysis in analyses:
-                        # logging.info(f"analysis: {analysis}")
                         if (
-                            analysis["pipelineVersion"] is not None
+                            analysis["pipelineVersion"]
                             and analysis["pipelineVersion"] != "Pipeline Version"
                         ):
                             all_null = False
                     if all_null:
-                        # logging.info(f"all analyses are null: {analyses}")
                         new_runs_to_submit.add(run_uuid)
 
                 if len(analyses) == 0:
                     new_runs_to_submit.add(run_uuid)
-
-        logging.info(
-            f"there are {len(run_uuids)} runs. {nsamples} samples. {len(new_runs_to_submit)} new runs to submit."
-        )
-        #        submitted_runs = set(get_submitted_runlist(flow_name))
-
-        if new_runs_to_submit:
-            pass
-            # generate a new token here if < N hours have elapsed
 
         for new_run_uuid in new_runs_to_submit:
             logging.info(
