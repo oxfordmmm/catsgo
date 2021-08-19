@@ -166,11 +166,11 @@ def send_output_data_to_api(new_run_uuid, config):
 
         if sample_data:
             r = submit_sample_data(apex_database_sample_name, sample_data, config)
+            logging.info(f"received {r}")
         else:
             logging.warning(
                 f"Couldn't get sample data for {sp3_sample_name} (oracle id: {apex_database_sample_name})"
             )
-        logging.info(f"received {r}")
 
 
 def process_run(new_run_uuid, config):
@@ -205,9 +205,9 @@ def watch(flow_name="oxforduni-ncov2019-artic-nf-illumina"):
         run_uuids = list(get_run_sample_uuids())
         for run_uuid in run_uuids:
             sample_map = get_sample_map_for_run(run_uuid)
-            if not s:
+            if not sample_map:
                 continue
-            sample_map = json.loads(s)
+            sample_map = json.loads(sample_map)
             for guid, oracle_id in sample_map.items():
                 analyses = get_analysis(oracle_id, config=config)
                 if analyses is None:
