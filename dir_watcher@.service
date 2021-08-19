@@ -1,0 +1,7 @@
+[Unit]
+Description=SP3 catsgo dir_watcher for bucket %i
+
+[Service]
+KillMode=process
+WorkingDirectory=/home/ubuntu/catsgo
+ExecStart=/home/ubuntu/env/bin/python /home/ubuntu/catsgo/dir_watcher.py watch -b %i -w /data/inputs/s3/%i
