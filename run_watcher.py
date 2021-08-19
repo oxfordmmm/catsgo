@@ -148,7 +148,6 @@ def submit_sample_data(apex_database_sample_name, data, config):
         json=data,
     )
     logging.info(f"POSTing to {config.host}/samples/{apex_database_sample_name}")
-    logging.info(f"{data}")
     return sample_data_response.text
 
 
