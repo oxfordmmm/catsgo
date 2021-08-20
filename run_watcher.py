@@ -196,10 +196,18 @@ def config_gpas(apex_token):
 
 
 def watch(flow_name="oxforduni-ncov2019-artic-nf-illumina"):
-    apex_token = get_apex_token()  # run this every ten hours
-    logging.info(f"using apex token {apex_token}")
-    config = config_gpas(apex_token)
+    apex_token_time = 0
+
     while True:
+        # get a new token every 5 hours
+        time_now = int(time.time())
+        apex_token_age = time_now - apex_token_time
+        if apex_token_age > 5 * 60 * 60:
+            logging.info(f"Acquiring new token (token age: {apex_token_age}s)")
+            apex_token = get_apex_token()
+            apex_token_time = time_now
+            config = config_gpas(apex_token)
+
         new_runs_to_submit = set()
         run_uuids = list(get_run_sample_uuids())
         for run_uuid in run_uuids:
