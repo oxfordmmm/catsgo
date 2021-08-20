@@ -283,7 +283,6 @@ def process_dir(new_dir, watch_dir, pipeline, flow_name, bucket_name, apex_token
 
 def watch(
     watch_dir="/data/inputs/s3/oracle-test",
-    # watch_dir="/data/inputs/users/admin",
     pipeline="covid_illumina",
     flow_name="oxforduni-ncov2019-artic-nf-illumina",
     bucket_name="catsup-test",
