@@ -300,7 +300,7 @@ def watch(
     watch_dir = Path(watch_dir)
     if not watch_dir.is_dir():
         logging.error(f"{watch_dir} is not a directory")
-        os.exit(1)
+        sys.exit(1)
 
     while True:
         # get all directories in bucket
