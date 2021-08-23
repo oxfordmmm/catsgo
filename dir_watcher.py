@@ -24,12 +24,13 @@ myclient = pymongo.MongoClient("mongodb://localhost:27017/")
 mydb = myclient["dir_watcher"]
 dirlist = mydb["dirlist"]
 metadata = mydb["metadata"]
+ignore_list = mydb["ignore_list"]
 
 
 logging.basicConfig(
     level=logging.DEBUG,
-    format='%(asctime)s.%(msecs)03d %(levelname)s %(module)s - %(funcName)s: %(message)s',
-    datefmt='%Y-%m-%d %H:%M:%S',
+    format="%(asctime)s.%(msecs)03d %(levelname)s %(module)s - %(funcName)s: %(message)s",
+    datefmt="%Y-%m-%d %H:%M:%S",
 )
 
 
@@ -76,6 +77,22 @@ def add_to_cached_dirlist(
                 "submitted_metadata": submitted_metadata,
             }
         },
+        upsert=True,
+    )
+
+
+def get_ignore_list(watch_dir):
+    r = ignore_list.find_one({"watch_dir": watch_dir}, {"ignore_list": 1})
+    if r:
+        return r.get("ignore_list", list())
+    else:
+        return list()
+
+
+def add_to_ignore_list(watch_dir, submission_uuid):
+    ignore_list.update_one(
+        {"watch_dir": watch_dir},
+        {"$push": {"ignore_list": submission_uuid}},
         upsert=True,
     )
 
@@ -196,7 +213,10 @@ def get_apex_token():
     config = Config("config.ini")
     access_token_response = requests.post(
         config.idcs,
-        data={"grant_type": "client_credentials", "scope": config.host,},
+        data={
+            "grant_type": "client_credentials",
+            "scope": config.host,
+        },
         allow_redirects=False,
         auth=(client_id, client_secret),
     )
@@ -281,11 +301,15 @@ def process_dir(new_dir, watch_dir, pipeline, flow_name, bucket_name, apex_token
 #            )
 
 
+submission_attempts = defaultdict(int)
+
+
 def watch(
     watch_dir="/data/inputs/s3/oracle-test",
     pipeline="covid_illumina",
     flow_name="oxforduni-ncov2019-artic-nf-illumina",
     bucket_name="catsup-test",
+    max_submission_attempts=3,
 ):
     """
     watch watch_dir for new directories that have the upload_done.txt file (signaling that an upload was successful)
@@ -305,15 +329,26 @@ def watch(
     while True:
         # get all directories in bucket
         # note that directories are named after submission uuids, so this is effectively a list of submission uuids
-        candidate_dirs = set([x.name for x in Path(watch_dir).glob("*") if x.is_dir()])
-        # get directories that have already been processed
+        candidate_dirs = set([x.name for x in watch_dir.glob("*") if x.is_dir()])
+        # get directories/submissions that have already been processed
         cached_dirlist = set(get_cached_dirlist(str(watch_dir)))
-        # get directories that need to be checked
+        # get directories/submissions that have failed
+        bad_submission_uuids = set(get_ignore_list(str(watch_dir)))
+        # submissions to be processed are those that are new and have not beek marked as failed
         new_dirs = candidate_dirs.difference(cached_dirlist)
+        new_dirs = new_dirs.difference(bad_submission_uuids)
 
         if new_dirs:
             apex_token = get_apex_token()
         for new_dir in new_dirs:  #  new_dir is the catsup upload uuid
+
+            if submission_attempts[new_dir] >= max_submission_attempts:
+                logging.warning(f"bad submission: {new_dir}")
+                add_to_ignore_list(str(watch_dir), new_dir)
+                continue
+
+            submission_attempts[new_dir] += 1
+            logging.info(f"attempt {submission_attempts[new_dir]}")
             process_dir(
                 new_dir, watch_dir, pipeline, flow_name, bucket_name, apex_token
             )
