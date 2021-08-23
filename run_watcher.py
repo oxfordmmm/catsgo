@@ -16,6 +16,7 @@ import gridfs
 import pymongo
 import requests
 
+import catsgo
 from db import Config, get_analysis
 
 myclient = pymongo.MongoClient("mongodb://localhost:27017/")
@@ -195,6 +196,14 @@ def config_gpas(apex_token):
     return conf
 
 
+def get_finished_ok_sp3_runs(pipeline_name):
+    return (
+        catsgo.get_all_runs2(pipeline_name)
+        .get("status_to_run_uuid", dict())
+        .get("OK", list())
+    )
+
+
 def watch(flow_name="oxforduni-ncov2019-artic-nf-illumina"):
     apex_token_time = 0
 
@@ -208,45 +217,19 @@ def watch(flow_name="oxforduni-ncov2019-artic-nf-illumina"):
             apex_token_time = time_now
             config = config_gpas(apex_token)
 
-        new_runs_to_submit = set()
-        run_uuids = list(get_run_sample_uuids())
-        for run_uuid in run_uuids:
-            sample_map = get_sample_map_for_run(run_uuid)
-            if not sample_map:
-                continue
-            sample_map = json.loads(sample_map)
-            for guid, oracle_id in sample_map.items():
-                analyses = get_analysis(oracle_id, config=config)
-                if analyses is None:
-                    logging.info(
-                        f"failed to fetch analyses for {oracle_id}. bad token?"
-                    )
-                    continue
-                analyses = analyses[0]
-                if len(analyses) > 0:
-                    all_null = True
-                    for analysis in analyses:
-                        if (
-                            analysis["pipelineVersion"]
-                            and analysis["pipelineVersion"] != "Pipeline Version"
-                        ):
-                            all_null = False
-                    if all_null:
-                        new_runs_to_submit.add(run_uuid)
-
-                if len(analyses) == 0:
-                    new_runs_to_submit.add(run_uuid)
+        # new runs to submit are sp3 runs that have finished with status OK
+        # minus runs that have been marked as already submitted
+        finished_ok_sp3_runs = set(get_finished_ok_sp3_runs(flow_name))
+        submitted_runs = set(get_submitted_runlist(flow_name))
+        new_runs_to_submit = finished_ok_sp3_runs.difference(submitted_runs)
 
         for new_run_uuid in new_runs_to_submit:
-            logging.info(
-                f"new run: {new_run_uuid}, complete: {analysis_complete(new_run_uuid)}"
-            )
+            logging.info(f"new run: {new_run_uuid}")
             process_run(new_run_uuid, config)
             add_to_submitted_runlist(flow_name, new_run_uuid)
 
         logging.info("sleeping for 60")
         time.sleep(60)
-        config.token = get_apex_token()
 
 
 if __name__ == "__main__":
