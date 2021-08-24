@@ -17,7 +17,7 @@ import pymongo
 import requests
 
 import catsgo
-from db import Config, get_analysis
+from db import Config
 
 myclient = pymongo.MongoClient("mongodb://localhost:27017/")
 mydb = myclient["dir_watcher"]
@@ -104,15 +104,31 @@ def get_apex_token():
 
 def make_sample_data(new_run_uuid, sp3_sample_name):
     sample = {}
-    fn = (
+    fn1 = (
         Path("/work/output")
         / new_run_uuid
         / "analysis/report/illumina"
         / f"{sp3_sample_name}_report.tsv"
     )
-    if not fn.is_file():
-        logging.warning(f"file {fn} not found")
+    fn2 = (
+        Path("/work/output")
+        / new_run_uuid
+        / "analysis/report/nanopore"
+        / f"{sp3_sample_name}_report.tsv"
+    )
+    if not (fn1.is_file() or fn2.is_file()):
+        logging.warning(
+            f'Neither files "{fn1}", "{fn2}" could be found. Check pipeline for sample failure.'
+        )
         return None
+    if fn1.is_file() and fn2.is_file():
+        logging.error("Both {fn1} and {fn2} present. Expected only one.")
+        # but continue anyway
+    if fn1.is_file():
+        fn = fn1
+    if fn2.is_file():
+        # if both exist we're going with ~~~OXFORD~~~
+        fn = fn2
 
     logging.info(f"opening analysis report: {fn}")
     with open(fn) as report:
@@ -130,7 +146,6 @@ def make_sample_data(new_run_uuid, sp3_sample_name):
         for row in results:
             sample["lineageDescription"] = row["lineage"]
             sample["pipelineVersion"] = row["version"]
-            sample["status"] = "Ready to Release"
 
             for i in row["aaSubstitutions"].split(","):
                 gene, name = i.split(":")
@@ -139,20 +154,20 @@ def make_sample_data(new_run_uuid, sp3_sample_name):
     return sample
 
 
-def submit_sample_data(apex_database_sample_name, data, config):
+def submit_sample_data(apex_database_sample_name, data, config, apex_token):
     data = {
         "sample": {"operations": [{"op": "add", "path": "analysis", "value": [data]}]}
     }
     sample_data_response = requests.put(
         f"{config.host}/samples/{apex_database_sample_name}",
-        headers={"Authorization": f"Bearer {config.token}"},
+        headers={"Authorization": f"Bearer {apex_token}"},
         json=data,
     )
     logging.info(f"POSTing to {config.host}/samples/{apex_database_sample_name}")
     return sample_data_response.text
 
 
-def send_output_data_to_api(new_run_uuid, config):
+def send_output_data_to_api(new_run_uuid, config, apex_token):
     sample_map = get_sample_map_for_run(new_run_uuid)
     if not sample_map:
         return
@@ -165,7 +180,9 @@ def send_output_data_to_api(new_run_uuid, config):
         sample_data = make_sample_data(new_run_uuid, sp3_sample_name)
 
         if sample_data:
-            r = submit_sample_data(apex_database_sample_name, sample_data, config)
+            r = submit_sample_data(
+                apex_database_sample_name, sample_data, config, apex_token
+            )
             logging.info(f"received {r}")
         else:
             logging.warning(
@@ -173,27 +190,8 @@ def send_output_data_to_api(new_run_uuid, config):
             )
 
 
-def process_run(new_run_uuid, config):
-    send_output_data_to_api(new_run_uuid, config)
-
-
-def analysis_complete(run_uuid):
-    return Path(
-        f"/work/output/{run_uuid}/analysis/report/illumina/analysisReport.tsv"
-    ).exists()
-
-
-def get_run_sample_uuids(
-    pattern="/work/output/*/analysis/report/illumina/analysisReport.tsv",
-):
-    for report in glob(pattern):
-        yield report.split("/")[3]
-
-
-def config_gpas(apex_token):
-    conf = Config("config.ini")
-    conf.token = apex_token
-    return conf
+def process_run(new_run_uuid, config, apex_token):
+    send_output_data_to_api(new_run_uuid, config, apex_token)
 
 
 def get_finished_ok_sp3_runs(pipeline_name):
@@ -205,17 +203,18 @@ def get_finished_ok_sp3_runs(pipeline_name):
 
 
 def watch(flow_name="oxforduni-ncov2019-artic-nf-illumina"):
+    apex_token = None
     apex_token_time = 0
+    config = Config("config.ini")
 
     while True:
-        # get a new token every 5 hours
+        # get a new token every 5 hours (& startup)
         time_now = int(time.time())
         apex_token_age = time_now - apex_token_time
         if apex_token_age > 5 * 60 * 60:
             logging.info(f"Acquiring new token (token age: {apex_token_age}s)")
             apex_token = get_apex_token()
             apex_token_time = time_now
-            config = config_gpas(apex_token)
 
         # new runs to submit are sp3 runs that have finished with status OK
         # minus runs that have been marked as already submitted
@@ -225,7 +224,7 @@ def watch(flow_name="oxforduni-ncov2019-artic-nf-illumina"):
 
         for new_run_uuid in new_runs_to_submit:
             logging.info(f"new run: {new_run_uuid}")
-            process_run(new_run_uuid, config)
+            process_run(new_run_uuid, config, apex_token)
             add_to_submitted_runlist(flow_name, new_run_uuid)
 
         logging.info("sleeping for 60")

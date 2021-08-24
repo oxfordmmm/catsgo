@@ -26,6 +26,7 @@ dirlist = mydb["dirlist"]
 metadata = mydb["metadata"]
 ignore_list = mydb["ignore_list"]
 
+config = Config("config.ini")
 
 logging.basicConfig(
     level=logging.DEBUG,
@@ -104,8 +105,28 @@ def remove_from_cached_dirlist(watch_dir, new_dir):
     )
 
 
+def which_pipeline(watch_dir, new_dir):
+    rows = json.loads(get_and_format_metadata(watch_dir, new_dir))
+    for sample in rows.get("batch", dict()).get("samples", list()):
+        instrument = sample.get("instrument", dict())
+        platform = instrument.get("platform", str())
+        model = instrument.get("model", str())
+        platform_lower_words = [word.lower() for word in platform.split()]
+        model_lower_words = [word.lower() for word in platform.split()]
+        if "nanopore" in platform_lower_words:
+            return "nanopore-1"
+        if "nanopore" in model_lower_words:
+            return "nanopore-1"
+        if "illumina" in platform_lower_words:
+            return "illumina-1"
+        if "illumina" in model_lower_words:
+            return "illumina-1"
+
+    # default illumina
+    return "illumina-1"
+
+
 def get_and_format_metadata(watch_dir, new_dir):
-    config = Config("config.ini")
     data_file = Path(watch_dir) / new_dir / "sp3data.csv"
     logging.info(f"processing {data_file}")
     if not data_file.is_file():
@@ -210,7 +231,6 @@ def get_apex_token():
         client_id = c.get("client_id")
         client_secret = c.get("client_secret")
 
-    config = Config("config.ini")
     access_token_response = requests.post(
         config.idcs,
         data={
@@ -227,7 +247,6 @@ def get_apex_token():
 
 def post_metadata_to_apex(new_dir, data, apex_token):
     # logging.info(apex_token)
-    config = Config("config.ini")
     batch_response = requests.post(
         f"{config.host}/batches",
         headers={"Authorization": f"Bearer {apex_token}"},
@@ -257,48 +276,61 @@ def post_metadata_to_apex(new_dir, data, apex_token):
     return apex_batch, apex_samples
 
 
-def process_dir(new_dir, watch_dir, pipeline, flow_name, bucket_name, apex_token):
+def process_dir(new_dir, watch_dir, bucket_name, apex_token):
     """
     the watch process has detected a new upload. this processes it
 
     new_dir is the catsup upload directory, which is also the upload uuid
     """
-    if not (watch_dir / new_dir).is_dir():
+    if not (Path(watch_dir) / new_dir).is_dir():
         logging.warning(f"dir_watcher: {new_dir}: expected a directory, found a file")
         return
-    if not (watch_dir / new_dir / "upload_done.txt").is_file():
+    if not (Path(watch_dir) / new_dir / "upload_done.txt").is_file():
         # at the end of the upload, the client uploads an empty file upload_done.txt. This is how we know that the upload has finished and we are ready to run the pipeline on it
         logging.info(f"dir_watcher: {new_dir} upload in progress?")
         return
-    if pipeline == "covid_illumina":
-        #        try:
-        # submit the pipeline run
-        # add to it list of stuff already run
-        data_x = get_and_format_metadata(watch_dir, new_dir)
-        data = json.loads(data_x)
-        # logging.info(data)
-        apex_batch, apex_samples = post_metadata_to_apex(new_dir, data, apex_token)
-        if not apex_batch:
-            return
+
+    pipelines = ["illumina-1", "nanopore-1"]
+    pipeline = which_pipeline(watch_dir, new_dir)
+    if pipeline not in pipelines:
+        logging.warning(f"unknown pipeline: {pipeline} not in {pipelines}")
+
+    #        try:
+    # submit the pipeline run
+    # add to it list of stuff already run
+    data_x = get_and_format_metadata(watch_dir, new_dir)
+    data = json.loads(data_x)
+    # logging.info(data)
+    apex_batch, apex_samples = post_metadata_to_apex(new_dir, data, apex_token)
+    if not apex_batch:
+        return
+
+    if pipeline == "illumina-1":
         ret = catsgo.run_covid_illumina_catsup(
-            flow_name, str(watch_dir / new_dir), bucket_name, new_dir
-        )
-
-        logging.info(ret)
-        add_to_cached_dirlist(
-            str(watch_dir),
+            "oxforduni-ncov2019-artic-nf-illumina",
+            str(watch_dir / new_dir),
+            bucket_name,
             new_dir,
-            ret.get("run_uuid", ""),
-            apex_batch,
-            apex_samples,
-            data,
         )
+    elif pipeline == "nanopore-1":
+        ret = catsgo.run_covid_illumina_catsup(  # it says illumina but the form is the same so we can reuse it here
+            "oxforduni-ncov2019-artic-nf-nanopore",
+            str(Path(watch_dir) / new_dir),
+            bucket_name,
+            new_dir,
+        )
+    else:
+        logging.error("unknown pipeline: {pipeline}. This shouldn't be reachable")
 
-
-#        except Exception as e:
-#            logging.error(
-#                f"dir_watcher: exception: pipeline: {pipeline}, new_dir: {new_dir}, watch_dir: {str(watch_dir)}, exception: {str(e)}"
-#            )
+    logging.info(ret)
+    add_to_cached_dirlist(
+        str(watch_dir),
+        new_dir,
+        ret.get("run_uuid", ""),
+        apex_batch,
+        apex_samples,
+        data,
+    )
 
 
 submission_attempts = defaultdict(int)
@@ -306,8 +338,6 @@ submission_attempts = defaultdict(int)
 
 def watch(
     watch_dir="/data/inputs/s3/oracle-test",
-    pipeline="covid_illumina",
-    flow_name="oxforduni-ncov2019-artic-nf-illumina",
     bucket_name="catsup-test",
     max_submission_attempts=3,
 ):
@@ -319,7 +349,6 @@ def watch(
     flow_name: the sp3 flow name (currently oxforduni-ncov2019-artic-nf-illumina)
     bucket_name: the bucket name that's mounted in the watch_dir directory (used by the pipeline to fetch the sample files)
     """
-
     print(doc)
     watch_dir = Path(watch_dir)
     if not watch_dir.is_dir():
@@ -349,9 +378,7 @@ def watch(
 
             submission_attempts[new_dir] += 1
             logging.info(f"attempt {submission_attempts[new_dir]}")
-            process_dir(
-                new_dir, watch_dir, pipeline, flow_name, bucket_name, apex_token
-            )
+            process_dir(new_dir, watch_dir, bucket_name, apex_token)
 
         logging.debug("sleeping for 60")
         time.sleep(60)
@@ -360,5 +387,12 @@ def watch(
 if __name__ == "__main__":
     logging.getLogger().setLevel(logging.INFO)
     argh.dispatch_commands(
-        [watch, remove_from_cached_dirlist, get_apex_token, get_and_format_metadata]
+        [
+            watch,
+            remove_from_cached_dirlist,
+            get_apex_token,
+            process_dir,
+            get_and_format_metadata,
+            which_pipeline,
+        ]
     )

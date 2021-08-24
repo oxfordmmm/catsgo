@@ -6,39 +6,35 @@ from datetime import datetime
 
 
 class Config:
-    token = None
     host = None
     user = None
     idcs = None
-    buckets = []
 
     def __init__(self, fn):
         c = configparser.ConfigParser()
         c.read_file(open(fn))
-        self.token = c["oracle_rest"]["token"]
         self.host = c["oracle_rest"]["host"]
         self.user = c["oracle_rest"]["user"]
         self.idcs = c["oracle_rest"]["idcs"]
-        self.buckets = c["user_buckets"]["buckets"]
 
 
 config = Config("config.ini")
 
 
-def update_sample(sample_id, data, config=config):
+def update_sample(sample_id, data, apex_token, config=config):
     url = f"{config.host}/samples/{sample_id}"
     headers = {
-        "Authorization": f"Bearer {config.token}",
+        "Authorization": f"Bearer {apex_token}",
         "Content-type": "application/json",
     }
     response = requests.put(url, headers=headers, data=data)
     return response
 
 
-def get_batches(config=config):
+def get_batches(apex_token, config=config):
     url = f"{config.host}/batches"
     method = "GET"
-    headers = {"Authorization": f"Bearer {config.token}"}
+    headers = {"Authorization": f"Bearer {apex_token}"}
     response = requests.get(url, headers=headers)
     try:
         return response.json()
@@ -47,10 +43,10 @@ def get_batches(config=config):
         return []
 
 
-def get_sample(sample_id, config=config):
+def get_sample(sample_id, apex_token, config=config):
     url = f"{config.host}/samples/{sample_id}"
     method = "GET"
-    headers = {"Authorization": f"Bearer {config.token}"}
+    headers = {"Authorization": f"Bearer {apex_token}"}
     response = requests.get(url, headers=headers)
     #   assert print(response) # is 200
     # print(response)
@@ -92,20 +88,20 @@ def all_samples(query=None, config=config):
     return j
 
 
-def submit_batch(batch, config=config):
+def submit_batch(batch, apex_token, config=config):
     url = f"{config.host}/batches"
     headers = {
-        "Authorization": f"Bearer {config.token}",
+        "Authorization": f"Bearer {apex_token}",
         "Content-type": "application/json",
     }
     response = requests.post(url, headers=headers, json=batch)
     return response
 
 
-def get_analysis(sample_id, config=config):
+def get_analysis(sample_id, apex_token, config=config):
     url = f"{config.host}/samples/{sample_id}"
     method = "GET"
-    headers = {"Authorization": f"Bearer {config.token}"}
+    headers = {"Authorization": f"Bearer {apex_token}"}
     response = requests.get(url, headers=headers)
     #   assert print(response) # is 200
     # print(f"{response}, {response.text}")
@@ -124,10 +120,10 @@ def get_analysis(sample_id, config=config):
     return analyses
 
 
-def get_samples(batch_id, query=None, negate_query=False, config=config):
+def get_samples(batch_id, apex_token, query=None, negate_query=False, config=config):
     url = f"{config.host}/batches/{batch_id}"
     method = "GET"
-    headers = {"Authorization": f"Bearer {config.token}"}
+    headers = {"Authorization": f"Bearer {apex_token}"}
     response = requests.get(url, headers=headers)
     j = None
     try:

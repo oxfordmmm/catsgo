@@ -1,0 +1,7 @@
+[Unit]
+Description=SP3 catsgo run_watcher for pipeline %i
+
+[Service]
+KillMode=process
+WorkingDirectory=/home/ubuntu/catsgo
+ExecStart=/home/ubuntu/env/bin/python /home/ubuntu/catsgo/run_watcher.py watch -f %i
