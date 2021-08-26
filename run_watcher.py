@@ -8,6 +8,7 @@ import logging
 import os
 import time
 from collections import defaultdict
+from glob import glob
 from pathlib import Path
 
 import argh
@@ -16,6 +17,7 @@ import pymongo
 import requests
 
 import catsgo
+from db import Config
 
 myclient = pymongo.MongoClient("mongodb://localhost:27017/")
 mydb = myclient["dir_watcher"]
@@ -23,12 +25,11 @@ metadata = mydb["metadata"]
 runlist = mydb["runlist"]
 
 
-def get_finished_ok_sp3_runs(pipeline_name):
-    return (
-        catsgo.get_all_runs2(pipeline_name)
-        .get("status_to_run_uuid", dict())
-        .get("OK", list())
-    )
+logging.basicConfig(
+    level=logging.DEBUG,
+    format="%(asctime)s.%(msecs)03d %(levelname)s %(module)s - %(funcName)s: %(message)s",
+    datefmt="%Y-%m-%d %H:%M:%S",
+)
 
 
 def get_submitted_runlist(pipeline_name):
@@ -83,83 +84,147 @@ def get_apex_token():
         client_id = c.get("client_id")
         client_secret = c.get("client_secret")
 
+    config = Config("config.ini")
+
     access_token_response = requests.post(
-        "https://apex.oracle.com/pls/apex/catnip/oauth/token",
-        data={"grant_type": "client_credentials"},
-        verify=False,
+        config.idcs,
+        data={
+            "grant_type": "client_credentials",
+            "scope": config.host,
+        },
         allow_redirects=False,
         auth=(client_id, client_secret),
     )
     access_token = access_token_response.json().get("access_token")
+    if not access_token:
+        logging.error(f"Error generating token: {access_token_response.text}")
+        exit(1)
     return access_token
 
 
 def make_sample_data(new_run_uuid, sp3_sample_name):
-    # all outputs are in /work/output/<run_uuid>
-    # for example:
-    #
-    # /work/output/c0ac178c-0b4c-438f-8080-046f4d638d9e/analysis/pango/illumina/150b5feb-61e1-4b6d-892a-170e6be09f71_lineage_report.csv
-    # /work/output/c0ac178c-0b4c-438f-8080-046f4d638d9e/analysis/report/illumina/analysisReport.tsv
-    # /work/output/c0ac178c-0b4c-438f-8080-046f4d638d9e/analysis/report/illumina/150b5feb-61e1-4b6d-892a-170e6be09f71_report.json
-    # /work/output/c0ac178c-0b4c-438f-8080-046f4d638d9e/analysis/report/illumina/150b5feb-61e1-4b6d-892a-170e6be09f71_report.tsv
-    # /work/output/c0ac178c-0b4c-438f-8080-046f4d638d9e/analysis/aln2type/illumina/150b5feb-61e1-4b6d-892a-170e6be09f71.csv
-    # /work/output/c0ac178c-0b4c-438f-8080-046f4d638d9e/analysis/nextclade/illumina/150b5feb-61e1-4b6d-892a-170e6be09f71.tsv
-    # /work/output/c0ac178c-0b4c-438f-8080-046f4d638d9e/consensus_seqs/150b5feb-61e1-4b6d-892a-170e6be09f71.fasta
-    #
-    return dict()
+    sample = {}
+    fn1 = (
+        Path("/work/output")
+        / new_run_uuid
+        / "analysis/report/illumina"
+        / f"{sp3_sample_name}_report.tsv"
+    )
+    fn2 = (
+        Path("/work/output")
+        / new_run_uuid
+        / "analysis/report/nanopore"
+        / f"{sp3_sample_name}_report.tsv"
+    )
+    if not (fn1.is_file() or fn2.is_file()):
+        logging.warning(
+            f'Neither files "{fn1}", "{fn2}" could be found. Check pipeline for sample failure.'
+        )
+        return None
+    if fn1.is_file() and fn2.is_file():
+        logging.error("Both {fn1} and {fn2} present. Expected only one.")
+        # but continue anyway
+    if fn1.is_file():
+        fn = fn1
+    if fn2.is_file():
+        # if both exist we're going with ~~~OXFORD~~~
+        fn = fn2
+
+    logging.info(f"opening analysis report: {fn}")
+    with open(fn) as report:
+
+        results = csv.DictReader(report, delimiter="\t")
+        sample = {
+            "pipelineDescription": "Pipeline Description",  # "Pipeline Description"
+            "vocVersion": "",  # row["phe-label"]
+            "vocPheLabel": "VOC-20DEC-01",  # row["unique-id"]
+            "assemblies": [],
+            "vcfRecords": [],
+            "variants": [],
+        }
+
+        for row in results:
+            sample["lineageDescription"] = row["lineage"]
+            sample["pipelineVersion"] = row["version"]
+
+            for i in row["aaSubstitutions"].split(","):
+                gene, name = i.split(":")
+                sample["variants"].append({"gene": gene, "name": name})
+
+    return sample
 
 
-def submit_sample_data(apex_database_sample_name, data, apex_token):
+def submit_sample_data(apex_database_sample_name, data, config, apex_token):
+    data = {
+        "sample": {"operations": [{"op": "add", "path": "analysis", "value": [data]}]}
+    }
     sample_data_response = requests.put(
-        f"https://apex.oracle.com/pls/apex/catnip/xyz/samples/{apex_database_sample_name}",
+        f"{config.host}/samples/{apex_database_sample_name}",
         headers={"Authorization": f"Bearer {apex_token}"},
         json=data,
     )
+    logging.info(f"POSTing to {config.host}/samples/{apex_database_sample_name}")
     return sample_data_response.text
 
 
-def send_output_data_to_api(new_run_uuid, apex_token):
+def send_output_data_to_api(new_run_uuid, config, apex_token):
     sample_map = get_sample_map_for_run(new_run_uuid)
     if not sample_map:
         return
     sample_map = json.loads(sample_map)
 
-    # sample_map maps sp3 sample names (upload UUIDs) to oracle apex database ids (which have to be used in the url to submit the data)
-    # for example:
-    # {
-    #     "150b5feb-61e1-4b6d-892a-170e6be09f71": "265607845790590810012715982906470974749",
-    #     "6992059b-cc98-423c-bacd-fa05af0d92d7": "265607845790593227864355212164820387101"}
-    # }
-
     for sp3_sample_name, apex_database_sample_name in sample_map.items():
         logging.info(
             f"processing sample {sp3_sample_name} (oracle id: {apex_database_sample_name})"
         )
-        # TODO:
         sample_data = make_sample_data(new_run_uuid, sp3_sample_name)
-        # Consider:
-        save_sample_data(new_run_uuid, sp3_sample_name, sample_data)
-        # TODO:
-        submit_sample_data(apex_database_sample_name, sample_data, apex_token)
+
+        if sample_data:
+            r = submit_sample_data(
+                apex_database_sample_name, sample_data, config, apex_token
+            )
+            logging.info(f"received {r}")
+        else:
+            logging.warning(
+                f"Couldn't get sample data for {sp3_sample_name} (oracle id: {apex_database_sample_name})"
+            )
 
 
-def process_run(new_run_uuid, apex_token):
-    send_output_data_to_api(new_run_uuid, apex_token)
+def process_run(new_run_uuid, config, apex_token):
+    send_output_data_to_api(new_run_uuid, config, apex_token)
+
+
+def get_finished_ok_sp3_runs(pipeline_name):
+    return (
+        catsgo.get_all_runs2(pipeline_name)
+        .get("status_to_run_uuid", dict())
+        .get("OK", list())
+    )
 
 
 def watch(flow_name="oxforduni-ncov2019-artic-nf-illumina"):
+    apex_token = None
+    apex_token_time = 0
+    config = Config("config.ini")
+
     while True:
+        # get a new token every 5 hours (& startup)
+        time_now = int(time.time())
+        apex_token_age = time_now - apex_token_time
+        if apex_token_age > 5 * 60 * 60:
+            logging.info(f"Acquiring new token (token age: {apex_token_age}s)")
+            apex_token = get_apex_token()
+            apex_token_time = time_now
+
+        # new runs to submit are sp3 runs that have finished with status OK
+        # minus runs that have been marked as already submitted
         finished_ok_sp3_runs = set(get_finished_ok_sp3_runs(flow_name))
         submitted_runs = set(get_submitted_runlist(flow_name))
-
         new_runs_to_submit = finished_ok_sp3_runs.difference(submitted_runs)
-
-        if new_runs_to_submit:
-            apex_token = get_apex_token()
 
         for new_run_uuid in new_runs_to_submit:
             logging.info(f"new run: {new_run_uuid}")
-            process_run(new_run_uuid, apex_token)
+            process_run(new_run_uuid, config, apex_token)
             add_to_submitted_runlist(flow_name, new_run_uuid)
 
         logging.info("sleeping for 60")
