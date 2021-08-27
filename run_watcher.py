@@ -148,8 +148,11 @@ def make_sample_data(new_run_uuid, sp3_sample_name):
             sample["pipelineVersion"] = row["version"]
 
             for i in row["aaSubstitutions"].split(","):
-                gene, name = i.split(":")
-                sample["variants"].append({"gene": gene, "name": name})
+                try:
+                    gene, name = i.split(":")
+                    sample["variants"].append({"gene": gene, "name": name})
+                except ValueError as e:
+                    logging.error(f"parse error: str(e)")
 
     return sample
 
