@@ -276,7 +276,10 @@ def post_metadata_to_apex(new_dir, data, apex_token):
     return apex_batch, apex_samples
 
 
-def process_dir(new_dir, watch_dir, bucket_name, apex_token):
+submission_attempts = defaultdict(int)
+
+
+def process_dir(new_dir, watch_dir, bucket_name, apex_token, max_submission_attempts):
     """
     the watch process has detected a new upload. this processes it
 
@@ -289,6 +292,14 @@ def process_dir(new_dir, watch_dir, bucket_name, apex_token):
         # at the end of the upload, the client uploads an empty file upload_done.txt. This is how we know that the upload has finished and we are ready to run the pipeline on it
         logging.info(f"dir_watcher: {new_dir} upload in progress?")
         return
+
+    if submission_attempts[new_dir] >= max_submission_attempts:
+        logging.warning(f"bad submission: {new_dir}")
+        add_to_ignore_list(str(watch_dir), new_dir)
+        return
+
+    submission_attempts[new_dir] += 1
+    logging.info(f"attempt {submission_attempts[new_dir]}")
 
     pipelines = ["illumina-1", "nanopore-1"]
     pipeline = which_pipeline(watch_dir, new_dir)
@@ -331,9 +342,7 @@ def process_dir(new_dir, watch_dir, bucket_name, apex_token):
         apex_samples,
         data,
     )
-
-
-submission_attempts = defaultdict(int)
+    return True  # we've restarted a run
 
 
 def watch(
@@ -370,17 +379,15 @@ def watch(
         if new_dirs:
             apex_token = get_apex_token()
         for new_dir in new_dirs:  #  new_dir is the catsup upload uuid
+            r = process_dir(
+                new_dir, watch_dir, bucket_name, apex_token, max_submission_attempts
+            )
+            if r:
+                # if we've started a run then stop processing and go to sleep. This prevents
+                # the system from being overwhelmed with nextflow starting
+                break
 
-            if submission_attempts[new_dir] >= max_submission_attempts:
-                logging.warning(f"bad submission: {new_dir}")
-                add_to_ignore_list(str(watch_dir), new_dir)
-                continue
-
-            submission_attempts[new_dir] += 1
-            logging.info(f"attempt {submission_attempts[new_dir]}")
-            process_dir(new_dir, watch_dir, bucket_name, apex_token)
-
-        logging.debug("sleeping for 60")
+        print("sleeping for 60")
         time.sleep(60)
 
 
