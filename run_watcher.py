@@ -146,6 +146,8 @@ def make_sample_data(new_run_uuid, sp3_sample_name):
         for row in results:
             sample["lineageDescription"] = row["lineage"]
             sample["pipelineVersion"] = row["version"]
+            if "aln2type_variant_version" in row:
+                sample["vocVersion"] = row["aln2type_variant_version"]
 
             for i in row["aaSubstitutions"].split(","):
                 gene, name = i.split(":")
