@@ -156,6 +156,7 @@ def get_and_format_metadata(watch_dir, new_dir):
 
         metadata = {
             "fileName": row.get("submission_uuid4", ""),
+            "bucketName": Path(watch_dir).name,
             "uploadedOn": uploadedOn,
             "uploadedBy": row.get("submitter_email", ""),
             "organisation": row.get("submitter_organisation", ""),

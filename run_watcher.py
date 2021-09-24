@@ -157,6 +157,64 @@ def make_sample_data(new_run_uuid, sp3_sample_name):
     return sample
 
 
+def submit_sample_data_error(
+    error_str="Error: unspecified error",
+    apex_database_sample_name=None,
+    sp3_sample_name=None,
+    sp3_run_uuid=None,
+    apex_token=None,
+    config=None,
+):
+    """Given a oracle sample id or sp3 sample name, submit sample error status."""
+
+    if not apex_database_sample_name and not (sp3_sample_name and sp3_run_uuid):
+        logging.error(
+            "submit_sample_data_error: You need to provide either the oracle sample id or the sp3 sample name"
+        )
+        return
+    if sp3_sample_name and sp3_run_uuid:
+        m = get_sample_map_for_run(sp3_run_uuid)
+        if not m:
+            logging.error("submit_sample_data_error: couldn't get map for sample")
+            return
+        apex_database_sample_name = m.get(sp3_sample_name)
+        if not apex_database_sample_name:
+            logging.error(
+                "submit_sample_data_error: couldn't find {sp3_sample_name} in map"
+            )
+            return
+
+    if not apex_token:
+        apex_token = get_apex_token()
+    if not config:
+        config = Config("config.ini")
+
+    if type(error_str) != str:
+        # just in case
+        error_str = str(error_str)
+
+    data = {
+        "sample": {
+            "operations": [
+                {
+                    "op": "replace",
+                    "path": "errorMsg",
+                    "value": error_str,
+                },
+                {"op": "replace", "path": "status", "value": "Error"},
+            ]
+        }
+    }
+
+    sample_data_response = requests.put(
+        f"{config.host}/samples/{apex_database_sample_name}",
+        headers={"Authorization": f"Bearer {apex_token}"},
+        json=data,
+    )
+    logging.info(f"POSTing error to {config.host}/samples/{apex_database_sample_name}")
+    return sample_data_response.text
+
+
 def submit_sample_data(apex_database_sample_name, data, config, apex_token):
     data = {
         "sample": {"operations": [{"op": "add", "path": "analysis", "value": [data]}]}
@@ -190,6 +248,10 @@ def send_output_data_to_api(new_run_uuid, config, apex_token):
         else:
             logging.warning(
                 f"Couldn't get sample data for {sp3_sample_name} (oracle id: {apex_database_sample_name})"
+            )
+            submit_sample_data_error(
+                "Couldn't get sample data",
+                apex_database_sample_name=apex_database_sample_name,
             )
 
 
@@ -236,4 +298,12 @@ def watch(flow_name="oxforduni-ncov2019-artic-nf-illumina"):
 
 if __name__ == "__main__":
     logging.getLogger().setLevel(logging.INFO)
-    argh.dispatch_commands([watch, make_sample_data, submit_sample_data])
+    argh.dispatch_commands(
+        [
+            watch,
+            make_sample_data,
+            get_sample_map_for_run,
+            submit_sample_data,
+            submit_sample_data_error,
+        ]
+    )
