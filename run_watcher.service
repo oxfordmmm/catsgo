@@ -5,3 +5,7 @@ Description=SP3 catsgo run_watcher
 KillMode=process
 WorkingDirectory=/home/ubuntu/catsgo
 ExecStart=/home/ubuntu/env/bin/python /home/ubuntu/catsgo/run_watcher.py watch
+RemainAfterExit=True
+
+[Install]
+WantedBy=default.target
