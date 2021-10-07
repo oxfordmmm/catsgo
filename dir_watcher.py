@@ -18,7 +18,7 @@ import pymongo
 import requests
 
 import catsgo
-from db import Config
+from db import Config, get_batches
 
 myclient = pymongo.MongoClient("mongodb://localhost:27017/")
 mydb = myclient["dir_watcher"]
@@ -105,8 +105,11 @@ def remove_from_cached_dirlist(watch_dir, new_dir):
     )
 
 
-def which_pipeline(watch_dir, new_dir):
-    rows = json.loads(get_and_format_metadata(watch_dir, new_dir))
+def which_pipeline(watch_dir, new_dir, metadata_dict=None):
+    if not metadata_dict:
+        rows = json.loads(get_and_format_metadata(watch_dir, new_dir))
+    else:
+        rows = json.loads(metadata_dict)
     for sample in rows.get("batch", dict()).get("samples", list()):
         instrument = sample.get("instrument", dict())
         platform = instrument.get("platform", str())
@@ -303,47 +306,87 @@ def process_dir(new_dir, watch_dir, bucket_name, apex_token, max_submission_atte
     logging.info(f"attempt {submission_attempts[new_dir]}")
 
     pipelines = ["illumina-1", "nanopore-1"]
-    pipeline = which_pipeline(watch_dir, new_dir)
-    if pipeline not in pipelines:
-        logging.warning(f"unknown pipeline: {pipeline} not in {pipelines}")
+    pipeline = pipelines[0]
+    try:
+        if (Path(watch_dir) / new_dir / "sp3data.csv").is_file():
+            with open(Path(watch_dir) / new_dir / "sp3data.csv", 'r') as infile:
+                reader = csv.DictReader(infile)
+                if 'sample_host' not in reader.fieldnames():
+                    logging.error("Found APEX run {new_dir}, will not attempt to run again.")
+                    return False
+            
+            pipeline = which_pipeline(watch_dir, new_dir)
+            if pipeline not in pipelines:
+                logging.warning(f"unknown pipeline: {pipeline} not in {pipelines}")
 
-    #        try:
-    # submit the pipeline run
-    # add to it list of stuff already run
-    data_x = get_and_format_metadata(watch_dir, new_dir)
-    data = json.loads(data_x)
-    # logging.info(data)
-    apex_batch, apex_samples = post_metadata_to_apex(new_dir, data, apex_token)
-    if not apex_batch:
-        return
+            #        try:
+            # submit the pipeline run
+            # add to it list of stuff already run
+            data_x = get_and_format_metadata(watch_dir, new_dir)
+            data = json.loads(data_x)
+            # logging.info(data)
+            apex_batch, apex_samples = post_metadata_to_apex(new_dir, data, apex_token)
+            if not apex_batch:
+                return
+        else:
+            # Get metadata for batch from APEX DB
+            batches = get_batches(apex_token)
+            if type(batches.keys()) == dict:
+                # TODO Search key as appropriate for API JSON response
+                # if new_dir in dict['<KEY>']
+                    pipeline = which_pipeline(watch_dir, new_dir, json.dumps(batches))
+                    if pipeline not in pipelines:
+                        logging.warning(f"unknown pipeline: {pipeline} not in {pipelines}")
+                    # Write out submission_uuid4, sample_uuid4 to sp3data.csv
+                    sp3data_csv = Path(watch_dir) / new_dir / "sp3data.csv"
+                    out_fieldnames = ['submission_uuid4', 'sample_uuid4']
+                    with open(sp3data_csv, 'w') as out_csv:
+                        writer1 = csv.DictWriter(out_csv, fieldnames=out_fieldnames)
+                        writer1.writeheader()
+                        for sample in batches:
+                            out = {
+                                'submission_uuid4' : sample['submission_uuid4'],
+                                'sample_uuid4' : sample['sample_uuid4']
+                            }
+                            writer1.writerow(out)
+                # TODO put in with if statement above
+                # else:
+                #     logging.error("No sp3data.csv or APEX DB enteries for {new_dir}.")
+                #     return False
+            else:
+                logging.error("No sp3data.csv and could not access APEX DB for {new_dir}.")
+                return False
 
-    if pipeline == "illumina-1":
-        ret = catsgo.run_covid_illumina_catsup(
-            "oxforduni-ncov2019-artic-nf-illumina",
-            str(watch_dir / new_dir),
-            bucket_name,
+        if pipeline == "illumina-1":
+            ret = catsgo.run_covid_illumina_catsup(
+                "oxforduni-ncov2019-artic-nf-illumina",
+                str(watch_dir / new_dir),
+                bucket_name,
+                new_dir,
+            )
+        elif pipeline == "nanopore-1":
+            ret = catsgo.run_covid_illumina_catsup(  # it says illumina but the form is the same so we can reuse it here
+                "oxforduni-ncov2019-artic-nf-nanopore",
+                str(Path(watch_dir) / new_dir),
+                bucket_name,
+                new_dir,
+            )
+        else:
+            logging.error("unknown pipeline: {pipeline}. This shouldn't be reachable")
+
+        logging.info(ret)
+        add_to_cached_dirlist(
+            str(watch_dir),
             new_dir,
+            ret.get("run_uuid", ""),
+            apex_batch,
+            apex_samples,
+            data,
         )
-    elif pipeline == "nanopore-1":
-        ret = catsgo.run_covid_illumina_catsup(  # it says illumina but the form is the same so we can reuse it here
-            "oxforduni-ncov2019-artic-nf-nanopore",
-            str(Path(watch_dir) / new_dir),
-            bucket_name,
-            new_dir,
-        )
-    else:
-        logging.error("unknown pipeline: {pipeline}. This shouldn't be reachable")
-
-    logging.info(ret)
-    add_to_cached_dirlist(
-        str(watch_dir),
-        new_dir,
-        ret.get("run_uuid", ""),
-        apex_batch,
-        apex_samples,
-        data,
-    )
-    return True  # we've restarted a run
+        return True  # we've restarted a run
+    except Exception as e:
+        logging.error("Error occurred processing {new_dir}.")
+        return False
 
 
 def watch(
