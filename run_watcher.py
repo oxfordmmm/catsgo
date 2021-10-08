@@ -102,16 +102,16 @@ def get_apex_token():
     return access_token
 
 
-def make_sample_data(new_run_uuid, sp3_sample_name):
+def make_sample_data(new_run_uuid, sp3_sample_name, output_folder="/work/output"):
     sample = {}
     fn1 = (
-        Path("/work/output")
+        Path(output_folder)
         / new_run_uuid
         / "analysis/report/illumina"
         / f"{sp3_sample_name}_report.tsv"
     )
     fn2 = (
-        Path("/work/output")
+        Path(output_folder)
         / new_run_uuid
         / "analysis/report/nanopore"
         / f"{sp3_sample_name}_report.tsv"
