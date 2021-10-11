@@ -20,6 +20,23 @@ class Config:
 
 config = Config("config.ini")
 
+def get_apex_token():
+    with open("secrets.json") as f:
+        c = json.load(f)
+        client_id = c.get("client_id")
+        client_secret = c.get("client_secret")
+
+    access_token_response = requests.post(
+        config.idcs,
+        data={
+            "grant_type": "client_credentials",
+            "scope": config.host,
+        },
+        allow_redirects=False,
+        auth=(client_id, client_secret),
+    )
+    access_token = access_token_response.json().get("access_token")
+    return access_token
 
 def update_sample(sample_id, data, apex_token, config=config):
     url = f"{config.host}/samples/{sample_id}"
@@ -39,7 +56,7 @@ def get_batches(apex_token, config=config):
     try:
         return response.json()
     except:
-        print("empty response from host", file=sys.stderr)
+        print(f"unexpected response from GET {url}: {response.text}", file=sys.stderr)
         return []
 
 
