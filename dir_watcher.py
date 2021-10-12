@@ -9,7 +9,7 @@ import json
 import logging
 import os
 import time
-from collections import defaultdict
+from collections import defaultdict, KeysView
 from pathlib import Path
 
 import argh
@@ -329,32 +329,33 @@ def process_dir(new_dir, watch_dir, bucket_name, apex_token, max_submission_atte
             if not apex_batch:
                 return
         else:
-            # Get metadata for batch from APEX DB
+            # Get metadata for batch from ORDS DB
             batches = get_batches(apex_token)
-            if type(batches.keys()) == dict:
-                # TODO Search key as appropriate for API JSON response
-                # if new_dir in dict['<KEY>']
-                    pipeline = which_pipeline(watch_dir, new_dir, json.dumps(batches))
-                    if pipeline not in pipelines:
-                        logging.warning(f"unknown pipeline: {pipeline} not in {pipelines}")
-                    # Write out submission_uuid4, sample_uuid4 to sp3data.csv
-                    sp3data_csv = Path(watch_dir) / new_dir / "sp3data.csv"
-                    out_fieldnames = ['submission_uuid4', 'sample_uuid4']
-                    with open(sp3data_csv, 'w') as out_csv:
-                        writer1 = csv.DictWriter(out_csv, fieldnames=out_fieldnames)
-                        writer1.writeheader()
-                        for sample in batches:
-                            out = {
-                                'submission_uuid4' : sample['submission_uuid4'],
-                                'sample_uuid4' : sample['sample_uuid4']
-                            }
-                            writer1.writerow(out)
-                # TODO put in with if statement above
-                # else:
-                #     logging.error("No sp3data.csv or APEX DB enteries for {new_dir}.")
-                #     return False
+            if isinstance(batches.keys(), KeysView):
+                found = False
+                for batch in batches['items']:
+                    if new_dir == batch['fileName']:
+                        found = True
+                        pipeline = which_pipeline(watch_dir, new_dir, json.dumps(batch))
+                        if pipeline not in pipelines:
+                            logging.warning(f"unknown pipeline: {pipeline} not in {pipelines}")
+                        # Write out submission_uuid4, sample_uuid4 to sp3data.csv
+                        sp3data_csv = Path(watch_dir) / new_dir / "sp3data.csv"
+                        out_fieldnames = ['submission_uuid4', 'sample_uuid4']
+                        with open(sp3data_csv, 'w') as out_csv:
+                            writer1 = csv.DictWriter(out_csv, fieldnames=out_fieldnames)
+                            writer1.writeheader()
+                            for sample in batch:
+                                out = {
+                                    'submission_uuid4' : sample['submission_uuid4'],
+                                    'sample_uuid4' : sample['sample_uuid4']
+                                }
+                                writer1.writerow(out)
+                if not found:
+                    logging.error("No sp3data.csv or ORDS DB entries for {new_dir}.")
+                    return False
             else:
-                logging.error("No sp3data.csv and could not access APEX DB for {new_dir}.")
+                logging.error("No sp3data.csv and could not access ORDS DB for {new_dir}.")
                 return False
 
         if pipeline == "illumina-1":
