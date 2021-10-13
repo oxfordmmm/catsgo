@@ -156,8 +156,8 @@ def get_batch_by_name(batch_name, apex_token, config=config):
                     print(f"sample_info {sample_info}")
                     sample_dict[batch_sample['name']] = sample_info[0]
                     sample_dict[batch_sample['name']]['batchFileName'] = batch['fileName']
-                print(f"sample_dict {sample_dict}")
                 batch_dict['samples'] = sample_dict
+                print(f"batch_dict {batch_dict}")
                 return batch_dict
         if not found:
             return {}

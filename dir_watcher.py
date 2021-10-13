@@ -124,7 +124,7 @@ def which_pipeline_csv(watch_dir, new_dir):
     return "illumina-1"
 
 def which_pipeline_db(watch_dir, new_dir, metadata_dict = None):
-    for sample in metadata_dict['samples']:
+    for sample in metadata_dict['samples'].values():
         platform = sample['instrumentPlatform']
         platform_lower_words = [word.lower() for word in platform.split()]
         if "nanopore" in platform_lower_words:
@@ -297,13 +297,14 @@ def process_dir(new_dir, watch_dir, bucket_name, apex_token, max_submission_atte
                 with open(sp3data_csv, 'w') as out_csv:
                     writer1 = csv.DictWriter(out_csv, fieldnames=out_fieldnames)
                     writer1.writeheader()
-                    for sample in batch_samples['samples']:
+                    for sample in batch_samples['samples'].values():
                         out = {
                             'submission_uuid4' : sample['batchFileName'],
                             'sample_uuid4' : sample['fileName']
                         }
                         writer1.writerow(out)
                 apex_batch = batch_samples
+                apex_samples = db.get_batch_samples(apex_batch['id'], apex_token)
             else:
                 logging.error("No sp3data.csv and could not access ORDS DB for {new_dir}.")
                 return False
