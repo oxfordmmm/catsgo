@@ -124,7 +124,7 @@ def which_pipeline_csv(watch_dir, new_dir):
     return "illumina-1"
 
 def which_pipeline_db(watch_dir, new_dir, metadata_dict = None):
-    for sample in metadata_dict:
+    for sample in metadata_dict['samples']:
         platform = sample['instrumentPlatform']
         platform_lower_words = [word.lower() for word in platform.split()]
         if "nanopore" in platform_lower_words:
@@ -262,6 +262,7 @@ def process_dir(new_dir, watch_dir, bucket_name, apex_token, max_submission_atte
 
     pipelines = ["illumina-1", "nanopore-1"]
     pipeline = pipelines[0]
+    apex_batch = {}
     try:
         if (Path(watch_dir) / new_dir / "sp3data.csv").is_file():
             with open(Path(watch_dir) / new_dir / "sp3data.csv", 'r') as infile:
@@ -296,12 +297,13 @@ def process_dir(new_dir, watch_dir, bucket_name, apex_token, max_submission_atte
                 with open(sp3data_csv, 'w') as out_csv:
                     writer1 = csv.DictWriter(out_csv, fieldnames=out_fieldnames)
                     writer1.writeheader()
-                    for sample in batch_samples:
+                    for sample in batch_samples['samples']:
                         out = {
                             'submission_uuid4' : sample['batchFileName'],
                             'sample_uuid4' : sample['fileName']
                         }
                         writer1.writerow(out)
+                apex_batch = batch_samples
             else:
                 logging.error("No sp3data.csv and could not access ORDS DB for {new_dir}.")
                 return False
@@ -309,7 +311,7 @@ def process_dir(new_dir, watch_dir, bucket_name, apex_token, max_submission_atte
         if pipeline == "illumina-1":
             ret = catsgo.run_covid_illumina_catsup(
                 "oxforduni-ncov2019-artic-nf-illumina",
-                str(watch_dir / new_dir),
+                str(Path(watch_dir) / new_dir),
                 bucket_name,
                 new_dir,
             )
