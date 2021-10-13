@@ -17,7 +17,7 @@ import pymongo
 import requests
 
 import catsgo
-from db import Config
+import db
 
 myclient = pymongo.MongoClient("mongodb://localhost:27017/")
 mydb = myclient["dir_watcher"]
@@ -78,85 +78,94 @@ def get_sample_map_for_run(new_run_uuid):
     return json.dumps(ret)
 
 
-def get_apex_token():
-    with open("secrets.json") as f:
-        c = json.load(f)
-        client_id = c.get("client_id")
-        client_secret = c.get("client_secret")
-
-    config = Config("config.ini")
-
-    access_token_response = requests.post(
-        config.idcs,
-        data={
-            "grant_type": "client_credentials",
-            "scope": config.host,
-        },
-        allow_redirects=False,
-        auth=(client_id, client_secret),
-    )
-    access_token = access_token_response.json().get("access_token")
-    if not access_token:
-        logging.error(f"Error generating token: {access_token_response.text}")
-        exit(1)
-    return access_token
-
 
 def make_sample_data(new_run_uuid, sp3_sample_name):
     sample = {}
-    fn1 = (
+    fn = None
+    fn1json = (
         Path("/work/output")
         / new_run_uuid
         / "analysis/report/illumina"
-        / f"{sp3_sample_name}_report.tsv"
+        / f"{sp3_sample_name}_report.json"
     )
-    fn2 = (
+    fn2json = (
         Path("/work/output")
         / new_run_uuid
         / "analysis/report/nanopore"
-        / f"{sp3_sample_name}_report.tsv"
+        / f"{sp3_sample_name}_report.json"
     )
-    if not (fn1.is_file() or fn2.is_file()):
-        logging.warning(
-            f'Neither files "{fn1}", "{fn2}" could be found. Check pipeline for sample failure.'
-        )
+    if fn1json.is_file() and fn2json.is_file():
+        logging.error(f"Both {fn1json} and {fn2json} present. Expected only one. Exiting")
         return None
-    if fn1.is_file() and fn2.is_file():
-        logging.error("Both {fn1} and {fn2} present. Expected only one.")
-        # but continue anyway
-    if fn1.is_file():
-        fn = fn1
-    if fn2.is_file():
-        # if both exist we're going with ~~~OXFORD~~~
-        fn = fn2
+    if fn1json.is_file():
+        fn = fn1json
+    elif fn2json.is_file():
+        fn = fn2json
+    
+    if fn:
+        with open(fn) as report:
+            sample = json.load(report)
+            return sample
+    else:
+        logging.warning(
+            f"Could not find JSON reports {fn1json} or {fn2json}, trying TSV outputs."
+        )
 
-    logging.info(f"opening analysis report: {fn}")
-    with open(fn) as report:
+        fn1tsv = (
+            Path("/work/output")
+            / new_run_uuid
+            / "analysis/report/illumina"
+            / f"{sp3_sample_name}_report.tsv"
+        )
+        fn2tsv = (
+            Path("/work/output")
+            / new_run_uuid
+            / "analysis/report/nanopore"
+            / f"{sp3_sample_name}_report.tsv"
+        )
+        if not (fn1tsv.is_file() or fn2tsv.is_file()):
+            logging.warning(
+                f'Neither files "{fn1tsv}", "{fn2tsv}" could be found. Check pipeline for sample failure.'
+            )
+            return None
+        if fn1tsv.is_file() and fn2tsv.is_file():
+            logging.error("Both {fn1tsv} and {fn2tsv} present. Expected only one. Exiting")
+            return None
+        if fn1tsv.is_file():
+            fn = fn1tsv
+        else:
+            fn = fn2tsv
 
-        results = csv.DictReader(report, delimiter="\t")
-        sample = {
-            "pipelineDescription": "Pipeline Description",  # "Pipeline Description"
-            "vocVersion": "",  # row["phe-label"]
-            "vocPheLabel": "VOC-20DEC-01",  # row["unique-id"]
-            "assemblies": [],
-            "vcfRecords": [],
-            "variants": [],
-        }
+    if fn != None:
+        logging.info(f"opening analysis report: {fn}")
+        with open(fn) as report:
 
-        for row in results:
-            sample["lineageDescription"] = row["lineage"]
-            sample["pipelineVersion"] = row["version"]
-            if "aln2type_variant_version" in row:
-                sample["vocVersion"] = row["aln2type_variant_version"]
+            results = csv.DictReader(report, delimiter="\t")
+            sample = {
+                "pipelineDescription": "Pipeline Description",  # "Pipeline Description"
+                "vocVersion": "",  # row["phe-label"]
+                "vocPheLabel": "VOC-20DEC-01",  # row["unique-id"]
+                "assemblies": [],
+                "vcfRecords": [],
+                "variants": [],
+            }
 
-            for i in row["aaSubstitutions"].split(","):
-                try:
-                    gene, name = i.split(":")
-                    sample["variants"].append({"gene": gene, "name": name})
-                except ValueError as e:
-                    logging.error(f"parse error: str(e)")
+            for row in results:
+                sample["lineageDescription"] = row["lineage"]
+                sample["pipelineVersion"] = row["version"]
+                if "aln2type_variant_version" in row:
+                    sample["vocVersion"] = row["aln2type_variant_version"]
 
-    return sample
+                for i in row["aaSubstitutions"].split(","):
+                    try:
+                        gene, name = i.split(":")
+                        sample["variants"].append({"gene": gene, "name": name})
+                    except ValueError as e:
+                        logging.error(f"parse error: str(e)")
+
+        return sample
+    else:
+        logging.error("Could not find report files. Exiting")
 
 
 def submit_sample_data_error(
@@ -187,9 +196,9 @@ def submit_sample_data_error(
             return
 
     if not apex_token:
-        apex_token = get_apex_token()
+        apex_token = db.get_apex_token()
     if not config:
-        config = Config("config.ini")
+        config = db.Config("config.ini")
 
     if type(error_str) != str:
         # just in case
@@ -272,7 +281,7 @@ def get_finished_ok_sp3_runs(pipeline_name):
 def watch(flow_name="oxforduni-ncov2019-artic-nf-illumina"):
     apex_token = None
     apex_token_time = 0
-    config = Config("config.ini")
+    config = db.Config("config.ini")
 
     while True:
         # get a new token every 5 hours (& startup)
@@ -280,7 +289,7 @@ def watch(flow_name="oxforduni-ncov2019-artic-nf-illumina"):
         apex_token_age = time_now - apex_token_time
         if apex_token_age > 5 * 60 * 60:
             logging.info(f"Acquiring new token (token age: {apex_token_age}s)")
-            apex_token = get_apex_token()
+            apex_token = db.get_apex_token()
             apex_token_time = time_now
 
         # new runs to submit are sp3 runs that have finished with status OK
