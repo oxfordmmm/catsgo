@@ -125,7 +125,7 @@ def which_pipeline_csv(watch_dir, new_dir):
 
 def which_pipeline_db(watch_dir, new_dir, metadata_dict = None):
     for sample in metadata_dict:
-        platform = metadata_dict['instrumentPlatform']
+        platform = sample['instrumentPlatform']
         platform_lower_words = [word.lower() for word in platform.split()]
         if "nanopore" in platform_lower_words:
             return "nanopore-1"
