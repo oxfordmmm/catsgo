@@ -103,11 +103,8 @@ def remove_from_cached_dirlist(watch_dir, new_dir):
     )
 
 
-def which_pipeline(watch_dir, new_dir, metadata_dict=None):
-    if not metadata_dict:
-        rows = json.loads(get_and_format_metadata(watch_dir, new_dir))
-    else:
-        rows = json.loads(metadata_dict)
+def which_pipeline_csv(watch_dir, new_dir):
+    rows = json.loads(get_and_format_metadata(watch_dir, new_dir))
     for sample in rows.get("batch", dict()).get("samples", list()):
         instrument = sample.get("instrument", dict())
         platform = instrument.get("platform", str())
@@ -126,6 +123,17 @@ def which_pipeline(watch_dir, new_dir, metadata_dict=None):
     # default illumina
     return "illumina-1"
 
+def which_pipeline_db(watch_dir, new_dir, metadata_dict = None):
+    for sample in metadata_dict:
+        platform = metadata_dict['instrumentPlatform']
+        platform_lower_words = [word.lower() for word in platform.split()]
+        if "nanopore" in platform_lower_words:
+            return "nanopore-1"
+        if "illumina" in platform_lower_words:
+            return "illumina-1"
+
+    # default illumina
+    return "illumina-1"
 
 def get_and_format_metadata(watch_dir, new_dir):
     data_file = Path(watch_dir) / new_dir / "sp3data.csv"
@@ -262,7 +270,7 @@ def process_dir(new_dir, watch_dir, bucket_name, apex_token, max_submission_atte
                     logging.error("Found APEX run {new_dir}, will not attempt to run again.")
                     return False
             
-            pipeline = which_pipeline(watch_dir, new_dir)
+            pipeline = which_pipeline_csv(watch_dir, new_dir)
             if pipeline not in pipelines:
                 logging.warning(f"unknown pipeline: {pipeline} not in {pipelines}")
 
@@ -279,7 +287,7 @@ def process_dir(new_dir, watch_dir, bucket_name, apex_token, max_submission_atte
             # Get metadata for batch from ORDS DB
             batch_samples = db.get_batch_by_name(new_dir, apex_token)
             if len(batch_samples.keys()) > 0:
-                pipeline = which_pipeline(watch_dir, new_dir, json.dumps(batch_samples))
+                pipeline = which_pipeline_db(watch_dir, new_dir, batch_samples)
                 if pipeline not in pipelines:
                     logging.warning(f"unknown pipeline: {pipeline} not in {pipelines}")
                 # Write out submission_uuid4, sample_uuid4 to sp3data.csv
