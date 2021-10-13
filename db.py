@@ -28,6 +28,8 @@ logging.basicConfig(
     datefmt="%Y-%m-%d %H:%M:%S",
 )
 
+logging.getLogger().setLevel(logging.INFO)
+
 def get_apex_token():
     with open("secrets.json") as f:
         c = json.load(f)
