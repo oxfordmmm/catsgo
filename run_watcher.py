@@ -17,7 +17,7 @@ import pymongo
 import requests
 
 import catsgo
-from db import Config
+import db
 
 myclient = pymongo.MongoClient("mongodb://localhost:27017/")
 mydb = myclient["dir_watcher"]
@@ -198,7 +198,7 @@ def submit_sample_data_error(
     if not apex_token:
         apex_token = db.get_apex_token()
     if not config:
-        config = Config("config.ini")
+        config = db.Config("config.ini")
 
     if type(error_str) != str:
         # just in case
@@ -281,7 +281,7 @@ def get_finished_ok_sp3_runs(pipeline_name):
 def watch(flow_name="oxforduni-ncov2019-artic-nf-illumina"):
     apex_token = None
     apex_token_time = 0
-    config = Config("config.ini")
+    config = db.Config("config.ini")
 
     while True:
         # get a new token every 5 hours (& startup)
