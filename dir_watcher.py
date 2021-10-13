@@ -263,6 +263,7 @@ def process_dir(new_dir, watch_dir, bucket_name, apex_token, max_submission_atte
     pipelines = ["illumina-1", "nanopore-1"]
     pipeline = pipelines[0]
     apex_batch = {}
+    apex_samples = {}
     try:
         if (Path(watch_dir) / new_dir / "sp3data.csv").is_file():
             with open(Path(watch_dir) / new_dir / "sp3data.csv", 'r') as infile:
