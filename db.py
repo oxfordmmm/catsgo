@@ -143,21 +143,17 @@ def get_batch_by_name(batch_name, apex_token, config=config):
         for batch in batches['items']:
             if batch_name == batch['fileName']:
                 found = True
-                print(f"found {batch_name} - batch = {batch}")
                 batch_dict = {
                     'id' : batch['sampleBatchId'],
                     'name' : batch['fileName']
                 }
                 batch_samples = get_batch_samples(batch['sampleBatchId'], apex_token)
-                print(f"batch_samples {batch_samples}")
                 sample_dict = {}
                 for batch_sample in batch_samples['samples']:
                     sample_info = get_sample(batch_sample['id'], apex_token)
-                    print(f"sample_info {sample_info}")
                     sample_dict[batch_sample['name']] = sample_info[0]
                     sample_dict[batch_sample['name']]['batchFileName'] = batch['fileName']
                 batch_dict['samples'] = sample_dict
-                print(f"batch_dict {batch_dict}")
                 return batch_dict
         if not found:
             return {}
