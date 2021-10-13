@@ -302,7 +302,7 @@ def process_dir(new_dir, watch_dir, bucket_name, apex_token, max_submission_atte
                     for sample in batch_samples['samples'].values():
                         out = {
                             'submission_uuid4' : sample['batchFileName'],
-                            'sample_uuid4' : sample['fileName']
+                            'sample_uuid4' : sample['name']
                         }
                         writer1.writerow(out)
                 apex_batch = batch_samples
