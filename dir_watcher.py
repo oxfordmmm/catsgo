@@ -264,6 +264,7 @@ def process_dir(new_dir, watch_dir, bucket_name, apex_token, max_submission_atte
     pipeline = pipelines[0]
     apex_batch = {}
     apex_samples = {}
+    data = {}
     try:
         if (Path(watch_dir) / new_dir / "sp3data.csv").is_file():
             with open(Path(watch_dir) / new_dir / "sp3data.csv", 'r') as infile:
@@ -305,6 +306,7 @@ def process_dir(new_dir, watch_dir, bucket_name, apex_token, max_submission_atte
                         }
                         writer1.writerow(out)
                 apex_batch = batch_samples
+                data = batch_samples
                 apex_samples = db.get_batch_samples(apex_batch['id'], apex_token)
             else:
                 logging.error("No sp3data.csv and could not access ORDS DB for {new_dir}.")
