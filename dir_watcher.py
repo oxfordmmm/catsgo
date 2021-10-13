@@ -9,7 +9,7 @@ import json
 import logging
 import os
 import time
-from collections import defaultdict, KeysView
+from collections import defaultdict
 from pathlib import Path
 
 import argh
@@ -18,15 +18,13 @@ import pymongo
 import requests
 
 import catsgo
-from db import Config, get_batches
+import db
 
 myclient = pymongo.MongoClient("mongodb://localhost:27017/")
 mydb = myclient["dir_watcher"]
 dirlist = mydb["dirlist"]
 metadata = mydb["metadata"]
 ignore_list = mydb["ignore_list"]
-
-config = Config("config.ini")
 
 logging.basicConfig(
     level=logging.DEBUG,
@@ -229,57 +227,6 @@ def get_and_format_metadata(watch_dir, new_dir):
     return json.dumps(out)
 
 
-def get_apex_token():
-    with open("secrets.json") as f:
-        c = json.load(f)
-        client_id = c.get("client_id")
-        client_secret = c.get("client_secret")
-
-    access_token_response = requests.post(
-        config.idcs,
-        data={
-            "grant_type": "client_credentials",
-            "scope": config.host,
-        },
-        allow_redirects=False,
-        auth=(client_id, client_secret),
-    )
-    access_token = access_token_response.json().get("access_token")
-    logging.debug(f"got apex token {access_token}")
-    return access_token
-
-
-def post_metadata_to_apex(new_dir, data, apex_token):
-    # logging.info(apex_token)
-    batch_response = requests.post(
-        f"{config.host}/batches",
-        headers={"Authorization": f"Bearer {apex_token}"},
-        json=data,
-    )
-
-    try:
-        apex_batch = batch_response.json()
-    except:
-        logging.info(f"apex response was not json: {batch_response.text}")
-        logging.info(f"submitted data: {data}")
-        return None, None
-
-    batch_id = apex_batch.get("id")
-    if not batch_id:
-        logging.info(f"failed to get batch id: {data}")
-        logging.info(f"apex returned: {apex_batch}")
-        return None, None
-    print(batch_id)
-
-    samples_response = requests.get(
-        f"{config.host}/batches/{batch_id}",
-        headers={"Authorization": f"Bearer {apex_token}"},
-    )
-    apex_samples = samples_response.json()
-
-    return apex_batch, apex_samples
-
-
 submission_attempts = defaultdict(int)
 
 
@@ -325,35 +272,28 @@ def process_dir(new_dir, watch_dir, bucket_name, apex_token, max_submission_atte
             data_x = get_and_format_metadata(watch_dir, new_dir)
             data = json.loads(data_x)
             # logging.info(data)
-            apex_batch, apex_samples = post_metadata_to_apex(new_dir, data, apex_token)
+            apex_batch, apex_samples = db.post_metadata_to_apex(new_dir, data, apex_token)
             if not apex_batch:
                 return
         else:
             # Get metadata for batch from ORDS DB
-            batches = get_batches(apex_token)
-            if isinstance(batches.keys(), KeysView):
-                found = False
-                for batch in batches['items']:
-                    if new_dir == batch['fileName']:
-                        found = True
-                        pipeline = which_pipeline(watch_dir, new_dir, json.dumps(batch))
-                        if pipeline not in pipelines:
-                            logging.warning(f"unknown pipeline: {pipeline} not in {pipelines}")
-                        # Write out submission_uuid4, sample_uuid4 to sp3data.csv
-                        sp3data_csv = Path(watch_dir) / new_dir / "sp3data.csv"
-                        out_fieldnames = ['submission_uuid4', 'sample_uuid4']
-                        with open(sp3data_csv, 'w') as out_csv:
-                            writer1 = csv.DictWriter(out_csv, fieldnames=out_fieldnames)
-                            writer1.writeheader()
-                            for sample in batch:
-                                out = {
-                                    'submission_uuid4' : sample['submission_uuid4'],
-                                    'sample_uuid4' : sample['sample_uuid4']
-                                }
-                                writer1.writerow(out)
-                if not found:
-                    logging.error("No sp3data.csv or ORDS DB entries for {new_dir}.")
-                    return False
+            batch_samples = db.get_batch_by_name(new_dir, apex_token)
+            if len(batch_samples.keys()) > 0:
+                pipeline = which_pipeline(watch_dir, new_dir, json.dumps(batch_samples))
+                if pipeline not in pipelines:
+                    logging.warning(f"unknown pipeline: {pipeline} not in {pipelines}")
+                # Write out submission_uuid4, sample_uuid4 to sp3data.csv
+                sp3data_csv = Path(watch_dir) / new_dir / "sp3data.csv"
+                out_fieldnames = ['submission_uuid4', 'sample_uuid4']
+                with open(sp3data_csv, 'w') as out_csv:
+                    writer1 = csv.DictWriter(out_csv, fieldnames=out_fieldnames)
+                    writer1.writeheader()
+                    for sample in batch_samples:
+                        out = {
+                            'submission_uuid4' : sample['batchFileName'],
+                            'sample_uuid4' : sample['fileName']
+                        }
+                        writer1.writerow(out)
             else:
                 logging.error("No sp3data.csv and could not access ORDS DB for {new_dir}.")
                 return False
@@ -422,7 +362,7 @@ def watch(
         new_dirs = new_dirs.difference(bad_submission_uuids)
 
         if new_dirs:
-            apex_token = get_apex_token()
+            apex_token = db.get_apex_token()
         for new_dir in new_dirs:  #  new_dir is the catsup upload uuid
             r = process_dir(
                 new_dir, watch_dir, bucket_name, apex_token, max_submission_attempts
@@ -435,6 +375,8 @@ def watch(
         print("sleeping for 60")
         time.sleep(60)
 
+def get_apex_token():
+    return db.get_apex_token()
 
 if __name__ == "__main__":
     logging.getLogger().setLevel(logging.INFO)
