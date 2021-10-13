@@ -136,18 +136,23 @@ def submit_batch(batch, apex_token, config=config):
 
 
 def get_batch_by_name(batch_name, apex_token, config=config):
+    print(batch_name, apex_token)
     batches = get_batches(apex_token)
     if isinstance(batches.keys(), KeysView):
         found = False
         for batch in batches['items']:
             if batch_name == batch['fileName']:
                 found = True
+                print(f"found {batch_name} - batch = {batch}")
                 batch_samples = get_batch_samples(batch['sampleBatchId'], apex_token)
+                print(f"batch_samples {batch_samples}")
                 sample_dict = {}
-                for sample in batch_samples['samples']:
-                    get_sample(sample['id'], apex_token)
-                    sample_dict[sample['fileName']] = sample
-                    sample_dict[sample['fileName']]['batchFileName'] = batch['fileName']
+                for batch_sample in batch_samples['samples']:
+                    sample_info = get_sample(batch_sample['id'], apex_token)
+                    print(f"sample_info {sample_info}")
+                    sample_dict[batch_sample['name']] = sample_info[0]
+                    sample_dict[batch_sample['name']]['batchFileName'] = batch['fileName']
+                print(f"sample_dict {sample_dict}")
                 return sample_dict
         if not found:
             return {}
