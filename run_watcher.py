@@ -78,29 +78,6 @@ def get_sample_map_for_run(new_run_uuid):
     return json.dumps(ret)
 
 
-def get_apex_token():
-    with open("secrets.json") as f:
-        c = json.load(f)
-        client_id = c.get("client_id")
-        client_secret = c.get("client_secret")
-
-    config = Config("config.ini")
-
-    access_token_response = requests.post(
-        config.idcs,
-        data={
-            "grant_type": "client_credentials",
-            "scope": config.host,
-        },
-        allow_redirects=False,
-        auth=(client_id, client_secret),
-    )
-    access_token = access_token_response.json().get("access_token")
-    if not access_token:
-        logging.error(f"Error generating token: {access_token_response.text}")
-        exit(1)
-    return access_token
-
 
 def make_sample_data(new_run_uuid, sp3_sample_name):
     sample = {}
@@ -118,20 +95,20 @@ def make_sample_data(new_run_uuid, sp3_sample_name):
         / f"{sp3_sample_name}_report.json"
     )
     if fn1json.is_file() and fn2json.is_file():
-        logging.error("Both {fn1json} and {fn2json} present. Expected only one. Exiting")
+        logging.error(f"Both {fn1json} and {fn2json} present. Expected only one. Exiting")
         return None
     if fn1json.is_file():
         fn = fn1json
     elif fn2json.is_file():
         fn = fn2json
     
-    if fn != None:
+    if fn:
         with open(fn) as report:
             sample = json.load(report)
             return sample
     else:
         logging.warning(
-            'Could not find JSON reports {fn1json} or {fn2json}, trying TSV outputs.'
+            f"Could not find JSON reports {fn1json} or {fn2json}, trying TSV outputs."
         )
 
         fn1tsv = (
@@ -219,7 +196,7 @@ def submit_sample_data_error(
             return
 
     if not apex_token:
-        apex_token = get_apex_token()
+        apex_token = db.get_apex_token()
     if not config:
         config = Config("config.ini")
 
@@ -312,7 +289,7 @@ def watch(flow_name="oxforduni-ncov2019-artic-nf-illumina"):
         apex_token_age = time_now - apex_token_time
         if apex_token_age > 5 * 60 * 60:
             logging.info(f"Acquiring new token (token age: {apex_token_age}s)")
-            apex_token = get_apex_token()
+            apex_token = db.get_apex_token()
             apex_token_time = time_now
 
         # new runs to submit are sp3 runs that have finished with status OK
