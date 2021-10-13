@@ -326,7 +326,8 @@ def process_dir(new_dir, watch_dir, bucket_name, apex_token, max_submission_atte
         )
         return True  # we've restarted a run
     except Exception as e:
-        logging.error("Error occurred processing {new_dir}.")
+        logging.error(f"Error occurred processing {new_dir}.")
+        logging.error(e)
         return False
 
 
