@@ -1,8 +1,10 @@
+import logging
 import requests
 import json
 import sys
 import configparser
 from datetime import datetime
+from collections import KeysView
 
 
 class Config:
@@ -19,6 +21,14 @@ class Config:
 
 
 config = Config("config.ini")
+
+logging.basicConfig(
+    level=logging.DEBUG,
+    format="%(asctime)s.%(msecs)03d %(levelname)s %(module)s - %(funcName)s: %(message)s",
+    datefmt="%Y-%m-%d %H:%M:%S",
+)
+
+logging.getLogger().setLevel(logging.INFO)
 
 def get_apex_token():
     with open("secrets.json") as f:
@@ -56,9 +66,19 @@ def get_batches(apex_token, config=config):
     try:
         return response.json()
     except:
-        print("empty response from host", file=sys.stderr)
+        logging.error(f"unexpected response from GET {url}: {response.text}")
         return []
 
+def get_batch_samples(batch_id, apex_token, config=config):
+    url = f"{config.host}/batches/{batch_id}"
+    method = "GET"
+    headers = {"Authorization": f"Bearer {apex_token}"}
+    response = requests.get(url, headers=headers)
+    try:
+        return response.json()
+    except:
+        logging.error(f"unexpected response from GET {url}: {response.text}")
+        return []
 
 def get_sample(sample_id, apex_token, config=config):
     url = f"{config.host}/samples/{sample_id}"
@@ -115,6 +135,32 @@ def submit_batch(batch, apex_token, config=config):
     return response
 
 
+def get_batch_by_name(batch_name, apex_token, config=config):
+    print(batch_name, apex_token)
+    batches = get_batches(apex_token)
+    if isinstance(batches.keys(), KeysView):
+        found = False
+        for batch in batches['items']:
+            if batch_name == batch['fileName']:
+                found = True
+                batch_dict = {
+                    'id' : batch['sampleBatchId'],
+                    'name' : batch['fileName']
+                }
+                batch_samples = get_batch_samples(batch['sampleBatchId'], apex_token)
+                sample_dict = {}
+                for batch_sample in batch_samples['samples']:
+                    sample_info = get_sample(batch_sample['id'], apex_token)
+                    sample_dict[batch_sample['name']] = sample_info[0]
+                    sample_dict[batch_sample['name']]['batchFileName'] = batch['fileName']
+                batch_dict['samples'] = sample_dict
+                return batch_dict
+        if not found:
+            return {}
+    else:
+        logging.error(f"API response not as expected, quiting. Output - {batches}")
+        return {}
+
 def get_analysis(sample_id, apex_token, config=config):
     url = f"{config.host}/samples/{sample_id}"
     method = "GET"
@@ -128,7 +174,7 @@ def get_analysis(sample_id, apex_token, config=config):
     try:
         j = json.loads(safe_response)
     except:
-        print(f"empty response from host: {url}", file=sys.stderr)
+        logging.error(f"empty response from host: {url}")
         return None
     analyses = []
     for sample in j:
@@ -146,7 +192,7 @@ def get_samples(batch_id, apex_token, query=None, negate_query=False, config=con
     try:
         j = response.json()
     except:
-        print("empty response from host", file=sys.stderr)
+        logging.error("empty response from host")
         return []
 
     if query:
@@ -166,3 +212,33 @@ def get_samples(batch_id, apex_token, query=None, negate_query=False, config=con
 
     else:
         return j
+
+def post_metadata_to_apex(new_dir, data, apex_token):
+    # logging.info(apex_token)
+    batch_response = requests.post(
+        f"{config.host}/batches",
+        headers={"Authorization": f"Bearer {apex_token}"},
+        json=data,
+    )
+
+    try:
+        apex_batch = batch_response.json()
+    except:
+        logging.error(f"apex response was not json: {batch_response.text}")
+        logging.error(f"submitted data: {data}")
+        return None, None
+
+    batch_id = apex_batch.get("id")
+    if not batch_id:
+        logging.error(f"failed to get batch id: {data}")
+        logging.error(f"apex returned: {apex_batch}")
+        return None, None
+    print(batch_id)
+
+    samples_response = requests.get(
+        f"{config.host}/batches/{batch_id}",
+        headers={"Authorization": f"Bearer {apex_token}"},
+    )
+    apex_samples = samples_response.json()
+
+    return apex_batch, apex_samples
