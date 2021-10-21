@@ -6,10 +6,12 @@ batches them to be run by catsgo
 """
 
 import logging
+import time
 from pathlib import Path
 
 import argh
 import pymongo
+
 
 import db
 
@@ -57,14 +59,14 @@ def watch(
             # These are the prefixs of the sample asscessions (E.G. ERR408 has, in shards (000-010), samples ERR4080000 - ERR4089999)
             for prefix_dir in set([x.name for x in sample_method.glob("*") if x.is_dir()]):
                 # Go through each shard seperately
-                for shard_dir in set([x.name for x in Path(prefix_dir).glob("*") if x.is_dir()]):
+                for shard_dir in set([y.name for y in ( watch_dir / sample_method / prefix_dir ).glob("*") if y.is_dir()]):
                     # Get all sample directories (each of which should only have one sample!)
-                    candidate_dirs = set([x.name for x in Path(shard_dir).glob("*") if x.is_dir() and len(x.glob("*")) == 2 ])
+                    candidate_dirs = set([z.name for z in ( watch_dir / sample_method / prefix_dir / shard_dir ).glob("*") if z.is_dir() and len(set(( watch_dir / sample_method / prefix_dir / shard_dir / z ).glob("*"))) == 2 ])
                     # get directories/submissions that have already been processed
                     #cached_dirlist = set(get_cached_dirlist(str(shard_dir)))
                     # submissions to be processed are those that are new and have not beek marked as failed
                     #new_dirs = candidate_dirs.difference(cached_dirlist)
-                    print(f"{shard_dir} - {candidate_dirs}")
+                    print(f"{prefix_dir} - {shard_dir} - {candidate_dirs}")
 
                     # if new_dirs:
                     #     apex_token = db.get_apex_token()
