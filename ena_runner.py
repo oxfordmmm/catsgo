@@ -25,19 +25,24 @@ logging.basicConfig(
     datefmt="%Y-%m-%d %H:%M:%S",
 )
 
-# def get_cached_dirlist(path):
+# def get_cached_dirlist(sample_method, path):
 #     """
-#     get the list of Samples that have already run from a path (prefix/shard)
+#     get the list of Samples that have already run from a sample_method (illumina or nanopore) and path (prefix/shard)
 #     """
-#     ret = dirlist.find({"path": path}, {"samples": 1})
+#     ret = dirlist.find({"sample_method": sample_method}, {"path": path}, {"samples": 1})
 #     if not ret:
 #         return list()
 #     else:
 #         return list(ret.get("samples"))
 
+def process_batch(samples_to_submit):
+    print(f"processing {samples_to_submit}")
+    return []
+
 def watch(
     watch_dir="",
     bucket_name="",
+    batch_size=10
 ):
     """
     
@@ -56,6 +61,7 @@ def watch(
         # samples!!!
         # ENA bucket will have illumina and nanopore data
         for sample_method in [ watch_dir / "illumina", watch_dir / "nanopore"]:
+            samples_to_submit = []
             # These are the prefixs of the sample asscessions (E.G. ERR408 has, in shards (000-010), samples ERR4080000 - ERR4089999)
             for prefix_dir in set([x.name for x in sample_method.glob("*") if x.is_dir()]):
                 # Go through each shard seperately
@@ -63,21 +69,23 @@ def watch(
                     # Get all sample directories (each of which should only have one sample!)
                     candidate_dirs = set([z.name for z in ( watch_dir / sample_method / prefix_dir / shard_dir ).glob("*") if z.is_dir() and len(set(( watch_dir / sample_method / prefix_dir / shard_dir / z ).glob("*"))) == 2 ])
                     # get directories/submissions that have already been processed
-                    #cached_dirlist = set(get_cached_dirlist(str(shard_dir)))
+                    #cached_dirlist = set(get_cached_dirlist(sample_method, str( prefix_dir / shard_dir)))
                     # submissions to be processed are those that are new and have not beek marked as failed
                     #new_dirs = candidate_dirs.difference(cached_dirlist)
-                    print(f"{prefix_dir} - {shard_dir} - {candidate_dirs}")
+                    new_dirs = candidate_dirs
+                    #print(f"{sample_method} - {prefix_dir} - {shard_dir} - {new_dirs}")
 
-                    # if new_dirs:
-                    #     apex_token = db.get_apex_token()
-                    # for new_dir in new_dirs:  #  new_dir is the catsup upload uuid
-                    #     r = process_dir(
-                    #         new_dir, watch_dir, bucket_name, apex_token, max_submission_attempts
-                    #     )
-                    #     if r:
-                    #         # if we've started a run then stop processing and go to sleep. This prevents
-                    #         # the system from being overwhelmed with nextflow starting
-                    #         break
+                    if new_dirs:
+                        new_dirs = list(new_dirs)
+                        print(f"new_dirs - {new_dirs}")
+                        # Check if submitting
+                        while len(new_dirs) + len(samples_to_submit) > batch_size:
+                            print(f"adding {([ z for z in new_dirs[:(batch_size - len(samples_to_submit) - 1)]])}")
+                            samples_to_submit += ([watch_dir / sample_method / prefix_dir / shard_dir / z for z in new_dirs[:(batch_size - len(samples_to_submit) - 1)]])
+                            samples_to_submit = process_batch(samples_to_submit)
+                        samples_to_submit.append([watch_dir / sample_method / prefix_dir / shard_dir / z for z in new_dirs])
+            samples_to_submit = process_batch(samples_to_submit)
+            
 
         print("sleeping for 60")
         time.sleep(60)
