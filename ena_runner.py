@@ -7,10 +7,14 @@ batches them to be run by catsgo
 
 import logging
 import time
+import uuid
+import json
+import datetime
 from pathlib import Path
 
 import argh
 import pymongo
+import requests
 
 
 import db
@@ -25,6 +29,19 @@ logging.basicConfig(
     datefmt="%Y-%m-%d %H:%M:%S",
 )
 
+def get_ena_metadata(sample):
+    url = f"https://www.ebi.ac.uk/ena/portal/api/filereport?accession={sample}&fields=host%2Cscientific_name%2Cfirst_public%2Ccollection_date%2Cinstrument_platform%2Cinstrument_model%2Ccountry&format=json&limit=10&result=read_run"
+    response = requests.get(url)
+    try:
+        j = json.loads(response)
+        if len(j) == 1:
+            return j[0]
+        else:
+            logging.error(f"requested more than a single sample: acc-ession {sample}, json {j}")
+    except:
+        logging.error(f"empty response from host: {url}")
+        return None
+
 # def get_cached_dirlist(sample_method, path):
 #     """
 #     get the list of Samples that have already run from a sample_method (illumina or nanopore) and path (prefix/shard)
@@ -35,8 +52,65 @@ logging.basicConfig(
 #     else:
 #         return list(ret.get("samples"))
 
-def process_batch(samples_to_submit):
+def process_batch(sample_method, samples_to_submit):
     print(f"processing {samples_to_submit}")
+    samples = list()
+    batch_name = "ENA" + str(uuid.uuid4())[:7]
+    submission_name = "Entry for ENA sample processing"
+
+    for sample in samples_to_submit:
+        ena_metadata = get_ena_metadata(sample.name)
+        p = {
+            "name": sample.name,
+            "submissionTitle": submission_name,
+            "submissionDescription": submission_name,
+            "specimenOrganism" : ena_metadata["scientific_name"],
+            "status": "Uploaded",
+            "instrument": {
+                "platform": ena_metadata['instrument_platform'],
+                "model": ena_metadata['instrument_model'],
+                "flowcell": 0,
+            },
+        }
+
+        if ena_metadata["collection_date"] != "":
+            p["collectionDate"] = ena_metadata["collection_date"]
+        elif ena_metadata["first_public"]:
+            p["collectionDate"] = ena_metadata["first_public"]
+
+        if ena_metadata["country"] != "":
+            p["country"] = ena_metadata["country"]
+        else:
+            p["country"] = "United Kingdom"
+
+        if sample_method == "illumina":
+            p["peReads"] = [
+                {
+                    "r1_sp3_filepath": str(Path(sample) / (sample.name+"_1.fastq.gz")),
+                    "r2_sp3_filepath": str(Path(sample) / (sample.name+"_2.fastq.gz")),
+                }
+            ]
+            p["seReads"] = []
+        elif sample_method == "nanopore":
+            p["seReads"] = [
+                {
+                    "sp3_filepath": str(Path(sample) / (sample.name+"_1.fastq.gz")),
+                }
+            ]
+            p["peReads"] = []
+        else:
+            logging.error(f"Invalid sample_method {sample_method}")
+        samples.append(p)
+    
+    submission = {"batch": {
+            "fileName" : batch_name,
+            "organisation": "Public Repository Data",
+            "site": "ENA Data",
+            "uploadedOn": datetime.datetime.now().isoformat()[:-3] + "Z",
+            "samples": samples,
+        }
+    }
+    
     return []
 
 def watch(
@@ -77,18 +151,13 @@ def watch(
 
                     if new_dirs:
                         new_dirs = list(new_dirs)
-                        print(f"new_dirs - {new_dirs}")
                         # Check if submitting
                         while len(new_dirs) + len(samples_to_submit) >= batch_size:
-                            print(f"adding {[ z for z in new_dirs[:batch_size - len(samples_to_submit)]]}")
                             samples_to_submit += [watch_dir / sample_method / prefix_dir / shard_dir / z for z in new_dirs[:batch_size - len(samples_to_submit)]]
-                            samples_to_submit = process_batch(samples_to_submit)
+                            samples_to_submit = process_batch(sample_method, samples_to_submit)
                             new_dirs = new_dirs[batch_size - len(samples_to_submit):]
-                            print(f"modified new_dirs - {new_dirs}")
                         samples_to_submit += [watch_dir / sample_method / prefix_dir / shard_dir / z for z in new_dirs]
-                        print(f"sample_to_submit after {sample_method}/{prefix_dir}/{shard_dir} - {samples_to_submit}")
-            samples_to_submit = process_batch(samples_to_submit)
-            
+            samples_to_submit = process_batch(sample_method, samples_to_submit)
 
         print("sleeping for 60")
         time.sleep(60)
