@@ -79,11 +79,14 @@ def watch(
                         new_dirs = list(new_dirs)
                         print(f"new_dirs - {new_dirs}")
                         # Check if submitting
-                        while len(new_dirs) + len(samples_to_submit) > batch_size:
-                            print(f"adding {([ z for z in new_dirs[:(batch_size - len(samples_to_submit) - 1)]])}")
-                            samples_to_submit += ([watch_dir / sample_method / prefix_dir / shard_dir / z for z in new_dirs[:(batch_size - len(samples_to_submit) - 1)]])
+                        while len(new_dirs) + len(samples_to_submit) >= batch_size:
+                            print(f"adding {[ z for z in new_dirs[:batch_size - len(samples_to_submit)]]}")
+                            samples_to_submit += [watch_dir / sample_method / prefix_dir / shard_dir / z for z in new_dirs[:batch_size - len(samples_to_submit)]]
                             samples_to_submit = process_batch(samples_to_submit)
-                        samples_to_submit.append([watch_dir / sample_method / prefix_dir / shard_dir / z for z in new_dirs])
+                            new_dirs = new_dirs[batch_size - len(samples_to_submit):]
+                            print(f"modified new_dirs - {new_dirs}")
+                        samples_to_submit += [watch_dir / sample_method / prefix_dir / shard_dir / z for z in new_dirs]
+                        print(f"sample_to_submit after {sample_method}/{prefix_dir}/{shard_dir} - {samples_to_submit}")
             samples_to_submit = process_batch(samples_to_submit)
             
 
