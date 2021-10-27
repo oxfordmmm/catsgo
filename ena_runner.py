@@ -46,11 +46,7 @@ def get_cached_dirlist(sample_method, path):
     """
     get the list of Samples that have already run from a sample_method (illumina or nanopore) and path (prefix/shard)
     """
-    ret = dirlist.find({"sample_method": sample_method, "path": path}, {"samples": 1})
-    if not ret:
-        return list()
-    else:
-        return list(ret.get("samples"))
+    return list(dirlist.find({"sample_method": sample_method, "path": path}, {"samples": 1}))
 
 def add_to_cached_dirlist(sample_method, path, samples):
     """
@@ -131,13 +127,13 @@ def process_batch(sample_method, samples_to_submit, batch_dir):
         }
     }
     print(f"submission - {submission}")
-    for path, sample_list in sample_shards:
+    for path, sample_list in sample_shards.items():
         add_to_cached_dirlist(sample_method.name, path, sample_list)
     return []
 
 def watch(
     watch_dir="",
-#    batch_dir="",
+    batch_dir="",
     batch_size=10
 ):
     """
@@ -160,7 +156,7 @@ def watch(
                     # Get all sample directories (each of which should only have one sample!)
                     candidate_dirs = set([z.name for z in ( watch_dir / sample_method / prefix_dir / shard_dir ).glob("*") if z.is_dir() and len(set(( watch_dir / sample_method / prefix_dir / shard_dir / z ).glob("*"))) == 2 ])
                     # get directories/submissions that have already been processed
-                    cached_dirlist = set(get_cached_dirlist(sample_method, str( prefix_dir / shard_dir)))
+                    cached_dirlist = set(get_cached_dirlist(sample_method.name, str( Path(prefix_dir) / shard_dir)))
                     # submissions to be processed are those that are new and have not beek marked as failed
                     new_dirs = candidate_dirs.difference(cached_dirlist)
                     #print(f"{sample_method} - {prefix_dir} - {shard_dir} - {new_dirs}")
@@ -170,7 +166,7 @@ def watch(
                         # Check if submitting
                         while len(new_dirs) + len(samples_to_submit) >= batch_size:
                             samples_to_submit += [watch_dir / sample_method / prefix_dir / shard_dir / z for z in new_dirs[:batch_size - len(samples_to_submit)]]
-                            samples_to_submit = process_batch(sample_method, samples_to_submit)
+                            samples_to_submit = process_batch(sample_method, samples_to_submit, batch_dir)
                             new_dirs = new_dirs[batch_size - len(samples_to_submit):]
                         samples_to_submit += [watch_dir / sample_method / prefix_dir / shard_dir / z for z in new_dirs]
             samples_to_submit = process_batch(sample_method, samples_to_submit, batch_dir)
