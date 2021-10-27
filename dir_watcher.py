@@ -283,7 +283,7 @@ def process_dir(new_dir, watch_dir, bucket_name, apex_token, max_submission_atte
             data_x = get_and_format_metadata(watch_dir, new_dir)
             data = json.loads(data_x)
             # logging.info(data)
-            apex_batch, apex_samples = db.post_metadata_to_apex(new_dir, data, apex_token)
+            apex_batch, apex_samples = db.post_metadata_to_apex(data, apex_token)
             if not apex_batch:
                 return
         else:

@@ -126,7 +126,13 @@ def process_batch(sample_method, samples_to_submit, batch_dir):
             "samples": samples,
         }
     }
-    print(f"submission - {submission}")
+    data = json.loads(submission)
+    apex_token = db.get_apex_token()
+    apex_batch, apex_samples = db.post_metadata_to_apex(data, apex_token)
+    print(f"submitted {batch_name}")
+    print(f"apex_batch - {apex_batch}")
+    print(f"apex_samples - {apex_samples}")
+
     for path, sample_list in sample_shards.items():
         add_to_cached_dirlist(sample_method.name, path, sample_list)
     return []
