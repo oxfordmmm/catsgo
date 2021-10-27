@@ -33,11 +33,11 @@ def get_ena_metadata(sample):
     url = f"https://www.ebi.ac.uk/ena/portal/api/filereport?accession={sample}&fields=host%2Cscientific_name%2Cfirst_public%2Ccollection_date%2Cinstrument_platform%2Cinstrument_model%2Ccountry&format=json&limit=10&result=read_run"
     response = requests.get(url)
     try:
-        j = json.loads(response)
+        j = response.json()
         if len(j) == 1:
             return j[0]
         else:
-            logging.error(f"requested more than a single sample: acc-ession {sample}, json {j}")
+            logging.error(f"requested more than a single sample: accession {sample}, json {j}")
     except:
         logging.error(f"empty response from host: {url}")
         return None
@@ -55,8 +55,8 @@ def get_ena_metadata(sample):
 def process_batch(sample_method, samples_to_submit):
     print(f"processing {samples_to_submit}")
     samples = list()
-    batch_name = "ENA" + str(uuid.uuid4())[:7]
-    submission_name = "Entry for ENA sample processing"
+    batch_name = "ENA-" + str(uuid.uuid4())[:7]
+    submission_name = f"Entry for ENA sample processing - {batch_name}"
 
     for sample in samples_to_submit:
         ena_metadata = get_ena_metadata(sample.name)
@@ -83,7 +83,7 @@ def process_batch(sample_method, samples_to_submit):
         else:
             p["country"] = "United Kingdom"
 
-        if sample_method == "illumina":
+        if sample_method.name == "illumina":
             p["peReads"] = [
                 {
                     "r1_sp3_filepath": str(Path(sample) / (sample.name+"_1.fastq.gz")),
@@ -91,7 +91,7 @@ def process_batch(sample_method, samples_to_submit):
                 }
             ]
             p["seReads"] = []
-        elif sample_method == "nanopore":
+        elif sample_method.name == "nanopore":
             p["seReads"] = [
                 {
                     "sp3_filepath": str(Path(sample) / (sample.name+"_1.fastq.gz")),
@@ -110,7 +110,7 @@ def process_batch(sample_method, samples_to_submit):
             "samples": samples,
         }
     }
-    
+    print(f"submission - {submission}")
     return []
 
 def watch(
@@ -128,11 +128,6 @@ def watch(
         sys.exit(1)
 
     while True:
-        # Illumina/ Nanopore
-        # for dir in ERR***
-        # for dir in 000-010
-        # for dir in ERR*******
-        # samples!!!
         # ENA bucket will have illumina and nanopore data
         for sample_method in [ watch_dir / "illumina", watch_dir / "nanopore"]:
             samples_to_submit = []
