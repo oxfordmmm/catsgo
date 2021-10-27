@@ -19,9 +19,9 @@ import requests
 
 import db
 
-# myclient = pymongo.MongoClient("mongodb://localhost:27017/")
-# mydb = myclient["ena_runner"]
-# dirlist = mydb["dirlist"]
+myclient = pymongo.MongoClient("mongodb://localhost:27017/")
+mydb = myclient["ena_runner"]
+dirlist = mydb["dirlist"]
 
 logging.basicConfig(
     level=logging.DEBUG,
@@ -42,19 +42,30 @@ def get_ena_metadata(sample):
         logging.error(f"empty response from host: {url}")
         return None
 
-# def get_cached_dirlist(sample_method, path):
-#     """
-#     get the list of Samples that have already run from a sample_method (illumina or nanopore) and path (prefix/shard)
-#     """
-#     ret = dirlist.find({"sample_method": sample_method}, {"path": path}, {"samples": 1})
-#     if not ret:
-#         return list()
-#     else:
-#         return list(ret.get("samples"))
+def get_cached_dirlist(sample_method, path):
+    """
+    get the list of Samples that have already run from a sample_method (illumina or nanopore) and path (prefix/shard)
+    """
+    ret = dirlist.find({"sample_method": sample_method, "path": path}, {"samples": 1})
+    if not ret:
+        return list()
+    else:
+        return list(ret.get("samples"))
 
-def process_batch(sample_method, samples_to_submit):
+def add_to_cached_dirlist(sample_method, path, samples):
+    """
+    add the samples to the list of samples that have batched
+    """
+
+    logging.debug(f"adding {samples} to {sample_method}, {path}")
+    dirlist.update_one(
+        {"sample_method": sample_method, "path": path}, {"$push": {"samples": { "$each" : samples }}}, upsert=True
+    )
+
+def process_batch(sample_method, samples_to_submit, batch_dir):
     print(f"processing {samples_to_submit}")
     samples = list()
+    sample_shards = dict()
     batch_name = "ENA-" + str(uuid.uuid4())[:7]
     submission_name = f"Entry for ENA sample processing - {batch_name}"
 
@@ -101,6 +112,15 @@ def process_batch(sample_method, samples_to_submit):
         else:
             logging.error(f"Invalid sample_method {sample_method}")
         samples.append(p)
+        # Add to dict for submitting to cached_dirs
+        path = sample.relative_to(sample_method)
+        path = str(path.parent)
+        if path in sample_shards:
+            sample_shards[path].append(sample.name)
+        else:
+            sample_shards[path] = [sample.name]
+
+        # Add to batch_dir
     
     submission = {"batch": {
             "fileName" : batch_name,
@@ -111,11 +131,13 @@ def process_batch(sample_method, samples_to_submit):
         }
     }
     print(f"submission - {submission}")
+    for path, sample_list in sample_shards:
+        add_to_cached_dirlist(sample_method.name, path, sample_list)
     return []
 
 def watch(
     watch_dir="",
-    bucket_name="",
+#    batch_dir="",
     batch_size=10
 ):
     """
@@ -138,10 +160,9 @@ def watch(
                     # Get all sample directories (each of which should only have one sample!)
                     candidate_dirs = set([z.name for z in ( watch_dir / sample_method / prefix_dir / shard_dir ).glob("*") if z.is_dir() and len(set(( watch_dir / sample_method / prefix_dir / shard_dir / z ).glob("*"))) == 2 ])
                     # get directories/submissions that have already been processed
-                    #cached_dirlist = set(get_cached_dirlist(sample_method, str( prefix_dir / shard_dir)))
+                    cached_dirlist = set(get_cached_dirlist(sample_method, str( prefix_dir / shard_dir)))
                     # submissions to be processed are those that are new and have not beek marked as failed
-                    #new_dirs = candidate_dirs.difference(cached_dirlist)
-                    new_dirs = candidate_dirs
+                    new_dirs = candidate_dirs.difference(cached_dirlist)
                     #print(f"{sample_method} - {prefix_dir} - {shard_dir} - {new_dirs}")
 
                     if new_dirs:
@@ -152,7 +173,7 @@ def watch(
                             samples_to_submit = process_batch(sample_method, samples_to_submit)
                             new_dirs = new_dirs[batch_size - len(samples_to_submit):]
                         samples_to_submit += [watch_dir / sample_method / prefix_dir / shard_dir / z for z in new_dirs]
-            samples_to_submit = process_batch(sample_method, samples_to_submit)
+            samples_to_submit = process_batch(sample_method, samples_to_submit, batch_dir)
 
         print("sleeping for 60")
         time.sleep(60)
