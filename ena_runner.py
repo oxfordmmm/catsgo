@@ -71,7 +71,7 @@ def process_batch(sample_method, samples_to_submit, batch_dir):
             "name": sample.name,
             "submissionTitle": submission_name,
             "submissionDescription": submission_name,
-            "specimenOrganism" : ena_metadata["scientific_name"],
+            #"specimenOrganism" : ena_metadata["scientific_name"],
             "status": "Uploaded",
             "instrument": {
                 "platform": ena_metadata['instrument_platform'],
@@ -89,6 +89,11 @@ def process_batch(sample_method, samples_to_submit, batch_dir):
             p["country"] = ena_metadata["country"]
         else:
             p["country"] = "United Kingdom"
+
+        if ena_metadata["scientific_name"] == "Severe acute respiratory syndrome coronavirus 2": 
+            p["specimenOrganism"] = "SARS-CoV-2"
+        else:
+            p["specimenOrganism"] = ena_metadata["scientific_name"]
 
         if sample_method.name == "illumina":
             p["peReads"] = [
@@ -120,15 +125,16 @@ def process_batch(sample_method, samples_to_submit, batch_dir):
     
     submission = {"batch": {
             "fileName" : batch_name,
-            "organisation": "Public Repository Data",
-            "site": "ENA Data",
+            "bucketName" : Path(batch_dir).name,
+            "organisation" : "University of Oxford",
+            "site": "University of Oxford",
             "uploadedOn": datetime.datetime.now().isoformat()[:-3] + "Z",
+            "uploadedBy": "Jeremy.Swann@ndm.ox.ac.uk",
             "samples": samples,
         }
     }
-    data = json.loads(submission)
     apex_token = db.get_apex_token()
-    apex_batch, apex_samples = db.post_metadata_to_apex(data, apex_token)
+    apex_batch, apex_samples = db.post_metadata_to_apex(submission, apex_token)
     print(f"submitted {batch_name}")
     print(f"apex_batch - {apex_batch}")
     print(f"apex_samples - {apex_samples}")
@@ -140,7 +146,7 @@ def process_batch(sample_method, samples_to_submit, batch_dir):
 def watch(
     watch_dir="",
     batch_dir="",
-    batch_size=10
+    size_batch=10
 ):
     """
     
@@ -170,10 +176,10 @@ def watch(
                     if new_dirs:
                         new_dirs = list(new_dirs)
                         # Check if submitting
-                        while len(new_dirs) + len(samples_to_submit) >= batch_size:
-                            samples_to_submit += [watch_dir / sample_method / prefix_dir / shard_dir / z for z in new_dirs[:batch_size - len(samples_to_submit)]]
+                        while len(new_dirs) + len(samples_to_submit) >= size_batch:
+                            samples_to_submit += [watch_dir / sample_method / prefix_dir / shard_dir / z for z in new_dirs[:size_batch - len(samples_to_submit)]]
                             samples_to_submit = process_batch(sample_method, samples_to_submit, batch_dir)
-                            new_dirs = new_dirs[batch_size - len(samples_to_submit):]
+                            new_dirs = new_dirs[size_batch - len(samples_to_submit):]
                         samples_to_submit += [watch_dir / sample_method / prefix_dir / shard_dir / z for z in new_dirs]
             samples_to_submit = process_batch(sample_method, samples_to_submit, batch_dir)
 
