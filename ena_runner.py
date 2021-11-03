@@ -125,9 +125,9 @@ def process_batch(sample_method, samples_to_submit, batch_dir):
     
     submission = {"batch": {
             "fileName" : batch_name,
-            "bucketName" : Path(batch_dir).name,
-            "organisation" : "University of Oxford",
-            "site": "University of Oxford",
+            "bucketName" : sample_method.parent.name,
+            "organisation" : "Public Repository Data",
+            "site": "ENA Data",
             "uploadedOn": datetime.datetime.now().isoformat()[:-3] + "Z",
             "uploadedBy": "Jeremy.Swann@ndm.ox.ac.uk",
             "samples": samples,
