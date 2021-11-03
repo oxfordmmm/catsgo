@@ -179,6 +179,23 @@ def run_covid_illumina_catsup(flow_name, indir, bucket_name, catsup_uuid):
     response = session.post(url, data=data)
     return json.loads(response.text)
 
+def run_covid_ena(flow_name, ena_csv, ena_batch):
+    url = sp3_url + f"/flow/{ flow_name }/new"
+    timestamp = datetime.datetime.now().strftime("%Y%m%d_%H%M%S")
+    run_name = f"ena_{ena_batch}"
+
+    data = {
+        "fetch_uuid": "",
+        "run_name": run_name,
+        "context": "local",
+        "ena_csv-and---ena_csv": ena_csv,
+        "varcaller-and---varCaller": "viridian",
+        "api": "v1",
+    }
+
+    login()
+    response = session.post(url, data=data)
+    return json.loads(response.text)
 
 def get_all_runs(flow_name):
     url = sp3_url + f"/flow/{ flow_name }?api=v2"
