@@ -5,6 +5,7 @@ watches a directory which contains COVID ENA uploaded data and
 batches them to be run by catsgo
 """
 
+import csv
 import logging
 import time
 import uuid
@@ -18,6 +19,7 @@ import requests
 
 
 import db
+import catsgo
 
 myclient = pymongo.MongoClient("mongodb://localhost:27017/")
 mydb = myclient["ena_runner"]
@@ -120,8 +122,6 @@ def process_batch(sample_method, samples_to_submit, batch_dir):
             sample_shards[path].append(sample.name)
         else:
             sample_shards[path] = [sample.name]
-
-        # Add to batch_dir
     
     submission = {"batch": {
             "fileName" : batch_name,
@@ -133,14 +133,32 @@ def process_batch(sample_method, samples_to_submit, batch_dir):
             "samples": samples,
         }
     }
+
     apex_token = db.get_apex_token()
     apex_batch, apex_samples = db.post_metadata_to_apex(submission, apex_token)
-    print(f"submitted {batch_name}")
-    print(f"apex_batch - {apex_batch}")
-    print(f"apex_samples - {apex_samples}")
 
     for path, sample_list in sample_shards.items():
         add_to_cached_dirlist(sample_method.name, path, sample_list)
+    
+    # Add to batch_dir
+    ena_batch_csv = Path(batch_dir) / f"{batch_name}.csv"
+    out_fieldnames = ['bucket','sample_prefix','sample_accession']
+    with open(ena_batch_csv, 'w') as out_csv:
+        writer1 = csv.DictWriter(out_csv, fieldnames=out_fieldnames)
+        writer1.writeheader()
+        for sample in samples_to_submit:
+            out = {
+                'bucket' : submission['batch']['bucketName'],
+                'sample_prefix' : Path(sample),
+                'sample_accession' : sample.name
+            }
+            writer1.writerow(out)
+
+    ret = catsgo.run_covid_ena(
+        f"oxforduni-ncov2019-artic-nf-{sample_method.name}",
+        str(ena_batch_csv),
+        batch_name)
+
     return []
 
 def watch(
