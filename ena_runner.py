@@ -25,6 +25,9 @@ myclient = pymongo.MongoClient("mongodb://localhost:27017/")
 mydb = myclient["ena_runner"]
 dirlist = mydb["dirlist"]
 
+mydb2 = myclient["dir_watcher"]
+dirwatcher_metadata = mydb2["metadata"]
+
 logging.basicConfig(
     level=logging.DEBUG,
     format="%(asctime)s.%(msecs)03d %(levelname)s %(module)s - %(funcName)s: %(message)s",
@@ -158,6 +161,20 @@ def process_batch(sample_method, samples_to_submit, batch_dir):
         f"oxforduni-ncov2019-artic-nf-{sample_method.name}",
         str(ena_batch_csv),
         batch_name)
+
+    dirwatcher_metadata.update_one(
+        {"catsup_uuid": batch_name},
+        {
+            "$set": {
+                "run_uuid": ret.get("run_uuid", ""),
+                "added_time": str(int(time.time())),
+                "apex_batch": apex_batch,
+                "apex_samples": apex_samples,
+                "submitted_metadata": samples,
+            }
+        },
+        upsert=True,
+    )
 
     return []
 
