@@ -149,7 +149,7 @@ def process_batch(sample_method, samples_to_submit, batch_dir):
         for sample in samples_to_submit:
             out = {
                 'bucket' : submission['batch']['bucketName'],
-                'sample_prefix' : sample.relative_to(Path("/data/inputs/s3/") / submission['batch']['bucketName']),
+                'sample_prefix' : str(sample.relative_to(Path("/data/inputs/s3/") / submission['batch']['bucketName'])) + "/" ,
                 'sample_accession' : sample.name
             }
             writer1.writerow(out)
