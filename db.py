@@ -136,7 +136,6 @@ def submit_batch(batch, apex_token, config=config):
 
 
 def get_batch_by_name(batch_name, apex_token, config=config):
-    print(batch_name, apex_token)
     batches = get_batches(apex_token)
     if isinstance(batches.keys(), KeysView):
         found = False
