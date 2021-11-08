@@ -65,6 +65,66 @@ def add_to_cached_dirlist(sample_method, path, samples):
         {"sample_method": sample_method, "path": path}, {"$push": {"samples": { "$each" : samples }}}, upsert=True
     )
 
+def create_batch(exisiting_dirs, size_batch, new_dirs=None, new_dir_prefix=None, sample_method=None):
+    if new_dirs:
+        while len(exisiting_dirs) < size_batch and len(new_dirs) > 0:
+            dir = new_dirs.pop()
+            metadata = get_ena_metadata(dir)
+            validSample = True
+
+            if metadata:
+                # Paired fastq for Illumina, single fastq for nanopore
+                if sample_method:
+                    if sample_method == "illumina" and len(set(( new_dir_prefix / dir ).glob("*"))) != 2:
+                        print(f"{dir} is not a valid illumina sample, only one on the fastqs is avalaible.")
+                        validSample = False
+                    elif sample_method == "nanopore" and len(set(( new_dir_prefix / dir ).glob("*"))) != 1:
+                        print(f"{dir} is not a valid nanopore sample, there is more than one fastq.")
+                        validSample = False
+                elif 'instrument_platform' in metadata:
+                    if str(metadata['instrument_platform']).lower()== "illumina" and len(set(( new_dir_prefix / dir ).glob("*"))) != 2:
+                        print(f"{dir} is not a valid illumina sample, only one on the fastqs is avalaible.")
+                        validSample = False
+                    elif sample_method == "nanopore" and len(set(( new_dir_prefix / dir ).glob("*"))) != 1:
+                        print(f"{dir} is not a valid nanopore sample, there is more than one fastq.")
+                        validSample = False
+                else:
+                    print(f"Cannot determine sample method for {dir}.")
+                    validSample = False
+
+                if validSample:
+                    # Check md5 sums of sequences against ENA values
+                    for file in ( new_dir_prefix / dir ).glob("*"):
+                        validFile = False
+                        seq_md5 = ""
+                        with file.open(mode="rb") as seq_file:
+                            md5_hash = hashlib.md5()
+                            content = seq_file.read()
+                            md5_hash.update(content)
+                            seq_md5 = md5_hash.hexdigest()
+                        for ena_md5 in metadata['fastq_md5'].split(';'):
+                            if ena_md5 == seq_md5:
+                                validFile = True
+                                break
+                        if not validFile:
+                            print(f"{dir} is not a valid sample, an md5 does not match the ena md5.")
+                            print(f"seq md5 = {seq_md5}")
+                            print(f"ena md5 = {metadata['fastq_md5']}")
+                            validSample = False
+                            break
+
+                    if validSample:
+                        exisiting_dirs.append(( new_dir_prefix / dir, metadata))
+            else:
+                print(f"Cannot get ENA metadata for {dir}.")
+                validSample = False
+
+        # No new dirs, return working lists
+        return(exisiting_dirs, new_dirs)
+    else:
+        return(exisiting_dirs, [])
+
+
 def process_batch(sample_method, samples_to_submit, batch_dir):
     print(f"processing {samples_to_submit}")
     samples = list()
@@ -206,59 +266,20 @@ def watch(
                     candidate_dirs = set([z.name for z in ( watch_dir / sample_method / prefix_dir / shard_dir ).glob("*") if z.is_dir() and len(set(( watch_dir / sample_method / prefix_dir / shard_dir / z ).glob("*"))) >= 1 ])
                     # get directories/submissions that have already been processed
                     cached_dirlist = set(get_cached_dirlist(sample_method.name, str( Path(prefix_dir) / shard_dir)))
-                    # submissions to be processed are those that are new and have not beek marked as failed
+                    # submissions to be processed are those that are new and have not been marked as failed
                     new_dirs = candidate_dirs.difference(cached_dirlist)
                     #print(f"{sample_method} - {prefix_dir} - {shard_dir} - {new_dirs}")
 
                     if new_dirs:
                         new_dirs = list(new_dirs)
-                        cleaned_dirs = list()
+                        while len(new_dirs) > 0:                        
+                            # Assemble batch after checking No. of files and md5 sums are correct
+                            (samples_to_submit, new_dirs) = create_batch(samples_to_submit, size_batch, new_dirs, watch_dir / sample_method / prefix_dir / shard_dir, sample_method.name )
 
-                        # Check No. of files and md5 sums are correct
-                        for dir in new_dirs:
-                            metadata = get_ena_metadata(dir)
-                            validSample = True
-
-                            if metadata:
-                                # Paired fastq for Illumina, single fastq for nanopore
-                                if sample_method.name == "illumina" and len(set(( watch_dir / sample_method / prefix_dir / shard_dir / dir ).glob("*"))) != 2:
-                                        print(f"{dir} is not a valid illumina sample, only one on the fastqs is avalaible.")
-                                        ValidSample = False
-                                        continue
-                                elif sample_method.name == "nanopore" and len(set(( watch_dir / sample_method / prefix_dir / shard_dir / dir ).glob("*"))) != 1:
-                                        print(f"{dir} is not a valid nanopore sample, there is more than one fastq.")
-                                        ValidSample = False
-                                        continue
-                                
-                                # Check md5 sums of sequences against ENA values
-                                for file in (watch_dir / sample_method / prefix_dir / shard_dir / dir ).glob("*"):
-                                    validFile = False
-                                    seq_md5 = ""
-                                    with file.open(mode="rb") as seq_file:
-                                        md5_hash = hashlib.md5()
-                                        content = seq_file.read()
-                                        md5_hash.update(content)
-                                        seq_md5 = md5_hash.hexdigest()
-                                    for ena_md5 in metadata['fastq_md5'].split(';'):
-                                        if ena_md5 == seq_md5:
-                                            validFile = True
-                                            break
-                                    if not validFile:
-                                        print(f"{dir} is not a valid sample, an md5 does not match the ena md5.")
-                                        print(f"seq md5 = {seq_md5}")
-                                        print(f"ena md5 = {metadata['fastq_md5']}")
-                                        validSample = False
-                                        break
-
-                                if validSample:
-                                    cleaned_dirs.append((dir, metadata))
-
-                        # Check if submitting
-                        while len(cleaned_dirs) + len(samples_to_submit) >= size_batch:
-                            samples_to_submit += [( watch_dir / sample_method / prefix_dir / shard_dir / z[0], z[1]) for z in new_dirs[:size_batch - len(samples_to_submit)]]
-                            samples_to_submit = process_batch(sample_method, samples_to_submit, batch_dir)
-                            cleaned_dirs = cleaned_dirs[size_batch - len(samples_to_submit):]
-                        samples_to_submit += [( watch_dir / sample_method / prefix_dir / shard_dir / z[0], z[1]) for z in new_dirs]
+                            # Check if submitting
+                            if len(samples_to_submit) >= size_batch:
+                                samples_to_submit = process_batch(sample_method, samples_to_submit, batch_dir)
+            # Should submit leftovers for this sample_method to avoid mixing.
             samples_to_submit = process_batch(sample_method, samples_to_submit, batch_dir)
 
         print("sleeping for 60")
