@@ -37,7 +37,8 @@ logging.basicConfig(
 
 def get_ena_metadata(sample):
     url = f"https://www.ebi.ac.uk/ena/portal/api/filereport?accession={sample}&fields=host%2Cscientific_name%2Cfirst_public%2Ccollection_date%2Cinstrument_platform%2Cinstrument_model%2Ccountry%2Cfastq_md5&format=json&limit=10&result=read_run"
-    response = requests.get(url)
+    logging.info(f"getting ena metadata for {sample}")
+    response = requests.get(url, timeout=10)
     try:
         j = response.json()
         if len(j) == 1:
@@ -215,39 +216,42 @@ def watch(
 
                         # Check No. of files and md5 sums are correct
                         for dir in new_dirs:
-                            metadata = get_ena_metadata(dir.name)
+                            metadata = get_ena_metadata(dir)
                             validSample = True
 
-                            # Paired fastq for Illumina, single fastq for nanopore
-                            if sample_method.name == "illumina" and len(set(( watch_dir / sample_method / prefix_dir / shard_dir / dir ).glob("*"))) != 2:
-                                    print("{dir} is not a valid illumina sample, only one on the fastqs is avalaible.")
-                                    ValidSample = False
-                                    continue
-                            elif sample_method.name == "nanopore" and len(set(( watch_dir / sample_method / prefix_dir / shard_dir / dir ).glob("*"))) != 1:
-                                    print("{dir} is not a valid nanopore sample, there is more than one fastq.")
-                                    ValidSample = False
-                                    continue
-                            
-                            # Check md5 sums of sequences against ENA values
-                            for file in (watch_dir / sample_method / prefix_dir / shard_dir / dir ).glob("*"):
-                                validFile = False
-                                seq_md5 = ""
-                                with file.open(mode="rb") as seq_file:
-                                    md5_hash = hashlib.md5()
-                                    content = seq_file.read()
-                                    md5_hash.update(content)
-                                    seq_md5 = md5_hash.hexdigest()
-                                for ena_md5 in metadata['fastq_md5']:
-                                    if ena_md5 == seq_md5:
-                                        validFile = True
+                            if metadata:
+                                # Paired fastq for Illumina, single fastq for nanopore
+                                if sample_method.name == "illumina" and len(set(( watch_dir / sample_method / prefix_dir / shard_dir / dir ).glob("*"))) != 2:
+                                        print(f"{dir} is not a valid illumina sample, only one on the fastqs is avalaible.")
+                                        ValidSample = False
+                                        continue
+                                elif sample_method.name == "nanopore" and len(set(( watch_dir / sample_method / prefix_dir / shard_dir / dir ).glob("*"))) != 1:
+                                        print(f"{dir} is not a valid nanopore sample, there is more than one fastq.")
+                                        ValidSample = False
+                                        continue
+                                
+                                # Check md5 sums of sequences against ENA values
+                                for file in (watch_dir / sample_method / prefix_dir / shard_dir / dir ).glob("*"):
+                                    validFile = False
+                                    seq_md5 = ""
+                                    with file.open(mode="rb") as seq_file:
+                                        md5_hash = hashlib.md5()
+                                        content = seq_file.read()
+                                        md5_hash.update(content)
+                                        seq_md5 = md5_hash.hexdigest()
+                                    for ena_md5 in metadata['fastq_md5'].split(';'):
+                                        if ena_md5 == seq_md5:
+                                            validFile = True
+                                            break
+                                    if not validFile:
+                                        print(f"{dir} is not a valid sample, an md5 does not match the ena md5.")
+                                        print(f"seq md5 = {seq_md5}")
+                                        print(f"ena md5 = {metadata['fastq_md5']}")
+                                        validSample = False
                                         break
-                                if not validFile:
-                                    print("{dir} is not a valid sample, an md5 does not match the ena md5.")
-                                    validSample = False
-                                    break
 
-                            if validSample:
-                                cleaned_dirs.append((dir, metadata))
+                                if validSample:
+                                    cleaned_dirs.append((dir, metadata))
 
                         # Check if submitting
                         while len(cleaned_dirs) + len(samples_to_submit) >= size_batch:
