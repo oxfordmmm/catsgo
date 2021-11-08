@@ -211,7 +211,7 @@ def process_batch(sample_method, samples_to_submit, batch_dir):
     with open(ena_batch_csv, 'w') as out_csv:
         writer1 = csv.DictWriter(out_csv, fieldnames=out_fieldnames)
         writer1.writeheader()
-        for sample in samples_to_submit:
+        for sample, ena_metadata in samples_to_submit:
             out = {
                 'bucket' : submission['batch']['bucketName'],
                 'sample_prefix' : str(sample.relative_to(Path("/data/inputs/s3/") / submission['batch']['bucketName'])) + "/" ,
