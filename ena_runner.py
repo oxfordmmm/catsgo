@@ -243,7 +243,7 @@ def process_batch(sample_method, samples_to_submit, batch_dir):
 def watch(
     watch_dir="",
     batch_dir="",
-    size_batch=10
+    size_batch=200
 ):
     """
     
