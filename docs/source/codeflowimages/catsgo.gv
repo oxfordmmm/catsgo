@@ -1,0 +1,80 @@
+digraph G {
+concentrate=true;
+splines="ortho";
+rankdir="LR";
+subgraph legend{
+    rank = min;
+    label = "legend";
+    Legend [shape=none, margin=0, label = <
+        <table cellspacing="0" cellpadding="0" border="1"><tr><td>Code2flow Legend</td></tr><tr><td>
+        <table cellspacing="0">
+        <tr><td>Regular function</td><td width="50px" bgcolor='#cccccc'></td></tr>
+        <tr><td>Trunk function (nothing calls this)</td><td bgcolor='#966F33'></td></tr>
+        <tr><td>Leaf function (this calls nothing else)</td><td bgcolor='#6db33f'></td></tr>
+        <tr><td>Function call</td><td><font color='#cf142b'>&#8594;</font></td></tr>
+        </table></td></tr></table>
+        >];
+}node_f26f3150 [label="66: fetch()" name="catsgo::fetch" shape="rect" style="rounded,filled" fillcolor="#cccccc" ];
+node_2f6861a0 [label="264: run_info()" name="catsgo::run_info" shape="rect" style="rounded,filled" fillcolor="#cccccc" ];
+node_85df116c [label="48: login()" name="catsgo::login" shape="rect" style="rounded,filled" fillcolor="#cccccc" ];
+node_04e26fa8 [label="109: run_clockwork()" name="catsgo::run_clockwork" shape="rect" style="rounded,filled" fillcolor="#cccccc" ];
+node_8b7a783b [label="174: run_covid_illumina_catsup()" name="catsgo::run_covid_illumina_catsup" shape="rect" style="rounded,filled" fillcolor="#966F33" ];
+node_a286da8b [label="293: download_nextflow_task_data()" name="catsgo::download_nextflow_task_data" shape="rect" style="rounded,filled" fillcolor="#966F33" ];
+node_4415d77d [label="38: save_cookies()" name="catsgo::save_cookies" shape="rect" style="rounded,filled" fillcolor="#6db33f" ];
+node_777e61a2 [label="155: run_covid_illumina_objstore()" name="catsgo::run_covid_illumina_objstore" shape="rect" style="rounded,filled" fillcolor="#966F33" ];
+node_310ea42e [label="227: check_run_resume()" name="catsgo::check_run_resume" shape="rect" style="rounded,filled" fillcolor="#966F33" ];
+node_229bee2f [label="239: download_url()" name="catsgo::download_url" shape="rect" style="rounded,filled" fillcolor="#966F33" ];
+node_a90759d4 [label="43: load_cookies()" name="catsgo::load_cookies" shape="rect" style="rounded,filled" fillcolor="#6db33f" ];
+node_f8bea0ad [label="195: get_all_runs()" name="catsgo::get_all_runs" shape="rect" style="rounded,filled" fillcolor="#966F33" ];
+node_69cdc87f [label="83: try_n_times()" name="catsgo::try_n_times" shape="rect" style="rounded,filled" fillcolor="#6db33f" ];
+node_40cc2032 [label="135: run_covid_illumina()" name="catsgo::run_covid_illumina" shape="rect" style="rounded,filled" fillcolor="#966F33" ];
+node_bfacbd7c [label="245: download_cmd()" name="catsgo::download_cmd" shape="rect" style="rounded,filled" fillcolor="#cccccc" ];
+node_ea78c1ac [label="17: load_config()" name="catsgo::load_config" shape="rect" style="rounded,filled" fillcolor="#6db33f" ];
+node_b14ef68c [label="202: get_all_runs2()" name="catsgo::get_all_runs2" shape="rect" style="rounded,filled" fillcolor="#966F33" ];
+node_639375f9 [label="0: (global)()" name="catsgo::(global)" shape="rect" style="rounded,filled" fillcolor="#966F33" ];
+node_89bccece [label="99: check_fetch()" name="catsgo::check_fetch" shape="rect" style="rounded,filled" fillcolor="#cccccc" ];
+node_87375bfd [label="303: download_nextflow_task_data_csv()" name="catsgo::download_nextflow_task_data_csv" shape="rect" style="rounded,filled" fillcolor="#966F33" ];
+node_fececf7c [label="315: go()" name="catsgo::go" shape="rect" style="rounded,filled" fillcolor="#966F33" ];
+node_eebad9de [label="251: download_report()" name="catsgo::download_report" shape="rect" style="rounded,filled" fillcolor="#cccccc" ];
+node_20ef6e0c [label="209: check_run()" name="catsgo::check_run" shape="rect" style="rounded,filled" fillcolor="#cccccc" ];
+node_98b16288 [label="277: download_reports()" name="catsgo::download_reports" shape="rect" style="rounded,filled" fillcolor="#966F33" ];
+node_85df116c -> node_a90759d4 [color="#cf142b" penwidth="2"];
+node_85df116c -> node_4415d77d [color="#cf142b" penwidth="2"];
+node_f26f3150 -> node_85df116c [color="#cf142b" penwidth="2"];
+node_89bccece -> node_85df116c [color="#cf142b" penwidth="2"];
+node_89bccece -> node_69cdc87f [color="#cf142b" penwidth="2"];
+node_04e26fa8 -> node_85df116c [color="#cf142b" penwidth="2"];
+node_40cc2032 -> node_85df116c [color="#cf142b" penwidth="2"];
+node_777e61a2 -> node_85df116c [color="#cf142b" penwidth="2"];
+node_8b7a783b -> node_85df116c [color="#cf142b" penwidth="2"];
+node_f8bea0ad -> node_85df116c [color="#cf142b" penwidth="2"];
+node_b14ef68c -> node_85df116c [color="#cf142b" penwidth="2"];
+node_20ef6e0c -> node_85df116c [color="#cf142b" penwidth="2"];
+node_20ef6e0c -> node_69cdc87f [color="#cf142b" penwidth="2"];
+node_310ea42e -> node_20ef6e0c [color="#cf142b" penwidth="2"];
+node_229bee2f -> node_85df116c [color="#cf142b" penwidth="2"];
+node_bfacbd7c -> node_85df116c [color="#cf142b" penwidth="2"];
+node_eebad9de -> node_85df116c [color="#cf142b" penwidth="2"];
+node_eebad9de -> node_69cdc87f [color="#cf142b" penwidth="2"];
+node_2f6861a0 -> node_85df116c [color="#cf142b" penwidth="2"];
+node_2f6861a0 -> node_69cdc87f [color="#cf142b" penwidth="2"];
+node_98b16288 -> node_85df116c [color="#cf142b" penwidth="2"];
+node_98b16288 -> node_2f6861a0 [color="#cf142b" penwidth="2"];
+node_98b16288 -> node_eebad9de [color="#cf142b" penwidth="2"];
+node_a286da8b -> node_85df116c [color="#cf142b" penwidth="2"];
+node_87375bfd -> node_85df116c [color="#cf142b" penwidth="2"];
+node_fececf7c -> node_85df116c [color="#cf142b" penwidth="2"];
+node_fececf7c -> node_f26f3150 [color="#cf142b" penwidth="2"];
+node_fececf7c -> node_89bccece [color="#cf142b" penwidth="2"];
+node_fececf7c -> node_04e26fa8 [color="#cf142b" penwidth="2"];
+node_fececf7c -> node_20ef6e0c [color="#cf142b" penwidth="2"];
+node_fececf7c -> node_bfacbd7c [color="#cf142b" penwidth="2"];
+node_639375f9 -> node_ea78c1ac [color="#cf142b" penwidth="2"];
+subgraph cluster_66f7bbd0 {
+    node_ea78c1ac node_4415d77d node_a90759d4 node_85df116c node_f26f3150 node_69cdc87f node_89bccece node_04e26fa8 node_40cc2032 node_777e61a2 node_8b7a783b node_f8bea0ad node_b14ef68c node_20ef6e0c node_310ea42e node_229bee2f node_bfacbd7c node_eebad9de node_2f6861a0 node_98b16288 node_a286da8b node_87375bfd node_fececf7c node_639375f9;
+    label="File: catsgo";
+    name="catsgo";
+    style="filled";
+    graph[style=dotted];
+};
+}

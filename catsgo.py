@@ -1,4 +1,7 @@
 #! /usr/bin/env python3
+"""
+    The main catsgo module
+"""
 
 import pickle
 import json
@@ -12,6 +15,15 @@ import requests
 
 
 def load_config(config_file):
+    """
+    Load the configuration file
+
+    Args:
+        config_file (str): The location of the configuration file
+
+    Returns:
+        json: The cfg object
+    """
     with open(config_file) as f:
         cfg = json.loads(f.read())
     return cfg

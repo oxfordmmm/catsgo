@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>run_watcher module &mdash; catsgo 0.1 documentation</title>
+      <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+        <script src="../_static/jquery.js"></script>
+        <script src="../_static/underscore.js"></script>
+        <script src="../_static/doctools.js"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="status_all_dir_watchers module" href="status_all_dir_watchers.html" />
+    <link rel="prev" title="restart_all_dir_watchers module" href="restart_all_dir_watchers.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+            <a href="../index.html" class="icon icon-home"> catsgo
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="modules.html">catsgo</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="catsgo.html">catsgo module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="db.html">db module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="dir_watcher.html">dir_watcher module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="mykrobe2csv.html">mykrobe2csv module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="oracle_buckets.html">oracle_buckets module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="reports2csv.html">reports2csv module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="restart_all_dir_watchers.html">restart_all_dir_watchers module</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">run_watcher module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#code-flow-diagram">Code flow diagram</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="status_all_dir_watchers.html">status_all_dir_watchers module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="test_catsgo_clockwork.html">test_catsgo_clockwork module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="verify_reports.html">verify_reports module</a></li>
+</ul>
+</li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">catsgo</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home"></a> &raquo;</li>
+          <li><a href="modules.html">catsgo</a> &raquo;</li>
+      <li>run_watcher module</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../_sources/generated/run_watcher.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="module-run_watcher">
+<span id="run-watcher-module"></span><h1>run_watcher module<a class="headerlink" href="#module-run_watcher" title="Permalink to this headline"></a></h1>
+<dl class="py function">
+<dt class="sig sig-object py" id="run_watcher.add_to_submitted_runlist">
+<span class="sig-prename descclassname"><span class="pre">run_watcher.</span></span><span class="sig-name descname"><span class="pre">add_to_submitted_runlist</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">pipeline_name</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">new_run_uuid</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#run_watcher.add_to_submitted_runlist" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="run_watcher.get_data_for_run">
+<span class="sig-prename descclassname"><span class="pre">run_watcher.</span></span><span class="sig-name descname"><span class="pre">get_data_for_run</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">new_run_uuid</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#run_watcher.get_data_for_run" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="run_watcher.get_finished_ok_sp3_runs">
+<span class="sig-prename descclassname"><span class="pre">run_watcher.</span></span><span class="sig-name descname"><span class="pre">get_finished_ok_sp3_runs</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">pipeline_name</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#run_watcher.get_finished_ok_sp3_runs" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="run_watcher.get_sample_map_for_run">
+<span class="sig-prename descclassname"><span class="pre">run_watcher.</span></span><span class="sig-name descname"><span class="pre">get_sample_map_for_run</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">new_run_uuid</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#run_watcher.get_sample_map_for_run" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="run_watcher.get_submitted_runlist">
+<span class="sig-prename descclassname"><span class="pre">run_watcher.</span></span><span class="sig-name descname"><span class="pre">get_submitted_runlist</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">pipeline_name</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#run_watcher.get_submitted_runlist" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="run_watcher.make_sample_data">
+<span class="sig-prename descclassname"><span class="pre">run_watcher.</span></span><span class="sig-name descname"><span class="pre">make_sample_data</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">new_run_uuid</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sp3_sample_name</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#run_watcher.make_sample_data" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="run_watcher.process_run">
+<span class="sig-prename descclassname"><span class="pre">run_watcher.</span></span><span class="sig-name descname"><span class="pre">process_run</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">new_run_uuid</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">config</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">apex_token</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#run_watcher.process_run" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="run_watcher.save_sample_data">
+<span class="sig-prename descclassname"><span class="pre">run_watcher.</span></span><span class="sig-name descname"><span class="pre">save_sample_data</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">new_run_uuid</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sp3_sample_name</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sample_data</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#run_watcher.save_sample_data" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="run_watcher.send_output_data_to_api">
+<span class="sig-prename descclassname"><span class="pre">run_watcher.</span></span><span class="sig-name descname"><span class="pre">send_output_data_to_api</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">new_run_uuid</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">config</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">apex_token</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#run_watcher.send_output_data_to_api" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="run_watcher.submit_sample_data">
+<span class="sig-prename descclassname"><span class="pre">run_watcher.</span></span><span class="sig-name descname"><span class="pre">submit_sample_data</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">apex_database_sample_name</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">data</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">config</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">apex_token</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#run_watcher.submit_sample_data" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="run_watcher.submit_sample_data_error">
+<span class="sig-prename descclassname"><span class="pre">run_watcher.</span></span><span class="sig-name descname"><span class="pre">submit_sample_data_error</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">error_str</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'Error:</span> <span class="pre">unspecified</span> <span class="pre">error'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">apex_database_sample_name</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sp3_sample_name</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sp3_run_uuid</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">apex_token</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">config</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#run_watcher.submit_sample_data_error" title="Permalink to this definition"></a></dt>
+<dd><p>Given a oracle sample id or sp3 sample name, submit sample error status.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="run_watcher.watch">
+<span class="sig-prename descclassname"><span class="pre">run_watcher.</span></span><span class="sig-name descname"><span class="pre">watch</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">flow_name</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'oxforduni-ncov2019-artic-nf-illumina'</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#run_watcher.watch" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<section id="code-flow-diagram">
+<h2>Code flow diagram<a class="headerlink" href="#code-flow-diagram" title="Permalink to this headline"></a></h2>
+<a class="reference internal image-reference" href="../_images/run_watcher.svg"><img alt="run_watcher code flow diagram" src="../_images/run_watcher.svg" width="800" /></a>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="restart_all_dir_watchers.html" class="btn btn-neutral float-left" title="restart_all_dir_watchers module" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="status_all_dir_watchers.html" class="btn btn-neutral float-right" title="status_all_dir_watchers module" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2021, MMM.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

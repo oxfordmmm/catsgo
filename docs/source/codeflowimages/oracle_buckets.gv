@@ -1,0 +1,28 @@
+digraph G {
+concentrate=true;
+splines="ortho";
+rankdir="LR";
+subgraph legend{
+    rank = min;
+    label = "legend";
+    Legend [shape=none, margin=0, label = <
+        <table cellspacing="0" cellpadding="0" border="1"><tr><td>Code2flow Legend</td></tr><tr><td>
+        <table cellspacing="0">
+        <tr><td>Regular function</td><td width="50px" bgcolor='#cccccc'></td></tr>
+        <tr><td>Trunk function (nothing calls this)</td><td bgcolor='#966F33'></td></tr>
+        <tr><td>Leaf function (this calls nothing else)</td><td bgcolor='#6db33f'></td></tr>
+        <tr><td>Function call</td><td><font color='#cf142b'>&#8594;</font></td></tr>
+        </table></td></tr></table>
+        >];
+}node_ee41f3a1 [label="21: go()" name="oracle_buckets::go" shape="rect" style="rounded,filled" fillcolor="#966F33" ];
+node_a267565a [label="16: is_path_mounted()" name="oracle_buckets::is_path_mounted" shape="rect" style="rounded,filled" fillcolor="#6db33f" ];
+node_ee41f3a1 -> node_a267565a [color="#cf142b" penwidth="2"];
+node_ee41f3a1 -> node_a267565a [color="#cf142b" penwidth="2"];
+subgraph cluster_546d118d {
+    node_a267565a node_ee41f3a1;
+    label="File: oracle_buckets";
+    name="oracle_buckets";
+    style="filled";
+    graph[style=dotted];
+};
+}

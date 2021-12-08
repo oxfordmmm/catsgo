@@ -1,0 +1,15 @@
+{%- if show_headings %}
+{{- [basename, "module"] | join(' ') | e | heading }}
+
+{% endif -%}
+.. automodule:: {{ qualname }}
+{%- for option in automodule_options %}
+   :{{ option }}:
+{%- endfor %}
+
+Code flow diagram
+-----------------
+
+.. image:: ../codeflowimages/{{ qualname }}.svg
+  :width: 800
+  :alt: {{ qualname }} code flow diagram

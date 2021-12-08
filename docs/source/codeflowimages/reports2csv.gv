@@ -1,0 +1,29 @@
+digraph G {
+concentrate=true;
+splines="ortho";
+rankdir="LR";
+subgraph legend{
+    rank = min;
+    label = "legend";
+    Legend [shape=none, margin=0, label = <
+        <table cellspacing="0" cellpadding="0" border="1"><tr><td>Code2flow Legend</td></tr><tr><td>
+        <table cellspacing="0">
+        <tr><td>Regular function</td><td width="50px" bgcolor='#cccccc'></td></tr>
+        <tr><td>Trunk function (nothing calls this)</td><td bgcolor='#966F33'></td></tr>
+        <tr><td>Leaf function (this calls nothing else)</td><td bgcolor='#6db33f'></td></tr>
+        <tr><td>Function call</td><td><font color='#cf142b'>&#8594;</font></td></tr>
+        </table></td></tr></table>
+        >];
+}node_ddb85eb5 [label="27: get_val_from_dict()" name="reports2csv::get_val_from_dict" shape="rect" style="rounded,filled" fillcolor="#cccccc" ];
+node_97982925 [label="5: get_list_value()" name="reports2csv::get_list_value" shape="rect" style="rounded,filled" fillcolor="#6db33f" ];
+node_d1fd33cf [label="43: main()" name="reports2csv::main" shape="rect" style="rounded,filled" fillcolor="#966F33" ];
+node_ddb85eb5 -> node_97982925 [color="#cf142b" penwidth="2"];
+node_d1fd33cf -> node_ddb85eb5 [color="#cf142b" penwidth="2"];
+subgraph cluster_e7af326d {
+    node_97982925 node_ddb85eb5 node_d1fd33cf;
+    label="File: reports2csv";
+    name="reports2csv";
+    style="filled";
+    graph[style=dotted];
+};
+}

@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>catsgo module &mdash; catsgo 0.1 documentation</title>
+      <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+        <script src="../_static/jquery.js"></script>
+        <script src="../_static/underscore.js"></script>
+        <script src="../_static/doctools.js"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="db module" href="db.html" />
+    <link rel="prev" title="catsgo" href="modules.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+            <a href="../index.html" class="icon icon-home"> catsgo
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="modules.html">catsgo</a><ul class="current">
+<li class="toctree-l2 current"><a class="current reference internal" href="#">catsgo module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#code-flow-diagram">Code flow diagram</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="db.html">db module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="dir_watcher.html">dir_watcher module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="mykrobe2csv.html">mykrobe2csv module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="oracle_buckets.html">oracle_buckets module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="reports2csv.html">reports2csv module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="restart_all_dir_watchers.html">restart_all_dir_watchers module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="run_watcher.html">run_watcher module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="status_all_dir_watchers.html">status_all_dir_watchers module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="test_catsgo_clockwork.html">test_catsgo_clockwork module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="verify_reports.html">verify_reports module</a></li>
+</ul>
+</li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">catsgo</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home"></a> &raquo;</li>
+          <li><a href="modules.html">catsgo</a> &raquo;</li>
+      <li>catsgo module</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../_sources/generated/catsgo.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="module-catsgo">
+<span id="catsgo-module"></span><h1>catsgo module<a class="headerlink" href="#module-catsgo" title="Permalink to this headline"></a></h1>
+<p>The main catsgo module</p>
+<dl class="py function">
+<dt class="sig sig-object py" id="catsgo.check_fetch">
+<span class="sig-prename descclassname"><span class="pre">catsgo.</span></span><span class="sig-name descname"><span class="pre">check_fetch</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">fetch_uuid</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#catsgo.check_fetch" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="catsgo.check_run">
+<span class="sig-prename descclassname"><span class="pre">catsgo.</span></span><span class="sig-name descname"><span class="pre">check_run</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">flow_name</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">run_uuid</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#catsgo.check_run" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="catsgo.check_run_resume">
+<span class="sig-prename descclassname"><span class="pre">catsgo.</span></span><span class="sig-name descname"><span class="pre">check_run_resume</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">run_uuid</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#catsgo.check_run_resume" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="catsgo.download_cmd">
+<span class="sig-prename descclassname"><span class="pre">catsgo.</span></span><span class="sig-name descname"><span class="pre">download_cmd</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">run_uuid</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#catsgo.download_cmd" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="catsgo.download_nextflow_task_data">
+<span class="sig-prename descclassname"><span class="pre">catsgo.</span></span><span class="sig-name descname"><span class="pre">download_nextflow_task_data</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">flow_name</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">run_uuid</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">do_print</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#catsgo.download_nextflow_task_data" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="catsgo.download_nextflow_task_data_csv">
+<span class="sig-prename descclassname"><span class="pre">catsgo.</span></span><span class="sig-name descname"><span class="pre">download_nextflow_task_data_csv</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">flow_name</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">run_uuid</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">do_print</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#catsgo.download_nextflow_task_data_csv" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="catsgo.download_report">
+<span class="sig-prename descclassname"><span class="pre">catsgo.</span></span><span class="sig-name descname"><span class="pre">download_report</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">run_uuid</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dataset_id</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">do_print</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#catsgo.download_report" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="catsgo.download_reports">
+<span class="sig-prename descclassname"><span class="pre">catsgo.</span></span><span class="sig-name descname"><span class="pre">download_reports</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">flow_name</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">run_uuid</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#catsgo.download_reports" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="catsgo.download_url">
+<span class="sig-prename descclassname"><span class="pre">catsgo.</span></span><span class="sig-name descname"><span class="pre">download_url</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">run_uuid</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#catsgo.download_url" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="catsgo.fetch">
+<span class="sig-prename descclassname"><span class="pre">catsgo.</span></span><span class="sig-name descname"><span class="pre">fetch</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">fetch_name</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#catsgo.fetch" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="catsgo.get_all_runs">
+<span class="sig-prename descclassname"><span class="pre">catsgo.</span></span><span class="sig-name descname"><span class="pre">get_all_runs</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">flow_name</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#catsgo.get_all_runs" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="catsgo.get_all_runs2">
+<span class="sig-prename descclassname"><span class="pre">catsgo.</span></span><span class="sig-name descname"><span class="pre">get_all_runs2</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">flow_name</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#catsgo.get_all_runs2" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="catsgo.go">
+<span class="sig-prename descclassname"><span class="pre">catsgo.</span></span><span class="sig-name descname"><span class="pre">go</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">fetch_name</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#catsgo.go" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="catsgo.load_config">
+<span class="sig-prename descclassname"><span class="pre">catsgo.</span></span><span class="sig-name descname"><span class="pre">load_config</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">config_file</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#catsgo.load_config" title="Permalink to this definition"></a></dt>
+<dd><p>Load the configuration file</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>config_file</strong> (<em>str</em>) – The location of the configuration file</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>The cfg object</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>json</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="catsgo.load_cookies">
+<span class="sig-prename descclassname"><span class="pre">catsgo.</span></span><span class="sig-name descname"><span class="pre">load_cookies</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#catsgo.load_cookies" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="catsgo.login">
+<span class="sig-prename descclassname"><span class="pre">catsgo.</span></span><span class="sig-name descname"><span class="pre">login</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#catsgo.login" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="catsgo.run_clockwork">
+<span class="sig-prename descclassname"><span class="pre">catsgo.</span></span><span class="sig-name descname"><span class="pre">run_clockwork</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">flow_name</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">fetch_uuid</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#catsgo.run_clockwork" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="catsgo.run_covid_illumina">
+<span class="sig-prename descclassname"><span class="pre">catsgo.</span></span><span class="sig-name descname"><span class="pre">run_covid_illumina</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">flow_name</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">input_dir</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#catsgo.run_covid_illumina" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="catsgo.run_covid_illumina_catsup">
+<span class="sig-prename descclassname"><span class="pre">catsgo.</span></span><span class="sig-name descname"><span class="pre">run_covid_illumina_catsup</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">flow_name</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">indir</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">bucket_name</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">catsup_uuid</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#catsgo.run_covid_illumina_catsup" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="catsgo.run_covid_illumina_objstore">
+<span class="sig-prename descclassname"><span class="pre">catsgo.</span></span><span class="sig-name descname"><span class="pre">run_covid_illumina_objstore</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">flow_name</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">obj_csv</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#catsgo.run_covid_illumina_objstore" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="catsgo.run_info">
+<span class="sig-prename descclassname"><span class="pre">catsgo.</span></span><span class="sig-name descname"><span class="pre">run_info</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">flow_name</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">run_uuid</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">do_print</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#catsgo.run_info" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="catsgo.save_cookies">
+<span class="sig-prename descclassname"><span class="pre">catsgo.</span></span><span class="sig-name descname"><span class="pre">save_cookies</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#catsgo.save_cookies" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="catsgo.try_n_times">
+<span class="sig-prename descclassname"><span class="pre">catsgo.</span></span><span class="sig-name descname"><span class="pre">try_n_times</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">proc</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">n</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sleep_dur</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#catsgo.try_n_times" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<section id="code-flow-diagram">
+<h2>Code flow diagram<a class="headerlink" href="#code-flow-diagram" title="Permalink to this headline"></a></h2>
+<a class="reference internal image-reference" href="../_images/catsgo.svg"><img alt="catsgo code flow diagram" src="../_images/catsgo.svg" width="800" /></a>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="modules.html" class="btn btn-neutral float-left" title="catsgo" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="db.html" class="btn btn-neutral float-right" title="db module" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2021, MMM.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

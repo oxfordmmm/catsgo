@@ -1,0 +1,46 @@
+digraph G {
+concentrate=true;
+splines="ortho";
+rankdir="LR";
+subgraph legend{
+    rank = min;
+    label = "legend";
+    Legend [shape=none, margin=0, label = <
+        <table cellspacing="0" cellpadding="0" border="1"><tr><td>Code2flow Legend</td></tr><tr><td>
+        <table cellspacing="0">
+        <tr><td>Regular function</td><td width="50px" bgcolor='#cccccc'></td></tr>
+        <tr><td>Trunk function (nothing calls this)</td><td bgcolor='#966F33'></td></tr>
+        <tr><td>Leaf function (this calls nothing else)</td><td bgcolor='#6db33f'></td></tr>
+        <tr><td>Function call</td><td><font color='#cf142b'>&#8594;</font></td></tr>
+        </table></td></tr></table>
+        >];
+}node_42cea454 [label="43: add_to_submitted_runlist()" name="run_watcher::add_to_submitted_runlist" shape="rect" style="rounded,filled" fillcolor="#6db33f" ];
+node_40d90496 [label="64: get_sample_map_for_run()" name="run_watcher::get_sample_map_for_run" shape="rect" style="rounded,filled" fillcolor="#cccccc" ];
+node_027f5ad9 [label="281: watch()" name="run_watcher::watch" shape="rect" style="rounded,filled" fillcolor="#966F33" ];
+node_47ddba55 [label="273: get_finished_ok_sp3_runs()" name="run_watcher::get_finished_ok_sp3_runs" shape="rect" style="rounded,filled" fillcolor="#6db33f" ];
+node_bd10f9bd [label="171: submit_sample_data_error()" name="run_watcher::submit_sample_data_error" shape="rect" style="rounded,filled" fillcolor="#cccccc" ];
+node_062102e8 [label="82: make_sample_data()" name="run_watcher::make_sample_data" shape="rect" style="rounded,filled" fillcolor="#6db33f" ];
+node_e66a499d [label="229: submit_sample_data()" name="run_watcher::submit_sample_data" shape="rect" style="rounded,filled" fillcolor="#6db33f" ];
+node_b7e2034a [label="35: get_submitted_runlist()" name="run_watcher::get_submitted_runlist" shape="rect" style="rounded,filled" fillcolor="#6db33f" ];
+node_52c3749c [label="269: process_run()" name="run_watcher::process_run" shape="rect" style="rounded,filled" fillcolor="#cccccc" ];
+node_46228a66 [label="242: send_output_data_to_api()" name="run_watcher::send_output_data_to_api" shape="rect" style="rounded,filled" fillcolor="#cccccc" ];
+node_27c082c1 [label="59: get_data_for_run()" name="run_watcher::get_data_for_run" shape="rect" style="rounded,filled" fillcolor="#6db33f" ];
+node_40d90496 -> node_27c082c1 [color="#cf142b" penwidth="2"];
+node_bd10f9bd -> node_40d90496 [color="#cf142b" penwidth="2"];
+node_46228a66 -> node_40d90496 [color="#cf142b" penwidth="2"];
+node_46228a66 -> node_062102e8 [color="#cf142b" penwidth="2"];
+node_46228a66 -> node_e66a499d [color="#cf142b" penwidth="2"];
+node_46228a66 -> node_bd10f9bd [color="#cf142b" penwidth="2"];
+node_52c3749c -> node_46228a66 [color="#cf142b" penwidth="2"];
+node_027f5ad9 -> node_47ddba55 [color="#cf142b" penwidth="2"];
+node_027f5ad9 -> node_b7e2034a [color="#cf142b" penwidth="2"];
+node_027f5ad9 -> node_52c3749c [color="#cf142b" penwidth="2"];
+node_027f5ad9 -> node_42cea454 [color="#cf142b" penwidth="2"];
+subgraph cluster_efe2b3ea {
+    node_b7e2034a node_42cea454 node_27c082c1 node_40d90496 node_062102e8 node_bd10f9bd node_e66a499d node_46228a66 node_52c3749c node_47ddba55 node_027f5ad9;
+    label="File: run_watcher";
+    name="run_watcher";
+    style="filled";
+    graph[style=dotted];
+};
+}

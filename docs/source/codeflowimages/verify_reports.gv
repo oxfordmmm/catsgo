@@ -1,0 +1,36 @@
+digraph G {
+concentrate=true;
+splines="ortho";
+rankdir="LR";
+subgraph legend{
+    rank = min;
+    label = "legend";
+    Legend [shape=none, margin=0, label = <
+        <table cellspacing="0" cellpadding="0" border="1"><tr><td>Code2flow Legend</td></tr><tr><td>
+        <table cellspacing="0">
+        <tr><td>Regular function</td><td width="50px" bgcolor='#cccccc'></td></tr>
+        <tr><td>Trunk function (nothing calls this)</td><td bgcolor='#966F33'></td></tr>
+        <tr><td>Leaf function (this calls nothing else)</td><td bgcolor='#6db33f'></td></tr>
+        <tr><td>Function call</td><td><font color='#cf142b'>&#8594;</font></td></tr>
+        </table></td></tr></table>
+        >];
+}node_5a065c4b [label="18: compare2()" name="verify_reports::compare2" shape="rect" style="rounded,filled" fillcolor="#cccccc" ];
+node_2f8fc881 [label="54: go()" name="verify_reports::go" shape="rect" style="rounded,filled" fillcolor="#966F33" ];
+node_6d712bef [label="9: get_val_from_dict()" name="verify_reports::get_val_from_dict" shape="rect" style="rounded,filled" fillcolor="#6db33f" ];
+node_5a065c4b -> node_6d712bef [color="#cf142b" penwidth="2"];
+node_5a065c4b -> node_6d712bef [color="#cf142b" penwidth="2"];
+node_5a065c4b -> node_6d712bef [color="#cf142b" penwidth="2"];
+node_5a065c4b -> node_6d712bef [color="#cf142b" penwidth="2"];
+node_5a065c4b -> node_6d712bef [color="#cf142b" penwidth="2"];
+node_5a065c4b -> node_6d712bef [color="#cf142b" penwidth="2"];
+node_5a065c4b -> node_6d712bef [color="#cf142b" penwidth="2"];
+node_5a065c4b -> node_6d712bef [color="#cf142b" penwidth="2"];
+node_2f8fc881 -> node_5a065c4b [color="#cf142b" penwidth="2"];
+subgraph cluster_7efd0a7b {
+    node_6d712bef node_5a065c4b node_2f8fc881;
+    label="File: verify_reports";
+    name="verify_reports";
+    style="filled";
+    graph[style=dotted];
+};
+}
