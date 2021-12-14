@@ -7,7 +7,7 @@ At present `make_sample_data` looks for e.g. `analysis/report/illumina/ {sp3_sam
 * If neither are there it then looks for `tsv` files, and if it still can't find any, it logs an error and returns `None`
 * Iff there is only does it proceed.
 
-## Implications
+## Implications
 
 * because only analysis output files are aggregated into the `report.json`, this means that no fields from `viridian` are passed ever
 * if a sample fails i.e. a consensus genome cannot be created due to e.g. amplicon dropout, then no data is given to APEX
