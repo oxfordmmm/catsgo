@@ -309,7 +309,7 @@ def process_dir(new_dir, watch_dir, bucket_name, apex_token, max_submission_atte
                 data = batch_samples
                 apex_samples = db.get_batch_samples(apex_batch['id'], apex_token)
             else:
-                logging.error("No sp3data.csv and could not access ORDS DB for {new_dir}.")
+                logging.error(f"No sp3data.csv and could not access ORDS DB for {new_dir}.")
                 return False
 
         if pipeline == "illumina-1":
