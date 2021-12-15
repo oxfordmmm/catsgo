@@ -10,14 +10,9 @@ import logging
 import argh
 import requests
 
+import utils
 
-def load_config(config_file):
-    with open(config_file) as f:
-        cfg = json.loads(f.read())
-    return cfg
-
-
-config = load_config("config.json")
+config = utils.load_config("config.json")
 sp3_url = config["sp3_url"]
 
 session = requests.Session()

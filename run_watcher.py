@@ -17,6 +17,7 @@ import pymongo
 import requests
 
 import catsgo
+import utils
 import db
 
 myclient = pymongo.MongoClient("mongodb://localhost:27017/")
@@ -198,7 +199,7 @@ def submit_sample_data_error(
     if not apex_token:
         apex_token = db.get_apex_token()
     if not config:
-        config = db.Config("config.ini")
+        config = utils.load_oracle_config("config.json")
 
     if type(error_str) != str:
         # just in case
@@ -218,11 +219,11 @@ def submit_sample_data_error(
     }
 
     sample_data_response = requests.put(
-        f"{config.host}/samples/{apex_database_sample_name}",
+        f"{config['host']}/samples/{apex_database_sample_name}",
         headers={"Authorization": f"Bearer {apex_token}"},
         json=data,
     )
-    logging.info(f"POSTing error to {config.host}/samples/{apex_database_sample_name}")
+    logging.info(f"POSTing error to {config['host']}/samples/{apex_database_sample_name}")
     return sample_data_response.text
 
 
@@ -231,11 +232,11 @@ def submit_sample_data(apex_database_sample_name, data, config, apex_token):
         "sample": {"operations": [{"op": "add", "path": "analysis", "value": [data]}]}
     }
     sample_data_response = requests.put(
-        f"{config.host}/samples/{apex_database_sample_name}",
+        f"{config['host']}/samples/{apex_database_sample_name}",
         headers={"Authorization": f"Bearer {apex_token}"},
         json=data,
     )
-    logging.info(f"POSTing to {config.host}/samples/{apex_database_sample_name}")
+    logging.info(f"POSTing to {config['host']}/samples/{apex_database_sample_name}")
     return sample_data_response.text
 
 
@@ -281,7 +282,7 @@ def get_finished_ok_sp3_runs(pipeline_name):
 def watch(flow_name="oxforduni-ncov2019-artic-nf-illumina"):
     apex_token = None
     apex_token_time = 0
-    config = db.Config("config.ini")
+    config = utils.load_oracle_config("config.json")
 
     while True:
         # get a new token every 5 hours (& startup)
