@@ -136,7 +136,6 @@ def submit_batch(batch, apex_token, config=config):
 
 
 def get_batch_by_name(batch_name, apex_token, config=config):
-    print(batch_name, apex_token)
     batches = get_batches(apex_token)
     if isinstance(batches.keys(), KeysView):
         found = False
@@ -213,7 +212,7 @@ def get_samples(batch_id, apex_token, query=None, negate_query=False, config=con
     else:
         return j
 
-def post_metadata_to_apex(new_dir, data, apex_token):
+def post_metadata_to_apex(data, apex_token):
     # logging.info(apex_token)
     batch_response = requests.post(
         f"{config.host}/batches",
