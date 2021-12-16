@@ -219,7 +219,7 @@ def get_output_bucket_from_input(input_bucket, apex_token, config=config):
         for organisation in organisations['items']:
             if input_bucket == organisation['inputBucketName']:
                 found = True
-                return input_bucket
+                return organisation['outputBucketName']
         if not found:
             return None
     else:

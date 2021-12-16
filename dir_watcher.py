@@ -312,8 +312,7 @@ def process_dir(new_dir, watch_dir, bucket_name, apex_token, max_submission_atte
                 logging.error(f"No sp3data.csv and could not access ORDS DB for {new_dir}.")
                 return False
 
-        upload_bucket = db.get_output_bucket_from_input(bucket_name)
-
+        upload_bucket = db.get_output_bucket_from_input(bucket_name, apex_token)
         if pipeline == "illumina-1":
             ret = catsgo.run_covid_illumina_catsup(
                 "oxforduni-ncov2019-artic-nf-illumina",
