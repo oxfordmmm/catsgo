@@ -58,6 +58,17 @@ def get_batches(apex_token, config=config):
         logging.error(f"unexpected response from GET {url}: {response.text}")
         return []
 
+def get_organisations(apex_token, config=config):
+    url = f"{config['host']}/organisations"
+    method = "GET"
+    headers = {"Authorization": f"Bearer {apex_token}"}
+    response = requests.get(url, headers=headers)
+    try:
+        return response.json()
+    except:
+        logging.error(f"unexpected response from GET {url}: {response.text}")
+        return []
+
 def get_batch_samples(batch_id, apex_token, config=config):
     url = f"{config['host']}/batches/{batch_id}"
     method = "GET"
@@ -200,6 +211,20 @@ def get_samples(batch_id, apex_token, query=None, negate_query=False, config=con
 
     else:
         return j
+
+def get_output_bucket_from_input(input_bucket, apex_token, config=config):
+    organisations = get_organisations(apex_token)
+    if isinstance(organisations.keys(), KeysView):
+        found = False
+        for organisation in organisations['items']:
+            if input_bucket == organisation['inputBucketName']:
+                found = True
+                return organisation['outputBucketName']
+        if not found:
+            return None
+    else:
+        logging.error(f"API response not as expected, quiting. Output - {organisations}")
+        return None
 
 def post_metadata_to_apex(data, apex_token):
     # logging.info(apex_token)
