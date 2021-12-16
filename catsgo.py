@@ -154,7 +154,7 @@ def run_covid_illumina_objstore(flow_name, obj_csv):
     return json.loads(response.text)
 
 
-def run_covid_illumina_catsup(flow_name, indir, bucket_name, catsup_uuid):
+def run_covid_illumina_catsup(flow_name, indir, bucket_name, upload_bucket, catsup_uuid):
     url = sp3_url + f"/flow/{ flow_name }/new"
     timestamp = datetime.datetime.now().strftime("%Y%m%d_%H%M%S")
     run_name = f"catsup_{catsup_uuid}"
@@ -166,6 +166,7 @@ def run_covid_illumina_catsup(flow_name, indir, bucket_name, catsup_uuid):
         "objstore-and---objstore": "false",
         "catsup-and---catsup": indir,
         "bucket-name-and---bucket": bucket_name,
+        "upload-bucket-and---uploadBucket": upload_bucket,
         "varcaller-and---varCaller": "viridian",
         "api": "v1",
     }
