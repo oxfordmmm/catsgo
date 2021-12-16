@@ -92,7 +92,7 @@ def make_viridian_sample_header(new_run_uuid, sp3_sample_name):
         Path("/work/output") 
         / new_run_uuid 
         / "qc" 
-        / f"{sp3_sample_name}.viridian_log.json"
+        / f"{sp3_sample_name}.json"
     )
     if not vn.is_file():
         logging.error(f"The {vn} file could not be found")
