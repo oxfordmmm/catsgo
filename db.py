@@ -6,21 +6,10 @@ import configparser
 from datetime import datetime
 from collections import KeysView
 
-
-class Config:
-    host = None
-    user = None
-    idcs = None
-
-    def __init__(self, fn):
-        c = configparser.ConfigParser()
-        c.read_file(open(fn))
-        self.host = c["oracle_rest"]["host"]
-        self.user = c["oracle_rest"]["user"]
-        self.idcs = c["oracle_rest"]["idcs"]
+import utils
 
 
-config = Config("config.ini")
+config = utils.load_oracle_config("config.json")
 
 logging.basicConfig(
     level=logging.DEBUG,
@@ -37,10 +26,10 @@ def get_apex_token():
         client_secret = c.get("client_secret")
 
     access_token_response = requests.post(
-        config.idcs,
+        config["idcs"],
         data={
             "grant_type": "client_credentials",
-            "scope": config.host,
+            "scope": config["host"],
         },
         allow_redirects=False,
         auth=(client_id, client_secret),
@@ -49,7 +38,7 @@ def get_apex_token():
     return access_token
 
 def update_sample(sample_id, data, apex_token, config=config):
-    url = f"{config.host}/samples/{sample_id}"
+    url = f"{config['host']}/samples/{sample_id}"
     headers = {
         "Authorization": f"Bearer {apex_token}",
         "Content-type": "application/json",
@@ -59,7 +48,18 @@ def update_sample(sample_id, data, apex_token, config=config):
 
 
 def get_batches(apex_token, config=config):
-    url = f"{config.host}/batches"
+    url = f"{config['host']}/batches"
+    method = "GET"
+    headers = {"Authorization": f"Bearer {apex_token}"}
+    response = requests.get(url, headers=headers)
+    try:
+        return response.json()
+    except:
+        logging.error(f"unexpected response from GET {url}: {response.text}")
+        return []
+
+def get_organisations(apex_token, config=config):
+    url = f"{config['host']}/organisations"
     method = "GET"
     headers = {"Authorization": f"Bearer {apex_token}"}
     response = requests.get(url, headers=headers)
@@ -70,7 +70,7 @@ def get_batches(apex_token, config=config):
         return []
 
 def get_batch_samples(batch_id, apex_token, config=config):
-    url = f"{config.host}/batches/{batch_id}"
+    url = f"{config['host']}/batches/{batch_id}"
     method = "GET"
     headers = {"Authorization": f"Bearer {apex_token}"}
     response = requests.get(url, headers=headers)
@@ -81,7 +81,7 @@ def get_batch_samples(batch_id, apex_token, config=config):
         return []
 
 def get_sample(sample_id, apex_token, config=config):
-    url = f"{config.host}/samples/{sample_id}"
+    url = f"{config['host']}/samples/{sample_id}"
     method = "GET"
     headers = {"Authorization": f"Bearer {apex_token}"}
     response = requests.get(url, headers=headers)
@@ -126,7 +126,7 @@ def all_samples(query=None, config=config):
 
 
 def submit_batch(batch, apex_token, config=config):
-    url = f"{config.host}/batches"
+    url = f"{config['host']}/batches"
     headers = {
         "Authorization": f"Bearer {apex_token}",
         "Content-type": "application/json",
@@ -136,7 +136,6 @@ def submit_batch(batch, apex_token, config=config):
 
 
 def get_batch_by_name(batch_name, apex_token, config=config):
-    print(batch_name, apex_token)
     batches = get_batches(apex_token)
     if isinstance(batches.keys(), KeysView):
         found = False
@@ -162,7 +161,7 @@ def get_batch_by_name(batch_name, apex_token, config=config):
         return {}
 
 def get_analysis(sample_id, apex_token, config=config):
-    url = f"{config.host}/samples/{sample_id}"
+    url = f"{config['host']}/samples/{sample_id}"
     method = "GET"
     headers = {"Authorization": f"Bearer {apex_token}"}
     response = requests.get(url, headers=headers)
@@ -184,7 +183,7 @@ def get_analysis(sample_id, apex_token, config=config):
 
 
 def get_samples(batch_id, apex_token, query=None, negate_query=False, config=config):
-    url = f"{config.host}/batches/{batch_id}"
+    url = f"{config['host']}/batches/{batch_id}"
     method = "GET"
     headers = {"Authorization": f"Bearer {apex_token}"}
     response = requests.get(url, headers=headers)
@@ -213,10 +212,24 @@ def get_samples(batch_id, apex_token, query=None, negate_query=False, config=con
     else:
         return j
 
-def post_metadata_to_apex(new_dir, data, apex_token):
+def get_output_bucket_from_input(input_bucket, apex_token, config=config):
+    organisations = get_organisations(apex_token)
+    if isinstance(organisations.keys(), KeysView):
+        found = False
+        for organisation in organisations['items']:
+            if input_bucket == organisation['inputBucketName']:
+                found = True
+                return organisation['outputBucketName']
+        if not found:
+            return None
+    else:
+        logging.error(f"API response not as expected, quiting. Output - {organisations}")
+        return None
+
+def post_metadata_to_apex(data, apex_token):
     # logging.info(apex_token)
     batch_response = requests.post(
-        f"{config.host}/batches",
+        f"{config['host']}/batches",
         headers={"Authorization": f"Bearer {apex_token}"},
         json=data,
     )
@@ -236,7 +249,7 @@ def post_metadata_to_apex(new_dir, data, apex_token):
     print(batch_id)
 
     samples_response = requests.get(
-        f"{config.host}/batches/{batch_id}",
+        f"{config['host']}/batches/{batch_id}",
         headers={"Authorization": f"Bearer {apex_token}"},
     )
     apex_samples = samples_response.json()

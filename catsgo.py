@@ -10,14 +10,9 @@ import logging
 import argh
 import requests
 
+import utils
 
-def load_config(config_file):
-    with open(config_file) as f:
-        cfg = json.loads(f.read())
-    return cfg
-
-
-config = load_config("config.json")
+config = utils.load_config("config.json")
 sp3_url = config["sp3_url"]
 
 session = requests.Session()
@@ -159,7 +154,7 @@ def run_covid_illumina_objstore(flow_name, obj_csv):
     return json.loads(response.text)
 
 
-def run_covid_illumina_catsup(flow_name, indir, bucket_name, catsup_uuid):
+def run_covid_illumina_catsup(flow_name, indir, bucket_name, upload_bucket, catsup_uuid):
     url = sp3_url + f"/flow/{ flow_name }/new"
     timestamp = datetime.datetime.now().strftime("%Y%m%d_%H%M%S")
     run_name = f"catsup_{catsup_uuid}"
@@ -171,6 +166,7 @@ def run_covid_illumina_catsup(flow_name, indir, bucket_name, catsup_uuid):
         "objstore-and---objstore": "false",
         "catsup-and---catsup": indir,
         "bucket-name-and---bucket": bucket_name,
+        "upload-bucket-and---uploadBucket": upload_bucket,
         "varcaller-and---varCaller": "viridian",
         "api": "v1",
     }
@@ -179,6 +175,23 @@ def run_covid_illumina_catsup(flow_name, indir, bucket_name, catsup_uuid):
     response = session.post(url, data=data)
     return json.loads(response.text)
 
+def run_covid_ena(flow_name, ena_csv, ena_batch):
+    url = sp3_url + f"/flow/{ flow_name }/new"
+    timestamp = datetime.datetime.now().strftime("%Y%m%d_%H%M%S")
+    run_name = f"ena_{ena_batch}"
+
+    data = {
+        "fetch_uuid": "",
+        "run_name": run_name,
+        "context": "local",
+        "ena_csv-and---ena_csv": ena_csv,
+        "varcaller-and---varCaller": "viridian",
+        "api": "v1",
+    }
+
+    login()
+    response = session.post(url, data=data)
+    return json.loads(response.text)
 
 def get_all_runs(flow_name):
     url = sp3_url + f"/flow/{ flow_name }?api=v2"

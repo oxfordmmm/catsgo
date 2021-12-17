@@ -7,14 +7,16 @@
 # Generate code coverage html report: coverage html
 
 import unittest
-import catsgo
 import json
 import os
+
+import catsgo
+import utils
 
 class TestCatsgo(unittest.TestCase):
     def test_load_config(self):
         expected_sp3url = "https://cats.oxfordfun.com"
-        result = catsgo.load_config("config.json")
+        result = utils.load_config("config.json")
         self.assertEqual(expected_sp3url, result['sp3_url'])
 
     def test_login(self):
