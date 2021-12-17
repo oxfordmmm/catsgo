@@ -79,8 +79,41 @@ def get_sample_map_for_run(new_run_uuid):
     return json.dumps(ret)
 
 
+def make_viridian_sample_header(new_run_uuid, sp3_sample_name):
+    """
+        Args:
+            new_run_uuid (uuid): The unique id for the current run
+            sp3_sample_name: The name of the SP3 sample
+        Returns:
+            dict: An object containing a subset of information from the Viridian log 
+            file for the run. If no log file could be found None is return
+    """
+    log = None
+    vn = (
+        Path("/work/output") 
+        / new_run_uuid 
+        / "qc" 
+        / f"{sp3_sample_name}.json"
+    )
+    if not vn.is_file():
+        logging.error(f"The {vn} file could not be found")
+        return None
+    else:
+        log = {}
+        with open(vn) as f:
+            log["viridian_log"] = json.load(f)
+    
+    if log:
+        return log
+    else:
+        logging.error(f"The {vn} file is empty")
+        return None
+
 
 def make_sample_data(new_run_uuid, sp3_sample_name):
+    log = make_viridian_sample_header(new_run_uuid, sp3_sample_name)
+    if not log:
+        return None
     sample = {}
     fn = None
     fn1json = (
@@ -96,17 +129,19 @@ def make_sample_data(new_run_uuid, sp3_sample_name):
         / f"{sp3_sample_name}_report.json"
     )
     if fn1json.is_file() and fn2json.is_file():
-        logging.error(f"Both {fn1json} and {fn2json} present. Expected only one. Exiting")
-        return None
+        logging.error(
+            f"Both {fn1json} and {fn2json} present. Expected only one. Exiting"
+        )
+        return log
     if fn1json.is_file():
         fn = fn1json
     elif fn2json.is_file():
         fn = fn2json
-    
+
     if fn:
         with open(fn) as report:
             sample = json.load(report)
-            return sample
+            return {**log, **sample}
     else:
         logging.warning(
             f"Could not find JSON reports {fn1json} or {fn2json}, trying TSV outputs."
@@ -128,10 +163,12 @@ def make_sample_data(new_run_uuid, sp3_sample_name):
             logging.warning(
                 f'Neither files "{fn1tsv}", "{fn2tsv}" could be found. Check pipeline for sample failure.'
             )
-            return None
+            return log
         if fn1tsv.is_file() and fn2tsv.is_file():
-            logging.error("Both {fn1tsv} and {fn2tsv} present. Expected only one. Exiting")
-            return None
+            logging.error(
+                "Both {fn1tsv} and {fn2tsv} present. Expected only one. Exiting"
+            )
+            return log
         if fn1tsv.is_file():
             fn = fn1tsv
         else:
@@ -164,9 +201,10 @@ def make_sample_data(new_run_uuid, sp3_sample_name):
                     except ValueError as e:
                         logging.error(f"parse error: str(e)")
 
-        return sample
+        return {**log, **sample}
     else:
         logging.error("Could not find report files. Exiting")
+        return log
 
 
 def submit_sample_data_error(
