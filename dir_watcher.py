@@ -19,12 +19,15 @@ import requests
 
 import catsgo
 import db
+from dbase.db_mongo import DBMongo
 
-myclient = pymongo.MongoClient("mongodb://localhost:27017/")
-mydb = myclient["dir_watcher"]
-dirlist = mydb["dirlist"]
-metadata = mydb["metadata"]
-ignore_list = mydb["ignore_list"]
+# myclient = pymongo.MongoClient("mongodb://localhost:27017/")
+# mydb = myclient["dir_watcher"]
+# dirlist = mydb["dirlist"]
+# metadata = mydb["metadata"]
+# ignore_list = mydb["ignore_list"]
+
+mydbase = DBMongo()
 
 logging.basicConfig(
     level=logging.DEBUG,
@@ -33,74 +36,74 @@ logging.basicConfig(
 )
 
 
-def get_cached_dirlist(watch_dir):
-    """
-    get the list of uuids that have already run
+# def get_cached_dirlist(watch_dir):
+#     """
+#     get the list of uuids that have already run
 
-    (since the dirs are named after catsup upload uuids)
-    """
-    ret = dirlist.find_one({"watch_dir": watch_dir}, {"dirs": 1})
-    if not ret:
-        return list()
-    else:
-        return list(ret.get("dirs"))
-
-
-def add_to_cached_dirlist(
-    watch_dir, new_dir, run_uuid, apex_batch, apex_samples, submitted_metadata
-):
-    """
-    add the uuid to the list of uuids that have been run on sp3
-
-    store some metadata as well
-    """
-
-    print(apex_batch)
-    print(apex_samples)
-
-    apex_batch["id"] = str(apex_batch["id"])  # ugh
-
-    logging.debug(f"adding {new_dir}")
-    dirlist.update_one(
-        {"watch_dir": watch_dir}, {"$push": {"dirs": new_dir}}, upsert=True
-    )
-    logging.info(f"{run_uuid}, {submitted_metadata}, {apex_batch}")
-    metadata.update_one(
-        {"catsup_uuid": new_dir},
-        {
-            "$set": {
-                "run_uuid": run_uuid,
-                "added_time": str(int(time.time())),
-                "apex_batch": apex_batch,
-                "apex_samples": apex_samples,
-                "submitted_metadata": submitted_metadata,
-            }
-        },
-        upsert=True,
-    )
+#     (since the dirs are named after catsup upload uuids)
+#     """
+#     ret = dirlist.find_one({"watch_dir": watch_dir}, {"dirs": 1})
+#     if not ret:
+#         return list()
+#     else:
+#         return list(ret.get("dirs"))
 
 
-def get_ignore_list(watch_dir):
-    r = ignore_list.find_one({"watch_dir": watch_dir}, {"ignore_list": 1})
-    if r:
-        return r.get("ignore_list", list())
-    else:
-        return list()
+# def add_to_cached_dirlist(
+#     watch_dir, new_dir, run_uuid, apex_batch, apex_samples, submitted_metadata
+# ):
+#     """
+#     add the uuid to the list of uuids that have been run on sp3
+
+#     store some metadata as well
+#     """
+
+#     print(apex_batch)
+#     print(apex_samples)
+
+#     apex_batch["id"] = str(apex_batch["id"])  # ugh
+
+#     logging.debug(f"adding {new_dir}")
+#     dirlist.update_one(
+#         {"watch_dir": watch_dir}, {"$push": {"dirs": new_dir}}, upsert=True
+#     )
+#     logging.info(f"{run_uuid}, {submitted_metadata}, {apex_batch}")
+#     metadata.update_one(
+#         {"catsup_uuid": new_dir},
+#         {
+#             "$set": {
+#                 "run_uuid": run_uuid,
+#                 "added_time": str(int(time.time())),
+#                 "apex_batch": apex_batch,
+#                 "apex_samples": apex_samples,
+#                 "submitted_metadata": submitted_metadata,
+#             }
+#         },
+#         upsert=True,
+#     )
 
 
-def add_to_ignore_list(watch_dir, submission_uuid):
-    ignore_list.update_one(
-        {"watch_dir": watch_dir},
-        {"$push": {"ignore_list": submission_uuid}},
-        upsert=True,
-    )
+# def get_ignore_list(watch_dir):
+#     r = ignore_list.find_one({"watch_dir": watch_dir}, {"ignore_list": 1})
+#     if r:
+#         return r.get("ignore_list", list())
+#     else:
+#         return list()
 
 
-def remove_from_cached_dirlist(watch_dir, new_dir):
-    logging.debug(f"removing {new_dir}")
-    dirlist.update_one(
-        {"watch_dir": watch_dir}, {"$pull": {"dirs": new_dir}}, upsert=True
-    )
+# def add_to_ignore_list(watch_dir, submission_uuid):
+#     ignore_list.update_one(
+#         {"watch_dir": watch_dir},
+#         {"$push": {"ignore_list": submission_uuid}},
+#         upsert=True,
+#     )
+
+
+# def remove_from_cached_dirlist(watch_dir, new_dir):
+#     logging.debug(f"removing {new_dir}")
+#     dirlist.update_one(
+#         {"watch_dir": watch_dir}, {"$pull": {"dirs": new_dir}}, upsert=True
+#     )
 
 
 def which_pipeline_csv(watch_dir, new_dir):
@@ -123,9 +126,10 @@ def which_pipeline_csv(watch_dir, new_dir):
     # default illumina
     return "illumina-1"
 
-def which_pipeline_db(watch_dir, new_dir, metadata_dict = None):
-    for sample in metadata_dict['samples'].values():
-        platform = sample['instrumentPlatform']
+
+def which_pipeline_db(watch_dir, new_dir, metadata_dict=None):
+    for sample in metadata_dict["samples"].values():
+        platform = sample["instrumentPlatform"]
         platform_lower_words = [word.lower() for word in platform.split()]
         if "nanopore" in platform_lower_words:
             return "nanopore-1"
@@ -134,6 +138,7 @@ def which_pipeline_db(watch_dir, new_dir, metadata_dict = None):
 
     # default illumina
     return "illumina-1"
+
 
 def get_and_format_metadata(watch_dir, new_dir):
     data_file = Path(watch_dir) / new_dir / "sp3data.csv"
@@ -254,7 +259,7 @@ def process_dir(new_dir, watch_dir, bucket_name, apex_token, max_submission_atte
 
     if submission_attempts[new_dir] >= max_submission_attempts:
         logging.warning(f"bad submission: {new_dir}")
-        add_to_ignore_list(str(watch_dir), new_dir)
+        mydbase.dir_watcher.ignore_list.add(str(watch_dir), new_dir)
         return
 
     submission_attempts[new_dir] += 1
@@ -267,12 +272,14 @@ def process_dir(new_dir, watch_dir, bucket_name, apex_token, max_submission_atte
     data = {}
     try:
         if (Path(watch_dir) / new_dir / "sp3data.csv").is_file():
-            with open(Path(watch_dir) / new_dir / "sp3data.csv", 'r') as infile:
+            with open(Path(watch_dir) / new_dir / "sp3data.csv", "r") as infile:
                 reader = csv.DictReader(infile)
                 if len(reader.fieldnames()) < 3:
-                    logging.error("Found APEX run {new_dir}, will not attempt to run again.")
+                    logging.error(
+                        "Found APEX run {new_dir}, will not attempt to run again."
+                    )
                     return False
-            
+
             pipeline = which_pipeline_csv(watch_dir, new_dir)
             if pipeline not in pipelines:
                 logging.warning(f"unknown pipeline: {pipeline} not in {pipelines}")
@@ -295,21 +302,23 @@ def process_dir(new_dir, watch_dir, bucket_name, apex_token, max_submission_atte
                     logging.warning(f"unknown pipeline: {pipeline} not in {pipelines}")
                 # Write out submission_uuid4, sample_uuid4 to sp3data.csv
                 sp3data_csv = Path(watch_dir) / new_dir / "sp3data.csv"
-                out_fieldnames = ['submission_uuid4', 'sample_uuid4']
-                with open(sp3data_csv, 'w') as out_csv:
+                out_fieldnames = ["submission_uuid4", "sample_uuid4"]
+                with open(sp3data_csv, "w") as out_csv:
                     writer1 = csv.DictWriter(out_csv, fieldnames=out_fieldnames)
                     writer1.writeheader()
-                    for sample in batch_samples['samples'].values():
+                    for sample in batch_samples["samples"].values():
                         out = {
-                            'submission_uuid4' : sample['batchFileName'],
-                            'sample_uuid4' : sample['name']
+                            "submission_uuid4": sample["batchFileName"],
+                            "sample_uuid4": sample["name"],
                         }
                         writer1.writerow(out)
                 apex_batch = batch_samples
                 data = batch_samples
-                apex_samples = db.get_batch_samples(apex_batch['id'], apex_token)
+                apex_samples = db.get_batch_samples(apex_batch["id"], apex_token)
             else:
-                logging.error(f"No sp3data.csv and could not access ORDS DB for {new_dir}.")
+                logging.error(
+                    f"No sp3data.csv and could not access ORDS DB for {new_dir}."
+                )
                 return False
 
         upload_bucket = db.get_output_bucket_from_input(bucket_name, apex_token)
@@ -333,7 +342,7 @@ def process_dir(new_dir, watch_dir, bucket_name, apex_token, max_submission_atte
             logging.error("unknown pipeline: {pipeline}. This shouldn't be reachable")
 
         logging.info(ret)
-        add_to_cached_dirlist(
+        mydbase.dir_watcher.dir_list.add_to_cached(
             str(watch_dir),
             new_dir,
             ret.get("run_uuid", ""),
@@ -372,9 +381,9 @@ def watch(
         # note that directories are named after submission uuids, so this is effectively a list of submission uuids
         candidate_dirs = set([x.name for x in watch_dir.glob("*") if x.is_dir()])
         # get directories/submissions that have already been processed
-        cached_dirlist = set(get_cached_dirlist(str(watch_dir)))
+        cached_dirlist = set(mydbase.dir_watcher.dir_list.get_cached(str(watch_dir)))
         # get directories/submissions that have failed
-        bad_submission_uuids = set(get_ignore_list(str(watch_dir)))
+        bad_submission_uuids = set(mydbase.dir_watcher.ignore_list.get(str(watch_dir)))
         # submissions to be processed are those that are new and have not beek marked as failed
         new_dirs = candidate_dirs.difference(cached_dirlist)
         new_dirs = new_dirs.difference(bad_submission_uuids)
@@ -393,8 +402,14 @@ def watch(
         print("sleeping for 60")
         time.sleep(60)
 
+
 def get_apex_token():
     return db.get_apex_token()
+
+
+def remove_from_cached_dirlist(watch_dir, new_dir):
+    mydbase.dir_watcher.dir_list.remove_from_cached(watch_dir, new_dir)
+
 
 if __name__ == "__main__":
     logging.getLogger().setLevel(logging.INFO)

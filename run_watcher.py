@@ -20,10 +20,14 @@ import catsgo
 import utils
 import db
 
-myclient = pymongo.MongoClient("mongodb://localhost:27017/")
-mydb = myclient["dir_watcher"]
-metadata = mydb["metadata"]
-runlist = mydb["runlist"]
+from dbase.db_mongo import DBMongo
+
+# myclient = pymongo.MongoClient("mongodb://localhost:27017/")
+# mydb = myclient["dir_watcher"]
+# metadata = mydb["metadata"]
+# runlist = mydb["runlist"]
+
+mydbase = DBMongo()
 
 
 logging.basicConfig(
@@ -33,37 +37,37 @@ logging.basicConfig(
 )
 
 
-def get_submitted_runlist(pipeline_name):
-    ret = runlist.find_one({"pipeline_name": pipeline_name}, {"finished_uuids": 1})
-    if not ret:
-        return list()
-    else:
-        return list(ret.get("finished_uuids", list()))
+# def get_submitted_runlist(pipeline_name):
+#     ret = runlist.find_one({"pipeline_name": pipeline_name}, {"finished_uuids": 1})
+#     if not ret:
+#         return list()
+#     else:
+#         return list(ret.get("finished_uuids", list()))
 
 
-def add_to_submitted_runlist(pipeline_name, new_run_uuid):
-    runlist.update_one(
-        {"pipeline_name": pipeline_name},
-        {"$push": {"finished_uuids": new_run_uuid}},
-        upsert=True,
-    )
+# def add_to_submitted_runlist(pipeline_name, new_run_uuid):
+#     runlist.update_one(
+#         {"pipeline_name": pipeline_name},
+#         {"$push": {"finished_uuids": new_run_uuid}},
+#         upsert=True,
+#     )
 
 
-def save_sample_data(new_run_uuid, sp3_sample_name, sample_data):
-    metadata.update_one(
-        {"run_uuid": new_run_uuid},
-        {"$push": {"submitted_sample_data": {sp3_sample_name: sample_data}}},
-        upsert=True,
-    )
+# def save_sample_data(new_run_uuid, sp3_sample_name, sample_data):
+#     metadata.update_one(
+#         {"run_uuid": new_run_uuid},
+#         {"$push": {"submitted_sample_data": {sp3_sample_name: sample_data}}},
+#         upsert=True,
+#     )
 
 
-def get_data_for_run(new_run_uuid):
-    data = metadata.find_one({"run_uuid": new_run_uuid}, {"_id": 0})
-    return data
+# def get_data_for_run(new_run_uuid):
+#     data = metadata.find_one({"run_uuid": new_run_uuid}, {"_id": 0})
+#     return data
 
 
 def get_sample_map_for_run(new_run_uuid):
-    data = get_data_for_run(new_run_uuid)
+    data = mydbase.dir_watcher.metadata.get_data_for_run(new_run_uuid)
 
     if not data:
         return None
@@ -81,20 +85,15 @@ def get_sample_map_for_run(new_run_uuid):
 
 def make_viridian_sample_header(new_run_uuid, sp3_sample_name):
     """
-        Args:
-            new_run_uuid (uuid): The unique id for the current run
-            sp3_sample_name: The name of the SP3 sample
-        Returns:
-            dict: An object containing a subset of information from the Viridian log 
-            file for the run. If no log file could be found None is return
+    Args:
+        new_run_uuid (uuid): The unique id for the current run
+        sp3_sample_name: The name of the SP3 sample
+    Returns:
+        dict: An object containing a subset of information from the Viridian log
+        file for the run. If no log file could be found None is return
     """
     log = None
-    vn = (
-        Path("/work/output") 
-        / new_run_uuid 
-        / "qc" 
-        / f"{sp3_sample_name}.json"
-    )
+    vn = Path("/work/output") / new_run_uuid / "qc" / f"{sp3_sample_name}.json"
     if not vn.is_file():
         logging.error(f"The {vn} file could not be found")
         return None
@@ -102,7 +101,7 @@ def make_viridian_sample_header(new_run_uuid, sp3_sample_name):
         log = {}
         with open(vn) as f:
             log["viridian_log"] = json.load(f)
-    
+
     if log:
         return log
     else:
@@ -261,7 +260,9 @@ def submit_sample_data_error(
         headers={"Authorization": f"Bearer {apex_token}"},
         json=data,
     )
-    logging.info(f"POSTing error to {config['host']}/samples/{apex_database_sample_name}")
+    logging.info(
+        f"POSTing error to {config['host']}/samples/{apex_database_sample_name}"
+    )
     return sample_data_response.text
 
 
@@ -334,13 +335,13 @@ def watch(flow_name="oxforduni-ncov2019-artic-nf-illumina"):
         # new runs to submit are sp3 runs that have finished with status OK
         # minus runs that have been marked as already submitted
         finished_ok_sp3_runs = set(get_finished_ok_sp3_runs(flow_name))
-        submitted_runs = set(get_submitted_runlist(flow_name))
+        submitted_runs = set(mydbase.dir_watcher.run_list.get_submitted(flow_name))
         new_runs_to_submit = finished_ok_sp3_runs.difference(submitted_runs)
 
         for new_run_uuid in new_runs_to_submit:
             logging.info(f"new run: {new_run_uuid}")
             process_run(new_run_uuid, config, apex_token)
-            add_to_submitted_runlist(flow_name, new_run_uuid)
+            mydbase.dir_watcher.run_list.add_to_submitted(flow_name, new_run_uuid)
 
         logging.info("sleeping for 60")
         time.sleep(60)

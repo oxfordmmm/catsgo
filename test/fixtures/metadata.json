@@ -1,0 +1,3327 @@
+[{
+	"_id": {
+		"$oid": "615d70962733c6cbc221497d"
+	},
+	"catsup_uuid": "761b1979-642d-46ff-8565-8b89a97ecc93",
+	"added_time": "1633513622",
+	"apex_batch": {
+		"status": "success",
+		"id": "273390152671035767415676267183144088760"
+	},
+	"apex_samples": {
+		"samples": [{
+			"id": "273390152671036976341495881812318794936",
+			"name": "444359a9-027f-4d6e-a8bc-3ee6cf45ce16",
+			"fileName": "444359a9-027f-4d6e-a8bc-3ee6cf45ce16",
+			"filePath": "444359a9-027f-4d6e-a8bc-3ee6cf45ce16",
+			"status": "Uploaded",
+			"uploadedOn": "2021-10-06T09:47:02.391Z",
+			"errorMsg": null
+		}, {
+			"id": "273390152671039394193135111070668207288",
+			"name": "2048ad24-b2b6-45c5-bdcf-073a62eb7ba2",
+			"fileName": "2048ad24-b2b6-45c5-bdcf-073a62eb7ba2",
+			"filePath": "2048ad24-b2b6-45c5-bdcf-073a62eb7ba2",
+			"status": "Uploaded",
+			"uploadedOn": "2021-10-06T09:47:02.391Z",
+			"errorMsg": null
+		}, {
+			"id": "273390152671041812044774340329017619640",
+			"name": "8d8c7f1f-471f-4ec4-8563-d47954708ee7",
+			"fileName": "8d8c7f1f-471f-4ec4-8563-d47954708ee7",
+			"filePath": "8d8c7f1f-471f-4ec4-8563-d47954708ee7",
+			"status": "Uploaded",
+			"uploadedOn": "2021-10-06T09:47:02.391Z",
+			"errorMsg": null
+		}, {
+			"id": "273390152671044229896413569587367031992",
+			"name": "0cf6c136-43f4-4169-a1bc-3475f99841d6",
+			"fileName": "0cf6c136-43f4-4169-a1bc-3475f99841d6",
+			"filePath": "0cf6c136-43f4-4169-a1bc-3475f99841d6",
+			"status": "Uploaded",
+			"uploadedOn": "2021-10-06T09:47:02.391Z",
+			"errorMsg": null
+		}, {
+			"id": "273390152671046647748052798845716444344",
+			"name": "a9b7e8ac-2543-474a-90df-763028b6a5e9",
+			"fileName": "a9b7e8ac-2543-474a-90df-763028b6a5e9",
+			"filePath": "a9b7e8ac-2543-474a-90df-763028b6a5e9",
+			"status": "Uploaded",
+			"uploadedOn": "2021-10-06T09:47:02.391Z",
+			"errorMsg": null
+		}, {
+			"id": "273390152671049065599692028104065856696",
+			"name": "0b674554-b18f-4584-8e83-af31209e01ce",
+			"fileName": "0b674554-b18f-4584-8e83-af31209e01ce",
+			"filePath": "0b674554-b18f-4584-8e83-af31209e01ce",
+			"status": "Uploaded",
+			"uploadedOn": "2021-10-06T09:47:02.391Z",
+			"errorMsg": null
+		}, {
+			"id": "273390152671051483451331257362415269048",
+			"name": "f6b9a551-d88c-4107-911b-10f9ad3f8710",
+			"fileName": "f6b9a551-d88c-4107-911b-10f9ad3f8710",
+			"filePath": "f6b9a551-d88c-4107-911b-10f9ad3f8710",
+			"status": "Uploaded",
+			"uploadedOn": "2021-10-06T09:47:02.391Z",
+			"errorMsg": null
+		}, {
+			"id": "273390152671053901302970486620764681400",
+			"name": "940abed7-cdd7-4582-9f97-aa9e9fd75bfa",
+			"fileName": "940abed7-cdd7-4582-9f97-aa9e9fd75bfa",
+			"filePath": "940abed7-cdd7-4582-9f97-aa9e9fd75bfa",
+			"status": "Uploaded",
+			"uploadedOn": "2021-10-06T09:47:02.391Z",
+			"errorMsg": null
+		}, {
+			"id": "273390152671056319154609715879114093752",
+			"name": "90db23ef-7dfc-4090-91c2-426326d74c26",
+			"fileName": "90db23ef-7dfc-4090-91c2-426326d74c26",
+			"filePath": "90db23ef-7dfc-4090-91c2-426326d74c26",
+			"status": "Uploaded",
+			"uploadedOn": "2021-10-06T09:47:02.391Z",
+			"errorMsg": null
+		}, {
+			"id": "273390152671058737006248945137463506104",
+			"name": "b0b0f7ed-4a74-40f7-a78e-707de0b32062",
+			"fileName": "b0b0f7ed-4a74-40f7-a78e-707de0b32062",
+			"filePath": "b0b0f7ed-4a74-40f7-a78e-707de0b32062",
+			"status": "Uploaded",
+			"uploadedOn": "2021-10-06T09:47:02.391Z",
+			"errorMsg": null
+		}, {
+			"id": "273390152671061154857888174395812918456",
+			"name": "83eac2b2-a588-4c80-b4a0-9de3414d7faa",
+			"fileName": "83eac2b2-a588-4c80-b4a0-9de3414d7faa",
+			"filePath": "83eac2b2-a588-4c80-b4a0-9de3414d7faa",
+			"status": "Uploaded",
+			"uploadedOn": "2021-10-06T09:47:02.391Z",
+			"errorMsg": null
+		}, {
+			"id": "273390152671063572709527403654162330808",
+			"name": "6231065e-8d30-42b6-b12a-177d189d7999",
+			"fileName": "6231065e-8d30-42b6-b12a-177d189d7999",
+			"filePath": "6231065e-8d30-42b6-b12a-177d189d7999",
+			"status": "Uploaded",
+			"uploadedOn": "2021-10-06T09:47:02.391Z",
+			"errorMsg": null
+		}, {
+			"id": "273390152671065990561166632912511743160",
+			"name": "05d2955d-d6d8-4c86-b1b4-29c82b0b4fac",
+			"fileName": "05d2955d-d6d8-4c86-b1b4-29c82b0b4fac",
+			"filePath": "05d2955d-d6d8-4c86-b1b4-29c82b0b4fac",
+			"status": "Uploaded",
+			"uploadedOn": "2021-10-06T09:47:02.391Z",
+			"errorMsg": null
+		}, {
+			"id": "273390152671068408412805862170861155512",
+			"name": "216160a9-1ebf-4393-92d2-39a97bd8f576",
+			"fileName": "216160a9-1ebf-4393-92d2-39a97bd8f576",
+			"filePath": "216160a9-1ebf-4393-92d2-39a97bd8f576",
+			"status": "Uploaded",
+			"uploadedOn": "2021-10-06T09:47:02.391Z",
+			"errorMsg": null
+		}, {
+			"id": "273390152671070826264445091429210567864",
+			"name": "a42f84bf-a2d6-4121-90c1-6a5794f504fe",
+			"fileName": "a42f84bf-a2d6-4121-90c1-6a5794f504fe",
+			"filePath": "a42f84bf-a2d6-4121-90c1-6a5794f504fe",
+			"status": "Uploaded",
+			"uploadedOn": "2021-10-06T09:47:02.391Z",
+			"errorMsg": null
+		}, {
+			"id": "273390152671073244116084320687559980216",
+			"name": "4881c93a-1fd1-4134-b189-56bed4f37020",
+			"fileName": "4881c93a-1fd1-4134-b189-56bed4f37020",
+			"filePath": "4881c93a-1fd1-4134-b189-56bed4f37020",
+			"status": "Uploaded",
+			"uploadedOn": "2021-10-06T09:47:02.391Z",
+			"errorMsg": null
+		}, {
+			"id": "273390152671075661967723549945909392568",
+			"name": "a91a0806-bddd-4a16-8225-eeddecd8eb48",
+			"fileName": "a91a0806-bddd-4a16-8225-eeddecd8eb48",
+			"filePath": "a91a0806-bddd-4a16-8225-eeddecd8eb48",
+			"status": "Uploaded",
+			"uploadedOn": "2021-10-06T09:47:02.391Z",
+			"errorMsg": null
+		}, {
+			"id": "273390152671078079819362779204258804920",
+			"name": "f92cd1d9-3ca7-4a07-a7a1-04c8c80a0536",
+			"fileName": "f92cd1d9-3ca7-4a07-a7a1-04c8c80a0536",
+			"filePath": "f92cd1d9-3ca7-4a07-a7a1-04c8c80a0536",
+			"status": "Uploaded",
+			"uploadedOn": "2021-10-06T09:47:02.391Z",
+			"errorMsg": null
+		}, {
+			"id": "273390152671080497671002008462608217272",
+			"name": "7b335505-070d-483c-973f-39cb9c5943f6",
+			"fileName": "7b335505-070d-483c-973f-39cb9c5943f6",
+			"filePath": "7b335505-070d-483c-973f-39cb9c5943f6",
+			"status": "Uploaded",
+			"uploadedOn": "2021-10-06T09:47:02.391Z",
+			"errorMsg": null
+		}, {
+			"id": "273390152671082915522641237720957629624",
+			"name": "4183532d-bb5a-47b7-9195-3830a093af32",
+			"fileName": "4183532d-bb5a-47b7-9195-3830a093af32",
+			"filePath": "4183532d-bb5a-47b7-9195-3830a093af32",
+			"status": "Uploaded",
+			"uploadedOn": "2021-10-06T09:47:02.391Z",
+			"errorMsg": null
+		}, {
+			"id": "273390152671085333374280466979307041976",
+			"name": "5b6d363a-bb8c-4ee7-b133-58df90a85c80",
+			"fileName": "5b6d363a-bb8c-4ee7-b133-58df90a85c80",
+			"filePath": "5b6d363a-bb8c-4ee7-b133-58df90a85c80",
+			"status": "Uploaded",
+			"uploadedOn": "2021-10-06T09:47:02.391Z",
+			"errorMsg": null
+		}, {
+			"id": "273390152671087751225919696237656454328",
+			"name": "1a7da4ee-daac-4bb1-ad0d-8d3d5bff3e5a",
+			"fileName": "1a7da4ee-daac-4bb1-ad0d-8d3d5bff3e5a",
+			"filePath": "1a7da4ee-daac-4bb1-ad0d-8d3d5bff3e5a",
+			"status": "Uploaded",
+			"uploadedOn": "2021-10-06T09:47:02.391Z",
+			"errorMsg": null
+		}, {
+			"id": "273390152671090169077558925496005866680",
+			"name": "43bf90cf-c21a-478b-86d0-3afb8fc3f95b",
+			"fileName": "43bf90cf-c21a-478b-86d0-3afb8fc3f95b",
+			"filePath": "43bf90cf-c21a-478b-86d0-3afb8fc3f95b",
+			"status": "Uploaded",
+			"uploadedOn": "2021-10-06T09:47:02.391Z",
+			"errorMsg": null
+		}, {
+			"id": "273390152671092586929198154754355279032",
+			"name": "c10a2c59-72e8-4a37-a475-7a6ebc392c84",
+			"fileName": "c10a2c59-72e8-4a37-a475-7a6ebc392c84",
+			"filePath": "c10a2c59-72e8-4a37-a475-7a6ebc392c84",
+			"status": "Uploaded",
+			"uploadedOn": "2021-10-06T09:47:02.391Z",
+			"errorMsg": null
+		}, {
+			"id": "273390152671095004780837384012704691384",
+			"name": "688f3f3b-fa9c-48bd-836d-4cbc2022d33e",
+			"fileName": "688f3f3b-fa9c-48bd-836d-4cbc2022d33e",
+			"filePath": "688f3f3b-fa9c-48bd-836d-4cbc2022d33e",
+			"status": "Uploaded",
+			"uploadedOn": "2021-10-06T09:47:02.391Z",
+			"errorMsg": null
+		}, {
+			"id": "273390152671097422632476613271054103736",
+			"name": "f8d62c9a-4664-47f9-a74b-4d1b634a0ed6",
+			"fileName": "f8d62c9a-4664-47f9-a74b-4d1b634a0ed6",
+			"filePath": "f8d62c9a-4664-47f9-a74b-4d1b634a0ed6",
+			"status": "Uploaded",
+			"uploadedOn": "2021-10-06T09:47:02.391Z",
+			"errorMsg": null
+		}, {
+			"id": "273390152671099840484115842529403516088",
+			"name": "3d185a3a-b365-4feb-b250-e7908db58543",
+			"fileName": "3d185a3a-b365-4feb-b250-e7908db58543",
+			"filePath": "3d185a3a-b365-4feb-b250-e7908db58543",
+			"status": "Uploaded",
+			"uploadedOn": "2021-10-06T09:47:02.391Z",
+			"errorMsg": null
+		}, {
+			"id": "273390152671102258335755071787752928440",
+			"name": "4baa366b-7349-42eb-867f-1df80ad880f2",
+			"fileName": "4baa366b-7349-42eb-867f-1df80ad880f2",
+			"filePath": "4baa366b-7349-42eb-867f-1df80ad880f2",
+			"status": "Uploaded",
+			"uploadedOn": "2021-10-06T09:47:02.391Z",
+			"errorMsg": null
+		}, {
+			"id": "273390152671104676187394301046102340792",
+			"name": "e9befbbe-916e-485a-b629-2e5fcc4f0d8d",
+			"fileName": "e9befbbe-916e-485a-b629-2e5fcc4f0d8d",
+			"filePath": "e9befbbe-916e-485a-b629-2e5fcc4f0d8d",
+			"status": "Uploaded",
+			"uploadedOn": "2021-10-06T09:47:02.391Z",
+			"errorMsg": null
+		}, {
+			"id": "273390152671107094039033530304451753144",
+			"name": "0853247a-ab3b-4927-ba04-050d5397d2ef",
+			"fileName": "0853247a-ab3b-4927-ba04-050d5397d2ef",
+			"filePath": "0853247a-ab3b-4927-ba04-050d5397d2ef",
+			"status": "Uploaded",
+			"uploadedOn": "2021-10-06T09:47:02.391Z",
+			"errorMsg": null
+		}, {
+			"id": "273390152671109511890672759562801165496",
+			"name": "629bfa9e-b2bb-4670-8e21-1910e9596d2b",
+			"fileName": "629bfa9e-b2bb-4670-8e21-1910e9596d2b",
+			"filePath": "629bfa9e-b2bb-4670-8e21-1910e9596d2b",
+			"status": "Uploaded",
+			"uploadedOn": "2021-10-06T09:47:02.391Z",
+			"errorMsg": null
+		}, {
+			"id": "273390152671111929742311988821150577848",
+			"name": "d670af71-d3e9-41b4-8146-61f55b179452",
+			"fileName": "d670af71-d3e9-41b4-8146-61f55b179452",
+			"filePath": "d670af71-d3e9-41b4-8146-61f55b179452",
+			"status": "Uploaded",
+			"uploadedOn": "2021-10-06T09:47:02.391Z",
+			"errorMsg": null
+		}, {
+			"id": "273390152671114347593951218079499990200",
+			"name": "aa7797da-33d8-480c-972c-c4fc40cfc73e",
+			"fileName": "aa7797da-33d8-480c-972c-c4fc40cfc73e",
+			"filePath": "aa7797da-33d8-480c-972c-c4fc40cfc73e",
+			"status": "Uploaded",
+			"uploadedOn": "2021-10-06T09:47:02.391Z",
+			"errorMsg": null
+		}, {
+			"id": "273390152671116765445590447337849402552",
+			"name": "da11d4d3-3b81-4ef8-95fa-d911a7d754fa",
+			"fileName": "da11d4d3-3b81-4ef8-95fa-d911a7d754fa",
+			"filePath": "da11d4d3-3b81-4ef8-95fa-d911a7d754fa",
+			"status": "Uploaded",
+			"uploadedOn": "2021-10-06T09:47:02.391Z",
+			"errorMsg": null
+		}, {
+			"id": "273390152671119183297229676596198814904",
+			"name": "03204bd1-00b1-4434-a591-c83b59c17e67",
+			"fileName": "03204bd1-00b1-4434-a591-c83b59c17e67",
+			"filePath": "03204bd1-00b1-4434-a591-c83b59c17e67",
+			"status": "Uploaded",
+			"uploadedOn": "2021-10-06T09:47:02.391Z",
+			"errorMsg": null
+		}, {
+			"id": "273390152671121601148868905854548227256",
+			"name": "5219a121-cb19-4ccb-a245-6207232e421f",
+			"fileName": "5219a121-cb19-4ccb-a245-6207232e421f",
+			"filePath": "5219a121-cb19-4ccb-a245-6207232e421f",
+			"status": "Uploaded",
+			"uploadedOn": "2021-10-06T09:47:02.391Z",
+			"errorMsg": null
+		}, {
+			"id": "273390152671124019000508135112897639608",
+			"name": "821ccba4-c066-462a-929a-fffe005bcd0d",
+			"fileName": "821ccba4-c066-462a-929a-fffe005bcd0d",
+			"filePath": "821ccba4-c066-462a-929a-fffe005bcd0d",
+			"status": "Uploaded",
+			"uploadedOn": "2021-10-06T09:47:02.391Z",
+			"errorMsg": null
+		}, {
+			"id": "273390152671126436852147364371247051960",
+			"name": "85a5975f-c1ba-4f30-bf93-265da68d5928",
+			"fileName": "85a5975f-c1ba-4f30-bf93-265da68d5928",
+			"filePath": "85a5975f-c1ba-4f30-bf93-265da68d5928",
+			"status": "Uploaded",
+			"uploadedOn": "2021-10-06T09:47:02.391Z",
+			"errorMsg": null
+		}, {
+			"id": "273390152671128854703786593629596464312",
+			"name": "8a343ec0-603b-4b75-afc7-bd302c82cf54",
+			"fileName": "8a343ec0-603b-4b75-afc7-bd302c82cf54",
+			"filePath": "8a343ec0-603b-4b75-afc7-bd302c82cf54",
+			"status": "Uploaded",
+			"uploadedOn": "2021-10-06T09:47:02.391Z",
+			"errorMsg": null
+		}, {
+			"id": "273390152671131272555425822887945876664",
+			"name": "59b2ddef-f2be-4334-ae73-360b0bea5df9",
+			"fileName": "59b2ddef-f2be-4334-ae73-360b0bea5df9",
+			"filePath": "59b2ddef-f2be-4334-ae73-360b0bea5df9",
+			"status": "Uploaded",
+			"uploadedOn": "2021-10-06T09:47:02.391Z",
+			"errorMsg": null
+		}, {
+			"id": "273390152671133690407065052146295289016",
+			"name": "58ec6809-578d-4f7c-a6c0-eb854b36c50a",
+			"fileName": "58ec6809-578d-4f7c-a6c0-eb854b36c50a",
+			"filePath": "58ec6809-578d-4f7c-a6c0-eb854b36c50a",
+			"status": "Uploaded",
+			"uploadedOn": "2021-10-06T09:47:02.391Z",
+			"errorMsg": null
+		}, {
+			"id": "273390152671136108258704281404644701368",
+			"name": "04c5067e-b196-4d28-a941-7428642abf3f",
+			"fileName": "04c5067e-b196-4d28-a941-7428642abf3f",
+			"filePath": "04c5067e-b196-4d28-a941-7428642abf3f",
+			"status": "Uploaded",
+			"uploadedOn": "2021-10-06T09:47:02.391Z",
+			"errorMsg": null
+		}, {
+			"id": "273390152671138526110343510662994113720",
+			"name": "6d373d5f-9d5a-411c-84fe-4f661e1766b8",
+			"fileName": "6d373d5f-9d5a-411c-84fe-4f661e1766b8",
+			"filePath": "6d373d5f-9d5a-411c-84fe-4f661e1766b8",
+			"status": "Uploaded",
+			"uploadedOn": "2021-10-06T09:47:02.391Z",
+			"errorMsg": null
+		}, {
+			"id": "273390152671140943961982739921343526072",
+			"name": "5cd24ba5-a232-4292-873d-325075ae2d92",
+			"fileName": "5cd24ba5-a232-4292-873d-325075ae2d92",
+			"filePath": "5cd24ba5-a232-4292-873d-325075ae2d92",
+			"status": "Uploaded",
+			"uploadedOn": "2021-10-06T09:47:02.391Z",
+			"errorMsg": null
+		}, {
+			"id": "273390152671143361813621969179692938424",
+			"name": "ae457dc6-8081-4130-a992-e10b47199add",
+			"fileName": "ae457dc6-8081-4130-a992-e10b47199add",
+			"filePath": "ae457dc6-8081-4130-a992-e10b47199add",
+			"status": "Uploaded",
+			"uploadedOn": "2021-10-06T09:47:02.391Z",
+			"errorMsg": null
+		}, {
+			"id": "273390152671145779665261198438042350776",
+			"name": "01644437-eee3-48a3-9c6d-48d5c5d49e44",
+			"fileName": "01644437-eee3-48a3-9c6d-48d5c5d49e44",
+			"filePath": "01644437-eee3-48a3-9c6d-48d5c5d49e44",
+			"status": "Uploaded",
+			"uploadedOn": "2021-10-06T09:47:02.391Z",
+			"errorMsg": null
+		}, {
+			"id": "273390152671148197516900427696391763128",
+			"name": "1ac8ebe1-2ce4-4ade-a729-9f262483f7a1",
+			"fileName": "1ac8ebe1-2ce4-4ade-a729-9f262483f7a1",
+			"filePath": "1ac8ebe1-2ce4-4ade-a729-9f262483f7a1",
+			"status": "Uploaded",
+			"uploadedOn": "2021-10-06T09:47:02.391Z",
+			"errorMsg": null
+		}, {
+			"id": "273390152671150615368539656954741175480",
+			"name": "b1ccaef9-7d53-4ba7-b8d5-822e14a9dd3b",
+			"fileName": "b1ccaef9-7d53-4ba7-b8d5-822e14a9dd3b",
+			"filePath": "b1ccaef9-7d53-4ba7-b8d5-822e14a9dd3b",
+			"status": "Uploaded",
+			"uploadedOn": "2021-10-06T09:47:02.391Z",
+			"errorMsg": null
+		}]
+	},
+	"run_uuid": "d866a4d9-acd1-498a-9bfa-55574144e5c1",
+	"submitted_metadata": {
+		"batch": {
+			"samples": [{
+				"name": "444359a9-027f-4d6e-a8bc-3ee6cf45ce16",
+				"host": "Homo sapiens",
+				"collectionDate": "2021-10-06T09:47:02.391Z",
+				"country": "United Kingdom",
+				"fileName": "444359a9-027f-4d6e-a8bc-3ee6cf45ce16",
+				"specimenOrganism": "SARS-CoV-2",
+				"specimenSource": "Swab",
+				"status": "Uploaded",
+				"comments": "",
+				"sampleDetails3": "",
+				"submissionTitle": "newupdatestest",
+				"submissionDescription": "newupdatestest",
+				"instrument": {
+					"platform": "Illumina pair-ended sequencing",
+					"model": "Illumina HiSeq 4000",
+					"flowcell": "96"
+				},
+				"peReads": [{
+					"r1_uri": "",
+					"r1_sp3_filepath": "/data/inputs/s3/rCgxZDvfQCNzMAQMVzBwhlOxgfWKlhzu/761b1979-642d-46ff-8565-8b89a97ecc93/444359a9-027f-4d6e-a8bc-3ee6cf45ce16_C1.fastq.gz",
+					"r1_md5": "99360865e65487231553766999f39eb8",
+					"r2_uri": "",
+					"r2_sp3_filepath": "/data/inputs/s3/rCgxZDvfQCNzMAQMVzBwhlOxgfWKlhzu/761b1979-642d-46ff-8565-8b89a97ecc93/444359a9-027f-4d6e-a8bc-3ee6cf45ce16_C2.fastq.gz",
+					"r2_md5": "4c53ef3f1eb0420673a3087e0992022c"
+				}],
+				"seReads": []
+			}, {
+				"name": "2048ad24-b2b6-45c5-bdcf-073a62eb7ba2",
+				"host": "Homo sapiens",
+				"collectionDate": "2021-10-06T09:47:02.391Z",
+				"country": "United Kingdom",
+				"fileName": "2048ad24-b2b6-45c5-bdcf-073a62eb7ba2",
+				"specimenOrganism": "SARS-CoV-2",
+				"specimenSource": "Swab",
+				"status": "Uploaded",
+				"comments": "",
+				"sampleDetails3": "",
+				"submissionTitle": "newupdatestest",
+				"submissionDescription": "newupdatestest",
+				"instrument": {
+					"platform": "Illumina pair-ended sequencing",
+					"model": "Illumina HiSeq 4000",
+					"flowcell": "96"
+				},
+				"peReads": [{
+					"r1_uri": "",
+					"r1_sp3_filepath": "/data/inputs/s3/rCgxZDvfQCNzMAQMVzBwhlOxgfWKlhzu/761b1979-642d-46ff-8565-8b89a97ecc93/2048ad24-b2b6-45c5-bdcf-073a62eb7ba2_C1.fastq.gz",
+					"r1_md5": "6665ba6e6cf098f434c25a38ae8259b6",
+					"r2_uri": "",
+					"r2_sp3_filepath": "/data/inputs/s3/rCgxZDvfQCNzMAQMVzBwhlOxgfWKlhzu/761b1979-642d-46ff-8565-8b89a97ecc93/2048ad24-b2b6-45c5-bdcf-073a62eb7ba2_C2.fastq.gz",
+					"r2_md5": "0a9a88095b1da637b11d7f7cfa6cb0da"
+				}],
+				"seReads": []
+			}, {
+				"name": "8d8c7f1f-471f-4ec4-8563-d47954708ee7",
+				"host": "Homo sapiens",
+				"collectionDate": "2021-10-06T09:47:02.391Z",
+				"country": "United Kingdom",
+				"fileName": "8d8c7f1f-471f-4ec4-8563-d47954708ee7",
+				"specimenOrganism": "SARS-CoV-2",
+				"specimenSource": "Swab",
+				"status": "Uploaded",
+				"comments": "",
+				"sampleDetails3": "",
+				"submissionTitle": "newupdatestest",
+				"submissionDescription": "newupdatestest",
+				"instrument": {
+					"platform": "Illumina pair-ended sequencing",
+					"model": "Illumina HiSeq 4000",
+					"flowcell": "96"
+				},
+				"peReads": [{
+					"r1_uri": "",
+					"r1_sp3_filepath": "/data/inputs/s3/rCgxZDvfQCNzMAQMVzBwhlOxgfWKlhzu/761b1979-642d-46ff-8565-8b89a97ecc93/8d8c7f1f-471f-4ec4-8563-d47954708ee7_C1.fastq.gz",
+					"r1_md5": "347b034451fb75e249365d1c56264b9d",
+					"r2_uri": "",
+					"r2_sp3_filepath": "/data/inputs/s3/rCgxZDvfQCNzMAQMVzBwhlOxgfWKlhzu/761b1979-642d-46ff-8565-8b89a97ecc93/8d8c7f1f-471f-4ec4-8563-d47954708ee7_C2.fastq.gz",
+					"r2_md5": "55ff9092c7b50255a3fe1b019d37d775"
+				}],
+				"seReads": []
+			}, {
+				"name": "0cf6c136-43f4-4169-a1bc-3475f99841d6",
+				"host": "Homo sapiens",
+				"collectionDate": "2021-10-06T09:47:02.391Z",
+				"country": "United Kingdom",
+				"fileName": "0cf6c136-43f4-4169-a1bc-3475f99841d6",
+				"specimenOrganism": "SARS-CoV-2",
+				"specimenSource": "Swab",
+				"status": "Uploaded",
+				"comments": "",
+				"sampleDetails3": "",
+				"submissionTitle": "newupdatestest",
+				"submissionDescription": "newupdatestest",
+				"instrument": {
+					"platform": "Illumina pair-ended sequencing",
+					"model": "Illumina HiSeq 4000",
+					"flowcell": "96"
+				},
+				"peReads": [{
+					"r1_uri": "",
+					"r1_sp3_filepath": "/data/inputs/s3/rCgxZDvfQCNzMAQMVzBwhlOxgfWKlhzu/761b1979-642d-46ff-8565-8b89a97ecc93/0cf6c136-43f4-4169-a1bc-3475f99841d6_C1.fastq.gz",
+					"r1_md5": "f2252588af9be48acc98af9126ffe2d8",
+					"r2_uri": "",
+					"r2_sp3_filepath": "/data/inputs/s3/rCgxZDvfQCNzMAQMVzBwhlOxgfWKlhzu/761b1979-642d-46ff-8565-8b89a97ecc93/0cf6c136-43f4-4169-a1bc-3475f99841d6_C2.fastq.gz",
+					"r2_md5": "858276e6e29b6e75b9326a48364ceaf2"
+				}],
+				"seReads": []
+			}, {
+				"name": "a9b7e8ac-2543-474a-90df-763028b6a5e9",
+				"host": "Homo sapiens",
+				"collectionDate": "2021-10-06T09:47:02.391Z",
+				"country": "United Kingdom",
+				"fileName": "a9b7e8ac-2543-474a-90df-763028b6a5e9",
+				"specimenOrganism": "SARS-CoV-2",
+				"specimenSource": "Swab",
+				"status": "Uploaded",
+				"comments": "",
+				"sampleDetails3": "",
+				"submissionTitle": "newupdatestest",
+				"submissionDescription": "newupdatestest",
+				"instrument": {
+					"platform": "Illumina pair-ended sequencing",
+					"model": "Illumina HiSeq 4000",
+					"flowcell": "96"
+				},
+				"peReads": [{
+					"r1_uri": "",
+					"r1_sp3_filepath": "/data/inputs/s3/rCgxZDvfQCNzMAQMVzBwhlOxgfWKlhzu/761b1979-642d-46ff-8565-8b89a97ecc93/a9b7e8ac-2543-474a-90df-763028b6a5e9_C1.fastq.gz",
+					"r1_md5": "5400bf34f681ba8aca626ed90d1be0a6",
+					"r2_uri": "",
+					"r2_sp3_filepath": "/data/inputs/s3/rCgxZDvfQCNzMAQMVzBwhlOxgfWKlhzu/761b1979-642d-46ff-8565-8b89a97ecc93/a9b7e8ac-2543-474a-90df-763028b6a5e9_C2.fastq.gz",
+					"r2_md5": "6bedc8f6bf831e8c6c7cf376917a0b90"
+				}],
+				"seReads": []
+			}, {
+				"name": "0b674554-b18f-4584-8e83-af31209e01ce",
+				"host": "Homo sapiens",
+				"collectionDate": "2021-10-06T09:47:02.391Z",
+				"country": "United Kingdom",
+				"fileName": "0b674554-b18f-4584-8e83-af31209e01ce",
+				"specimenOrganism": "SARS-CoV-2",
+				"specimenSource": "Swab",
+				"status": "Uploaded",
+				"comments": "",
+				"sampleDetails3": "",
+				"submissionTitle": "newupdatestest",
+				"submissionDescription": "newupdatestest",
+				"instrument": {
+					"platform": "Illumina pair-ended sequencing",
+					"model": "Illumina HiSeq 4000",
+					"flowcell": "96"
+				},
+				"peReads": [{
+					"r1_uri": "",
+					"r1_sp3_filepath": "/data/inputs/s3/rCgxZDvfQCNzMAQMVzBwhlOxgfWKlhzu/761b1979-642d-46ff-8565-8b89a97ecc93/0b674554-b18f-4584-8e83-af31209e01ce_C1.fastq.gz",
+					"r1_md5": "588d96a82be8323975277732b8492138",
+					"r2_uri": "",
+					"r2_sp3_filepath": "/data/inputs/s3/rCgxZDvfQCNzMAQMVzBwhlOxgfWKlhzu/761b1979-642d-46ff-8565-8b89a97ecc93/0b674554-b18f-4584-8e83-af31209e01ce_C2.fastq.gz",
+					"r2_md5": "a70c9c388cde87c16bb93471a28506eb"
+				}],
+				"seReads": []
+			}, {
+				"name": "f6b9a551-d88c-4107-911b-10f9ad3f8710",
+				"host": "Homo sapiens",
+				"collectionDate": "2021-10-06T09:47:02.391Z",
+				"country": "United Kingdom",
+				"fileName": "f6b9a551-d88c-4107-911b-10f9ad3f8710",
+				"specimenOrganism": "SARS-CoV-2",
+				"specimenSource": "Swab",
+				"status": "Uploaded",
+				"comments": "",
+				"sampleDetails3": "",
+				"submissionTitle": "newupdatestest",
+				"submissionDescription": "newupdatestest",
+				"instrument": {
+					"platform": "Illumina pair-ended sequencing",
+					"model": "Illumina HiSeq 4000",
+					"flowcell": "96"
+				},
+				"peReads": [{
+					"r1_uri": "",
+					"r1_sp3_filepath": "/data/inputs/s3/rCgxZDvfQCNzMAQMVzBwhlOxgfWKlhzu/761b1979-642d-46ff-8565-8b89a97ecc93/f6b9a551-d88c-4107-911b-10f9ad3f8710_C1.fastq.gz",
+					"r1_md5": "60f98a42fa95b09237dd4fcf0b298999",
+					"r2_uri": "",
+					"r2_sp3_filepath": "/data/inputs/s3/rCgxZDvfQCNzMAQMVzBwhlOxgfWKlhzu/761b1979-642d-46ff-8565-8b89a97ecc93/f6b9a551-d88c-4107-911b-10f9ad3f8710_C2.fastq.gz",
+					"r2_md5": "516aa027b46147aa4c1d973903f99efd"
+				}],
+				"seReads": []
+			}, {
+				"name": "940abed7-cdd7-4582-9f97-aa9e9fd75bfa",
+				"host": "Homo sapiens",
+				"collectionDate": "2021-10-06T09:47:02.391Z",
+				"country": "United Kingdom",
+				"fileName": "940abed7-cdd7-4582-9f97-aa9e9fd75bfa",
+				"specimenOrganism": "SARS-CoV-2",
+				"specimenSource": "Swab",
+				"status": "Uploaded",
+				"comments": "",
+				"sampleDetails3": "",
+				"submissionTitle": "newupdatestest",
+				"submissionDescription": "newupdatestest",
+				"instrument": {
+					"platform": "Illumina pair-ended sequencing",
+					"model": "Illumina HiSeq 4000",
+					"flowcell": "96"
+				},
+				"peReads": [{
+					"r1_uri": "",
+					"r1_sp3_filepath": "/data/inputs/s3/rCgxZDvfQCNzMAQMVzBwhlOxgfWKlhzu/761b1979-642d-46ff-8565-8b89a97ecc93/940abed7-cdd7-4582-9f97-aa9e9fd75bfa_C1.fastq.gz",
+					"r1_md5": "08e055526fa494c31829da7f1a85e834",
+					"r2_uri": "",
+					"r2_sp3_filepath": "/data/inputs/s3/rCgxZDvfQCNzMAQMVzBwhlOxgfWKlhzu/761b1979-642d-46ff-8565-8b89a97ecc93/940abed7-cdd7-4582-9f97-aa9e9fd75bfa_C2.fastq.gz",
+					"r2_md5": "36278a278e3599ca00916133e2a54e2d"
+				}],
+				"seReads": []
+			}, {
+				"name": "90db23ef-7dfc-4090-91c2-426326d74c26",
+				"host": "Homo sapiens",
+				"collectionDate": "2021-10-06T09:47:02.391Z",
+				"country": "United Kingdom",
+				"fileName": "90db23ef-7dfc-4090-91c2-426326d74c26",
+				"specimenOrganism": "SARS-CoV-2",
+				"specimenSource": "Swab",
+				"status": "Uploaded",
+				"comments": "",
+				"sampleDetails3": "",
+				"submissionTitle": "newupdatestest",
+				"submissionDescription": "newupdatestest",
+				"instrument": {
+					"platform": "Illumina pair-ended sequencing",
+					"model": "Illumina HiSeq 4000",
+					"flowcell": "96"
+				},
+				"peReads": [{
+					"r1_uri": "",
+					"r1_sp3_filepath": "/data/inputs/s3/rCgxZDvfQCNzMAQMVzBwhlOxgfWKlhzu/761b1979-642d-46ff-8565-8b89a97ecc93/90db23ef-7dfc-4090-91c2-426326d74c26_C1.fastq.gz",
+					"r1_md5": "531a67c2476394eb5ed816a4c00246ee",
+					"r2_uri": "",
+					"r2_sp3_filepath": "/data/inputs/s3/rCgxZDvfQCNzMAQMVzBwhlOxgfWKlhzu/761b1979-642d-46ff-8565-8b89a97ecc93/90db23ef-7dfc-4090-91c2-426326d74c26_C2.fastq.gz",
+					"r2_md5": "db36288325e375b2eec04fb13a494e42"
+				}],
+				"seReads": []
+			}, {
+				"name": "b0b0f7ed-4a74-40f7-a78e-707de0b32062",
+				"host": "Homo sapiens",
+				"collectionDate": "2021-10-06T09:47:02.391Z",
+				"country": "United Kingdom",
+				"fileName": "b0b0f7ed-4a74-40f7-a78e-707de0b32062",
+				"specimenOrganism": "SARS-CoV-2",
+				"specimenSource": "Swab",
+				"status": "Uploaded",
+				"comments": "",
+				"sampleDetails3": "",
+				"submissionTitle": "newupdatestest",
+				"submissionDescription": "newupdatestest",
+				"instrument": {
+					"platform": "Illumina pair-ended sequencing",
+					"model": "Illumina HiSeq 4000",
+					"flowcell": "96"
+				},
+				"peReads": [{
+					"r1_uri": "",
+					"r1_sp3_filepath": "/data/inputs/s3/rCgxZDvfQCNzMAQMVzBwhlOxgfWKlhzu/761b1979-642d-46ff-8565-8b89a97ecc93/b0b0f7ed-4a74-40f7-a78e-707de0b32062_C1.fastq.gz",
+					"r1_md5": "60922c273317f5df1a089c1911e2aa7a",
+					"r2_uri": "",
+					"r2_sp3_filepath": "/data/inputs/s3/rCgxZDvfQCNzMAQMVzBwhlOxgfWKlhzu/761b1979-642d-46ff-8565-8b89a97ecc93/b0b0f7ed-4a74-40f7-a78e-707de0b32062_C2.fastq.gz",
+					"r2_md5": "83b5bd793d637deaf85408e1f22381ea"
+				}],
+				"seReads": []
+			}, {
+				"name": "83eac2b2-a588-4c80-b4a0-9de3414d7faa",
+				"host": "Homo sapiens",
+				"collectionDate": "2021-10-06T09:47:02.391Z",
+				"country": "United Kingdom",
+				"fileName": "83eac2b2-a588-4c80-b4a0-9de3414d7faa",
+				"specimenOrganism": "SARS-CoV-2",
+				"specimenSource": "Swab",
+				"status": "Uploaded",
+				"comments": "",
+				"sampleDetails3": "",
+				"submissionTitle": "newupdatestest",
+				"submissionDescription": "newupdatestest",
+				"instrument": {
+					"platform": "Illumina pair-ended sequencing",
+					"model": "Illumina HiSeq 4000",
+					"flowcell": "96"
+				},
+				"peReads": [{
+					"r1_uri": "",
+					"r1_sp3_filepath": "/data/inputs/s3/rCgxZDvfQCNzMAQMVzBwhlOxgfWKlhzu/761b1979-642d-46ff-8565-8b89a97ecc93/83eac2b2-a588-4c80-b4a0-9de3414d7faa_C1.fastq.gz",
+					"r1_md5": "a769ba03d9bafb31a9d2047829946431",
+					"r2_uri": "",
+					"r2_sp3_filepath": "/data/inputs/s3/rCgxZDvfQCNzMAQMVzBwhlOxgfWKlhzu/761b1979-642d-46ff-8565-8b89a97ecc93/83eac2b2-a588-4c80-b4a0-9de3414d7faa_C2.fastq.gz",
+					"r2_md5": "bc5f9c54fdd296523c98dedf5fe6f5e1"
+				}],
+				"seReads": []
+			}, {
+				"name": "6231065e-8d30-42b6-b12a-177d189d7999",
+				"host": "Homo sapiens",
+				"collectionDate": "2021-10-06T09:47:02.391Z",
+				"country": "United Kingdom",
+				"fileName": "6231065e-8d30-42b6-b12a-177d189d7999",
+				"specimenOrganism": "SARS-CoV-2",
+				"specimenSource": "Swab",
+				"status": "Uploaded",
+				"comments": "",
+				"sampleDetails3": "",
+				"submissionTitle": "newupdatestest",
+				"submissionDescription": "newupdatestest",
+				"instrument": {
+					"platform": "Illumina pair-ended sequencing",
+					"model": "Illumina HiSeq 4000",
+					"flowcell": "96"
+				},
+				"peReads": [{
+					"r1_uri": "",
+					"r1_sp3_filepath": "/data/inputs/s3/rCgxZDvfQCNzMAQMVzBwhlOxgfWKlhzu/761b1979-642d-46ff-8565-8b89a97ecc93/6231065e-8d30-42b6-b12a-177d189d7999_C1.fastq.gz",
+					"r1_md5": "8df501e95ded0880fbed20c5e149a916",
+					"r2_uri": "",
+					"r2_sp3_filepath": "/data/inputs/s3/rCgxZDvfQCNzMAQMVzBwhlOxgfWKlhzu/761b1979-642d-46ff-8565-8b89a97ecc93/6231065e-8d30-42b6-b12a-177d189d7999_C2.fastq.gz",
+					"r2_md5": "37efe5750079e7b46eb23b0f3e48a12e"
+				}],
+				"seReads": []
+			}, {
+				"name": "05d2955d-d6d8-4c86-b1b4-29c82b0b4fac",
+				"host": "Homo sapiens",
+				"collectionDate": "2021-10-06T09:47:02.391Z",
+				"country": "United Kingdom",
+				"fileName": "05d2955d-d6d8-4c86-b1b4-29c82b0b4fac",
+				"specimenOrganism": "SARS-CoV-2",
+				"specimenSource": "Swab",
+				"status": "Uploaded",
+				"comments": "",
+				"sampleDetails3": "",
+				"submissionTitle": "newupdatestest",
+				"submissionDescription": "newupdatestest",
+				"instrument": {
+					"platform": "Illumina pair-ended sequencing",
+					"model": "Illumina HiSeq 4000",
+					"flowcell": "96"
+				},
+				"peReads": [{
+					"r1_uri": "",
+					"r1_sp3_filepath": "/data/inputs/s3/rCgxZDvfQCNzMAQMVzBwhlOxgfWKlhzu/761b1979-642d-46ff-8565-8b89a97ecc93/05d2955d-d6d8-4c86-b1b4-29c82b0b4fac_C1.fastq.gz",
+					"r1_md5": "cd09eb11134b44eb12d5b70ffa65c654",
+					"r2_uri": "",
+					"r2_sp3_filepath": "/data/inputs/s3/rCgxZDvfQCNzMAQMVzBwhlOxgfWKlhzu/761b1979-642d-46ff-8565-8b89a97ecc93/05d2955d-d6d8-4c86-b1b4-29c82b0b4fac_C2.fastq.gz",
+					"r2_md5": "3afe22debfc8e02338dd6df44a44f69a"
+				}],
+				"seReads": []
+			}, {
+				"name": "216160a9-1ebf-4393-92d2-39a97bd8f576",
+				"host": "Homo sapiens",
+				"collectionDate": "2021-10-06T09:47:02.391Z",
+				"country": "United Kingdom",
+				"fileName": "216160a9-1ebf-4393-92d2-39a97bd8f576",
+				"specimenOrganism": "SARS-CoV-2",
+				"specimenSource": "Swab",
+				"status": "Uploaded",
+				"comments": "",
+				"sampleDetails3": "",
+				"submissionTitle": "newupdatestest",
+				"submissionDescription": "newupdatestest",
+				"instrument": {
+					"platform": "Illumina pair-ended sequencing",
+					"model": "Illumina HiSeq 4000",
+					"flowcell": "96"
+				},
+				"peReads": [{
+					"r1_uri": "",
+					"r1_sp3_filepath": "/data/inputs/s3/rCgxZDvfQCNzMAQMVzBwhlOxgfWKlhzu/761b1979-642d-46ff-8565-8b89a97ecc93/216160a9-1ebf-4393-92d2-39a97bd8f576_C1.fastq.gz",
+					"r1_md5": "20d865e9fb4b85e014110424d3e86950",
+					"r2_uri": "",
+					"r2_sp3_filepath": "/data/inputs/s3/rCgxZDvfQCNzMAQMVzBwhlOxgfWKlhzu/761b1979-642d-46ff-8565-8b89a97ecc93/216160a9-1ebf-4393-92d2-39a97bd8f576_C2.fastq.gz",
+					"r2_md5": "c01560d81aaa14def583d1b0cbbeb5c6"
+				}],
+				"seReads": []
+			}, {
+				"name": "a42f84bf-a2d6-4121-90c1-6a5794f504fe",
+				"host": "Homo sapiens",
+				"collectionDate": "2021-10-06T09:47:02.391Z",
+				"country": "United Kingdom",
+				"fileName": "a42f84bf-a2d6-4121-90c1-6a5794f504fe",
+				"specimenOrganism": "SARS-CoV-2",
+				"specimenSource": "Swab",
+				"status": "Uploaded",
+				"comments": "",
+				"sampleDetails3": "",
+				"submissionTitle": "newupdatestest",
+				"submissionDescription": "newupdatestest",
+				"instrument": {
+					"platform": "Illumina pair-ended sequencing",
+					"model": "Illumina HiSeq 4000",
+					"flowcell": "96"
+				},
+				"peReads": [{
+					"r1_uri": "",
+					"r1_sp3_filepath": "/data/inputs/s3/rCgxZDvfQCNzMAQMVzBwhlOxgfWKlhzu/761b1979-642d-46ff-8565-8b89a97ecc93/a42f84bf-a2d6-4121-90c1-6a5794f504fe_C1.fastq.gz",
+					"r1_md5": "7b00ee27fda0cbfaf5a1014deedbc846",
+					"r2_uri": "",
+					"r2_sp3_filepath": "/data/inputs/s3/rCgxZDvfQCNzMAQMVzBwhlOxgfWKlhzu/761b1979-642d-46ff-8565-8b89a97ecc93/a42f84bf-a2d6-4121-90c1-6a5794f504fe_C2.fastq.gz",
+					"r2_md5": "eb0db4c63d771aab2f25745b94cf4922"
+				}],
+				"seReads": []
+			}, {
+				"name": "4881c93a-1fd1-4134-b189-56bed4f37020",
+				"host": "Homo sapiens",
+				"collectionDate": "2021-10-06T09:47:02.391Z",
+				"country": "United Kingdom",
+				"fileName": "4881c93a-1fd1-4134-b189-56bed4f37020",
+				"specimenOrganism": "SARS-CoV-2",
+				"specimenSource": "Swab",
+				"status": "Uploaded",
+				"comments": "",
+				"sampleDetails3": "",
+				"submissionTitle": "newupdatestest",
+				"submissionDescription": "newupdatestest",
+				"instrument": {
+					"platform": "Illumina pair-ended sequencing",
+					"model": "Illumina HiSeq 4000",
+					"flowcell": "96"
+				},
+				"peReads": [{
+					"r1_uri": "",
+					"r1_sp3_filepath": "/data/inputs/s3/rCgxZDvfQCNzMAQMVzBwhlOxgfWKlhzu/761b1979-642d-46ff-8565-8b89a97ecc93/4881c93a-1fd1-4134-b189-56bed4f37020_C1.fastq.gz",
+					"r1_md5": "aa3b303b040ef8c6ac044037b8a2dd39",
+					"r2_uri": "",
+					"r2_sp3_filepath": "/data/inputs/s3/rCgxZDvfQCNzMAQMVzBwhlOxgfWKlhzu/761b1979-642d-46ff-8565-8b89a97ecc93/4881c93a-1fd1-4134-b189-56bed4f37020_C2.fastq.gz",
+					"r2_md5": "98798cd51643f40922cb81fc7e6716d9"
+				}],
+				"seReads": []
+			}, {
+				"name": "a91a0806-bddd-4a16-8225-eeddecd8eb48",
+				"host": "Homo sapiens",
+				"collectionDate": "2021-10-06T09:47:02.391Z",
+				"country": "United Kingdom",
+				"fileName": "a91a0806-bddd-4a16-8225-eeddecd8eb48",
+				"specimenOrganism": "SARS-CoV-2",
+				"specimenSource": "Swab",
+				"status": "Uploaded",
+				"comments": "",
+				"sampleDetails3": "",
+				"submissionTitle": "newupdatestest",
+				"submissionDescription": "newupdatestest",
+				"instrument": {
+					"platform": "Illumina pair-ended sequencing",
+					"model": "Illumina HiSeq 4000",
+					"flowcell": "96"
+				},
+				"peReads": [{
+					"r1_uri": "",
+					"r1_sp3_filepath": "/data/inputs/s3/rCgxZDvfQCNzMAQMVzBwhlOxgfWKlhzu/761b1979-642d-46ff-8565-8b89a97ecc93/a91a0806-bddd-4a16-8225-eeddecd8eb48_C1.fastq.gz",
+					"r1_md5": "561524daccdc0c429def2330b254ccfb",
+					"r2_uri": "",
+					"r2_sp3_filepath": "/data/inputs/s3/rCgxZDvfQCNzMAQMVzBwhlOxgfWKlhzu/761b1979-642d-46ff-8565-8b89a97ecc93/a91a0806-bddd-4a16-8225-eeddecd8eb48_C2.fastq.gz",
+					"r2_md5": "a5aff6c097549be6d91ba3f807ecd5f1"
+				}],
+				"seReads": []
+			}, {
+				"name": "f92cd1d9-3ca7-4a07-a7a1-04c8c80a0536",
+				"host": "Homo sapiens",
+				"collectionDate": "2021-10-06T09:47:02.391Z",
+				"country": "United Kingdom",
+				"fileName": "f92cd1d9-3ca7-4a07-a7a1-04c8c80a0536",
+				"specimenOrganism": "SARS-CoV-2",
+				"specimenSource": "Swab",
+				"status": "Uploaded",
+				"comments": "",
+				"sampleDetails3": "",
+				"submissionTitle": "newupdatestest",
+				"submissionDescription": "newupdatestest",
+				"instrument": {
+					"platform": "Illumina pair-ended sequencing",
+					"model": "Illumina HiSeq 4000",
+					"flowcell": "96"
+				},
+				"peReads": [{
+					"r1_uri": "",
+					"r1_sp3_filepath": "/data/inputs/s3/rCgxZDvfQCNzMAQMVzBwhlOxgfWKlhzu/761b1979-642d-46ff-8565-8b89a97ecc93/f92cd1d9-3ca7-4a07-a7a1-04c8c80a0536_C1.fastq.gz",
+					"r1_md5": "b61bf966c9346a6851a3235aba911bfe",
+					"r2_uri": "",
+					"r2_sp3_filepath": "/data/inputs/s3/rCgxZDvfQCNzMAQMVzBwhlOxgfWKlhzu/761b1979-642d-46ff-8565-8b89a97ecc93/f92cd1d9-3ca7-4a07-a7a1-04c8c80a0536_C2.fastq.gz",
+					"r2_md5": "a8044f9c624b71bbb9d2d4f0d3c07589"
+				}],
+				"seReads": []
+			}, {
+				"name": "7b335505-070d-483c-973f-39cb9c5943f6",
+				"host": "Homo sapiens",
+				"collectionDate": "2021-10-06T09:47:02.391Z",
+				"country": "United Kingdom",
+				"fileName": "7b335505-070d-483c-973f-39cb9c5943f6",
+				"specimenOrganism": "SARS-CoV-2",
+				"specimenSource": "Swab",
+				"status": "Uploaded",
+				"comments": "",
+				"sampleDetails3": "",
+				"submissionTitle": "newupdatestest",
+				"submissionDescription": "newupdatestest",
+				"instrument": {
+					"platform": "Illumina pair-ended sequencing",
+					"model": "Illumina HiSeq 4000",
+					"flowcell": "96"
+				},
+				"peReads": [{
+					"r1_uri": "",
+					"r1_sp3_filepath": "/data/inputs/s3/rCgxZDvfQCNzMAQMVzBwhlOxgfWKlhzu/761b1979-642d-46ff-8565-8b89a97ecc93/7b335505-070d-483c-973f-39cb9c5943f6_C1.fastq.gz",
+					"r1_md5": "29d93084693e50084de28c57d09569aa",
+					"r2_uri": "",
+					"r2_sp3_filepath": "/data/inputs/s3/rCgxZDvfQCNzMAQMVzBwhlOxgfWKlhzu/761b1979-642d-46ff-8565-8b89a97ecc93/7b335505-070d-483c-973f-39cb9c5943f6_C2.fastq.gz",
+					"r2_md5": "bbbbf845055bc2960c0abb9737d27dd6"
+				}],
+				"seReads": []
+			}, {
+				"name": "4183532d-bb5a-47b7-9195-3830a093af32",
+				"host": "Homo sapiens",
+				"collectionDate": "2021-10-06T09:47:02.391Z",
+				"country": "United Kingdom",
+				"fileName": "4183532d-bb5a-47b7-9195-3830a093af32",
+				"specimenOrganism": "SARS-CoV-2",
+				"specimenSource": "Swab",
+				"status": "Uploaded",
+				"comments": "",
+				"sampleDetails3": "",
+				"submissionTitle": "newupdatestest",
+				"submissionDescription": "newupdatestest",
+				"instrument": {
+					"platform": "Illumina pair-ended sequencing",
+					"model": "Illumina HiSeq 4000",
+					"flowcell": "96"
+				},
+				"peReads": [{
+					"r1_uri": "",
+					"r1_sp3_filepath": "/data/inputs/s3/rCgxZDvfQCNzMAQMVzBwhlOxgfWKlhzu/761b1979-642d-46ff-8565-8b89a97ecc93/4183532d-bb5a-47b7-9195-3830a093af32_C1.fastq.gz",
+					"r1_md5": "051a0c758353e99f812896a4a62873d2",
+					"r2_uri": "",
+					"r2_sp3_filepath": "/data/inputs/s3/rCgxZDvfQCNzMAQMVzBwhlOxgfWKlhzu/761b1979-642d-46ff-8565-8b89a97ecc93/4183532d-bb5a-47b7-9195-3830a093af32_C2.fastq.gz",
+					"r2_md5": "3ab90bf169f10473d9fc908581981b9d"
+				}],
+				"seReads": []
+			}, {
+				"name": "5b6d363a-bb8c-4ee7-b133-58df90a85c80",
+				"host": "Homo sapiens",
+				"collectionDate": "2021-10-06T09:47:02.391Z",
+				"country": "United Kingdom",
+				"fileName": "5b6d363a-bb8c-4ee7-b133-58df90a85c80",
+				"specimenOrganism": "SARS-CoV-2",
+				"specimenSource": "Swab",
+				"status": "Uploaded",
+				"comments": "",
+				"sampleDetails3": "",
+				"submissionTitle": "newupdatestest",
+				"submissionDescription": "newupdatestest",
+				"instrument": {
+					"platform": "Illumina pair-ended sequencing",
+					"model": "Illumina HiSeq 4000",
+					"flowcell": "96"
+				},
+				"peReads": [{
+					"r1_uri": "",
+					"r1_sp3_filepath": "/data/inputs/s3/rCgxZDvfQCNzMAQMVzBwhlOxgfWKlhzu/761b1979-642d-46ff-8565-8b89a97ecc93/5b6d363a-bb8c-4ee7-b133-58df90a85c80_C1.fastq.gz",
+					"r1_md5": "634c3026e8d8c793cb6c91bc0e74de50",
+					"r2_uri": "",
+					"r2_sp3_filepath": "/data/inputs/s3/rCgxZDvfQCNzMAQMVzBwhlOxgfWKlhzu/761b1979-642d-46ff-8565-8b89a97ecc93/5b6d363a-bb8c-4ee7-b133-58df90a85c80_C2.fastq.gz",
+					"r2_md5": "650a6c03605f0069ffdbf330a256505d"
+				}],
+				"seReads": []
+			}, {
+				"name": "1a7da4ee-daac-4bb1-ad0d-8d3d5bff3e5a",
+				"host": "Homo sapiens",
+				"collectionDate": "2021-10-06T09:47:02.391Z",
+				"country": "United Kingdom",
+				"fileName": "1a7da4ee-daac-4bb1-ad0d-8d3d5bff3e5a",
+				"specimenOrganism": "SARS-CoV-2",
+				"specimenSource": "Swab",
+				"status": "Uploaded",
+				"comments": "",
+				"sampleDetails3": "",
+				"submissionTitle": "newupdatestest",
+				"submissionDescription": "newupdatestest",
+				"instrument": {
+					"platform": "Illumina pair-ended sequencing",
+					"model": "Illumina HiSeq 4000",
+					"flowcell": "96"
+				},
+				"peReads": [{
+					"r1_uri": "",
+					"r1_sp3_filepath": "/data/inputs/s3/rCgxZDvfQCNzMAQMVzBwhlOxgfWKlhzu/761b1979-642d-46ff-8565-8b89a97ecc93/1a7da4ee-daac-4bb1-ad0d-8d3d5bff3e5a_C1.fastq.gz",
+					"r1_md5": "995d2368242c6cfc074173a18d2ae90c",
+					"r2_uri": "",
+					"r2_sp3_filepath": "/data/inputs/s3/rCgxZDvfQCNzMAQMVzBwhlOxgfWKlhzu/761b1979-642d-46ff-8565-8b89a97ecc93/1a7da4ee-daac-4bb1-ad0d-8d3d5bff3e5a_C2.fastq.gz",
+					"r2_md5": "e7f35e03379bb974f896b8a27d3925f1"
+				}],
+				"seReads": []
+			}, {
+				"name": "43bf90cf-c21a-478b-86d0-3afb8fc3f95b",
+				"host": "Homo sapiens",
+				"collectionDate": "2021-10-06T09:47:02.391Z",
+				"country": "United Kingdom",
+				"fileName": "43bf90cf-c21a-478b-86d0-3afb8fc3f95b",
+				"specimenOrganism": "SARS-CoV-2",
+				"specimenSource": "Swab",
+				"status": "Uploaded",
+				"comments": "",
+				"sampleDetails3": "",
+				"submissionTitle": "newupdatestest",
+				"submissionDescription": "newupdatestest",
+				"instrument": {
+					"platform": "Illumina pair-ended sequencing",
+					"model": "Illumina HiSeq 4000",
+					"flowcell": "96"
+				},
+				"peReads": [{
+					"r1_uri": "",
+					"r1_sp3_filepath": "/data/inputs/s3/rCgxZDvfQCNzMAQMVzBwhlOxgfWKlhzu/761b1979-642d-46ff-8565-8b89a97ecc93/43bf90cf-c21a-478b-86d0-3afb8fc3f95b_C1.fastq.gz",
+					"r1_md5": "d797df323248bc4af73de2a608cee707",
+					"r2_uri": "",
+					"r2_sp3_filepath": "/data/inputs/s3/rCgxZDvfQCNzMAQMVzBwhlOxgfWKlhzu/761b1979-642d-46ff-8565-8b89a97ecc93/43bf90cf-c21a-478b-86d0-3afb8fc3f95b_C2.fastq.gz",
+					"r2_md5": "745dd4e357f28b349474de5fdc558b20"
+				}],
+				"seReads": []
+			}, {
+				"name": "c10a2c59-72e8-4a37-a475-7a6ebc392c84",
+				"host": "Homo sapiens",
+				"collectionDate": "2021-10-06T09:47:02.391Z",
+				"country": "United Kingdom",
+				"fileName": "c10a2c59-72e8-4a37-a475-7a6ebc392c84",
+				"specimenOrganism": "SARS-CoV-2",
+				"specimenSource": "Swab",
+				"status": "Uploaded",
+				"comments": "",
+				"sampleDetails3": "",
+				"submissionTitle": "newupdatestest",
+				"submissionDescription": "newupdatestest",
+				"instrument": {
+					"platform": "Illumina pair-ended sequencing",
+					"model": "Illumina HiSeq 4000",
+					"flowcell": "96"
+				},
+				"peReads": [{
+					"r1_uri": "",
+					"r1_sp3_filepath": "/data/inputs/s3/rCgxZDvfQCNzMAQMVzBwhlOxgfWKlhzu/761b1979-642d-46ff-8565-8b89a97ecc93/c10a2c59-72e8-4a37-a475-7a6ebc392c84_C1.fastq.gz",
+					"r1_md5": "483077a80a23e95556c3bca96d217a72",
+					"r2_uri": "",
+					"r2_sp3_filepath": "/data/inputs/s3/rCgxZDvfQCNzMAQMVzBwhlOxgfWKlhzu/761b1979-642d-46ff-8565-8b89a97ecc93/c10a2c59-72e8-4a37-a475-7a6ebc392c84_C2.fastq.gz",
+					"r2_md5": "7effc395818193c8cb7a54342282fb39"
+				}],
+				"seReads": []
+			}, {
+				"name": "688f3f3b-fa9c-48bd-836d-4cbc2022d33e",
+				"host": "Homo sapiens",
+				"collectionDate": "2021-10-06T09:47:02.391Z",
+				"country": "United Kingdom",
+				"fileName": "688f3f3b-fa9c-48bd-836d-4cbc2022d33e",
+				"specimenOrganism": "SARS-CoV-2",
+				"specimenSource": "Swab",
+				"status": "Uploaded",
+				"comments": "",
+				"sampleDetails3": "",
+				"submissionTitle": "newupdatestest",
+				"submissionDescription": "newupdatestest",
+				"instrument": {
+					"platform": "Illumina pair-ended sequencing",
+					"model": "Illumina HiSeq 4000",
+					"flowcell": "96"
+				},
+				"peReads": [{
+					"r1_uri": "",
+					"r1_sp3_filepath": "/data/inputs/s3/rCgxZDvfQCNzMAQMVzBwhlOxgfWKlhzu/761b1979-642d-46ff-8565-8b89a97ecc93/688f3f3b-fa9c-48bd-836d-4cbc2022d33e_C1.fastq.gz",
+					"r1_md5": "d8dbd01c1f7edcb3001f4c82cd41b453",
+					"r2_uri": "",
+					"r2_sp3_filepath": "/data/inputs/s3/rCgxZDvfQCNzMAQMVzBwhlOxgfWKlhzu/761b1979-642d-46ff-8565-8b89a97ecc93/688f3f3b-fa9c-48bd-836d-4cbc2022d33e_C2.fastq.gz",
+					"r2_md5": "dc2f94df800e785bb8255452077fc82b"
+				}],
+				"seReads": []
+			}, {
+				"name": "f8d62c9a-4664-47f9-a74b-4d1b634a0ed6",
+				"host": "Homo sapiens",
+				"collectionDate": "2021-10-06T09:47:02.391Z",
+				"country": "United Kingdom",
+				"fileName": "f8d62c9a-4664-47f9-a74b-4d1b634a0ed6",
+				"specimenOrganism": "SARS-CoV-2",
+				"specimenSource": "Swab",
+				"status": "Uploaded",
+				"comments": "",
+				"sampleDetails3": "",
+				"submissionTitle": "newupdatestest",
+				"submissionDescription": "newupdatestest",
+				"instrument": {
+					"platform": "Illumina pair-ended sequencing",
+					"model": "Illumina HiSeq 4000",
+					"flowcell": "96"
+				},
+				"peReads": [{
+					"r1_uri": "",
+					"r1_sp3_filepath": "/data/inputs/s3/rCgxZDvfQCNzMAQMVzBwhlOxgfWKlhzu/761b1979-642d-46ff-8565-8b89a97ecc93/f8d62c9a-4664-47f9-a74b-4d1b634a0ed6_C1.fastq.gz",
+					"r1_md5": "aca988fd78b8bfd367c34205a065255f",
+					"r2_uri": "",
+					"r2_sp3_filepath": "/data/inputs/s3/rCgxZDvfQCNzMAQMVzBwhlOxgfWKlhzu/761b1979-642d-46ff-8565-8b89a97ecc93/f8d62c9a-4664-47f9-a74b-4d1b634a0ed6_C2.fastq.gz",
+					"r2_md5": "3f1df52dcbd2277c16906c9b84b446cd"
+				}],
+				"seReads": []
+			}, {
+				"name": "3d185a3a-b365-4feb-b250-e7908db58543",
+				"host": "Homo sapiens",
+				"collectionDate": "2021-10-06T09:47:02.391Z",
+				"country": "United Kingdom",
+				"fileName": "3d185a3a-b365-4feb-b250-e7908db58543",
+				"specimenOrganism": "SARS-CoV-2",
+				"specimenSource": "Swab",
+				"status": "Uploaded",
+				"comments": "",
+				"sampleDetails3": "",
+				"submissionTitle": "newupdatestest",
+				"submissionDescription": "newupdatestest",
+				"instrument": {
+					"platform": "Illumina pair-ended sequencing",
+					"model": "Illumina HiSeq 4000",
+					"flowcell": "96"
+				},
+				"peReads": [{
+					"r1_uri": "",
+					"r1_sp3_filepath": "/data/inputs/s3/rCgxZDvfQCNzMAQMVzBwhlOxgfWKlhzu/761b1979-642d-46ff-8565-8b89a97ecc93/3d185a3a-b365-4feb-b250-e7908db58543_C1.fastq.gz",
+					"r1_md5": "7c03fa99059fb7633861fd3d88bf1d1a",
+					"r2_uri": "",
+					"r2_sp3_filepath": "/data/inputs/s3/rCgxZDvfQCNzMAQMVzBwhlOxgfWKlhzu/761b1979-642d-46ff-8565-8b89a97ecc93/3d185a3a-b365-4feb-b250-e7908db58543_C2.fastq.gz",
+					"r2_md5": "d7670b699ac5075d9ed16cc2318ae3b2"
+				}],
+				"seReads": []
+			}, {
+				"name": "4baa366b-7349-42eb-867f-1df80ad880f2",
+				"host": "Homo sapiens",
+				"collectionDate": "2021-10-06T09:47:02.391Z",
+				"country": "United Kingdom",
+				"fileName": "4baa366b-7349-42eb-867f-1df80ad880f2",
+				"specimenOrganism": "SARS-CoV-2",
+				"specimenSource": "Swab",
+				"status": "Uploaded",
+				"comments": "",
+				"sampleDetails3": "",
+				"submissionTitle": "newupdatestest",
+				"submissionDescription": "newupdatestest",
+				"instrument": {
+					"platform": "Illumina pair-ended sequencing",
+					"model": "Illumina HiSeq 4000",
+					"flowcell": "96"
+				},
+				"peReads": [{
+					"r1_uri": "",
+					"r1_sp3_filepath": "/data/inputs/s3/rCgxZDvfQCNzMAQMVzBwhlOxgfWKlhzu/761b1979-642d-46ff-8565-8b89a97ecc93/4baa366b-7349-42eb-867f-1df80ad880f2_C1.fastq.gz",
+					"r1_md5": "38805f7bee5bcc70b3d367bc3131bd83",
+					"r2_uri": "",
+					"r2_sp3_filepath": "/data/inputs/s3/rCgxZDvfQCNzMAQMVzBwhlOxgfWKlhzu/761b1979-642d-46ff-8565-8b89a97ecc93/4baa366b-7349-42eb-867f-1df80ad880f2_C2.fastq.gz",
+					"r2_md5": "72e3d8a8836a8af5fa757c2dd92a4205"
+				}],
+				"seReads": []
+			}, {
+				"name": "e9befbbe-916e-485a-b629-2e5fcc4f0d8d",
+				"host": "Homo sapiens",
+				"collectionDate": "2021-10-06T09:47:02.391Z",
+				"country": "United Kingdom",
+				"fileName": "e9befbbe-916e-485a-b629-2e5fcc4f0d8d",
+				"specimenOrganism": "SARS-CoV-2",
+				"specimenSource": "Swab",
+				"status": "Uploaded",
+				"comments": "",
+				"sampleDetails3": "",
+				"submissionTitle": "newupdatestest",
+				"submissionDescription": "newupdatestest",
+				"instrument": {
+					"platform": "Illumina pair-ended sequencing",
+					"model": "Illumina HiSeq 4000",
+					"flowcell": "96"
+				},
+				"peReads": [{
+					"r1_uri": "",
+					"r1_sp3_filepath": "/data/inputs/s3/rCgxZDvfQCNzMAQMVzBwhlOxgfWKlhzu/761b1979-642d-46ff-8565-8b89a97ecc93/e9befbbe-916e-485a-b629-2e5fcc4f0d8d_C1.fastq.gz",
+					"r1_md5": "2d9550aeee928fe39fd015e73fcefc42",
+					"r2_uri": "",
+					"r2_sp3_filepath": "/data/inputs/s3/rCgxZDvfQCNzMAQMVzBwhlOxgfWKlhzu/761b1979-642d-46ff-8565-8b89a97ecc93/e9befbbe-916e-485a-b629-2e5fcc4f0d8d_C2.fastq.gz",
+					"r2_md5": "0f40f1971746d9f62a1cbcf3904c581a"
+				}],
+				"seReads": []
+			}, {
+				"name": "0853247a-ab3b-4927-ba04-050d5397d2ef",
+				"host": "Homo sapiens",
+				"collectionDate": "2021-10-06T09:47:02.391Z",
+				"country": "United Kingdom",
+				"fileName": "0853247a-ab3b-4927-ba04-050d5397d2ef",
+				"specimenOrganism": "SARS-CoV-2",
+				"specimenSource": "Swab",
+				"status": "Uploaded",
+				"comments": "",
+				"sampleDetails3": "",
+				"submissionTitle": "newupdatestest",
+				"submissionDescription": "newupdatestest",
+				"instrument": {
+					"platform": "Illumina pair-ended sequencing",
+					"model": "Illumina HiSeq 4000",
+					"flowcell": "96"
+				},
+				"peReads": [{
+					"r1_uri": "",
+					"r1_sp3_filepath": "/data/inputs/s3/rCgxZDvfQCNzMAQMVzBwhlOxgfWKlhzu/761b1979-642d-46ff-8565-8b89a97ecc93/0853247a-ab3b-4927-ba04-050d5397d2ef_C1.fastq.gz",
+					"r1_md5": "0848552df007872d5f4777f4886ec772",
+					"r2_uri": "",
+					"r2_sp3_filepath": "/data/inputs/s3/rCgxZDvfQCNzMAQMVzBwhlOxgfWKlhzu/761b1979-642d-46ff-8565-8b89a97ecc93/0853247a-ab3b-4927-ba04-050d5397d2ef_C2.fastq.gz",
+					"r2_md5": "8a931ec15bb9707cd66990b0853ca68d"
+				}],
+				"seReads": []
+			}, {
+				"name": "629bfa9e-b2bb-4670-8e21-1910e9596d2b",
+				"host": "Homo sapiens",
+				"collectionDate": "2021-10-06T09:47:02.391Z",
+				"country": "United Kingdom",
+				"fileName": "629bfa9e-b2bb-4670-8e21-1910e9596d2b",
+				"specimenOrganism": "SARS-CoV-2",
+				"specimenSource": "Swab",
+				"status": "Uploaded",
+				"comments": "",
+				"sampleDetails3": "",
+				"submissionTitle": "newupdatestest",
+				"submissionDescription": "newupdatestest",
+				"instrument": {
+					"platform": "Illumina pair-ended sequencing",
+					"model": "Illumina HiSeq 4000",
+					"flowcell": "96"
+				},
+				"peReads": [{
+					"r1_uri": "",
+					"r1_sp3_filepath": "/data/inputs/s3/rCgxZDvfQCNzMAQMVzBwhlOxgfWKlhzu/761b1979-642d-46ff-8565-8b89a97ecc93/629bfa9e-b2bb-4670-8e21-1910e9596d2b_C1.fastq.gz",
+					"r1_md5": "93b4dd1096d80ffbbcbaa1f31b0ed039",
+					"r2_uri": "",
+					"r2_sp3_filepath": "/data/inputs/s3/rCgxZDvfQCNzMAQMVzBwhlOxgfWKlhzu/761b1979-642d-46ff-8565-8b89a97ecc93/629bfa9e-b2bb-4670-8e21-1910e9596d2b_C2.fastq.gz",
+					"r2_md5": "5ddb01d6d0acced1dc3c67e3c90cac98"
+				}],
+				"seReads": []
+			}, {
+				"name": "d670af71-d3e9-41b4-8146-61f55b179452",
+				"host": "Homo sapiens",
+				"collectionDate": "2021-10-06T09:47:02.391Z",
+				"country": "United Kingdom",
+				"fileName": "d670af71-d3e9-41b4-8146-61f55b179452",
+				"specimenOrganism": "SARS-CoV-2",
+				"specimenSource": "Swab",
+				"status": "Uploaded",
+				"comments": "",
+				"sampleDetails3": "",
+				"submissionTitle": "newupdatestest",
+				"submissionDescription": "newupdatestest",
+				"instrument": {
+					"platform": "Illumina pair-ended sequencing",
+					"model": "Illumina HiSeq 4000",
+					"flowcell": "96"
+				},
+				"peReads": [{
+					"r1_uri": "",
+					"r1_sp3_filepath": "/data/inputs/s3/rCgxZDvfQCNzMAQMVzBwhlOxgfWKlhzu/761b1979-642d-46ff-8565-8b89a97ecc93/d670af71-d3e9-41b4-8146-61f55b179452_C1.fastq.gz",
+					"r1_md5": "3bad218fbc48a5d56565cd2a19d94119",
+					"r2_uri": "",
+					"r2_sp3_filepath": "/data/inputs/s3/rCgxZDvfQCNzMAQMVzBwhlOxgfWKlhzu/761b1979-642d-46ff-8565-8b89a97ecc93/d670af71-d3e9-41b4-8146-61f55b179452_C2.fastq.gz",
+					"r2_md5": "bd953a2d04e73e7ae9350addf2e30106"
+				}],
+				"seReads": []
+			}, {
+				"name": "aa7797da-33d8-480c-972c-c4fc40cfc73e",
+				"host": "Homo sapiens",
+				"collectionDate": "2021-10-06T09:47:02.391Z",
+				"country": "United Kingdom",
+				"fileName": "aa7797da-33d8-480c-972c-c4fc40cfc73e",
+				"specimenOrganism": "SARS-CoV-2",
+				"specimenSource": "Swab",
+				"status": "Uploaded",
+				"comments": "",
+				"sampleDetails3": "",
+				"submissionTitle": "newupdatestest",
+				"submissionDescription": "newupdatestest",
+				"instrument": {
+					"platform": "Illumina pair-ended sequencing",
+					"model": "Illumina HiSeq 4000",
+					"flowcell": "96"
+				},
+				"peReads": [{
+					"r1_uri": "",
+					"r1_sp3_filepath": "/data/inputs/s3/rCgxZDvfQCNzMAQMVzBwhlOxgfWKlhzu/761b1979-642d-46ff-8565-8b89a97ecc93/aa7797da-33d8-480c-972c-c4fc40cfc73e_C1.fastq.gz",
+					"r1_md5": "dcd3ae6c732a4cb03032dfe27fbc3a27",
+					"r2_uri": "",
+					"r2_sp3_filepath": "/data/inputs/s3/rCgxZDvfQCNzMAQMVzBwhlOxgfWKlhzu/761b1979-642d-46ff-8565-8b89a97ecc93/aa7797da-33d8-480c-972c-c4fc40cfc73e_C2.fastq.gz",
+					"r2_md5": "b4cf10d13a0d7b8994843cd550c00356"
+				}],
+				"seReads": []
+			}, {
+				"name": "da11d4d3-3b81-4ef8-95fa-d911a7d754fa",
+				"host": "Homo sapiens",
+				"collectionDate": "2021-10-06T09:47:02.391Z",
+				"country": "United Kingdom",
+				"fileName": "da11d4d3-3b81-4ef8-95fa-d911a7d754fa",
+				"specimenOrganism": "SARS-CoV-2",
+				"specimenSource": "Swab",
+				"status": "Uploaded",
+				"comments": "",
+				"sampleDetails3": "",
+				"submissionTitle": "newupdatestest",
+				"submissionDescription": "newupdatestest",
+				"instrument": {
+					"platform": "Illumina pair-ended sequencing",
+					"model": "Illumina HiSeq 4000",
+					"flowcell": "96"
+				},
+				"peReads": [{
+					"r1_uri": "",
+					"r1_sp3_filepath": "/data/inputs/s3/rCgxZDvfQCNzMAQMVzBwhlOxgfWKlhzu/761b1979-642d-46ff-8565-8b89a97ecc93/da11d4d3-3b81-4ef8-95fa-d911a7d754fa_C1.fastq.gz",
+					"r1_md5": "9cf42c161392a212fae5ecb5a9df8373",
+					"r2_uri": "",
+					"r2_sp3_filepath": "/data/inputs/s3/rCgxZDvfQCNzMAQMVzBwhlOxgfWKlhzu/761b1979-642d-46ff-8565-8b89a97ecc93/da11d4d3-3b81-4ef8-95fa-d911a7d754fa_C2.fastq.gz",
+					"r2_md5": "e6baf7fabf362461f2d2239901d0e915"
+				}],
+				"seReads": []
+			}, {
+				"name": "03204bd1-00b1-4434-a591-c83b59c17e67",
+				"host": "Homo sapiens",
+				"collectionDate": "2021-10-06T09:47:02.391Z",
+				"country": "United Kingdom",
+				"fileName": "03204bd1-00b1-4434-a591-c83b59c17e67",
+				"specimenOrganism": "SARS-CoV-2",
+				"specimenSource": "Swab",
+				"status": "Uploaded",
+				"comments": "",
+				"sampleDetails3": "",
+				"submissionTitle": "newupdatestest",
+				"submissionDescription": "newupdatestest",
+				"instrument": {
+					"platform": "Illumina pair-ended sequencing",
+					"model": "Illumina HiSeq 4000",
+					"flowcell": "96"
+				},
+				"peReads": [{
+					"r1_uri": "",
+					"r1_sp3_filepath": "/data/inputs/s3/rCgxZDvfQCNzMAQMVzBwhlOxgfWKlhzu/761b1979-642d-46ff-8565-8b89a97ecc93/03204bd1-00b1-4434-a591-c83b59c17e67_C1.fastq.gz",
+					"r1_md5": "85b64916253ebf904d482b9a43b25ba6",
+					"r2_uri": "",
+					"r2_sp3_filepath": "/data/inputs/s3/rCgxZDvfQCNzMAQMVzBwhlOxgfWKlhzu/761b1979-642d-46ff-8565-8b89a97ecc93/03204bd1-00b1-4434-a591-c83b59c17e67_C2.fastq.gz",
+					"r2_md5": "b2b3225c8b4798d0767e2ba4a156b815"
+				}],
+				"seReads": []
+			}, {
+				"name": "5219a121-cb19-4ccb-a245-6207232e421f",
+				"host": "Homo sapiens",
+				"collectionDate": "2021-10-06T09:47:02.391Z",
+				"country": "United Kingdom",
+				"fileName": "5219a121-cb19-4ccb-a245-6207232e421f",
+				"specimenOrganism": "SARS-CoV-2",
+				"specimenSource": "Swab",
+				"status": "Uploaded",
+				"comments": "",
+				"sampleDetails3": "",
+				"submissionTitle": "newupdatestest",
+				"submissionDescription": "newupdatestest",
+				"instrument": {
+					"platform": "Illumina pair-ended sequencing",
+					"model": "Illumina HiSeq 4000",
+					"flowcell": "96"
+				},
+				"peReads": [{
+					"r1_uri": "",
+					"r1_sp3_filepath": "/data/inputs/s3/rCgxZDvfQCNzMAQMVzBwhlOxgfWKlhzu/761b1979-642d-46ff-8565-8b89a97ecc93/5219a121-cb19-4ccb-a245-6207232e421f_C1.fastq.gz",
+					"r1_md5": "43048de9152faff5c5e4688faed78aac",
+					"r2_uri": "",
+					"r2_sp3_filepath": "/data/inputs/s3/rCgxZDvfQCNzMAQMVzBwhlOxgfWKlhzu/761b1979-642d-46ff-8565-8b89a97ecc93/5219a121-cb19-4ccb-a245-6207232e421f_C2.fastq.gz",
+					"r2_md5": "954e6ac4fc41f6d90986904b39d669ce"
+				}],
+				"seReads": []
+			}, {
+				"name": "821ccba4-c066-462a-929a-fffe005bcd0d",
+				"host": "Homo sapiens",
+				"collectionDate": "2021-10-06T09:47:02.391Z",
+				"country": "United Kingdom",
+				"fileName": "821ccba4-c066-462a-929a-fffe005bcd0d",
+				"specimenOrganism": "SARS-CoV-2",
+				"specimenSource": "Swab",
+				"status": "Uploaded",
+				"comments": "",
+				"sampleDetails3": "",
+				"submissionTitle": "newupdatestest",
+				"submissionDescription": "newupdatestest",
+				"instrument": {
+					"platform": "Illumina pair-ended sequencing",
+					"model": "Illumina HiSeq 4000",
+					"flowcell": "96"
+				},
+				"peReads": [{
+					"r1_uri": "",
+					"r1_sp3_filepath": "/data/inputs/s3/rCgxZDvfQCNzMAQMVzBwhlOxgfWKlhzu/761b1979-642d-46ff-8565-8b89a97ecc93/821ccba4-c066-462a-929a-fffe005bcd0d_C1.fastq.gz",
+					"r1_md5": "fb5e012ee15c3bc54314724db040db1e",
+					"r2_uri": "",
+					"r2_sp3_filepath": "/data/inputs/s3/rCgxZDvfQCNzMAQMVzBwhlOxgfWKlhzu/761b1979-642d-46ff-8565-8b89a97ecc93/821ccba4-c066-462a-929a-fffe005bcd0d_C2.fastq.gz",
+					"r2_md5": "1fd241c0d7826c6a54336f5c6bfcfd79"
+				}],
+				"seReads": []
+			}, {
+				"name": "85a5975f-c1ba-4f30-bf93-265da68d5928",
+				"host": "Homo sapiens",
+				"collectionDate": "2021-10-06T09:47:02.391Z",
+				"country": "United Kingdom",
+				"fileName": "85a5975f-c1ba-4f30-bf93-265da68d5928",
+				"specimenOrganism": "SARS-CoV-2",
+				"specimenSource": "Swab",
+				"status": "Uploaded",
+				"comments": "",
+				"sampleDetails3": "",
+				"submissionTitle": "newupdatestest",
+				"submissionDescription": "newupdatestest",
+				"instrument": {
+					"platform": "Illumina pair-ended sequencing",
+					"model": "Illumina HiSeq 4000",
+					"flowcell": "96"
+				},
+				"peReads": [{
+					"r1_uri": "",
+					"r1_sp3_filepath": "/data/inputs/s3/rCgxZDvfQCNzMAQMVzBwhlOxgfWKlhzu/761b1979-642d-46ff-8565-8b89a97ecc93/85a5975f-c1ba-4f30-bf93-265da68d5928_C1.fastq.gz",
+					"r1_md5": "1d472ccedeccd5caa6971bcbf44f6f45",
+					"r2_uri": "",
+					"r2_sp3_filepath": "/data/inputs/s3/rCgxZDvfQCNzMAQMVzBwhlOxgfWKlhzu/761b1979-642d-46ff-8565-8b89a97ecc93/85a5975f-c1ba-4f30-bf93-265da68d5928_C2.fastq.gz",
+					"r2_md5": "90c228b048ee0f522643264ac3237273"
+				}],
+				"seReads": []
+			}, {
+				"name": "8a343ec0-603b-4b75-afc7-bd302c82cf54",
+				"host": "Homo sapiens",
+				"collectionDate": "2021-10-06T09:47:02.391Z",
+				"country": "United Kingdom",
+				"fileName": "8a343ec0-603b-4b75-afc7-bd302c82cf54",
+				"specimenOrganism": "SARS-CoV-2",
+				"specimenSource": "Swab",
+				"status": "Uploaded",
+				"comments": "",
+				"sampleDetails3": "",
+				"submissionTitle": "newupdatestest",
+				"submissionDescription": "newupdatestest",
+				"instrument": {
+					"platform": "Illumina pair-ended sequencing",
+					"model": "Illumina HiSeq 4000",
+					"flowcell": "96"
+				},
+				"peReads": [{
+					"r1_uri": "",
+					"r1_sp3_filepath": "/data/inputs/s3/rCgxZDvfQCNzMAQMVzBwhlOxgfWKlhzu/761b1979-642d-46ff-8565-8b89a97ecc93/8a343ec0-603b-4b75-afc7-bd302c82cf54_C1.fastq.gz",
+					"r1_md5": "78b032db9927e6b5752e813c1ed3df91",
+					"r2_uri": "",
+					"r2_sp3_filepath": "/data/inputs/s3/rCgxZDvfQCNzMAQMVzBwhlOxgfWKlhzu/761b1979-642d-46ff-8565-8b89a97ecc93/8a343ec0-603b-4b75-afc7-bd302c82cf54_C2.fastq.gz",
+					"r2_md5": "2248c9a8910b2d7ae252a15eda58d54d"
+				}],
+				"seReads": []
+			}, {
+				"name": "59b2ddef-f2be-4334-ae73-360b0bea5df9",
+				"host": "Homo sapiens",
+				"collectionDate": "2021-10-06T09:47:02.391Z",
+				"country": "United Kingdom",
+				"fileName": "59b2ddef-f2be-4334-ae73-360b0bea5df9",
+				"specimenOrganism": "SARS-CoV-2",
+				"specimenSource": "Swab",
+				"status": "Uploaded",
+				"comments": "",
+				"sampleDetails3": "",
+				"submissionTitle": "newupdatestest",
+				"submissionDescription": "newupdatestest",
+				"instrument": {
+					"platform": "Illumina pair-ended sequencing",
+					"model": "Illumina HiSeq 4000",
+					"flowcell": "96"
+				},
+				"peReads": [{
+					"r1_uri": "",
+					"r1_sp3_filepath": "/data/inputs/s3/rCgxZDvfQCNzMAQMVzBwhlOxgfWKlhzu/761b1979-642d-46ff-8565-8b89a97ecc93/59b2ddef-f2be-4334-ae73-360b0bea5df9_C1.fastq.gz",
+					"r1_md5": "31cd32b9d9b9a96d17d1bdd9d53b111c",
+					"r2_uri": "",
+					"r2_sp3_filepath": "/data/inputs/s3/rCgxZDvfQCNzMAQMVzBwhlOxgfWKlhzu/761b1979-642d-46ff-8565-8b89a97ecc93/59b2ddef-f2be-4334-ae73-360b0bea5df9_C2.fastq.gz",
+					"r2_md5": "72726c34cdc94ad73f087d3eb6cc5424"
+				}],
+				"seReads": []
+			}, {
+				"name": "58ec6809-578d-4f7c-a6c0-eb854b36c50a",
+				"host": "Homo sapiens",
+				"collectionDate": "2021-10-06T09:47:02.391Z",
+				"country": "United Kingdom",
+				"fileName": "58ec6809-578d-4f7c-a6c0-eb854b36c50a",
+				"specimenOrganism": "SARS-CoV-2",
+				"specimenSource": "Swab",
+				"status": "Uploaded",
+				"comments": "",
+				"sampleDetails3": "",
+				"submissionTitle": "newupdatestest",
+				"submissionDescription": "newupdatestest",
+				"instrument": {
+					"platform": "Illumina pair-ended sequencing",
+					"model": "Illumina HiSeq 4000",
+					"flowcell": "96"
+				},
+				"peReads": [{
+					"r1_uri": "",
+					"r1_sp3_filepath": "/data/inputs/s3/rCgxZDvfQCNzMAQMVzBwhlOxgfWKlhzu/761b1979-642d-46ff-8565-8b89a97ecc93/58ec6809-578d-4f7c-a6c0-eb854b36c50a_C1.fastq.gz",
+					"r1_md5": "fa22a801a97723b5972afa8c1e424f92",
+					"r2_uri": "",
+					"r2_sp3_filepath": "/data/inputs/s3/rCgxZDvfQCNzMAQMVzBwhlOxgfWKlhzu/761b1979-642d-46ff-8565-8b89a97ecc93/58ec6809-578d-4f7c-a6c0-eb854b36c50a_C2.fastq.gz",
+					"r2_md5": "2750c5f2aae462373f861f2b99bd84b1"
+				}],
+				"seReads": []
+			}, {
+				"name": "04c5067e-b196-4d28-a941-7428642abf3f",
+				"host": "Homo sapiens",
+				"collectionDate": "2021-10-06T09:47:02.391Z",
+				"country": "United Kingdom",
+				"fileName": "04c5067e-b196-4d28-a941-7428642abf3f",
+				"specimenOrganism": "SARS-CoV-2",
+				"specimenSource": "Swab",
+				"status": "Uploaded",
+				"comments": "",
+				"sampleDetails3": "",
+				"submissionTitle": "newupdatestest",
+				"submissionDescription": "newupdatestest",
+				"instrument": {
+					"platform": "Illumina pair-ended sequencing",
+					"model": "Illumina HiSeq 4000",
+					"flowcell": "96"
+				},
+				"peReads": [{
+					"r1_uri": "",
+					"r1_sp3_filepath": "/data/inputs/s3/rCgxZDvfQCNzMAQMVzBwhlOxgfWKlhzu/761b1979-642d-46ff-8565-8b89a97ecc93/04c5067e-b196-4d28-a941-7428642abf3f_C1.fastq.gz",
+					"r1_md5": "6530e540958a23a0fdf2559e47703ca0",
+					"r2_uri": "",
+					"r2_sp3_filepath": "/data/inputs/s3/rCgxZDvfQCNzMAQMVzBwhlOxgfWKlhzu/761b1979-642d-46ff-8565-8b89a97ecc93/04c5067e-b196-4d28-a941-7428642abf3f_C2.fastq.gz",
+					"r2_md5": "16186aa89406b00166e919f562bae79e"
+				}],
+				"seReads": []
+			}, {
+				"name": "6d373d5f-9d5a-411c-84fe-4f661e1766b8",
+				"host": "Homo sapiens",
+				"collectionDate": "2021-10-06T09:47:02.391Z",
+				"country": "United Kingdom",
+				"fileName": "6d373d5f-9d5a-411c-84fe-4f661e1766b8",
+				"specimenOrganism": "SARS-CoV-2",
+				"specimenSource": "Swab",
+				"status": "Uploaded",
+				"comments": "",
+				"sampleDetails3": "",
+				"submissionTitle": "newupdatestest",
+				"submissionDescription": "newupdatestest",
+				"instrument": {
+					"platform": "Illumina pair-ended sequencing",
+					"model": "Illumina HiSeq 4000",
+					"flowcell": "96"
+				},
+				"peReads": [{
+					"r1_uri": "",
+					"r1_sp3_filepath": "/data/inputs/s3/rCgxZDvfQCNzMAQMVzBwhlOxgfWKlhzu/761b1979-642d-46ff-8565-8b89a97ecc93/6d373d5f-9d5a-411c-84fe-4f661e1766b8_C1.fastq.gz",
+					"r1_md5": "e7e2e98ae495459482f61048063257ab",
+					"r2_uri": "",
+					"r2_sp3_filepath": "/data/inputs/s3/rCgxZDvfQCNzMAQMVzBwhlOxgfWKlhzu/761b1979-642d-46ff-8565-8b89a97ecc93/6d373d5f-9d5a-411c-84fe-4f661e1766b8_C2.fastq.gz",
+					"r2_md5": "d14ad14a892ecc94dc3510e208829cab"
+				}],
+				"seReads": []
+			}, {
+				"name": "5cd24ba5-a232-4292-873d-325075ae2d92",
+				"host": "Homo sapiens",
+				"collectionDate": "2021-10-06T09:47:02.391Z",
+				"country": "United Kingdom",
+				"fileName": "5cd24ba5-a232-4292-873d-325075ae2d92",
+				"specimenOrganism": "SARS-CoV-2",
+				"specimenSource": "Swab",
+				"status": "Uploaded",
+				"comments": "",
+				"sampleDetails3": "",
+				"submissionTitle": "newupdatestest",
+				"submissionDescription": "newupdatestest",
+				"instrument": {
+					"platform": "Illumina pair-ended sequencing",
+					"model": "Illumina HiSeq 4000",
+					"flowcell": "96"
+				},
+				"peReads": [{
+					"r1_uri": "",
+					"r1_sp3_filepath": "/data/inputs/s3/rCgxZDvfQCNzMAQMVzBwhlOxgfWKlhzu/761b1979-642d-46ff-8565-8b89a97ecc93/5cd24ba5-a232-4292-873d-325075ae2d92_C1.fastq.gz",
+					"r1_md5": "9d8cd242510995ee84e82b4cf68c2fac",
+					"r2_uri": "",
+					"r2_sp3_filepath": "/data/inputs/s3/rCgxZDvfQCNzMAQMVzBwhlOxgfWKlhzu/761b1979-642d-46ff-8565-8b89a97ecc93/5cd24ba5-a232-4292-873d-325075ae2d92_C2.fastq.gz",
+					"r2_md5": "9743e85e95c80e74222f7c062e5ed911"
+				}],
+				"seReads": []
+			}, {
+				"name": "ae457dc6-8081-4130-a992-e10b47199add",
+				"host": "Homo sapiens",
+				"collectionDate": "2021-10-06T09:47:02.391Z",
+				"country": "United Kingdom",
+				"fileName": "ae457dc6-8081-4130-a992-e10b47199add",
+				"specimenOrganism": "SARS-CoV-2",
+				"specimenSource": "Swab",
+				"status": "Uploaded",
+				"comments": "",
+				"sampleDetails3": "",
+				"submissionTitle": "newupdatestest",
+				"submissionDescription": "newupdatestest",
+				"instrument": {
+					"platform": "Illumina pair-ended sequencing",
+					"model": "Illumina HiSeq 4000",
+					"flowcell": "96"
+				},
+				"peReads": [{
+					"r1_uri": "",
+					"r1_sp3_filepath": "/data/inputs/s3/rCgxZDvfQCNzMAQMVzBwhlOxgfWKlhzu/761b1979-642d-46ff-8565-8b89a97ecc93/ae457dc6-8081-4130-a992-e10b47199add_C1.fastq.gz",
+					"r1_md5": "0f276bc6b2eb53146089978e2471cd65",
+					"r2_uri": "",
+					"r2_sp3_filepath": "/data/inputs/s3/rCgxZDvfQCNzMAQMVzBwhlOxgfWKlhzu/761b1979-642d-46ff-8565-8b89a97ecc93/ae457dc6-8081-4130-a992-e10b47199add_C2.fastq.gz",
+					"r2_md5": "c3b00ec1b1dce209717eef86355a2e20"
+				}],
+				"seReads": []
+			}, {
+				"name": "01644437-eee3-48a3-9c6d-48d5c5d49e44",
+				"host": "Homo sapiens",
+				"collectionDate": "2021-10-06T09:47:02.391Z",
+				"country": "United Kingdom",
+				"fileName": "01644437-eee3-48a3-9c6d-48d5c5d49e44",
+				"specimenOrganism": "SARS-CoV-2",
+				"specimenSource": "Swab",
+				"status": "Uploaded",
+				"comments": "",
+				"sampleDetails3": "",
+				"submissionTitle": "newupdatestest",
+				"submissionDescription": "newupdatestest",
+				"instrument": {
+					"platform": "Illumina pair-ended sequencing",
+					"model": "Illumina HiSeq 4000",
+					"flowcell": "96"
+				},
+				"peReads": [{
+					"r1_uri": "",
+					"r1_sp3_filepath": "/data/inputs/s3/rCgxZDvfQCNzMAQMVzBwhlOxgfWKlhzu/761b1979-642d-46ff-8565-8b89a97ecc93/01644437-eee3-48a3-9c6d-48d5c5d49e44_C1.fastq.gz",
+					"r1_md5": "2fdfe53d1c4fdf8584fcb9324fdeb216",
+					"r2_uri": "",
+					"r2_sp3_filepath": "/data/inputs/s3/rCgxZDvfQCNzMAQMVzBwhlOxgfWKlhzu/761b1979-642d-46ff-8565-8b89a97ecc93/01644437-eee3-48a3-9c6d-48d5c5d49e44_C2.fastq.gz",
+					"r2_md5": "b0334c12ffbeb0dc9e06cdd83fd2babf"
+				}],
+				"seReads": []
+			}, {
+				"name": "1ac8ebe1-2ce4-4ade-a729-9f262483f7a1",
+				"host": "Homo sapiens",
+				"collectionDate": "2021-10-06T09:47:02.391Z",
+				"country": "United Kingdom",
+				"fileName": "1ac8ebe1-2ce4-4ade-a729-9f262483f7a1",
+				"specimenOrganism": "SARS-CoV-2",
+				"specimenSource": "Swab",
+				"status": "Uploaded",
+				"comments": "",
+				"sampleDetails3": "",
+				"submissionTitle": "newupdatestest",
+				"submissionDescription": "newupdatestest",
+				"instrument": {
+					"platform": "Illumina pair-ended sequencing",
+					"model": "Illumina HiSeq 4000",
+					"flowcell": "96"
+				},
+				"peReads": [{
+					"r1_uri": "",
+					"r1_sp3_filepath": "/data/inputs/s3/rCgxZDvfQCNzMAQMVzBwhlOxgfWKlhzu/761b1979-642d-46ff-8565-8b89a97ecc93/1ac8ebe1-2ce4-4ade-a729-9f262483f7a1_C1.fastq.gz",
+					"r1_md5": "f1b54e68aebefd9bc59178646f3fd5b3",
+					"r2_uri": "",
+					"r2_sp3_filepath": "/data/inputs/s3/rCgxZDvfQCNzMAQMVzBwhlOxgfWKlhzu/761b1979-642d-46ff-8565-8b89a97ecc93/1ac8ebe1-2ce4-4ade-a729-9f262483f7a1_C2.fastq.gz",
+					"r2_md5": "91e4f8ad60347c83f23ac3e256778517"
+				}],
+				"seReads": []
+			}, {
+				"name": "b1ccaef9-7d53-4ba7-b8d5-822e14a9dd3b",
+				"host": "Homo sapiens",
+				"collectionDate": "2021-10-06T09:47:02.391Z",
+				"country": "United Kingdom",
+				"fileName": "b1ccaef9-7d53-4ba7-b8d5-822e14a9dd3b",
+				"specimenOrganism": "SARS-CoV-2",
+				"specimenSource": "Swab",
+				"status": "Uploaded",
+				"comments": "",
+				"sampleDetails3": "",
+				"submissionTitle": "newupdatestest",
+				"submissionDescription": "newupdatestest",
+				"instrument": {
+					"platform": "Illumina pair-ended sequencing",
+					"model": "Illumina HiSeq 4000",
+					"flowcell": "96"
+				},
+				"peReads": [{
+					"r1_uri": "",
+					"r1_sp3_filepath": "/data/inputs/s3/rCgxZDvfQCNzMAQMVzBwhlOxgfWKlhzu/761b1979-642d-46ff-8565-8b89a97ecc93/b1ccaef9-7d53-4ba7-b8d5-822e14a9dd3b_C1.fastq.gz",
+					"r1_md5": "f94273d3bdabdc987dc181a590fe25f1",
+					"r2_uri": "",
+					"r2_sp3_filepath": "/data/inputs/s3/rCgxZDvfQCNzMAQMVzBwhlOxgfWKlhzu/761b1979-642d-46ff-8565-8b89a97ecc93/b1ccaef9-7d53-4ba7-b8d5-822e14a9dd3b_C2.fastq.gz",
+					"r2_md5": "174740753e3b1096e30a11eaf91fa6da"
+				}],
+				"seReads": []
+			}],
+			"fileName": "761b1979-642d-46ff-8565-8b89a97ecc93",
+			"bucketName": "rCgxZDvfQCNzMAQMVzBwhlOxgfWKlhzu",
+			"uploadedOn": "2021-10-06T09:47:02.391Z",
+			"uploadedBy": "oliver.bannister@ouh.nhs.uk",
+			"organisation": "GPAS",
+			"site": "",
+			"errorMsg": ""
+		}
+	}
+}, {
+	"_id": {
+		"$oid": "615d73692733c6cbc2214e7e"
+	},
+	"catsup_uuid": "307fb824-4f15-42c0-bb82-6b7010432f40",
+	"added_time": "1633514345",
+	"apex_batch": {
+		"status": "success",
+		"id": "273390152671153033220178886213090587832"
+	},
+	"apex_samples": {
+		"samples": [{
+			"id": "273390152671154242145998500842265294008",
+			"name": "b6a29743-b1cf-48c1-944f-9c3e17624227",
+			"fileName": "b6a29743-b1cf-48c1-944f-9c3e17624227",
+			"filePath": "b6a29743-b1cf-48c1-944f-9c3e17624227",
+			"status": "Uploaded",
+			"uploadedOn": "2021-10-06T09:59:04.760Z",
+			"errorMsg": null
+		}, {
+			"id": "273390152671156659997637730100614706360",
+			"name": "0fd701a3-35f3-4003-9ea8-036b80049fd9",
+			"fileName": "0fd701a3-35f3-4003-9ea8-036b80049fd9",
+			"filePath": "0fd701a3-35f3-4003-9ea8-036b80049fd9",
+			"status": "Uploaded",
+			"uploadedOn": "2021-10-06T09:59:04.760Z",
+			"errorMsg": null
+		}, {
+			"id": "273390152671159077849276959358964118712",
+			"name": "f0d48e16-0990-4cbd-986b-f5ce43a166f1",
+			"fileName": "f0d48e16-0990-4cbd-986b-f5ce43a166f1",
+			"filePath": "f0d48e16-0990-4cbd-986b-f5ce43a166f1",
+			"status": "Uploaded",
+			"uploadedOn": "2021-10-06T09:59:04.760Z",
+			"errorMsg": null
+		}, {
+			"id": "273390152671161495700916188617313531064",
+			"name": "c057a6ab-02be-4848-9ab8-448fd6a2f229",
+			"fileName": "c057a6ab-02be-4848-9ab8-448fd6a2f229",
+			"filePath": "c057a6ab-02be-4848-9ab8-448fd6a2f229",
+			"status": "Uploaded",
+			"uploadedOn": "2021-10-06T09:59:04.760Z",
+			"errorMsg": null
+		}, {
+			"id": "273390152671163913552555417875662943416",
+			"name": "8b6bd3f6-a996-4253-a725-ad656f5f714d",
+			"fileName": "8b6bd3f6-a996-4253-a725-ad656f5f714d",
+			"filePath": "8b6bd3f6-a996-4253-a725-ad656f5f714d",
+			"status": "Uploaded",
+			"uploadedOn": "2021-10-06T09:59:04.760Z",
+			"errorMsg": null
+		}, {
+			"id": "273390152671166331404194647134012355768",
+			"name": "8b5c4945-933d-4dd8-89ec-d1cd583fca7a",
+			"fileName": "8b5c4945-933d-4dd8-89ec-d1cd583fca7a",
+			"filePath": "8b5c4945-933d-4dd8-89ec-d1cd583fca7a",
+			"status": "Uploaded",
+			"uploadedOn": "2021-10-06T09:59:04.760Z",
+			"errorMsg": null
+		}, {
+			"id": "273390152671168749255833876392361768120",
+			"name": "f2595a35-0516-44e0-9e5d-960013097dfd",
+			"fileName": "f2595a35-0516-44e0-9e5d-960013097dfd",
+			"filePath": "f2595a35-0516-44e0-9e5d-960013097dfd",
+			"status": "Uploaded",
+			"uploadedOn": "2021-10-06T09:59:04.760Z",
+			"errorMsg": null
+		}, {
+			"id": "273390152671171167107473105650711180472",
+			"name": "088c0ac2-acf0-4e3a-886c-bb88a21345a1",
+			"fileName": "088c0ac2-acf0-4e3a-886c-bb88a21345a1",
+			"filePath": "088c0ac2-acf0-4e3a-886c-bb88a21345a1",
+			"status": "Uploaded",
+			"uploadedOn": "2021-10-06T09:59:04.760Z",
+			"errorMsg": null
+		}, {
+			"id": "273390152671173584959112334909060592824",
+			"name": "c8225cdb-3f09-4b0f-ab54-c889c78c2a6f",
+			"fileName": "c8225cdb-3f09-4b0f-ab54-c889c78c2a6f",
+			"filePath": "c8225cdb-3f09-4b0f-ab54-c889c78c2a6f",
+			"status": "Uploaded",
+			"uploadedOn": "2021-10-06T09:59:04.760Z",
+			"errorMsg": null
+		}, {
+			"id": "273390152671176002810751564167410005176",
+			"name": "e611307a-901d-43d6-879c-c21f3c4e986b",
+			"fileName": "e611307a-901d-43d6-879c-c21f3c4e986b",
+			"filePath": "e611307a-901d-43d6-879c-c21f3c4e986b",
+			"status": "Uploaded",
+			"uploadedOn": "2021-10-06T09:59:04.760Z",
+			"errorMsg": null
+		}, {
+			"id": "273390152671178420662390793425759417528",
+			"name": "dcfe635c-65d4-4f90-afb3-fa9dc2d09149",
+			"fileName": "dcfe635c-65d4-4f90-afb3-fa9dc2d09149",
+			"filePath": "dcfe635c-65d4-4f90-afb3-fa9dc2d09149",
+			"status": "Uploaded",
+			"uploadedOn": "2021-10-06T09:59:04.760Z",
+			"errorMsg": null
+		}, {
+			"id": "273390152671180838514030022684108829880",
+			"name": "480eab27-80d8-41e1-8da9-020490d72655",
+			"fileName": "480eab27-80d8-41e1-8da9-020490d72655",
+			"filePath": "480eab27-80d8-41e1-8da9-020490d72655",
+			"status": "Uploaded",
+			"uploadedOn": "2021-10-06T09:59:04.760Z",
+			"errorMsg": null
+		}, {
+			"id": "273390152671183256365669251942458242232",
+			"name": "141fe883-1541-4eec-8f1c-23c303a5e862",
+			"fileName": "141fe883-1541-4eec-8f1c-23c303a5e862",
+			"filePath": "141fe883-1541-4eec-8f1c-23c303a5e862",
+			"status": "Uploaded",
+			"uploadedOn": "2021-10-06T09:59:04.760Z",
+			"errorMsg": null
+		}, {
+			"id": "273390152671185674217308481200807654584",
+			"name": "f5d023c9-e8cd-4588-b928-5ef34327e088",
+			"fileName": "f5d023c9-e8cd-4588-b928-5ef34327e088",
+			"filePath": "f5d023c9-e8cd-4588-b928-5ef34327e088",
+			"status": "Uploaded",
+			"uploadedOn": "2021-10-06T09:59:04.760Z",
+			"errorMsg": null
+		}, {
+			"id": "273390152671188092068947710459157066936",
+			"name": "c5a6de2a-89b2-4cc7-a244-16ffc7428406",
+			"fileName": "c5a6de2a-89b2-4cc7-a244-16ffc7428406",
+			"filePath": "c5a6de2a-89b2-4cc7-a244-16ffc7428406",
+			"status": "Uploaded",
+			"uploadedOn": "2021-10-06T09:59:04.760Z",
+			"errorMsg": null
+		}, {
+			"id": "273390152671190509920586939717506479288",
+			"name": "ec232a36-d6ae-45ea-91b8-722a9cc5258f",
+			"fileName": "ec232a36-d6ae-45ea-91b8-722a9cc5258f",
+			"filePath": "ec232a36-d6ae-45ea-91b8-722a9cc5258f",
+			"status": "Uploaded",
+			"uploadedOn": "2021-10-06T09:59:04.760Z",
+			"errorMsg": null
+		}, {
+			"id": "273390152671192927772226168975855891640",
+			"name": "eb2b5dcc-4f4b-4487-905a-7b7fdf875169",
+			"fileName": "eb2b5dcc-4f4b-4487-905a-7b7fdf875169",
+			"filePath": "eb2b5dcc-4f4b-4487-905a-7b7fdf875169",
+			"status": "Uploaded",
+			"uploadedOn": "2021-10-06T09:59:04.760Z",
+			"errorMsg": null
+		}, {
+			"id": "273390152671195345623865398234205303992",
+			"name": "bca0f916-6faa-4ca8-87fe-7bc70ee3a221",
+			"fileName": "bca0f916-6faa-4ca8-87fe-7bc70ee3a221",
+			"filePath": "bca0f916-6faa-4ca8-87fe-7bc70ee3a221",
+			"status": "Uploaded",
+			"uploadedOn": "2021-10-06T09:59:04.760Z",
+			"errorMsg": null
+		}, {
+			"id": "273390152671197763475504627492554716344",
+			"name": "e42b7c54-4783-4462-bed9-01d7a84d6be6",
+			"fileName": "e42b7c54-4783-4462-bed9-01d7a84d6be6",
+			"filePath": "e42b7c54-4783-4462-bed9-01d7a84d6be6",
+			"status": "Uploaded",
+			"uploadedOn": "2021-10-06T09:59:04.760Z",
+			"errorMsg": null
+		}, {
+			"id": "273390152671200181327143856750904128696",
+			"name": "f2a0a257-208f-4140-8e4e-50f102c15d21",
+			"fileName": "f2a0a257-208f-4140-8e4e-50f102c15d21",
+			"filePath": "f2a0a257-208f-4140-8e4e-50f102c15d21",
+			"status": "Uploaded",
+			"uploadedOn": "2021-10-06T09:59:04.760Z",
+			"errorMsg": null
+		}, {
+			"id": "273390152671202599178783086009253541048",
+			"name": "7e1935fe-5185-4a16-85c4-95a1acdb75ee",
+			"fileName": "7e1935fe-5185-4a16-85c4-95a1acdb75ee",
+			"filePath": "7e1935fe-5185-4a16-85c4-95a1acdb75ee",
+			"status": "Uploaded",
+			"uploadedOn": "2021-10-06T09:59:04.760Z",
+			"errorMsg": null
+		}, {
+			"id": "273390152671205017030422315267602953400",
+			"name": "f45a3b36-895d-46b5-9d2b-3a59c66f66e6",
+			"fileName": "f45a3b36-895d-46b5-9d2b-3a59c66f66e6",
+			"filePath": "f45a3b36-895d-46b5-9d2b-3a59c66f66e6",
+			"status": "Uploaded",
+			"uploadedOn": "2021-10-06T09:59:04.760Z",
+			"errorMsg": null
+		}, {
+			"id": "273390152671207434882061544525952365752",
+			"name": "4931bd18-0114-4986-9c62-82015fc49aa7",
+			"fileName": "4931bd18-0114-4986-9c62-82015fc49aa7",
+			"filePath": "4931bd18-0114-4986-9c62-82015fc49aa7",
+			"status": "Uploaded",
+			"uploadedOn": "2021-10-06T09:59:04.760Z",
+			"errorMsg": null
+		}, {
+			"id": "273390152671209852733700773784301778104",
+			"name": "727bf4a2-eb7c-43a5-943b-6749996eab4b",
+			"fileName": "727bf4a2-eb7c-43a5-943b-6749996eab4b",
+			"filePath": "727bf4a2-eb7c-43a5-943b-6749996eab4b",
+			"status": "Uploaded",
+			"uploadedOn": "2021-10-06T09:59:04.760Z",
+			"errorMsg": null
+		}, {
+			"id": "273390152671212270585340003042651190456",
+			"name": "fc59d8e9-75eb-444b-8547-973b86803764",
+			"fileName": "fc59d8e9-75eb-444b-8547-973b86803764",
+			"filePath": "fc59d8e9-75eb-444b-8547-973b86803764",
+			"status": "Uploaded",
+			"uploadedOn": "2021-10-06T09:59:04.760Z",
+			"errorMsg": null
+		}, {
+			"id": "273390152671214688436979232301000602808",
+			"name": "0046f6c6-5ba4-42cd-b925-6b1165bd652f",
+			"fileName": "0046f6c6-5ba4-42cd-b925-6b1165bd652f",
+			"filePath": "0046f6c6-5ba4-42cd-b925-6b1165bd652f",
+			"status": "Uploaded",
+			"uploadedOn": "2021-10-06T09:59:04.760Z",
+			"errorMsg": null
+		}, {
+			"id": "273390152671217106288618461559350015160",
+			"name": "7d921268-3e09-4361-80f9-91ccbefe25c5",
+			"fileName": "7d921268-3e09-4361-80f9-91ccbefe25c5",
+			"filePath": "7d921268-3e09-4361-80f9-91ccbefe25c5",
+			"status": "Uploaded",
+			"uploadedOn": "2021-10-06T09:59:04.760Z",
+			"errorMsg": null
+		}, {
+			"id": "273390152671219524140257690817699427512",
+			"name": "081f0550-dbae-4c02-84d9-e071c7e5a38a",
+			"fileName": "081f0550-dbae-4c02-84d9-e071c7e5a38a",
+			"filePath": "081f0550-dbae-4c02-84d9-e071c7e5a38a",
+			"status": "Uploaded",
+			"uploadedOn": "2021-10-06T09:59:04.760Z",
+			"errorMsg": null
+		}, {
+			"id": "273390152671221941991896920076048839864",
+			"name": "cb4fcea9-ee23-4e3e-805a-4cb2fff3ad96",
+			"fileName": "cb4fcea9-ee23-4e3e-805a-4cb2fff3ad96",
+			"filePath": "cb4fcea9-ee23-4e3e-805a-4cb2fff3ad96",
+			"status": "Uploaded",
+			"uploadedOn": "2021-10-06T09:59:04.760Z",
+			"errorMsg": null
+		}, {
+			"id": "273390152671224359843536149334398252216",
+			"name": "e8e34b41-9398-4891-9d1a-331bead09684",
+			"fileName": "e8e34b41-9398-4891-9d1a-331bead09684",
+			"filePath": "e8e34b41-9398-4891-9d1a-331bead09684",
+			"status": "Uploaded",
+			"uploadedOn": "2021-10-06T09:59:04.760Z",
+			"errorMsg": null
+		}, {
+			"id": "273390152671226777695175378592747664568",
+			"name": "20d0a0e0-f690-49d9-b1f8-a66e4b326be0",
+			"fileName": "20d0a0e0-f690-49d9-b1f8-a66e4b326be0",
+			"filePath": "20d0a0e0-f690-49d9-b1f8-a66e4b326be0",
+			"status": "Uploaded",
+			"uploadedOn": "2021-10-06T09:59:04.760Z",
+			"errorMsg": null
+		}, {
+			"id": "273390152671229195546814607851097076920",
+			"name": "773fc677-6082-4c55-8b43-336562b33b49",
+			"fileName": "773fc677-6082-4c55-8b43-336562b33b49",
+			"filePath": "773fc677-6082-4c55-8b43-336562b33b49",
+			"status": "Uploaded",
+			"uploadedOn": "2021-10-06T09:59:04.760Z",
+			"errorMsg": null
+		}, {
+			"id": "273390152671231613398453837109446489272",
+			"name": "fd46f2e2-4519-4f51-9968-175f4c05d5a0",
+			"fileName": "fd46f2e2-4519-4f51-9968-175f4c05d5a0",
+			"filePath": "fd46f2e2-4519-4f51-9968-175f4c05d5a0",
+			"status": "Uploaded",
+			"uploadedOn": "2021-10-06T09:59:04.760Z",
+			"errorMsg": null
+		}, {
+			"id": "273390152671234031250093066367795901624",
+			"name": "2f72d7c4-b838-43ab-8fad-000f3e383eb9",
+			"fileName": "2f72d7c4-b838-43ab-8fad-000f3e383eb9",
+			"filePath": "2f72d7c4-b838-43ab-8fad-000f3e383eb9",
+			"status": "Uploaded",
+			"uploadedOn": "2021-10-06T09:59:04.760Z",
+			"errorMsg": null
+		}, {
+			"id": "273390152671236449101732295626145313976",
+			"name": "4a2a14f0-babb-4f0e-a23e-6fdcfc0cd798",
+			"fileName": "4a2a14f0-babb-4f0e-a23e-6fdcfc0cd798",
+			"filePath": "4a2a14f0-babb-4f0e-a23e-6fdcfc0cd798",
+			"status": "Uploaded",
+			"uploadedOn": "2021-10-06T09:59:04.760Z",
+			"errorMsg": null
+		}, {
+			"id": "273390152671238866953371524884494726328",
+			"name": "47e91229-011d-4cbe-9bf6-5fc569569390",
+			"fileName": "47e91229-011d-4cbe-9bf6-5fc569569390",
+			"filePath": "47e91229-011d-4cbe-9bf6-5fc569569390",
+			"status": "Uploaded",
+			"uploadedOn": "2021-10-06T09:59:04.760Z",
+			"errorMsg": null
+		}, {
+			"id": "273390152671241284805010754142844138680",
+			"name": "af0938c1-331c-4644-9e90-77a25bc67dab",
+			"fileName": "af0938c1-331c-4644-9e90-77a25bc67dab",
+			"filePath": "af0938c1-331c-4644-9e90-77a25bc67dab",
+			"status": "Uploaded",
+			"uploadedOn": "2021-10-06T09:59:04.760Z",
+			"errorMsg": null
+		}, {
+			"id": "273390152671243702656649983401193551032",
+			"name": "1e66bc20-6652-431f-a911-dc0fe3fc010e",
+			"fileName": "1e66bc20-6652-431f-a911-dc0fe3fc010e",
+			"filePath": "1e66bc20-6652-431f-a911-dc0fe3fc010e",
+			"status": "Uploaded",
+			"uploadedOn": "2021-10-06T09:59:04.760Z",
+			"errorMsg": null
+		}, {
+			"id": "273390152671246120508289212659542963384",
+			"name": "18e9f472-d278-49dd-87ae-4bf36a1fe309",
+			"fileName": "18e9f472-d278-49dd-87ae-4bf36a1fe309",
+			"filePath": "18e9f472-d278-49dd-87ae-4bf36a1fe309",
+			"status": "Uploaded",
+			"uploadedOn": "2021-10-06T09:59:04.760Z",
+			"errorMsg": null
+		}, {
+			"id": "273390152671248538359928441917892375736",
+			"name": "af5143fc-1cb3-4233-ae89-8cb1fa40c950",
+			"fileName": "af5143fc-1cb3-4233-ae89-8cb1fa40c950",
+			"filePath": "af5143fc-1cb3-4233-ae89-8cb1fa40c950",
+			"status": "Uploaded",
+			"uploadedOn": "2021-10-06T09:59:04.760Z",
+			"errorMsg": null
+		}, {
+			"id": "273390152671250956211567671176241788088",
+			"name": "299cdf1b-fc5b-45ab-9cdf-1af8b9fd4b57",
+			"fileName": "299cdf1b-fc5b-45ab-9cdf-1af8b9fd4b57",
+			"filePath": "299cdf1b-fc5b-45ab-9cdf-1af8b9fd4b57",
+			"status": "Uploaded",
+			"uploadedOn": "2021-10-06T09:59:04.760Z",
+			"errorMsg": null
+		}, {
+			"id": "273390152671253374063206900434591200440",
+			"name": "d662133f-4845-43a1-af9c-71510f151c27",
+			"fileName": "d662133f-4845-43a1-af9c-71510f151c27",
+			"filePath": "d662133f-4845-43a1-af9c-71510f151c27",
+			"status": "Uploaded",
+			"uploadedOn": "2021-10-06T09:59:04.760Z",
+			"errorMsg": null
+		}, {
+			"id": "273390152671255791914846129692940612792",
+			"name": "939f8300-cf78-4909-9fb2-e7716f52199b",
+			"fileName": "939f8300-cf78-4909-9fb2-e7716f52199b",
+			"filePath": "939f8300-cf78-4909-9fb2-e7716f52199b",
+			"status": "Uploaded",
+			"uploadedOn": "2021-10-06T09:59:04.760Z",
+			"errorMsg": null
+		}, {
+			"id": "273390152671258209766485358951290025144",
+			"name": "b21044fa-2b3d-4a49-9e5a-557af4291d8b",
+			"fileName": "b21044fa-2b3d-4a49-9e5a-557af4291d8b",
+			"filePath": "b21044fa-2b3d-4a49-9e5a-557af4291d8b",
+			"status": "Uploaded",
+			"uploadedOn": "2021-10-06T09:59:04.760Z",
+			"errorMsg": null
+		}, {
+			"id": "273390152671260627618124588209639437496",
+			"name": "b917ffee-97cc-4879-a1e4-3f287d9cd6ac",
+			"fileName": "b917ffee-97cc-4879-a1e4-3f287d9cd6ac",
+			"filePath": "b917ffee-97cc-4879-a1e4-3f287d9cd6ac",
+			"status": "Uploaded",
+			"uploadedOn": "2021-10-06T09:59:04.760Z",
+			"errorMsg": null
+		}, {
+			"id": "273390152671263045469763817467988849848",
+			"name": "06a13635-bd35-418f-a230-39890409625e",
+			"fileName": "06a13635-bd35-418f-a230-39890409625e",
+			"filePath": "06a13635-bd35-418f-a230-39890409625e",
+			"status": "Uploaded",
+			"uploadedOn": "2021-10-06T09:59:04.760Z",
+			"errorMsg": null
+		}, {
+			"id": "273390152671265463321403046726338262200",
+			"name": "361cfd4c-0169-4162-a9ac-372fe2c8caf5",
+			"fileName": "361cfd4c-0169-4162-a9ac-372fe2c8caf5",
+			"filePath": "361cfd4c-0169-4162-a9ac-372fe2c8caf5",
+			"status": "Uploaded",
+			"uploadedOn": "2021-10-06T09:59:04.760Z",
+			"errorMsg": null
+		}, {
+			"id": "273390152671267881173042275984687674552",
+			"name": "f9a72fa0-466e-41ff-8871-b2e2cbcf3817",
+			"fileName": "f9a72fa0-466e-41ff-8871-b2e2cbcf3817",
+			"filePath": "f9a72fa0-466e-41ff-8871-b2e2cbcf3817",
+			"status": "Uploaded",
+			"uploadedOn": "2021-10-06T09:59:04.760Z",
+			"errorMsg": null
+		}]
+	},
+	"run_uuid": "c4b902f0-47ab-4ee5-874c-82e8edbe8047",
+	"submitted_metadata": {
+		"batch": {
+			"samples": [{
+				"name": "b6a29743-b1cf-48c1-944f-9c3e17624227",
+				"host": "Homo sapiens",
+				"collectionDate": "2021-10-06T09:59:04.760Z",
+				"country": "United Kingdom",
+				"fileName": "b6a29743-b1cf-48c1-944f-9c3e17624227",
+				"specimenOrganism": "SARS-CoV-2",
+				"specimenSource": "Swab",
+				"status": "Uploaded",
+				"comments": "",
+				"sampleDetails3": "",
+				"submissionTitle": "test",
+				"submissionDescription": "test",
+				"instrument": {
+					"platform": "Nanopore",
+					"model": "Nanopore GridION",
+					"flowcell": "96"
+				},
+				"seReads": [{
+					"uri": "",
+					"sp3_filepath": "/data/inputs/s3/rCgxZDvfQCNzMAQMVzBwhlOxgfWKlhzu/307fb824-4f15-42c0-bb82-6b7010432f40/b6a29743-b1cf-48c1-944f-9c3e17624227_C1.fastq.gz",
+					"md5": "f19b763866632ca024dfd540d639e147"
+				}],
+				"peReads": []
+			}, {
+				"name": "0fd701a3-35f3-4003-9ea8-036b80049fd9",
+				"host": "Homo sapiens",
+				"collectionDate": "2021-10-06T09:59:04.760Z",
+				"country": "United Kingdom",
+				"fileName": "0fd701a3-35f3-4003-9ea8-036b80049fd9",
+				"specimenOrganism": "SARS-CoV-2",
+				"specimenSource": "Swab",
+				"status": "Uploaded",
+				"comments": "",
+				"sampleDetails3": "",
+				"submissionTitle": "test",
+				"submissionDescription": "test",
+				"instrument": {
+					"platform": "Nanopore",
+					"model": "Nanopore GridION",
+					"flowcell": "96"
+				},
+				"seReads": [{
+					"uri": "",
+					"sp3_filepath": "/data/inputs/s3/rCgxZDvfQCNzMAQMVzBwhlOxgfWKlhzu/307fb824-4f15-42c0-bb82-6b7010432f40/0fd701a3-35f3-4003-9ea8-036b80049fd9_C1.fastq.gz",
+					"md5": "f61782e08f1cc4174e1270fc75e87b4a"
+				}],
+				"peReads": []
+			}, {
+				"name": "f0d48e16-0990-4cbd-986b-f5ce43a166f1",
+				"host": "Homo sapiens",
+				"collectionDate": "2021-10-06T09:59:04.760Z",
+				"country": "United Kingdom",
+				"fileName": "f0d48e16-0990-4cbd-986b-f5ce43a166f1",
+				"specimenOrganism": "SARS-CoV-2",
+				"specimenSource": "Swab",
+				"status": "Uploaded",
+				"comments": "",
+				"sampleDetails3": "",
+				"submissionTitle": "test",
+				"submissionDescription": "test",
+				"instrument": {
+					"platform": "Nanopore",
+					"model": "Nanopore GridION",
+					"flowcell": "96"
+				},
+				"seReads": [{
+					"uri": "",
+					"sp3_filepath": "/data/inputs/s3/rCgxZDvfQCNzMAQMVzBwhlOxgfWKlhzu/307fb824-4f15-42c0-bb82-6b7010432f40/f0d48e16-0990-4cbd-986b-f5ce43a166f1_C1.fastq.gz",
+					"md5": "28dfcfc4ae2106fb4ac27d09ae4ea57b"
+				}],
+				"peReads": []
+			}, {
+				"name": "c057a6ab-02be-4848-9ab8-448fd6a2f229",
+				"host": "Homo sapiens",
+				"collectionDate": "2021-10-06T09:59:04.760Z",
+				"country": "United Kingdom",
+				"fileName": "c057a6ab-02be-4848-9ab8-448fd6a2f229",
+				"specimenOrganism": "SARS-CoV-2",
+				"specimenSource": "Swab",
+				"status": "Uploaded",
+				"comments": "",
+				"sampleDetails3": "",
+				"submissionTitle": "test",
+				"submissionDescription": "test",
+				"instrument": {
+					"platform": "Nanopore",
+					"model": "Nanopore GridION",
+					"flowcell": "96"
+				},
+				"seReads": [{
+					"uri": "",
+					"sp3_filepath": "/data/inputs/s3/rCgxZDvfQCNzMAQMVzBwhlOxgfWKlhzu/307fb824-4f15-42c0-bb82-6b7010432f40/c057a6ab-02be-4848-9ab8-448fd6a2f229_C1.fastq.gz",
+					"md5": "90d4f84d65cfd90b0448961b0a3efdbd"
+				}],
+				"peReads": []
+			}, {
+				"name": "8b6bd3f6-a996-4253-a725-ad656f5f714d",
+				"host": "Homo sapiens",
+				"collectionDate": "2021-10-06T09:59:04.760Z",
+				"country": "United Kingdom",
+				"fileName": "8b6bd3f6-a996-4253-a725-ad656f5f714d",
+				"specimenOrganism": "SARS-CoV-2",
+				"specimenSource": "Swab",
+				"status": "Uploaded",
+				"comments": "",
+				"sampleDetails3": "",
+				"submissionTitle": "test",
+				"submissionDescription": "test",
+				"instrument": {
+					"platform": "Nanopore",
+					"model": "Nanopore GridION",
+					"flowcell": "96"
+				},
+				"seReads": [{
+					"uri": "",
+					"sp3_filepath": "/data/inputs/s3/rCgxZDvfQCNzMAQMVzBwhlOxgfWKlhzu/307fb824-4f15-42c0-bb82-6b7010432f40/8b6bd3f6-a996-4253-a725-ad656f5f714d_C1.fastq.gz",
+					"md5": "358b730e347f4da41e32155527166ceb"
+				}],
+				"peReads": []
+			}, {
+				"name": "8b5c4945-933d-4dd8-89ec-d1cd583fca7a",
+				"host": "Homo sapiens",
+				"collectionDate": "2021-10-06T09:59:04.760Z",
+				"country": "United Kingdom",
+				"fileName": "8b5c4945-933d-4dd8-89ec-d1cd583fca7a",
+				"specimenOrganism": "SARS-CoV-2",
+				"specimenSource": "Swab",
+				"status": "Uploaded",
+				"comments": "",
+				"sampleDetails3": "",
+				"submissionTitle": "test",
+				"submissionDescription": "test",
+				"instrument": {
+					"platform": "Nanopore",
+					"model": "Nanopore GridION",
+					"flowcell": "96"
+				},
+				"seReads": [{
+					"uri": "",
+					"sp3_filepath": "/data/inputs/s3/rCgxZDvfQCNzMAQMVzBwhlOxgfWKlhzu/307fb824-4f15-42c0-bb82-6b7010432f40/8b5c4945-933d-4dd8-89ec-d1cd583fca7a_C1.fastq.gz",
+					"md5": "593d59186c1401f59462a92a34be2823"
+				}],
+				"peReads": []
+			}, {
+				"name": "f2595a35-0516-44e0-9e5d-960013097dfd",
+				"host": "Homo sapiens",
+				"collectionDate": "2021-10-06T09:59:04.760Z",
+				"country": "United Kingdom",
+				"fileName": "f2595a35-0516-44e0-9e5d-960013097dfd",
+				"specimenOrganism": "SARS-CoV-2",
+				"specimenSource": "Swab",
+				"status": "Uploaded",
+				"comments": "",
+				"sampleDetails3": "",
+				"submissionTitle": "test",
+				"submissionDescription": "test",
+				"instrument": {
+					"platform": "Nanopore",
+					"model": "Nanopore GridION",
+					"flowcell": "96"
+				},
+				"seReads": [{
+					"uri": "",
+					"sp3_filepath": "/data/inputs/s3/rCgxZDvfQCNzMAQMVzBwhlOxgfWKlhzu/307fb824-4f15-42c0-bb82-6b7010432f40/f2595a35-0516-44e0-9e5d-960013097dfd_C1.fastq.gz",
+					"md5": "ede0361e16bb269e3d08c09d10c66955"
+				}],
+				"peReads": []
+			}, {
+				"name": "088c0ac2-acf0-4e3a-886c-bb88a21345a1",
+				"host": "Homo sapiens",
+				"collectionDate": "2021-10-06T09:59:04.760Z",
+				"country": "United Kingdom",
+				"fileName": "088c0ac2-acf0-4e3a-886c-bb88a21345a1",
+				"specimenOrganism": "SARS-CoV-2",
+				"specimenSource": "Swab",
+				"status": "Uploaded",
+				"comments": "",
+				"sampleDetails3": "",
+				"submissionTitle": "test",
+				"submissionDescription": "test",
+				"instrument": {
+					"platform": "Nanopore",
+					"model": "Nanopore GridION",
+					"flowcell": "96"
+				},
+				"seReads": [{
+					"uri": "",
+					"sp3_filepath": "/data/inputs/s3/rCgxZDvfQCNzMAQMVzBwhlOxgfWKlhzu/307fb824-4f15-42c0-bb82-6b7010432f40/088c0ac2-acf0-4e3a-886c-bb88a21345a1_C1.fastq.gz",
+					"md5": "9d2ae1491b87112794b8f291253e1a6c"
+				}],
+				"peReads": []
+			}, {
+				"name": "c8225cdb-3f09-4b0f-ab54-c889c78c2a6f",
+				"host": "Homo sapiens",
+				"collectionDate": "2021-10-06T09:59:04.760Z",
+				"country": "United Kingdom",
+				"fileName": "c8225cdb-3f09-4b0f-ab54-c889c78c2a6f",
+				"specimenOrganism": "SARS-CoV-2",
+				"specimenSource": "Swab",
+				"status": "Uploaded",
+				"comments": "",
+				"sampleDetails3": "",
+				"submissionTitle": "test",
+				"submissionDescription": "test",
+				"instrument": {
+					"platform": "Nanopore",
+					"model": "Nanopore GridION",
+					"flowcell": "96"
+				},
+				"seReads": [{
+					"uri": "",
+					"sp3_filepath": "/data/inputs/s3/rCgxZDvfQCNzMAQMVzBwhlOxgfWKlhzu/307fb824-4f15-42c0-bb82-6b7010432f40/c8225cdb-3f09-4b0f-ab54-c889c78c2a6f_C1.fastq.gz",
+					"md5": "e6b6065a977a722af02a079a3459a5ea"
+				}],
+				"peReads": []
+			}, {
+				"name": "e611307a-901d-43d6-879c-c21f3c4e986b",
+				"host": "Homo sapiens",
+				"collectionDate": "2021-10-06T09:59:04.760Z",
+				"country": "United Kingdom",
+				"fileName": "e611307a-901d-43d6-879c-c21f3c4e986b",
+				"specimenOrganism": "SARS-CoV-2",
+				"specimenSource": "Swab",
+				"status": "Uploaded",
+				"comments": "",
+				"sampleDetails3": "",
+				"submissionTitle": "test",
+				"submissionDescription": "test",
+				"instrument": {
+					"platform": "Nanopore",
+					"model": "Nanopore GridION",
+					"flowcell": "96"
+				},
+				"seReads": [{
+					"uri": "",
+					"sp3_filepath": "/data/inputs/s3/rCgxZDvfQCNzMAQMVzBwhlOxgfWKlhzu/307fb824-4f15-42c0-bb82-6b7010432f40/e611307a-901d-43d6-879c-c21f3c4e986b_C1.fastq.gz",
+					"md5": "00ba5de1767fb2e4793280368ea7aed1"
+				}],
+				"peReads": []
+			}, {
+				"name": "dcfe635c-65d4-4f90-afb3-fa9dc2d09149",
+				"host": "Homo sapiens",
+				"collectionDate": "2021-10-06T09:59:04.760Z",
+				"country": "United Kingdom",
+				"fileName": "dcfe635c-65d4-4f90-afb3-fa9dc2d09149",
+				"specimenOrganism": "SARS-CoV-2",
+				"specimenSource": "Swab",
+				"status": "Uploaded",
+				"comments": "",
+				"sampleDetails3": "",
+				"submissionTitle": "test",
+				"submissionDescription": "test",
+				"instrument": {
+					"platform": "Nanopore",
+					"model": "Nanopore GridION",
+					"flowcell": "96"
+				},
+				"seReads": [{
+					"uri": "",
+					"sp3_filepath": "/data/inputs/s3/rCgxZDvfQCNzMAQMVzBwhlOxgfWKlhzu/307fb824-4f15-42c0-bb82-6b7010432f40/dcfe635c-65d4-4f90-afb3-fa9dc2d09149_C1.fastq.gz",
+					"md5": "c9803f5795f04e108cdceee1787be786"
+				}],
+				"peReads": []
+			}, {
+				"name": "480eab27-80d8-41e1-8da9-020490d72655",
+				"host": "Homo sapiens",
+				"collectionDate": "2021-10-06T09:59:04.760Z",
+				"country": "United Kingdom",
+				"fileName": "480eab27-80d8-41e1-8da9-020490d72655",
+				"specimenOrganism": "SARS-CoV-2",
+				"specimenSource": "Swab",
+				"status": "Uploaded",
+				"comments": "",
+				"sampleDetails3": "",
+				"submissionTitle": "test",
+				"submissionDescription": "test",
+				"instrument": {
+					"platform": "Nanopore",
+					"model": "Nanopore GridION",
+					"flowcell": "96"
+				},
+				"seReads": [{
+					"uri": "",
+					"sp3_filepath": "/data/inputs/s3/rCgxZDvfQCNzMAQMVzBwhlOxgfWKlhzu/307fb824-4f15-42c0-bb82-6b7010432f40/480eab27-80d8-41e1-8da9-020490d72655_C1.fastq.gz",
+					"md5": "bfef1ddc1867071e71680e4d5a450985"
+				}],
+				"peReads": []
+			}, {
+				"name": "141fe883-1541-4eec-8f1c-23c303a5e862",
+				"host": "Homo sapiens",
+				"collectionDate": "2021-10-06T09:59:04.760Z",
+				"country": "United Kingdom",
+				"fileName": "141fe883-1541-4eec-8f1c-23c303a5e862",
+				"specimenOrganism": "SARS-CoV-2",
+				"specimenSource": "Swab",
+				"status": "Uploaded",
+				"comments": "",
+				"sampleDetails3": "",
+				"submissionTitle": "test",
+				"submissionDescription": "test",
+				"instrument": {
+					"platform": "Nanopore",
+					"model": "Nanopore GridION",
+					"flowcell": "96"
+				},
+				"seReads": [{
+					"uri": "",
+					"sp3_filepath": "/data/inputs/s3/rCgxZDvfQCNzMAQMVzBwhlOxgfWKlhzu/307fb824-4f15-42c0-bb82-6b7010432f40/141fe883-1541-4eec-8f1c-23c303a5e862_C1.fastq.gz",
+					"md5": "4c2d06cc3031fd793675b1243dc3a2d8"
+				}],
+				"peReads": []
+			}, {
+				"name": "f5d023c9-e8cd-4588-b928-5ef34327e088",
+				"host": "Homo sapiens",
+				"collectionDate": "2021-10-06T09:59:04.760Z",
+				"country": "United Kingdom",
+				"fileName": "f5d023c9-e8cd-4588-b928-5ef34327e088",
+				"specimenOrganism": "SARS-CoV-2",
+				"specimenSource": "Swab",
+				"status": "Uploaded",
+				"comments": "",
+				"sampleDetails3": "",
+				"submissionTitle": "test",
+				"submissionDescription": "test",
+				"instrument": {
+					"platform": "Nanopore",
+					"model": "Nanopore GridION",
+					"flowcell": "96"
+				},
+				"seReads": [{
+					"uri": "",
+					"sp3_filepath": "/data/inputs/s3/rCgxZDvfQCNzMAQMVzBwhlOxgfWKlhzu/307fb824-4f15-42c0-bb82-6b7010432f40/f5d023c9-e8cd-4588-b928-5ef34327e088_C1.fastq.gz",
+					"md5": "8ec966db4dea257538b3ff1e6e483b6c"
+				}],
+				"peReads": []
+			}, {
+				"name": "c5a6de2a-89b2-4cc7-a244-16ffc7428406",
+				"host": "Homo sapiens",
+				"collectionDate": "2021-10-06T09:59:04.760Z",
+				"country": "United Kingdom",
+				"fileName": "c5a6de2a-89b2-4cc7-a244-16ffc7428406",
+				"specimenOrganism": "SARS-CoV-2",
+				"specimenSource": "Swab",
+				"status": "Uploaded",
+				"comments": "",
+				"sampleDetails3": "",
+				"submissionTitle": "test",
+				"submissionDescription": "test",
+				"instrument": {
+					"platform": "Nanopore",
+					"model": "Nanopore GridION",
+					"flowcell": "96"
+				},
+				"seReads": [{
+					"uri": "",
+					"sp3_filepath": "/data/inputs/s3/rCgxZDvfQCNzMAQMVzBwhlOxgfWKlhzu/307fb824-4f15-42c0-bb82-6b7010432f40/c5a6de2a-89b2-4cc7-a244-16ffc7428406_C1.fastq.gz",
+					"md5": "65c299112eb3bf852fa453c04e3e76e5"
+				}],
+				"peReads": []
+			}, {
+				"name": "ec232a36-d6ae-45ea-91b8-722a9cc5258f",
+				"host": "Homo sapiens",
+				"collectionDate": "2021-10-06T09:59:04.760Z",
+				"country": "United Kingdom",
+				"fileName": "ec232a36-d6ae-45ea-91b8-722a9cc5258f",
+				"specimenOrganism": "SARS-CoV-2",
+				"specimenSource": "Swab",
+				"status": "Uploaded",
+				"comments": "",
+				"sampleDetails3": "",
+				"submissionTitle": "test",
+				"submissionDescription": "test",
+				"instrument": {
+					"platform": "Nanopore",
+					"model": "Nanopore GridION",
+					"flowcell": "96"
+				},
+				"seReads": [{
+					"uri": "",
+					"sp3_filepath": "/data/inputs/s3/rCgxZDvfQCNzMAQMVzBwhlOxgfWKlhzu/307fb824-4f15-42c0-bb82-6b7010432f40/ec232a36-d6ae-45ea-91b8-722a9cc5258f_C1.fastq.gz",
+					"md5": "b82a06c2a782b61a457890ec8bbebca2"
+				}],
+				"peReads": []
+			}, {
+				"name": "eb2b5dcc-4f4b-4487-905a-7b7fdf875169",
+				"host": "Homo sapiens",
+				"collectionDate": "2021-10-06T09:59:04.760Z",
+				"country": "United Kingdom",
+				"fileName": "eb2b5dcc-4f4b-4487-905a-7b7fdf875169",
+				"specimenOrganism": "SARS-CoV-2",
+				"specimenSource": "Swab",
+				"status": "Uploaded",
+				"comments": "",
+				"sampleDetails3": "",
+				"submissionTitle": "test",
+				"submissionDescription": "test",
+				"instrument": {
+					"platform": "Nanopore",
+					"model": "Nanopore GridION",
+					"flowcell": "96"
+				},
+				"seReads": [{
+					"uri": "",
+					"sp3_filepath": "/data/inputs/s3/rCgxZDvfQCNzMAQMVzBwhlOxgfWKlhzu/307fb824-4f15-42c0-bb82-6b7010432f40/eb2b5dcc-4f4b-4487-905a-7b7fdf875169_C1.fastq.gz",
+					"md5": "3107cf62977a54a70d297d114fca4675"
+				}],
+				"peReads": []
+			}, {
+				"name": "bca0f916-6faa-4ca8-87fe-7bc70ee3a221",
+				"host": "Homo sapiens",
+				"collectionDate": "2021-10-06T09:59:04.760Z",
+				"country": "United Kingdom",
+				"fileName": "bca0f916-6faa-4ca8-87fe-7bc70ee3a221",
+				"specimenOrganism": "SARS-CoV-2",
+				"specimenSource": "Swab",
+				"status": "Uploaded",
+				"comments": "",
+				"sampleDetails3": "",
+				"submissionTitle": "test",
+				"submissionDescription": "test",
+				"instrument": {
+					"platform": "Nanopore",
+					"model": "Nanopore GridION",
+					"flowcell": "96"
+				},
+				"seReads": [{
+					"uri": "",
+					"sp3_filepath": "/data/inputs/s3/rCgxZDvfQCNzMAQMVzBwhlOxgfWKlhzu/307fb824-4f15-42c0-bb82-6b7010432f40/bca0f916-6faa-4ca8-87fe-7bc70ee3a221_C1.fastq.gz",
+					"md5": "aa11780bc172a5bb4568b32e1d1f0325"
+				}],
+				"peReads": []
+			}, {
+				"name": "e42b7c54-4783-4462-bed9-01d7a84d6be6",
+				"host": "Homo sapiens",
+				"collectionDate": "2021-10-06T09:59:04.760Z",
+				"country": "United Kingdom",
+				"fileName": "e42b7c54-4783-4462-bed9-01d7a84d6be6",
+				"specimenOrganism": "SARS-CoV-2",
+				"specimenSource": "Swab",
+				"status": "Uploaded",
+				"comments": "",
+				"sampleDetails3": "",
+				"submissionTitle": "test",
+				"submissionDescription": "test",
+				"instrument": {
+					"platform": "Nanopore",
+					"model": "Nanopore GridION",
+					"flowcell": "96"
+				},
+				"seReads": [{
+					"uri": "",
+					"sp3_filepath": "/data/inputs/s3/rCgxZDvfQCNzMAQMVzBwhlOxgfWKlhzu/307fb824-4f15-42c0-bb82-6b7010432f40/e42b7c54-4783-4462-bed9-01d7a84d6be6_C1.fastq.gz",
+					"md5": "cec2d75af82e3d6bd054a7f491c7bb3f"
+				}],
+				"peReads": []
+			}, {
+				"name": "f2a0a257-208f-4140-8e4e-50f102c15d21",
+				"host": "Homo sapiens",
+				"collectionDate": "2021-10-06T09:59:04.760Z",
+				"country": "United Kingdom",
+				"fileName": "f2a0a257-208f-4140-8e4e-50f102c15d21",
+				"specimenOrganism": "SARS-CoV-2",
+				"specimenSource": "Swab",
+				"status": "Uploaded",
+				"comments": "",
+				"sampleDetails3": "",
+				"submissionTitle": "test",
+				"submissionDescription": "test",
+				"instrument": {
+					"platform": "Nanopore",
+					"model": "Nanopore GridION",
+					"flowcell": "96"
+				},
+				"seReads": [{
+					"uri": "",
+					"sp3_filepath": "/data/inputs/s3/rCgxZDvfQCNzMAQMVzBwhlOxgfWKlhzu/307fb824-4f15-42c0-bb82-6b7010432f40/f2a0a257-208f-4140-8e4e-50f102c15d21_C1.fastq.gz",
+					"md5": "111e33dc7ad473d1a5162c90f5f19869"
+				}],
+				"peReads": []
+			}, {
+				"name": "7e1935fe-5185-4a16-85c4-95a1acdb75ee",
+				"host": "Homo sapiens",
+				"collectionDate": "2021-10-06T09:59:04.760Z",
+				"country": "United Kingdom",
+				"fileName": "7e1935fe-5185-4a16-85c4-95a1acdb75ee",
+				"specimenOrganism": "SARS-CoV-2",
+				"specimenSource": "Swab",
+				"status": "Uploaded",
+				"comments": "",
+				"sampleDetails3": "",
+				"submissionTitle": "test",
+				"submissionDescription": "test",
+				"instrument": {
+					"platform": "Nanopore",
+					"model": "Nanopore GridION",
+					"flowcell": "96"
+				},
+				"seReads": [{
+					"uri": "",
+					"sp3_filepath": "/data/inputs/s3/rCgxZDvfQCNzMAQMVzBwhlOxgfWKlhzu/307fb824-4f15-42c0-bb82-6b7010432f40/7e1935fe-5185-4a16-85c4-95a1acdb75ee_C1.fastq.gz",
+					"md5": "e4f58c49dc63b67ab04bdd9cb9a036c5"
+				}],
+				"peReads": []
+			}, {
+				"name": "f45a3b36-895d-46b5-9d2b-3a59c66f66e6",
+				"host": "Homo sapiens",
+				"collectionDate": "2021-10-06T09:59:04.760Z",
+				"country": "United Kingdom",
+				"fileName": "f45a3b36-895d-46b5-9d2b-3a59c66f66e6",
+				"specimenOrganism": "SARS-CoV-2",
+				"specimenSource": "Swab",
+				"status": "Uploaded",
+				"comments": "",
+				"sampleDetails3": "",
+				"submissionTitle": "test",
+				"submissionDescription": "test",
+				"instrument": {
+					"platform": "Nanopore",
+					"model": "Nanopore GridION",
+					"flowcell": "96"
+				},
+				"seReads": [{
+					"uri": "",
+					"sp3_filepath": "/data/inputs/s3/rCgxZDvfQCNzMAQMVzBwhlOxgfWKlhzu/307fb824-4f15-42c0-bb82-6b7010432f40/f45a3b36-895d-46b5-9d2b-3a59c66f66e6_C1.fastq.gz",
+					"md5": "07b80d6abc905dcf3aa4612cd8f90df9"
+				}],
+				"peReads": []
+			}, {
+				"name": "4931bd18-0114-4986-9c62-82015fc49aa7",
+				"host": "Homo sapiens",
+				"collectionDate": "2021-10-06T09:59:04.760Z",
+				"country": "United Kingdom",
+				"fileName": "4931bd18-0114-4986-9c62-82015fc49aa7",
+				"specimenOrganism": "SARS-CoV-2",
+				"specimenSource": "Swab",
+				"status": "Uploaded",
+				"comments": "",
+				"sampleDetails3": "",
+				"submissionTitle": "test",
+				"submissionDescription": "test",
+				"instrument": {
+					"platform": "Nanopore",
+					"model": "Nanopore GridION",
+					"flowcell": "96"
+				},
+				"seReads": [{
+					"uri": "",
+					"sp3_filepath": "/data/inputs/s3/rCgxZDvfQCNzMAQMVzBwhlOxgfWKlhzu/307fb824-4f15-42c0-bb82-6b7010432f40/4931bd18-0114-4986-9c62-82015fc49aa7_C1.fastq.gz",
+					"md5": "846bda3d7d3c94e486cb35866b185920"
+				}],
+				"peReads": []
+			}, {
+				"name": "727bf4a2-eb7c-43a5-943b-6749996eab4b",
+				"host": "Homo sapiens",
+				"collectionDate": "2021-10-06T09:59:04.760Z",
+				"country": "United Kingdom",
+				"fileName": "727bf4a2-eb7c-43a5-943b-6749996eab4b",
+				"specimenOrganism": "SARS-CoV-2",
+				"specimenSource": "Swab",
+				"status": "Uploaded",
+				"comments": "",
+				"sampleDetails3": "",
+				"submissionTitle": "test",
+				"submissionDescription": "test",
+				"instrument": {
+					"platform": "Nanopore",
+					"model": "Nanopore GridION",
+					"flowcell": "96"
+				},
+				"seReads": [{
+					"uri": "",
+					"sp3_filepath": "/data/inputs/s3/rCgxZDvfQCNzMAQMVzBwhlOxgfWKlhzu/307fb824-4f15-42c0-bb82-6b7010432f40/727bf4a2-eb7c-43a5-943b-6749996eab4b_C1.fastq.gz",
+					"md5": "e3e87862f0a8b2a5d23e6ba8554dd540"
+				}],
+				"peReads": []
+			}, {
+				"name": "fc59d8e9-75eb-444b-8547-973b86803764",
+				"host": "Homo sapiens",
+				"collectionDate": "2021-10-06T09:59:04.760Z",
+				"country": "United Kingdom",
+				"fileName": "fc59d8e9-75eb-444b-8547-973b86803764",
+				"specimenOrganism": "SARS-CoV-2",
+				"specimenSource": "Swab",
+				"status": "Uploaded",
+				"comments": "",
+				"sampleDetails3": "",
+				"submissionTitle": "test",
+				"submissionDescription": "test",
+				"instrument": {
+					"platform": "Nanopore",
+					"model": "Nanopore GridION",
+					"flowcell": "96"
+				},
+				"seReads": [{
+					"uri": "",
+					"sp3_filepath": "/data/inputs/s3/rCgxZDvfQCNzMAQMVzBwhlOxgfWKlhzu/307fb824-4f15-42c0-bb82-6b7010432f40/fc59d8e9-75eb-444b-8547-973b86803764_C1.fastq.gz",
+					"md5": "d4909c7559abc3691abe55391fa47fda"
+				}],
+				"peReads": []
+			}, {
+				"name": "0046f6c6-5ba4-42cd-b925-6b1165bd652f",
+				"host": "Homo sapiens",
+				"collectionDate": "2021-10-06T09:59:04.760Z",
+				"country": "United Kingdom",
+				"fileName": "0046f6c6-5ba4-42cd-b925-6b1165bd652f",
+				"specimenOrganism": "SARS-CoV-2",
+				"specimenSource": "Swab",
+				"status": "Uploaded",
+				"comments": "",
+				"sampleDetails3": "",
+				"submissionTitle": "test",
+				"submissionDescription": "test",
+				"instrument": {
+					"platform": "Nanopore",
+					"model": "Nanopore GridION",
+					"flowcell": "96"
+				},
+				"seReads": [{
+					"uri": "",
+					"sp3_filepath": "/data/inputs/s3/rCgxZDvfQCNzMAQMVzBwhlOxgfWKlhzu/307fb824-4f15-42c0-bb82-6b7010432f40/0046f6c6-5ba4-42cd-b925-6b1165bd652f_C1.fastq.gz",
+					"md5": "6ea9ff57b69b35a820af18ab2796506c"
+				}],
+				"peReads": []
+			}, {
+				"name": "7d921268-3e09-4361-80f9-91ccbefe25c5",
+				"host": "Homo sapiens",
+				"collectionDate": "2021-10-06T09:59:04.760Z",
+				"country": "United Kingdom",
+				"fileName": "7d921268-3e09-4361-80f9-91ccbefe25c5",
+				"specimenOrganism": "SARS-CoV-2",
+				"specimenSource": "Swab",
+				"status": "Uploaded",
+				"comments": "",
+				"sampleDetails3": "",
+				"submissionTitle": "test",
+				"submissionDescription": "test",
+				"instrument": {
+					"platform": "Nanopore",
+					"model": "Nanopore GridION",
+					"flowcell": "96"
+				},
+				"seReads": [{
+					"uri": "",
+					"sp3_filepath": "/data/inputs/s3/rCgxZDvfQCNzMAQMVzBwhlOxgfWKlhzu/307fb824-4f15-42c0-bb82-6b7010432f40/7d921268-3e09-4361-80f9-91ccbefe25c5_C1.fastq.gz",
+					"md5": "1d7bdf4dac520cf3ca1a87947232fcb0"
+				}],
+				"peReads": []
+			}, {
+				"name": "081f0550-dbae-4c02-84d9-e071c7e5a38a",
+				"host": "Homo sapiens",
+				"collectionDate": "2021-10-06T09:59:04.760Z",
+				"country": "United Kingdom",
+				"fileName": "081f0550-dbae-4c02-84d9-e071c7e5a38a",
+				"specimenOrganism": "SARS-CoV-2",
+				"specimenSource": "Swab",
+				"status": "Uploaded",
+				"comments": "",
+				"sampleDetails3": "",
+				"submissionTitle": "test",
+				"submissionDescription": "test",
+				"instrument": {
+					"platform": "Nanopore",
+					"model": "Nanopore GridION",
+					"flowcell": "96"
+				},
+				"seReads": [{
+					"uri": "",
+					"sp3_filepath": "/data/inputs/s3/rCgxZDvfQCNzMAQMVzBwhlOxgfWKlhzu/307fb824-4f15-42c0-bb82-6b7010432f40/081f0550-dbae-4c02-84d9-e071c7e5a38a_C1.fastq.gz",
+					"md5": "52a0fab92e7d9ad99f91b8ebbbdd269e"
+				}],
+				"peReads": []
+			}, {
+				"name": "cb4fcea9-ee23-4e3e-805a-4cb2fff3ad96",
+				"host": "Homo sapiens",
+				"collectionDate": "2021-10-06T09:59:04.760Z",
+				"country": "United Kingdom",
+				"fileName": "cb4fcea9-ee23-4e3e-805a-4cb2fff3ad96",
+				"specimenOrganism": "SARS-CoV-2",
+				"specimenSource": "Swab",
+				"status": "Uploaded",
+				"comments": "",
+				"sampleDetails3": "",
+				"submissionTitle": "test",
+				"submissionDescription": "test",
+				"instrument": {
+					"platform": "Nanopore",
+					"model": "Nanopore GridION",
+					"flowcell": "96"
+				},
+				"seReads": [{
+					"uri": "",
+					"sp3_filepath": "/data/inputs/s3/rCgxZDvfQCNzMAQMVzBwhlOxgfWKlhzu/307fb824-4f15-42c0-bb82-6b7010432f40/cb4fcea9-ee23-4e3e-805a-4cb2fff3ad96_C1.fastq.gz",
+					"md5": "3553525fe1a16f2d33bb420839edd11a"
+				}],
+				"peReads": []
+			}, {
+				"name": "e8e34b41-9398-4891-9d1a-331bead09684",
+				"host": "Homo sapiens",
+				"collectionDate": "2021-10-06T09:59:04.760Z",
+				"country": "United Kingdom",
+				"fileName": "e8e34b41-9398-4891-9d1a-331bead09684",
+				"specimenOrganism": "SARS-CoV-2",
+				"specimenSource": "Swab",
+				"status": "Uploaded",
+				"comments": "",
+				"sampleDetails3": "",
+				"submissionTitle": "test",
+				"submissionDescription": "test",
+				"instrument": {
+					"platform": "Nanopore",
+					"model": "Nanopore GridION",
+					"flowcell": "96"
+				},
+				"seReads": [{
+					"uri": "",
+					"sp3_filepath": "/data/inputs/s3/rCgxZDvfQCNzMAQMVzBwhlOxgfWKlhzu/307fb824-4f15-42c0-bb82-6b7010432f40/e8e34b41-9398-4891-9d1a-331bead09684_C1.fastq.gz",
+					"md5": "a8b2d11f6969691fa112961ec29e6c28"
+				}],
+				"peReads": []
+			}, {
+				"name": "20d0a0e0-f690-49d9-b1f8-a66e4b326be0",
+				"host": "Homo sapiens",
+				"collectionDate": "2021-10-06T09:59:04.760Z",
+				"country": "United Kingdom",
+				"fileName": "20d0a0e0-f690-49d9-b1f8-a66e4b326be0",
+				"specimenOrganism": "SARS-CoV-2",
+				"specimenSource": "Swab",
+				"status": "Uploaded",
+				"comments": "",
+				"sampleDetails3": "",
+				"submissionTitle": "test",
+				"submissionDescription": "test",
+				"instrument": {
+					"platform": "Nanopore",
+					"model": "Nanopore GridION",
+					"flowcell": "96"
+				},
+				"seReads": [{
+					"uri": "",
+					"sp3_filepath": "/data/inputs/s3/rCgxZDvfQCNzMAQMVzBwhlOxgfWKlhzu/307fb824-4f15-42c0-bb82-6b7010432f40/20d0a0e0-f690-49d9-b1f8-a66e4b326be0_C1.fastq.gz",
+					"md5": "d947c3d89ffaec44d878052a7622b4f7"
+				}],
+				"peReads": []
+			}, {
+				"name": "773fc677-6082-4c55-8b43-336562b33b49",
+				"host": "Homo sapiens",
+				"collectionDate": "2021-10-06T09:59:04.760Z",
+				"country": "United Kingdom",
+				"fileName": "773fc677-6082-4c55-8b43-336562b33b49",
+				"specimenOrganism": "SARS-CoV-2",
+				"specimenSource": "Swab",
+				"status": "Uploaded",
+				"comments": "",
+				"sampleDetails3": "",
+				"submissionTitle": "test",
+				"submissionDescription": "test",
+				"instrument": {
+					"platform": "Nanopore",
+					"model": "Nanopore GridION",
+					"flowcell": "96"
+				},
+				"seReads": [{
+					"uri": "",
+					"sp3_filepath": "/data/inputs/s3/rCgxZDvfQCNzMAQMVzBwhlOxgfWKlhzu/307fb824-4f15-42c0-bb82-6b7010432f40/773fc677-6082-4c55-8b43-336562b33b49_C1.fastq.gz",
+					"md5": "a8235b2ee19b731eacc167ddbbd48b69"
+				}],
+				"peReads": []
+			}, {
+				"name": "fd46f2e2-4519-4f51-9968-175f4c05d5a0",
+				"host": "Homo sapiens",
+				"collectionDate": "2021-10-06T09:59:04.760Z",
+				"country": "United Kingdom",
+				"fileName": "fd46f2e2-4519-4f51-9968-175f4c05d5a0",
+				"specimenOrganism": "SARS-CoV-2",
+				"specimenSource": "Swab",
+				"status": "Uploaded",
+				"comments": "",
+				"sampleDetails3": "",
+				"submissionTitle": "test",
+				"submissionDescription": "test",
+				"instrument": {
+					"platform": "Nanopore",
+					"model": "Nanopore GridION",
+					"flowcell": "96"
+				},
+				"seReads": [{
+					"uri": "",
+					"sp3_filepath": "/data/inputs/s3/rCgxZDvfQCNzMAQMVzBwhlOxgfWKlhzu/307fb824-4f15-42c0-bb82-6b7010432f40/fd46f2e2-4519-4f51-9968-175f4c05d5a0_C1.fastq.gz",
+					"md5": "d99c337e0ece3d702547b31625b7c02a"
+				}],
+				"peReads": []
+			}, {
+				"name": "2f72d7c4-b838-43ab-8fad-000f3e383eb9",
+				"host": "Homo sapiens",
+				"collectionDate": "2021-10-06T09:59:04.760Z",
+				"country": "United Kingdom",
+				"fileName": "2f72d7c4-b838-43ab-8fad-000f3e383eb9",
+				"specimenOrganism": "SARS-CoV-2",
+				"specimenSource": "Swab",
+				"status": "Uploaded",
+				"comments": "",
+				"sampleDetails3": "",
+				"submissionTitle": "test",
+				"submissionDescription": "test",
+				"instrument": {
+					"platform": "Nanopore",
+					"model": "Nanopore GridION",
+					"flowcell": "96"
+				},
+				"seReads": [{
+					"uri": "",
+					"sp3_filepath": "/data/inputs/s3/rCgxZDvfQCNzMAQMVzBwhlOxgfWKlhzu/307fb824-4f15-42c0-bb82-6b7010432f40/2f72d7c4-b838-43ab-8fad-000f3e383eb9_C1.fastq.gz",
+					"md5": "bc62339b942b959a3ab99c4d5eaa34c0"
+				}],
+				"peReads": []
+			}, {
+				"name": "4a2a14f0-babb-4f0e-a23e-6fdcfc0cd798",
+				"host": "Homo sapiens",
+				"collectionDate": "2021-10-06T09:59:04.760Z",
+				"country": "United Kingdom",
+				"fileName": "4a2a14f0-babb-4f0e-a23e-6fdcfc0cd798",
+				"specimenOrganism": "SARS-CoV-2",
+				"specimenSource": "Swab",
+				"status": "Uploaded",
+				"comments": "",
+				"sampleDetails3": "",
+				"submissionTitle": "test",
+				"submissionDescription": "test",
+				"instrument": {
+					"platform": "Nanopore",
+					"model": "Nanopore GridION",
+					"flowcell": "96"
+				},
+				"seReads": [{
+					"uri": "",
+					"sp3_filepath": "/data/inputs/s3/rCgxZDvfQCNzMAQMVzBwhlOxgfWKlhzu/307fb824-4f15-42c0-bb82-6b7010432f40/4a2a14f0-babb-4f0e-a23e-6fdcfc0cd798_C1.fastq.gz",
+					"md5": "eff26a1023353baf0ec521ab7cbad946"
+				}],
+				"peReads": []
+			}, {
+				"name": "47e91229-011d-4cbe-9bf6-5fc569569390",
+				"host": "Homo sapiens",
+				"collectionDate": "2021-10-06T09:59:04.760Z",
+				"country": "United Kingdom",
+				"fileName": "47e91229-011d-4cbe-9bf6-5fc569569390",
+				"specimenOrganism": "SARS-CoV-2",
+				"specimenSource": "Swab",
+				"status": "Uploaded",
+				"comments": "",
+				"sampleDetails3": "",
+				"submissionTitle": "test",
+				"submissionDescription": "test",
+				"instrument": {
+					"platform": "Nanopore",
+					"model": "Nanopore GridION",
+					"flowcell": "96"
+				},
+				"seReads": [{
+					"uri": "",
+					"sp3_filepath": "/data/inputs/s3/rCgxZDvfQCNzMAQMVzBwhlOxgfWKlhzu/307fb824-4f15-42c0-bb82-6b7010432f40/47e91229-011d-4cbe-9bf6-5fc569569390_C1.fastq.gz",
+					"md5": "06c12a52641a8cae2cd8b0d127b66814"
+				}],
+				"peReads": []
+			}, {
+				"name": "af0938c1-331c-4644-9e90-77a25bc67dab",
+				"host": "Homo sapiens",
+				"collectionDate": "2021-10-06T09:59:04.760Z",
+				"country": "United Kingdom",
+				"fileName": "af0938c1-331c-4644-9e90-77a25bc67dab",
+				"specimenOrganism": "SARS-CoV-2",
+				"specimenSource": "Swab",
+				"status": "Uploaded",
+				"comments": "",
+				"sampleDetails3": "",
+				"submissionTitle": "test",
+				"submissionDescription": "test",
+				"instrument": {
+					"platform": "Nanopore",
+					"model": "Nanopore GridION",
+					"flowcell": "96"
+				},
+				"seReads": [{
+					"uri": "",
+					"sp3_filepath": "/data/inputs/s3/rCgxZDvfQCNzMAQMVzBwhlOxgfWKlhzu/307fb824-4f15-42c0-bb82-6b7010432f40/af0938c1-331c-4644-9e90-77a25bc67dab_C1.fastq.gz",
+					"md5": "f6520e9772456dd6357d5c258cb680a5"
+				}],
+				"peReads": []
+			}, {
+				"name": "1e66bc20-6652-431f-a911-dc0fe3fc010e",
+				"host": "Homo sapiens",
+				"collectionDate": "2021-10-06T09:59:04.760Z",
+				"country": "United Kingdom",
+				"fileName": "1e66bc20-6652-431f-a911-dc0fe3fc010e",
+				"specimenOrganism": "SARS-CoV-2",
+				"specimenSource": "Swab",
+				"status": "Uploaded",
+				"comments": "",
+				"sampleDetails3": "",
+				"submissionTitle": "test",
+				"submissionDescription": "test",
+				"instrument": {
+					"platform": "Nanopore",
+					"model": "Nanopore GridION",
+					"flowcell": "96"
+				},
+				"seReads": [{
+					"uri": "",
+					"sp3_filepath": "/data/inputs/s3/rCgxZDvfQCNzMAQMVzBwhlOxgfWKlhzu/307fb824-4f15-42c0-bb82-6b7010432f40/1e66bc20-6652-431f-a911-dc0fe3fc010e_C1.fastq.gz",
+					"md5": "cec7566b5d0029f004ded2eaa39fc502"
+				}],
+				"peReads": []
+			}, {
+				"name": "18e9f472-d278-49dd-87ae-4bf36a1fe309",
+				"host": "Homo sapiens",
+				"collectionDate": "2021-10-06T09:59:04.760Z",
+				"country": "United Kingdom",
+				"fileName": "18e9f472-d278-49dd-87ae-4bf36a1fe309",
+				"specimenOrganism": "SARS-CoV-2",
+				"specimenSource": "Swab",
+				"status": "Uploaded",
+				"comments": "",
+				"sampleDetails3": "",
+				"submissionTitle": "test",
+				"submissionDescription": "test",
+				"instrument": {
+					"platform": "Nanopore",
+					"model": "Nanopore GridION",
+					"flowcell": "96"
+				},
+				"seReads": [{
+					"uri": "",
+					"sp3_filepath": "/data/inputs/s3/rCgxZDvfQCNzMAQMVzBwhlOxgfWKlhzu/307fb824-4f15-42c0-bb82-6b7010432f40/18e9f472-d278-49dd-87ae-4bf36a1fe309_C1.fastq.gz",
+					"md5": "4260fa42f0cf8b636d334b170e575d61"
+				}],
+				"peReads": []
+			}, {
+				"name": "af5143fc-1cb3-4233-ae89-8cb1fa40c950",
+				"host": "Homo sapiens",
+				"collectionDate": "2021-10-06T09:59:04.760Z",
+				"country": "United Kingdom",
+				"fileName": "af5143fc-1cb3-4233-ae89-8cb1fa40c950",
+				"specimenOrganism": "SARS-CoV-2",
+				"specimenSource": "Swab",
+				"status": "Uploaded",
+				"comments": "",
+				"sampleDetails3": "",
+				"submissionTitle": "test",
+				"submissionDescription": "test",
+				"instrument": {
+					"platform": "Nanopore",
+					"model": "Nanopore GridION",
+					"flowcell": "96"
+				},
+				"seReads": [{
+					"uri": "",
+					"sp3_filepath": "/data/inputs/s3/rCgxZDvfQCNzMAQMVzBwhlOxgfWKlhzu/307fb824-4f15-42c0-bb82-6b7010432f40/af5143fc-1cb3-4233-ae89-8cb1fa40c950_C1.fastq.gz",
+					"md5": "c0107d9925b62e134f12c52e11f5a8c3"
+				}],
+				"peReads": []
+			}, {
+				"name": "299cdf1b-fc5b-45ab-9cdf-1af8b9fd4b57",
+				"host": "Homo sapiens",
+				"collectionDate": "2021-10-06T09:59:04.760Z",
+				"country": "United Kingdom",
+				"fileName": "299cdf1b-fc5b-45ab-9cdf-1af8b9fd4b57",
+				"specimenOrganism": "SARS-CoV-2",
+				"specimenSource": "Swab",
+				"status": "Uploaded",
+				"comments": "",
+				"sampleDetails3": "",
+				"submissionTitle": "test",
+				"submissionDescription": "test",
+				"instrument": {
+					"platform": "Nanopore",
+					"model": "Nanopore GridION",
+					"flowcell": "96"
+				},
+				"seReads": [{
+					"uri": "",
+					"sp3_filepath": "/data/inputs/s3/rCgxZDvfQCNzMAQMVzBwhlOxgfWKlhzu/307fb824-4f15-42c0-bb82-6b7010432f40/299cdf1b-fc5b-45ab-9cdf-1af8b9fd4b57_C1.fastq.gz",
+					"md5": "9bdd47cb2cb67460ef6fdf2ae1501a86"
+				}],
+				"peReads": []
+			}, {
+				"name": "d662133f-4845-43a1-af9c-71510f151c27",
+				"host": "Homo sapiens",
+				"collectionDate": "2021-10-06T09:59:04.760Z",
+				"country": "United Kingdom",
+				"fileName": "d662133f-4845-43a1-af9c-71510f151c27",
+				"specimenOrganism": "SARS-CoV-2",
+				"specimenSource": "Swab",
+				"status": "Uploaded",
+				"comments": "",
+				"sampleDetails3": "",
+				"submissionTitle": "test",
+				"submissionDescription": "test",
+				"instrument": {
+					"platform": "Nanopore",
+					"model": "Nanopore GridION",
+					"flowcell": "96"
+				},
+				"seReads": [{
+					"uri": "",
+					"sp3_filepath": "/data/inputs/s3/rCgxZDvfQCNzMAQMVzBwhlOxgfWKlhzu/307fb824-4f15-42c0-bb82-6b7010432f40/d662133f-4845-43a1-af9c-71510f151c27_C1.fastq.gz",
+					"md5": "8345e9ec1e04384e7162307f43a5fbc5"
+				}],
+				"peReads": []
+			}, {
+				"name": "939f8300-cf78-4909-9fb2-e7716f52199b",
+				"host": "Homo sapiens",
+				"collectionDate": "2021-10-06T09:59:04.760Z",
+				"country": "United Kingdom",
+				"fileName": "939f8300-cf78-4909-9fb2-e7716f52199b",
+				"specimenOrganism": "SARS-CoV-2",
+				"specimenSource": "Swab",
+				"status": "Uploaded",
+				"comments": "",
+				"sampleDetails3": "",
+				"submissionTitle": "test",
+				"submissionDescription": "test",
+				"instrument": {
+					"platform": "Nanopore",
+					"model": "Nanopore GridION",
+					"flowcell": "96"
+				},
+				"seReads": [{
+					"uri": "",
+					"sp3_filepath": "/data/inputs/s3/rCgxZDvfQCNzMAQMVzBwhlOxgfWKlhzu/307fb824-4f15-42c0-bb82-6b7010432f40/939f8300-cf78-4909-9fb2-e7716f52199b_C1.fastq.gz",
+					"md5": "6d61bccbdbf931c17f8ab748dd704683"
+				}],
+				"peReads": []
+			}, {
+				"name": "b21044fa-2b3d-4a49-9e5a-557af4291d8b",
+				"host": "Homo sapiens",
+				"collectionDate": "2021-10-06T09:59:04.760Z",
+				"country": "United Kingdom",
+				"fileName": "b21044fa-2b3d-4a49-9e5a-557af4291d8b",
+				"specimenOrganism": "SARS-CoV-2",
+				"specimenSource": "Swab",
+				"status": "Uploaded",
+				"comments": "",
+				"sampleDetails3": "",
+				"submissionTitle": "test",
+				"submissionDescription": "test",
+				"instrument": {
+					"platform": "Nanopore",
+					"model": "Nanopore GridION",
+					"flowcell": "96"
+				},
+				"seReads": [{
+					"uri": "",
+					"sp3_filepath": "/data/inputs/s3/rCgxZDvfQCNzMAQMVzBwhlOxgfWKlhzu/307fb824-4f15-42c0-bb82-6b7010432f40/b21044fa-2b3d-4a49-9e5a-557af4291d8b_C1.fastq.gz",
+					"md5": "15f48a1dd39b35fdb0767be148575f72"
+				}],
+				"peReads": []
+			}, {
+				"name": "b917ffee-97cc-4879-a1e4-3f287d9cd6ac",
+				"host": "Homo sapiens",
+				"collectionDate": "2021-10-06T09:59:04.760Z",
+				"country": "United Kingdom",
+				"fileName": "b917ffee-97cc-4879-a1e4-3f287d9cd6ac",
+				"specimenOrganism": "SARS-CoV-2",
+				"specimenSource": "Swab",
+				"status": "Uploaded",
+				"comments": "",
+				"sampleDetails3": "",
+				"submissionTitle": "test",
+				"submissionDescription": "test",
+				"instrument": {
+					"platform": "Nanopore",
+					"model": "Nanopore GridION",
+					"flowcell": "96"
+				},
+				"seReads": [{
+					"uri": "",
+					"sp3_filepath": "/data/inputs/s3/rCgxZDvfQCNzMAQMVzBwhlOxgfWKlhzu/307fb824-4f15-42c0-bb82-6b7010432f40/b917ffee-97cc-4879-a1e4-3f287d9cd6ac_C1.fastq.gz",
+					"md5": "064b27df0d2b066255a838b8d0140c0b"
+				}],
+				"peReads": []
+			}, {
+				"name": "06a13635-bd35-418f-a230-39890409625e",
+				"host": "Homo sapiens",
+				"collectionDate": "2021-10-06T09:59:04.760Z",
+				"country": "United Kingdom",
+				"fileName": "06a13635-bd35-418f-a230-39890409625e",
+				"specimenOrganism": "SARS-CoV-2",
+				"specimenSource": "Swab",
+				"status": "Uploaded",
+				"comments": "",
+				"sampleDetails3": "",
+				"submissionTitle": "test",
+				"submissionDescription": "test",
+				"instrument": {
+					"platform": "Nanopore",
+					"model": "Nanopore GridION",
+					"flowcell": "96"
+				},
+				"seReads": [{
+					"uri": "",
+					"sp3_filepath": "/data/inputs/s3/rCgxZDvfQCNzMAQMVzBwhlOxgfWKlhzu/307fb824-4f15-42c0-bb82-6b7010432f40/06a13635-bd35-418f-a230-39890409625e_C1.fastq.gz",
+					"md5": "fb16726084a1b209968f7c82dd79809b"
+				}],
+				"peReads": []
+			}, {
+				"name": "361cfd4c-0169-4162-a9ac-372fe2c8caf5",
+				"host": "Homo sapiens",
+				"collectionDate": "2021-10-06T09:59:04.760Z",
+				"country": "United Kingdom",
+				"fileName": "361cfd4c-0169-4162-a9ac-372fe2c8caf5",
+				"specimenOrganism": "SARS-CoV-2",
+				"specimenSource": "Swab",
+				"status": "Uploaded",
+				"comments": "",
+				"sampleDetails3": "",
+				"submissionTitle": "test",
+				"submissionDescription": "test",
+				"instrument": {
+					"platform": "Nanopore",
+					"model": "Nanopore GridION",
+					"flowcell": "96"
+				},
+				"seReads": [{
+					"uri": "",
+					"sp3_filepath": "/data/inputs/s3/rCgxZDvfQCNzMAQMVzBwhlOxgfWKlhzu/307fb824-4f15-42c0-bb82-6b7010432f40/361cfd4c-0169-4162-a9ac-372fe2c8caf5_C1.fastq.gz",
+					"md5": "5a983c254ffd4a88bf7921ed4190fb68"
+				}],
+				"peReads": []
+			}, {
+				"name": "f9a72fa0-466e-41ff-8871-b2e2cbcf3817",
+				"host": "Homo sapiens",
+				"collectionDate": "2021-10-06T09:59:04.760Z",
+				"country": "United Kingdom",
+				"fileName": "f9a72fa0-466e-41ff-8871-b2e2cbcf3817",
+				"specimenOrganism": "SARS-CoV-2",
+				"specimenSource": "Swab",
+				"status": "Uploaded",
+				"comments": "",
+				"sampleDetails3": "",
+				"submissionTitle": "test",
+				"submissionDescription": "test",
+				"instrument": {
+					"platform": "Nanopore",
+					"model": "Nanopore GridION",
+					"flowcell": "96"
+				},
+				"seReads": [{
+					"uri": "",
+					"sp3_filepath": "/data/inputs/s3/rCgxZDvfQCNzMAQMVzBwhlOxgfWKlhzu/307fb824-4f15-42c0-bb82-6b7010432f40/f9a72fa0-466e-41ff-8871-b2e2cbcf3817_C1.fastq.gz",
+					"md5": "7c5c23ef7e1cc169a46687f9c52426ef"
+				}],
+				"peReads": []
+			}],
+			"fileName": "307fb824-4f15-42c0-bb82-6b7010432f40",
+			"bucketName": "rCgxZDvfQCNzMAQMVzBwhlOxgfWKlhzu",
+			"uploadedOn": "2021-10-06T09:59:04.760Z",
+			"uploadedBy": "oliver.bannister@ouh.nhs.uk",
+			"organisation": "GPAS",
+			"site": "",
+			"errorMsg": ""
+		}
+	}
+}, {
+	"_id": {
+		"$oid": "615d88162733c6cbc22171f4"
+	},
+	"catsup_uuid": "9d302452-d5b5-45c7-ab0c-3c7ad24b84a6",
+	"added_time": "1633519638",
+	"apex_batch": {
+		"status": "success",
+		"id": "273397425188863611944609920003674363934"
+	},
+	"apex_samples": {
+		"samples": [{
+			"id": "273397425188864820870429534632849070110",
+			"name": "644796d3-a507-436b-ad0c-a8aa832d8679",
+			"fileName": "644796d3-a507-436b-ad0c-a8aa832d8679",
+			"filePath": "644796d3-a507-436b-ad0c-a8aa832d8679",
+			"status": "Uploaded",
+			"uploadedOn": "2021-10-06T11:27:18.110Z",
+			"errorMsg": null
+		}]
+	},
+	"run_uuid": "941c5bd0-1bcd-41f0-84d2-3c2be0a086ea",
+	"submitted_metadata": {
+		"batch": {
+			"samples": [{
+				"name": "644796d3-a507-436b-ad0c-a8aa832d8679",
+				"host": "Homo sapiens",
+				"collectionDate": "2021-10-06T11:27:18.110Z",
+				"country": "United Kingdom",
+				"fileName": "644796d3-a507-436b-ad0c-a8aa832d8679",
+				"specimenOrganism": "SARS-CoV-2",
+				"specimenSource": "Swab",
+				"status": "Uploaded",
+				"comments": "",
+				"sampleDetails3": "",
+				"submissionTitle": "test",
+				"submissionDescription": "test",
+				"instrument": {
+					"platform": "Nanopore",
+					"model": "Nanopore GridION",
+					"flowcell": "96"
+				},
+				"seReads": [{
+					"uri": "",
+					"sp3_filepath": "/data/inputs/s3/rCgxZDvfQCNzMAQMVzBwhlOxgfWKlhzu/9d302452-d5b5-45c7-ab0c-3c7ad24b84a6/644796d3-a507-436b-ad0c-a8aa832d8679_C1.fastq.gz",
+					"md5": "f19b763866632ca024dfd540d639e147"
+				}],
+				"peReads": []
+			}],
+			"fileName": "9d302452-d5b5-45c7-ab0c-3c7ad24b84a6",
+			"bucketName": "rCgxZDvfQCNzMAQMVzBwhlOxgfWKlhzu",
+			"uploadedOn": "2021-10-06T11:27:18.110Z",
+			"uploadedBy": "oliver.bannister@ouh.nhs.uk",
+			"organisation": "GPAS",
+			"site": "",
+			"errorMsg": ""
+		}
+	}
+}]
