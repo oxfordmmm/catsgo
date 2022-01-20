@@ -1,34 +1,31 @@
-IF SELECT SCHEMA_NAME FROM INFORMATION_SCHEMA.SCHEMATA 
-WHERE SCHEMA_NAME = 'sp3' THEN
-  SELECT 'Database sp3 already exists'
-ELSE
-
-  CREATE DATABASE `sp3`;
+  CREATE DATABASE IF NOT EXISTS `sp3`;
  
   -- Table creation
-  CREATE TABLE `dirlist` (
+  CREATE TABLE IF NOT EXISTS `dirlist` (
     id int unsigned auto_increment primary key,
     watch_dir varchar(40)
   );
 
-  CREATE TABLE `dirlist_dir` (
+  CREATE TABLE IF NOT EXISTS `dirlist_dir` (
     id int unsigned auto_increment primary key,
     dirlist_id int,
-    dir varchar(40)
+    dir varchar(40),
+    FOREIGN KEY (dirlist_id) references dirlist(id)
   );
 
-  CREATE TABLE `ignore_list` (
+  CREATE TABLE IF NOT EXISTS `ignore_list` (
     id int unsigned auto_increment primary key,
     watch_dir varchar(40)
   );
 
-  CREATE TABLE `ignore_list_dir` (
+  CREATE TABLE IF NOT EXISTS `ignore_list_dir` (
     id int unsigned auto_increment primary key,
     ignore_list_id int,
-    dir varchar(40)
+    dir varchar(40),
+    FOREIGN KEY (ignore_list_id) references ignore_list(id)
   );
 
-  CREATE TABLE `metadata` (
+  CREATE TABLE IF NOT EXISTS `metadata` (
     id int unsigned auto_increment primary key,
     catsup_uuid varchar(40),
     added_time varchar()
@@ -39,28 +36,16 @@ ELSE
     submitted_metadata json,
   );
 
-  CREATE TABLE `runlist` (
+  CREATE TABLE IF NOT EXISTS `runlist` (
     id int unsigned auto_increment primary key,
     pipeline_name varchar(50)
   );
 
-  CREATE TABLE `runlist_finished` (
+  CREATE TABLE IF NOT EXISTS `runlist_finished` (
     id int unsigned auto_increment primary key,
     runlist_id int,
-    finished_uuids varchar(50)
-  );
-
-  -- Relationship creation
-  ALTER TABLE `dirlist_dir` (
-    ADD FOREIGN KEY (dirlist_id) references dirlist(id)
-  );
-
-  ALTER TABLE `ignore_list_dir` (
-    ADD FOREIGN KEY (ignore_list_id) references ignore_list(id)
-  );
-
-  ALTER TABLE `runlist_finished` (
-    ADD FOREIGN KEY (runlist_id) references runlist(id)
+    finished_uuids varchar(50),
+    FOREIGN KEY (runlist_id) references runlist(id)
   );
 
 END IF;
