@@ -9,5 +9,6 @@
     "read_pattern": "*_R{1,2}_001.fastq.gz",
     "reference": "AUTO",
     "save_rmdup_bam": "false",
-    "save_samtools_gvcf": "false"
+    "save_samtools_gvcf": "false",
+    "FN4_bucket_name": "fn4-queue"
 }
