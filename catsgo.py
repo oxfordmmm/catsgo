@@ -108,7 +108,6 @@ def run_clockwork(flow_name, fetch_uuid):
         "ref-and---ref": config["reference"],
         "save_rmdup_bam-and---save_rmdup_bam": config["save_rmdup_bam"],
         "save_samtools_gvcf-and---save_samtools_gvcf": config["save_samtools_gvcf"],
-        "FN4-bucket-name-and---bucketNameFN4": config["FN4_bucket_name"],
         "api": "v1",
     }
 
