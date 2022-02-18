@@ -314,16 +314,16 @@ def process_dir(new_dir, watch_dir, bucket_name, apex_token, max_submission_atte
 
         upload_bucket = db.get_output_bucket_from_input(bucket_name, apex_token)
         if pipeline == "illumina-1":
-            ret = catsgo.run_covid_illumina_catsup(
-                "oxforduni-ncov2019-artic-nf-illumina",
+            ret = catsgo.run_covid_catsup(
+                "gpas-sars-cov2-illumina",
                 str(Path(watch_dir) / new_dir),
                 bucket_name,
                 upload_bucket,
                 new_dir,
             )
         elif pipeline == "nanopore-1":
-            ret = catsgo.run_covid_illumina_catsup(  # it says illumina but the form is the same so we can reuse it here
-                "oxforduni-ncov2019-artic-nf-nanopore",
+            ret = catsgo.run_covid_catsup(
+                "gpas-sars-cov2-nanopore",
                 str(Path(watch_dir) / new_dir),
                 bucket_name,
                 upload_bucket,

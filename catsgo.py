@@ -115,7 +115,7 @@ def run_clockwork(flow_name, fetch_uuid):
     return json.loads(response.text)
 
 
-def run_covid_illumina(flow_name, input_dir):
+def run_covid(flow_name, input_dir):
     url = sp3_url + f"/flow/{ flow_name }/new"
     timestamp = datetime.datetime.now().strftime("%Y%m%d_%H%M%S")
     run_name = f"sp3c-{ flow_name }-{ timestamp }"
@@ -136,7 +136,7 @@ def run_covid_illumina(flow_name, input_dir):
     return json.loads(response.text)
 
 
-def run_covid_illumina_objstore(flow_name, obj_csv):
+def run_covid_objstore(flow_name, obj_csv):
     url = sp3_url + f"/flow/{ flow_name }/new"
     timestamp = datetime.datetime.now().strftime("%Y%m%d_%H%M%S")
     run_name = f"sp3c-{ flow_name }-{ timestamp }"
@@ -156,7 +156,7 @@ def run_covid_illumina_objstore(flow_name, obj_csv):
     return json.loads(response.text)
 
 
-def run_covid_illumina_catsup(
+def run_covid_catsup(
     flow_name, indir, bucket_name, upload_bucket, catsup_uuid
 ):
     url = sp3_url + f"/flow/{ flow_name }/new"
@@ -381,9 +381,9 @@ if __name__ == "__main__":
             download_report,
             download_nextflow_task_data,
             download_nextflow_task_data_csv,
-            run_covid_illumina,
-            run_covid_illumina_objstore,
-            run_covid_illumina_catsup,
+            run_covid,
+            run_covid_objstore,
+            run_covid_catsup,
             get_all_runs,
             get_all_runs2,
         ]
