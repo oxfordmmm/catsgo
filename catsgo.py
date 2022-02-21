@@ -147,7 +147,6 @@ def run_covid_objstore(flow_name, obj_csv):
         "context": "local",
         "objstore-and---objstore": obj_csv,
         "FN4-bucket-name-and---bucketNameFN4": config["FN4_bucket_name"],
-        "varcaller-and---varCaller": "viridian",
         "api": "v1",
     }
 
@@ -172,7 +171,6 @@ def run_covid_catsup(
         "bucket-name-and---bucket": bucket_name,
         "upload-bucket-and---uploadBucket": upload_bucket,
         "FN4-bucket-name-and---bucketNameFN4": config["FN4_bucket_name"],
-        "varcaller-and---varCaller": "viridian",
         "api": "v1",
     }
 
@@ -191,7 +189,6 @@ def run_covid_ena(flow_name, ena_csv, ena_batch):
         "run_name": run_name,
         "context": "local",
         "ena_csv-and---ena_csv": ena_csv,
-        "varcaller-and---varCaller": "viridian",
         "FN4-bucket-name-and---bucketNameFN4": config["FN4_bucket_name"],
         "api": "v1",
     }
