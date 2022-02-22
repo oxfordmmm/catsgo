@@ -150,13 +150,16 @@ def run_covid_objstore(flow_name, obj_csv):
         "api": "v1",
     }
 
+    if flow_name == "oxforduni-ncov2019-artic-nf-illumina" or flow_name == "oxforduni-ncov2019-artic-nf-nanopore":
+        data["varcaller-and---varCaller"] = "viridian"
+
     login()
     response = session.post(url, data=data)
     return json.loads(response.text)
 
 
 def run_covid_catsup(
-    flow_name, indir, bucket_name, upload_bucket, catsup_uuid
+    flow_name, indir, bucket_name, upload_bucket, catsup_uuid,
 ):
     url = sp3_url + f"/flow/{ flow_name }/new"
     timestamp = datetime.datetime.now().strftime("%Y%m%d_%H%M%S")
@@ -173,6 +176,9 @@ def run_covid_catsup(
         "FN4-bucket-name-and---bucketNameFN4": config["FN4_bucket_name"],
         "api": "v1",
     }
+
+    if flow_name == "oxforduni-ncov2019-artic-nf-illumina" or flow_name == "oxforduni-ncov2019-artic-nf-nanopore":
+        data["varcaller-and---varCaller"] = "viridian"
 
     login()
     response = session.post(url, data=data)
@@ -192,6 +198,9 @@ def run_covid_ena(flow_name, ena_csv, ena_batch):
         "FN4-bucket-name-and---bucketNameFN4": config["FN4_bucket_name"],
         "api": "v1",
     }
+
+    if flow_name == "oxforduni-ncov2019-artic-nf-illumina" or flow_name == "oxforduni-ncov2019-artic-nf-nanopore":
+        data["varcaller-and---varCaller"] = "viridian"
 
     login()
     response = session.post(url, data=data)

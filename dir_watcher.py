@@ -238,7 +238,7 @@ def get_and_format_metadata(watch_dir, new_dir):
 submission_attempts = defaultdict(int)
 
 
-def process_dir(new_dir, watch_dir, bucket_name, apex_token, max_submission_attempts):
+def process_dir(new_dir, watch_dir, bucket_name, apex_token, max_submission_attempts, workflow):
     """
     the watch process has detected a new upload. this processes it
 
@@ -313,21 +313,39 @@ def process_dir(new_dir, watch_dir, bucket_name, apex_token, max_submission_atte
                 return False
         upload_bucket = db.get_output_bucket_from_input(bucket_name, apex_token)
         if pipeline == "illumina-1":
-            ret = catsgo.run_covid_catsup(
-                "oxforduni-gpas-sars-cov2-illumina",
-                str(Path(watch_dir) / new_dir),
-                bucket_name,
-                upload_bucket,
-                new_dir,
-            )
+            if str(workflow).lower() == "sars-cov2_workflows":
+                ret = catsgo.run_covid_catsup(
+                    "oxforduni-gpas-sars-cov2-illumina",
+                    str(Path(watch_dir) / new_dir),
+                    bucket_name,
+                    upload_bucket,
+                    new_dir,
+                )
+            else:
+                ret = catsgo.run_covid_catsup(
+                    "oxforduni-ncov2019-artic-nf-illumina",
+                    str(Path(watch_dir) / new_dir),
+                    bucket_name,
+                    upload_bucket,
+                    new_dir,
+                )
         elif pipeline == "nanopore-1":
-            ret = catsgo.run_covid_catsup(
-                "oxforduni-gpas-sars-cov2-nanopore",
-                str(Path(watch_dir) / new_dir),
-                bucket_name,
-                upload_bucket,
-                new_dir,
-            )
+            if str(workflow).lower() == "sars-cov2_workflows":
+                ret = catsgo.run_covid_catsup(
+                    "oxforduni-gpas-sars-cov2-nanopore",
+                    str(Path(watch_dir) / new_dir),
+                    bucket_name,
+                    upload_bucket,
+                    new_dir,
+                )
+            else:
+                ret = catsgo.run_covid_catsup(
+                    "oxforduni-ncov2019-artic-nf-nanopore",
+                    str(Path(watch_dir) / new_dir),
+                    bucket_name,
+                    upload_bucket,
+                    new_dir,
+                )
         else:
             logging.error("unknown pipeline: {pipeline}. This shouldn't be reachable")
 
@@ -351,14 +369,14 @@ def watch(
     watch_dir="/data/inputs/s3/oracle-test",
     bucket_name="catsup-test",
     max_submission_attempts=3,
+    workflow="ncov2019-artic-nf"
 ):
     """
     watch watch_dir for new directories that have the upload_done.txt file (signaling that an upload was successful)
 
     watch_dir example: /data/inputs/s3/oracle-test (for the catsup-test bucket. In the future we should probably name the directories the same as the bucket name!
-    pipeline: the pipeline that we want to run (currently only "covid_illumina")
-    flow_name: the sp3 flow name (currently oxforduni-ncov2019-artic-nf-illumina)
     bucket_name: the bucket name that's mounted in the watch_dir directory (used by the pipeline to fetch the sample files)
+    workflow: currently a choice between ncov2019-artic-nf and sars-cov2_workflows
     """
     print(doc)
     watch_dir = Path(watch_dir)
@@ -382,7 +400,7 @@ def watch(
             apex_token = db.get_apex_token()
         for new_dir in new_dirs:  #  new_dir is the catsup upload uuid
             r = process_dir(
-                new_dir, watch_dir, bucket_name, apex_token, max_submission_attempts
+                new_dir, watch_dir, bucket_name, apex_token, max_submission_attempts, workflow
             )
             if r:
                 # if we've started a run then stop processing and go to sleep. This prevents
