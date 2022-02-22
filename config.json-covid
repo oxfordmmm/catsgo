@@ -4,5 +4,5 @@
     "fetch_method": "link",
     "sp3_url": "sp3_covid_site",
     "pattern": "*{1,2}.fastq.gz",
-    "FN4_bucket_name": "fn4-queue"  
+    "FN4_bucket_name": "FN4-queue"
 }
