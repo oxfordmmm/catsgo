@@ -317,7 +317,7 @@ def get_finished_ok_sp3_runs(pipeline_name):
     )
 
 
-def watch(flow_name="gpas-sars-cov2-illumina"):
+def watch(flow_name="oxforduni-gpas-sars-cov2-illumina"):
     apex_token = None
     apex_token_time = 0
     config = utils.load_oracle_config("config.json")
