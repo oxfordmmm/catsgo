@@ -369,7 +369,7 @@ def watch(
     watch_dir="/data/inputs/s3/oracle-test",
     bucket_name="catsup-test",
     max_submission_attempts=3,
-    workflow="gpas-old"
+    workflow="ncov2019-artic-nf"
 ):
     """
     watch watch_dir for new directories that have the upload_done.txt file (signaling that an upload was successful)
