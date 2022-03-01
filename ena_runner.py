@@ -98,7 +98,7 @@ def create_batch(
                         validSample = False
                     elif (
                         sample_method == "nanopore"
-                        and len(set((new_dir_prefix / dir).glob("*.fastq.md5"))) != 1
+                        and len(set((new_dir_prefix / dir).glob("*.fastq.gz"))) != 1
                     ):
                         print(
                             f"{dir} is not a valid nanopore sample, there is more than one fastq."
@@ -110,25 +110,24 @@ def create_batch(
 
                 if validSample:
                     # Check md5 sums of sequences against ENA values
-                    for file in (new_dir_prefix / dir).glob("*.fastq.md5"):
+                    for file in (new_dir_prefix / dir).glob("*.fastq.gz"):
                         # get the md5 from the file
                         if not file.with_suffix(".md5").exists():
                             print(f"md5 checksum does not exist for {file}")
                             break
                         with file.with_suffix(".md5").open(mode="rb") as md5_file:
-                            ena_md5 = md5_file.read()
+                            seq_md5 = md5_file.read()
                         validFile = False
-                        seq_md5 = ""
-                        with file.open(mode="rb") as seq_file:
-                            md5_hash = hashlib.md5()
-                            content = seq_file.read()
-                            md5_hash.update(content)
-                            seq_md5 = md5_hash.hexdigest()
-                        validFile = seq_md5 == ena_md5
-                        # for ena_md5 in metadata["fastq_md5"].split(";"):
-                        #     if ena_md5 == seq_md5:
-                        #         validFile = True
-                        #         break
+                        # seq_md5 = ""
+                        # with file.open(mode="rb") as seq_file:
+                        # md5_hash = hashlib.md5()
+                        # content = seq_file.read()
+                        # md5_hash.update(content)
+                        # seq_md5 = md5_hash.hexdigest()
+                        for ena_md5 in metadata["fastq_md5"].split(";"):
+                            if ena_md5 == seq_md5:
+                                validFile = True
+                                break
                         if not validFile:
                             print(
                                 f"{dir} is not a valid sample, an md5 does not match the ena md5."
