@@ -161,6 +161,7 @@ def process_batch(sample_method, samples_to_submit, batch_dir):
         # ena_metadata = get_ena_metadata(sample.name)
         p = {
             "name": sample.name,
+            "tags": ["ENA_Data"],
             "submissionTitle": submission_name,
             "submissionDescription": submission_name,
             # "specimenOrganism" : ena_metadata["scientific_name"],
