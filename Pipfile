@@ -1,0 +1,28 @@
+[[source]]
+url = "https://pypi.org/simple"
+verify_ssl = true
+name = "pypi"
+
+[packages]
+argh = "==0.26.2"
+certifi = "==2020.12.5"
+chardet = "==4.0.0"
+idna = "==2.10"
+requests = "==2.25.1"
+urllib3 = ">=1.26.4"
+coverage = "==5.5"
+sphinx = "*"
+pandas = "*"
+pymongo = "==3.12.0"
+code2flow = "*"
+sphinx-rtd-theme = "*"
+sphinx-pyreverse = "*"
+pylint = "*"
+pytest = "*"
+pytest-mongodb = "*"
+pytest-check = "*"
+
+[dev-packages]
+
+[requires]
+python_version = "3.7"

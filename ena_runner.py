@@ -111,6 +111,9 @@ def create_batch(
                 if validSample:
                     # Check md5 sums of sequences against ENA values
                     for file in (new_dir_prefix / dir).glob("*"):
+                        # get the md5 from the file
+                        with file.with_suffix('.md5').open as md5_file:
+                            ena_md5 = md5_file.read()
                         validFile = False
                         seq_md5 = ""
                         with file.open(mode="rb") as seq_file:
@@ -118,10 +121,11 @@ def create_batch(
                             content = seq_file.read()
                             md5_hash.update(content)
                             seq_md5 = md5_hash.hexdigest()
-                        for ena_md5 in metadata["fastq_md5"].split(";"):
-                            if ena_md5 == seq_md5:
-                                validFile = True
-                                break
+                        validFile = seq_md5 == ena_md5
+                        # for ena_md5 in metadata["fastq_md5"].split(";"):
+                        #     if ena_md5 == seq_md5:
+                        #         validFile = True
+                        #         break
                         if not validFile:
                             print(
                                 f"{dir} is not a valid sample, an md5 does not match the ena md5."
