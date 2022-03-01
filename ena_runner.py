@@ -178,10 +178,10 @@ def process_batch(sample_method, samples_to_submit, batch_dir):
         elif ena_metadata["first_public"]:
             p["collectionDate"] = ena_metadata["first_public"]
 
-        if ena_metadata["country"] != "":
-            p["country"] = ena_metadata["country"]
-        else:
-            p["country"] = "United Kingdom"
+        # if ena_metadata["country"] != "":
+        p["country"] = ena_metadata["country"]
+        # else:
+        # p["country"] = "United Kingdom"
 
         if (
             ena_metadata["scientific_name"]
@@ -228,7 +228,8 @@ def process_batch(sample_method, samples_to_submit, batch_dir):
             "organisation": "Public Repository Data",
             "site": "ENA Data",
             "uploadedOn": datetime.datetime.now().isoformat()[:-3] + "Z",
-            "uploadedBy": "Jeremy.Swann@ndm.ox.ac.uk",
+            # "uploadedBy": "Jeremy.Swann@ndm.ox.ac.uk",
+            "uploadedBy": "MARC.BROUARD@NDM.OX.AC.UK",
             "samples": samples,
         }
     }
