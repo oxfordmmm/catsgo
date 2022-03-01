@@ -116,7 +116,7 @@ def create_batch(
                             print(f"md5 checksum does not exist for {file}")
                             break
                         with file.with_suffix(".md5").open(mode="rb") as md5_file:
-                            seq_md5 = md5_file.read()
+                            seq_md5 = str(md5_file.read())
                         validFile = False
                         # seq_md5 = ""
                         # with file.open(mode="rb") as seq_file:
