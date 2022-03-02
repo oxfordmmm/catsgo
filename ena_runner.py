@@ -41,9 +41,16 @@ def get_cached_dirlist(sample_method, path):
     """
     get the list of Samples that have already run from a sample_method (illumina or nanopore) and path (prefix/shard)
     """
-    return list(
-        dirlist.find({"sample_method": sample_method, "path": path}, {"samples": 1})
+    ret = dirlist.find_one(
+        {"sample_method": sample_method, "path": path}, {"samples": 1}
     )
+    if not ret:
+        return list()
+    else:
+        return list(ret.get("samples"))
+    # return list(
+    #    dirlist.find({"sample_method": sample_method, "path": path}, {"samples": 1})
+    # )
 
 
 def add_to_cached_dirlist(sample_method, path, samples):
@@ -223,7 +230,7 @@ def process_batch(sample_method, samples_to_submit, batch_dir):
     submission = {
         "batch": {
             "fileName": batch_name,
-            "bucketName": sample_method.parent.name,
+            "bucketName": sample_method.parent.parent.name,
             "organisation": "Public Repository Data",
             "site": "ENA Data",
             "uploadedOn": datetime.datetime.now().isoformat()[:-3] + "Z",
@@ -253,7 +260,7 @@ def process_batch(sample_method, samples_to_submit, batch_dir):
                         Path("/data/inputs/s3/") / submission["batch"]["bucketName"]
                     )
                 )
-                + "/",
+                + "/ENA/",
                 "sample_accession": sample.name,
             }
             writer1.writerow(out)
@@ -335,7 +342,7 @@ def watch(watch_dir="", batch_dir="", size_batch=200):
                                             / shard_dir
                                             / sub_shard_dir
                                             / z
-                                        ).glob("*")
+                                        ).glob("*.fastq.gz")
                                     )
                                 )
                                 >= 1
