@@ -260,7 +260,7 @@ def process_batch(sample_method, samples_to_submit, batch_dir):
                         Path("/data/inputs/s3/") / submission["batch"]["bucketName"]
                     )
                 )
-                + "/ENA/",
+                + "/",
                 "sample_accession": sample.name,
             }
             writer1.writerow(out)
@@ -381,9 +381,10 @@ def watch(watch_dir="", batch_dir="", size_batch=200):
                                         sample_method, samples_to_submit, batch_dir
                                     )
             # Should submit leftovers for this sample_method to avoid mixing.
-            samples_to_submit = process_batch(
-                sample_method, samples_to_submit, batch_dir
-            )
+            if len(samples_to_submit) >= 1:
+                samples_to_submit = process_batch(
+                    sample_method, samples_to_submit, batch_dir
+                )
 
         print("sleeping for 60")
         time.sleep(60)
