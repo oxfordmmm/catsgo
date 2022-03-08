@@ -116,7 +116,8 @@ def create_batch(
                     validSample = False
 
                 if validSample:
-                    # Check md5 sums of sequences against ENA values
+                    # Check md5 sums of sequences against ENA values stored in the .md5 files
+                    # this is done because read-it-and-keep has been run across the files
                     for file in (new_dir_prefix / dir).glob("*.fastq.gz"):
                         # get the md5 from the file
                         if not file.with_suffix(".md5").exists():
@@ -125,12 +126,6 @@ def create_batch(
                         with file.with_suffix(".md5").open(mode="rb") as md5_file:
                             seq_md5 = md5_file.read().decode("utf8")
                         validFile = False
-                        # seq_md5 = ""
-                        # with file.open(mode="rb") as seq_file:
-                        # md5_hash = hashlib.md5()
-                        # content = seq_file.read()
-                        # md5_hash.update(content)
-                        # seq_md5 = md5_hash.hexdigest()
                         for ena_md5 in metadata["fastq_md5"].split(";"):
                             if ena_md5 == seq_md5:
                                 validFile = True
@@ -184,10 +179,7 @@ def process_batch(sample_method, samples_to_submit, batch_dir):
         elif ena_metadata["first_public"]:
             p["collectionDate"] = ena_metadata["first_public"]
 
-        # if ena_metadata["country"] != "":
         p["country"] = ena_metadata["country"]
-        # else:
-        # p["country"] = "United Kingdom"
 
         if (
             ena_metadata["scientific_name"]
@@ -357,7 +349,6 @@ def watch(watch_dir="", batch_dir="", size_batch=200):
                         )
                         # submissions to be processed are those that are new and have not been marked as failed
                         new_dirs = candidate_dirs.difference(cached_dirlist)
-                        # print(f"{sample_method} - {prefix_dir} - {shard_dir} - {new_dirs}")
 
                         if new_dirs:
                             new_dirs = list(new_dirs)
