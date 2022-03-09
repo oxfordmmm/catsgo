@@ -1,0 +1,11 @@
+[Unit]
+Description=SP3 catsgo ena_runner for bucket %i
+
+[Service]
+KillMode=process
+WorkingDirectory=/home/ubuntu/catsgo
+ExecStart=/home/ubuntu/env/bin/python /home/ubuntu/catsgo/ena_runner.py watch -b /data/inputs/s3/%i/ENA/batches -w /data/inputs/s3/%i/ENA
+RemainAfterExit=True
+
+[Install]
+WantedBy=default.target
