@@ -11,4 +11,5 @@
     "save_rmdup_bam": "false",
     "save_samtools_gvcf": "false",
     "FN4_bucket_name": "fn4-queue"
+    "ENA_user": "USER.NAME@GPAS.ORG"
 }

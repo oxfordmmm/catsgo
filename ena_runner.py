@@ -30,6 +30,8 @@ dirlist = mydb["dirlist"]
 mydb2 = myclient["dir_watcher"]
 dirwatcher_metadata = mydb2["metadata"]
 
+config = utils.load_config("config.json")
+
 logging.basicConfig(
     level=logging.DEBUG,
     format="%(asctime)s.%(msecs)03d %(levelname)s %(module)s - %(funcName)s: %(message)s",
@@ -227,7 +229,7 @@ def process_batch(sample_method, samples_to_submit, batch_dir):
             "site": "ENA Data",
             "uploadedOn": datetime.datetime.now().isoformat()[:-3] + "Z",
             # "uploadedBy": "Jeremy.Swann@ndm.ox.ac.uk",
-            "uploadedBy": "MARC.BROUARD@NDM.OX.AC.UK",
+            "uploadedBy": config["ENA_user"],
             "samples": samples,
         }
     }
