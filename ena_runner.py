@@ -70,6 +70,7 @@ def add_to_cached_dirlist(sample_method, path, samples):
 
 
 def get_ena_metadata(sample_name):
+    logging.info(f"getting ena metadata for {sample_name}")
     with gzip.open("./data/batch0-validated.csv.gz", mode="rt") as f:
         reader = csv.DictReader(f)
         ena_rec = [record for record in reader if record["sample_name"] == sample_name]
@@ -172,7 +173,6 @@ def process_batch(sample_method, samples_to_submit, batch_dir):
     submission_name = f"Entry for ENA sample processing - {batch_name}"
 
     for sample, ena_metadata in samples_to_submit:
-        # ena_metadata = get_ena_metadata(sample.name)
         p = {
             "name": sample.name,
             "tags": ["ENA_Data"],
@@ -182,7 +182,7 @@ def process_batch(sample_method, samples_to_submit, batch_dir):
             "status": "Uploaded",
             "instrument": {
                 "platform": ena_metadata["instrument_platform"],
-                "model": ena_metadata["instrument_model"],
+                # "model": ena_metadata["instrument_model"],
                 "flowcell": 0,
             },
         }
@@ -194,7 +194,7 @@ def process_batch(sample_method, samples_to_submit, batch_dir):
 
         p["country"] = ena_metadata["country"]
 
-        p["specimenOrganism"] = ena_metadata["scientific_organism"]
+        p["specimenOrganism"] = ena_metadata["specimen_organism"]
 
         if sample_method.name == "illumina":
             p["peReads"] = [
