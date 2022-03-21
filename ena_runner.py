@@ -6,6 +6,7 @@ batches them to be run by catsgo
 """
 
 import csv
+import gzip
 import logging
 import time
 import uuid
@@ -68,13 +69,23 @@ def add_to_cached_dirlist(sample_method, path, samples):
     )
 
 
+def get_ena_metadata(sample_name):
+    with gzip.open("./data/batch0-validated.csv.gz", mode="rt") as f:
+        reader = csv.DictReader(f)
+        ena_rec = [record for record in reader if record["sample_name"] == sample_name]
+        if ena_rec:
+            return ena_rec[0]
+        else:
+            return None
+
+
 def create_batch(
     exisiting_dirs, size_batch, new_dirs=None, new_dir_prefix=None, sample_method=None
 ):
     if new_dirs:
         while len(exisiting_dirs) < size_batch and len(new_dirs) > 0:
             dir = new_dirs.pop()
-            metadata = utils.get_ena_metadata(dir)
+            metadata = get_ena_metadata(dir)
             validSample = True
 
             if metadata:
@@ -183,13 +194,7 @@ def process_batch(sample_method, samples_to_submit, batch_dir):
 
         p["country"] = ena_metadata["country"]
 
-        if (
-            ena_metadata["scientific_name"]
-            == "Severe acute respiratory syndrome coronavirus 2"
-        ):
-            p["specimenOrganism"] = "SARS-CoV-2"
-        else:
-            p["specimenOrganism"] = ena_metadata["scientific_name"]
+        p["specimenOrganism"] = ena_metadata["scientific_organism"]
 
         if sample_method.name == "illumina":
             p["peReads"] = [
@@ -236,6 +241,9 @@ def process_batch(sample_method, samples_to_submit, batch_dir):
 
     apex_token = db.get_apex_token()
     apex_batch, apex_samples = db.post_metadata_to_apex(submission, apex_token)
+    upload_bucket = db.get_output_bucket_from_input(
+        sample_method.parent.parent.name, apex_token
+    )
 
     for path, sample_list in sample_shards.items():
         add_to_cached_dirlist(sample_method.name, path, sample_list)
@@ -263,6 +271,7 @@ def process_batch(sample_method, samples_to_submit, batch_dir):
         f"oxforduni-ncov2019-artic-nf-{sample_method.name}",
         str(ena_batch_csv),
         batch_name,
+        upload_bucket,
     )
 
     dirwatcher_metadata.update_one(
