@@ -158,6 +158,13 @@ def create_batch(
             else:
                 print(f"Cannot get ENA metadata for {dir}.")
                 validSample = False
+            
+            if not validSample:
+                logging.info(f"Sample {dir} is not valid, skipping and adding to list")
+                # horrible hack to get the path
+                path = new_dir_prefix.parent.parent.name + "/" + new_dir_prefix.parent.name + "/" + new_dir_prefix.name
+                # add the sample to the completion list, so that it is ignored in future
+                add_to_cached_dirlist(sample_method, path, [dir])
 
         # No new dirs, return working lists
         return (exisiting_dirs, new_dirs)
