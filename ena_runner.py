@@ -160,7 +160,7 @@ def create_batch(
                 validSample = False
             
             if not validSample:
-                logging.info(f"Sample {dir} is not valid, skipping and adding to list")
+                logging.info(f"Sample {dir} is not valid, skipping and adding to completion list")
                 # horrible hack to get the path
                 path = new_dir_prefix.parent.parent.name + "/" + new_dir_prefix.parent.name + "/" + new_dir_prefix.name
                 # add the sample to the completion list, so that it is ignored in future
@@ -206,12 +206,8 @@ def process_batch(sample_method, samples_to_submit, batch_dir):
         if sample_method.name == "illumina":
             p["peReads"] = [
                 {
-                    "r1_sp3_filepath": str(
-                        Path(sample) / (sample.name + "_1.fastq.gz")
-                    ),
-                    "r2_sp3_filepath": str(
-                        Path(sample) / (sample.name + "_2.fastq.gz")
-                    ),
+                    "r1_sp3_filepath": str(Path(sample) / (sample.name + "_1.fastq.gz")),
+                    "r2_sp3_filepath": str(Path(sample) / (sample.name + "_2.fastq.gz")),
                 }
             ]
             p["seReads"] = []
@@ -265,9 +261,7 @@ def process_batch(sample_method, samples_to_submit, batch_dir):
             out = {
                 "bucket": submission["batch"]["bucketName"],
                 "sample_prefix": str(
-                    sample.relative_to(
-                        Path("/data/inputs/s3/") / submission["batch"]["bucketName"]
-                    )
+                    sample.relative_to(Path("/data/inputs/s3/") / submission["batch"]["bucketName"])
                 )
                 + "/",
                 "sample_accession": sample.name,
@@ -325,9 +319,7 @@ def watch(watch_dir="", batch_dir="", size_batch=200):
                     for sub_shard_dir in set(
                         [
                             w.name
-                            for w in (
-                                watch_dir / sample_method / prefix_dir / shard_dir
-                            ).glob("*")
+                            for w in (watch_dir / sample_method / prefix_dir / shard_dir).glob("*")
                             if w.is_dir()
                         ]
                     ):
@@ -335,27 +327,9 @@ def watch(watch_dir="", batch_dir="", size_batch=200):
                         candidate_dirs = set(
                             [
                                 z.name
-                                for z in (
-                                    watch_dir
-                                    / sample_method
-                                    / prefix_dir
-                                    / shard_dir
-                                    / sub_shard_dir
-                                ).glob("*")
+                                for z in (watch_dir / sample_method / prefix_dir / shard_dir / sub_shard_dir).glob("*")
                                 if z.is_dir()
-                                and len(
-                                    set(
-                                        (
-                                            watch_dir
-                                            / sample_method
-                                            / prefix_dir
-                                            / shard_dir
-                                            / sub_shard_dir
-                                            / z
-                                        ).glob("*.fastq.gz")
-                                    )
-                                )
-                                >= 1
+                                and len(set((watch_dir / sample_method / prefix_dir / shard_dir / sub_shard_dir / z).glob("*.fastq.gz"))) >= 1
                             ]
                         )
                         # get directories/submissions that have already been processed
