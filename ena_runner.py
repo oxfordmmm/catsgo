@@ -205,22 +205,22 @@ def process_batch(sample_method, samples_to_submit, batch_dir):
             "instrument": {"platform": ena_metadata["instrument_platform"],},
             "primer_scheme": ena_metadata["primer_scheme"],
         }
-
+    
         if sample_method.name == "illumina":
             p["peReads"] = [
                 {
-                    "r1_uri": str(Path(sample) / (sample.name + "_1.fastq.gz")),
-                    "r1_md5": get_md5_file_hash(str(Path(sample) / (sample.name + "_1.fastq.gz"))),
-                    "r2_uri": str(Path(sample) / (sample.name + "_2.fastq.gz")),
-                    "r2_md5": get_md5_file_hash(str(Path(sample) / (sample.name + "_2.fastq.gz"))),
+                    "r1_uri": str(Path(sample) / (sample.name + ".reads_1.fastq.gz")),
+                    "r1_md5": get_md5_file_hash(str(Path(sample) / (sample.name + ".reads_1.fastq.gz"))),
+                    "r2_uri": str(Path(sample) / (sample.name + ".reads_2.fastq.gz")),
+                    "r2_md5": get_md5_file_hash(str(Path(sample) / (sample.name + ".reads_2.fastq.gz"))),
                 }
             ]
             p["seReads"] = []
         elif sample_method.name == "nanopore":
             p["seReads"] = [
                 {
-                    "uri": str(Path(sample) / (sample.name + "_1.fastq.gz")),
-                    "md5": get_md5_file_hash(str(Path(sample) / (sample.name + "_1.fastq.gz"))),
+                    "uri": str(Path(sample) / (sample.name + ".reads.fastq.gz")),
+                    "md5": get_md5_file_hash(str(Path(sample) / (sample.name + ".reads.fastq.gz"))),
                 }
             ]
             p["peReads"] = []
