@@ -80,6 +80,12 @@ def get_ena_metadata(sample_name):
             return None
 
 
+def get_md5_file_hash(file_path):
+    with open(file_path, "rb") as f:
+        bytes = f.read()
+        return hashlib.md5(bytes).hexdigest()
+
+
 def create_batch(
     exisiting_dirs, size_batch, new_dirs=None, new_dir_prefix=None, sample_method=None
 ):
@@ -127,6 +133,9 @@ def create_batch(
                         validSample = False
                 else:
                     print(f"Cannot determine sample method for {dir}.")
+                    validSample = False
+
+                if not metadata["collection_date_ok"]:
                     validSample = False
 
                 if validSample:
@@ -185,36 +194,33 @@ def process_batch(sample_method, samples_to_submit, batch_dir):
             "tags": ["ENA_Data"],
             "submissionTitle": submission_name,
             "submissionDescription": submission_name,
-            # "specimenOrganism" : ena_metadata["scientific_name"],
+            "control": ena_metadata["control"],
+            "collection_date": ena_metadata["collection_date"],
             "status": "Uploaded",
-            "instrument": {
-                "platform": ena_metadata["instrument_platform"],
-                # "model": ena_metadata["instrument_model"],
-                "flowcell": 0,
-            },
+            "country": ena_metadata["country"],
+            "region": ena_metadata["region"],
+            "district": ena_metadata["district"],
+            "specimen": ena_metadata["specimen_organism"],
+            "host": ena_metadata["host"],
+            "instrument": {"platform": ena_metadata["instrument_platform"],},
+            "primer_scheme": ena_metadata["primer_scheme"],
         }
-
-        if ena_metadata["collection_date"] != "":
-            p["collectionDate"] = ena_metadata["collection_date"]
-        elif ena_metadata["first_public"]:
-            p["collectionDate"] = ena_metadata["first_public"]
-
-        p["country"] = ena_metadata["country"]
-
-        p["specimenOrganism"] = ena_metadata["specimen_organism"]
 
         if sample_method.name == "illumina":
             p["peReads"] = [
                 {
-                    "r1_sp3_filepath": str(Path(sample) / (sample.name + "_1.fastq.gz")),
-                    "r2_sp3_filepath": str(Path(sample) / (sample.name + "_2.fastq.gz")),
+                    "r1_uri": str(Path(sample) / (sample.name + "_1.fastq.gz")),
+                    "r1_md5": get_md5_file_hash(str(Path(sample) / (sample.name + "_1.fastq.gz"))),
+                    "r2_uri": str(Path(sample) / (sample.name + "_2.fastq.gz")),
+                    "r2_md5": get_md5_file_hash(str(Path(sample) / (sample.name + "_2.fastq.gz"))),
                 }
             ]
             p["seReads"] = []
         elif sample_method.name == "nanopore":
             p["seReads"] = [
                 {
-                    "sp3_filepath": str(Path(sample) / (sample.name + "_1.fastq.gz")),
+                    "uri": str(Path(sample) / (sample.name + "_1.fastq.gz")),
+                    "md5": get_md5_file_hash(str(Path(sample) / (sample.name + "_1.fastq.gz"))),
                 }
             ]
             p["peReads"] = []
