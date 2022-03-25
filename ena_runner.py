@@ -69,9 +69,9 @@ def add_to_cached_dirlist(sample_method, path, samples):
     )
 
 
-def get_ena_metadata(sample_name):
+def get_ena_metadata(sample_name, watch_dir):
     logging.info(f"getting ena metadata for {sample_name}")
-    with gzip.open("./data/batch0-validated.csv.gz", mode="rt") as f:
+    with gzip.open(Path(watch_dir) / "batch0-validated.csv.gz", mode="rt") as f:
         reader = csv.DictReader(f)
         ena_rec = [record for record in reader if record["sample_name"] == sample_name]
         if ena_rec:
@@ -87,12 +87,12 @@ def get_md5_file_hash(file_path):
 
 
 def create_batch(
-    exisiting_dirs, size_batch, new_dirs=None, new_dir_prefix=None, sample_method=None
+    exisiting_dirs, size_batch, new_dirs=None, new_dir_prefix=None, sample_method=None, watch_dir=None,
 ):
     if new_dirs:
         while len(exisiting_dirs) < size_batch and len(new_dirs) > 0:
             dir = new_dirs.pop()
-            metadata = get_ena_metadata(dir)
+            metadata = get_ena_metadata(dir, watch_dir)
             validSample = True
 
             if metadata:
@@ -362,6 +362,7 @@ def watch(watch_dir="", batch_dir="", size_batch=200):
                                     / shard_dir
                                     / sub_shard_dir,
                                     sample_method.name,
+                                    watch_dir,
                                 )
 
                                 # Check if submitting
