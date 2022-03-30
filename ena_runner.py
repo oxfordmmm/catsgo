@@ -176,7 +176,7 @@ def create_batch(
                 # horrible hack to get the path
                 path = new_dir_prefix.parent.parent.name + "/" + new_dir_prefix.parent.name + "/" + new_dir_prefix.name
                 # add the sample to the completion list, so that it is ignored in future
-                add_to_ignore_list(sample_method, str(path), [dir])
+                add_to_ignore_list(sample_method, str(path), dir)
 
         # No new dirs, return working lists
         return (exisiting_dirs, new_dirs)
@@ -353,6 +353,7 @@ def watch(watch_dir="", batch_dir="", size_batch=200):
                             get_ignore_list(sample_method.name, 
                             str(Path(prefix_dir) / shard_dir / sub_shard_dir))
                         )
+                        logging.debug(f"{bad_submission_uuids} are being ignored as they have previously been detected as invalid")
                         new_dirs = candidate_dirs.difference(cached_dirlist)
                         new_dirs = new_dirs.difference(bad_submission_uuids)
                         
