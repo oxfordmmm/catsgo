@@ -1,6 +1,9 @@
 import json
 import logging
 import requests
+import gzip
+import csv 
+from pathlib import Path
 
 def load_config(config_file):
     with open(config_file) as f:
@@ -25,3 +28,15 @@ def get_ena_metadata(sample):
     except:
         logging.error(f"empty response from host: {url}")
         return None
+
+def get_ena_metadata_from_csv(sample_name, watch_dir):
+    logging.info(f"getting ena metadata for {sample_name}")
+    with gzip.open(Path(watch_dir) / "batch0-validated.csv.gz", mode="rt") as f:
+        reader = csv.DictReader(f)
+        ena_rec = [record for record in reader if record["sample_name"] == sample_name]
+        if ena_rec:
+            return ena_rec[0]
+        else:
+            return None
+
+

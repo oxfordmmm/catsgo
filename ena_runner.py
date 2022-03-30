@@ -27,6 +27,7 @@ import utils
 myclient = pymongo.MongoClient("mongodb://localhost:27017/")
 mydb = myclient["ena_runner"]
 dirlist = mydb["dirlist"]
+ignore_list = mydb["ignore_list"]
 
 mydb2 = myclient["dir_watcher"]
 dirwatcher_metadata = mydb2["metadata"]
@@ -69,22 +70,24 @@ def add_to_cached_dirlist(sample_method, path, samples):
     )
 
 
-def get_ena_metadata(sample_name, watch_dir):
-    logging.info(f"getting ena metadata for {sample_name}")
-    with gzip.open(Path(watch_dir) / "batch0-validated.csv.gz", mode="rt") as f:
-        reader = csv.DictReader(f)
-        ena_rec = [record for record in reader if record["sample_name"] == sample_name]
-        if ena_rec:
-            return ena_rec[0]
-        else:
-            return None
-
-
 def get_md5_file_hash(file_path):
     with open(file_path, "rb") as f:
         bytes = f.read()
         return hashlib.md5(bytes).hexdigest()
 
+def get_ignore_list(sample_method, path):
+    r = ignore_list.find_one({"sample_method": sample_method, "path": path}, {"ignore_list": 1})
+    if r:
+        return r.get("ignore_list", list())
+    else:
+        return list()
+
+def add_to_ignore_list(sample_method, path, samples):
+    ignore_list.update_one(
+        {"sample_method": sample_method, "path": path},
+        {"$push": {"samples": samples}},
+        upsert=True,
+    )
 
 def create_batch(
     exisiting_dirs, size_batch, new_dirs=None, new_dir_prefix=None, sample_method=None, watch_dir=None,
@@ -92,7 +95,7 @@ def create_batch(
     if new_dirs:
         while len(exisiting_dirs) < size_batch and len(new_dirs) > 0:
             dir = new_dirs.pop()
-            metadata = get_ena_metadata(dir, watch_dir)
+            metadata = utils.get_ena_metadata_from_csv(dir, watch_dir)
             validSample = True
 
             if metadata:
@@ -169,11 +172,11 @@ def create_batch(
                 validSample = False
             
             if not validSample:
-                logging.info(f"Sample {dir} is not valid, skipping and adding to completion list")
+                logging.info(f"Sample {dir} is not valid, skipping and adding to ignore list")
                 # horrible hack to get the path
                 path = new_dir_prefix.parent.parent.name + "/" + new_dir_prefix.parent.name + "/" + new_dir_prefix.name
                 # add the sample to the completion list, so that it is ignored in future
-                add_to_cached_dirlist(sample_method, path, [dir])
+                add_to_ignore_list(sample_method, str(path), [dir])
 
         # No new dirs, return working lists
         return (exisiting_dirs, new_dirs)
@@ -345,8 +348,14 @@ def watch(watch_dir="", batch_dir="", size_batch=200):
                                 str(Path(prefix_dir) / shard_dir / sub_shard_dir),
                             )
                         )
-                        # submissions to be processed are those that are new and have not been marked as failed
+                        # submissions to be processed are those that are new and have not been marked as failed or finished
+                        bad_submission_uuids = set(
+                            get_ignore_list(sample_method.name, 
+                            str(Path(prefix_dir) / shard_dir / sub_shard_dir))
+                        )
                         new_dirs = candidate_dirs.difference(cached_dirlist)
+                        new_dirs = new_dirs.difference(bad_submission_uuids)
+                        
 
                         if new_dirs:
                             new_dirs = list(new_dirs)
