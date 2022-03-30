@@ -85,7 +85,7 @@ def get_ignore_list(sample_method, path):
 def add_to_ignore_list(sample_method, path, samples):
     ignore_list.update_one(
         {"sample_method": sample_method, "path": path},
-        {"$push": {"samples": samples}},
+        {"$push": {"ignore_list": samples}},
         upsert=True,
     )
 
