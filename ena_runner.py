@@ -6,6 +6,7 @@ batches them to be run by catsgo
 """
 
 import csv
+import gzip
 import logging
 import time
 import uuid
@@ -26,6 +27,7 @@ import utils
 myclient = pymongo.MongoClient("mongodb://localhost:27017/")
 mydb = myclient["ena_runner"]
 dirlist = mydb["dirlist"]
+ignore_list = mydb["ignore_list"]
 
 mydb2 = myclient["dir_watcher"]
 dirwatcher_metadata = mydb2["metadata"]
@@ -68,13 +70,32 @@ def add_to_cached_dirlist(sample_method, path, samples):
     )
 
 
+def get_md5_file_hash(file_path):
+    with open(file_path, "rb") as f:
+        bytes = f.read()
+        return hashlib.md5(bytes).hexdigest()
+
+def get_ignore_list(sample_method, path):
+    r = ignore_list.find_one({"sample_method": sample_method, "path": path}, {"ignore_list": 1})
+    if r:
+        return r.get("ignore_list", list())
+    else:
+        return list()
+
+def add_to_ignore_list(sample_method, path, samples):
+    ignore_list.update_one(
+        {"sample_method": sample_method, "path": path},
+        {"$push": {"ignore_list": samples}},
+        upsert=True,
+    )
+
 def create_batch(
-    exisiting_dirs, size_batch, new_dirs=None, new_dir_prefix=None, sample_method=None
+    exisiting_dirs, size_batch, new_dirs=None, new_dir_prefix=None, sample_method=None, watch_dir=None,
 ):
     if new_dirs:
         while len(exisiting_dirs) < size_batch and len(new_dirs) > 0:
             dir = new_dirs.pop()
-            metadata = utils.get_ena_metadata(dir)
+            metadata = utils.get_ena_metadata_from_csv(dir, watch_dir)
             validSample = True
 
             if metadata:
@@ -117,6 +138,9 @@ def create_batch(
                     print(f"Cannot determine sample method for {dir}.")
                     validSample = False
 
+                if not metadata["collection_date_ok"]:
+                    validSample = False
+
                 if validSample:
                     # Check md5 sums of sequences against ENA values stored in the .md5 files
                     # this is done because read-it-and-keep has been run across the files
@@ -146,6 +170,13 @@ def create_batch(
             else:
                 print(f"Cannot get ENA metadata for {dir}.")
                 validSample = False
+            
+            if not validSample:
+                logging.info(f"Sample {dir} is not valid, skipping and adding to ignore list")
+                # horrible hack to get the path
+                path = new_dir_prefix.parent.parent.name + "/" + new_dir_prefix.parent.name + "/" + new_dir_prefix.name
+                # add the sample to the completion list, so that it is ignored in future
+                add_to_ignore_list(sample_method, str(path), dir)
 
         # No new dirs, return working lists
         return (exisiting_dirs, new_dirs)
@@ -161,52 +192,38 @@ def process_batch(sample_method, samples_to_submit, batch_dir):
     submission_name = f"Entry for ENA sample processing - {batch_name}"
 
     for sample, ena_metadata in samples_to_submit:
-        # ena_metadata = get_ena_metadata(sample.name)
         p = {
             "name": sample.name,
             "tags": ["ENA_Data"],
             "submissionTitle": submission_name,
             "submissionDescription": submission_name,
-            # "specimenOrganism" : ena_metadata["scientific_name"],
+            "control": ena_metadata["control"],
+            "collection_date": ena_metadata["collection_date"],
             "status": "Uploaded",
-            "instrument": {
-                "platform": ena_metadata["instrument_platform"],
-                "model": ena_metadata["instrument_model"],
-                "flowcell": 0,
-            },
+            "country": ena_metadata["country"],
+            "region": ena_metadata["region"],
+            "district": ena_metadata["district"],
+            "specimen": ena_metadata["specimen_organism"],
+            "host": ena_metadata["host"],
+            "instrument": {"platform": ena_metadata["instrument_platform"],},
+            "primer_scheme": ena_metadata["primer_scheme"],
         }
-
-        if ena_metadata["collection_date"] != "":
-            p["collectionDate"] = ena_metadata["collection_date"]
-        elif ena_metadata["first_public"]:
-            p["collectionDate"] = ena_metadata["first_public"]
-
-        p["country"] = ena_metadata["country"]
-
-        if (
-            ena_metadata["scientific_name"]
-            == "Severe acute respiratory syndrome coronavirus 2"
-        ):
-            p["specimenOrganism"] = "SARS-CoV-2"
-        else:
-            p["specimenOrganism"] = ena_metadata["scientific_name"]
-
+    
         if sample_method.name == "illumina":
             p["peReads"] = [
                 {
-                    "r1_sp3_filepath": str(
-                        Path(sample) / (sample.name + "_1.fastq.gz")
-                    ),
-                    "r2_sp3_filepath": str(
-                        Path(sample) / (sample.name + "_2.fastq.gz")
-                    ),
+                    "r1_uri": str(Path(sample) / (sample.name + ".reads_1.fastq.gz")),
+                    "r1_md5": get_md5_file_hash(str(Path(sample) / (sample.name + ".reads_1.fastq.gz"))),
+                    "r2_uri": str(Path(sample) / (sample.name + ".reads_2.fastq.gz")),
+                    "r2_md5": get_md5_file_hash(str(Path(sample) / (sample.name + ".reads_2.fastq.gz"))),
                 }
             ]
             p["seReads"] = []
         elif sample_method.name == "nanopore":
             p["seReads"] = [
                 {
-                    "sp3_filepath": str(Path(sample) / (sample.name + "_1.fastq.gz")),
+                    "uri": str(Path(sample) / (sample.name + ".reads.fastq.gz")),
+                    "md5": get_md5_file_hash(str(Path(sample) / (sample.name + ".reads.fastq.gz"))),
                 }
             ]
             p["peReads"] = []
@@ -236,6 +253,9 @@ def process_batch(sample_method, samples_to_submit, batch_dir):
 
     apex_token = db.get_apex_token()
     apex_batch, apex_samples = db.post_metadata_to_apex(submission, apex_token)
+    upload_bucket = db.get_output_bucket_from_input(
+        sample_method.parent.parent.name, apex_token
+    )
 
     for path, sample_list in sample_shards.items():
         add_to_cached_dirlist(sample_method.name, path, sample_list)
@@ -250,9 +270,7 @@ def process_batch(sample_method, samples_to_submit, batch_dir):
             out = {
                 "bucket": submission["batch"]["bucketName"],
                 "sample_prefix": str(
-                    sample.relative_to(
-                        Path("/data/inputs/s3/") / submission["batch"]["bucketName"]
-                    )
+                    sample.relative_to(Path("/data/inputs/s3/") / submission["batch"]["bucketName"])
                 )
                 + "/",
                 "sample_accession": sample.name,
@@ -263,6 +281,7 @@ def process_batch(sample_method, samples_to_submit, batch_dir):
         f"oxforduni-ncov2019-artic-nf-{sample_method.name}",
         str(ena_batch_csv),
         batch_name,
+        upload_bucket,
     )
 
     dirwatcher_metadata.update_one(
@@ -309,9 +328,7 @@ def watch(watch_dir="", batch_dir="", size_batch=200):
                     for sub_shard_dir in set(
                         [
                             w.name
-                            for w in (
-                                watch_dir / sample_method / prefix_dir / shard_dir
-                            ).glob("*")
+                            for w in (watch_dir / sample_method / prefix_dir / shard_dir).glob("*")
                             if w.is_dir()
                         ]
                     ):
@@ -319,27 +336,9 @@ def watch(watch_dir="", batch_dir="", size_batch=200):
                         candidate_dirs = set(
                             [
                                 z.name
-                                for z in (
-                                    watch_dir
-                                    / sample_method
-                                    / prefix_dir
-                                    / shard_dir
-                                    / sub_shard_dir
-                                ).glob("*")
+                                for z in (watch_dir / sample_method / prefix_dir / shard_dir / sub_shard_dir).glob("*")
                                 if z.is_dir()
-                                and len(
-                                    set(
-                                        (
-                                            watch_dir
-                                            / sample_method
-                                            / prefix_dir
-                                            / shard_dir
-                                            / sub_shard_dir
-                                            / z
-                                        ).glob("*.fastq.gz")
-                                    )
-                                )
-                                >= 1
+                                and len(set((watch_dir / sample_method / prefix_dir / shard_dir / sub_shard_dir / z).glob("*.fastq.gz"))) >= 1
                             ]
                         )
                         # get directories/submissions that have already been processed
@@ -349,8 +348,15 @@ def watch(watch_dir="", batch_dir="", size_batch=200):
                                 str(Path(prefix_dir) / shard_dir / sub_shard_dir),
                             )
                         )
-                        # submissions to be processed are those that are new and have not been marked as failed
+                        # submissions to be processed are those that are new and have not been marked as failed or finished
+                        bad_submission_uuids = set(
+                            get_ignore_list(sample_method.name, 
+                            str(Path(prefix_dir) / shard_dir / sub_shard_dir))
+                        )
+                        logging.debug(f"{bad_submission_uuids} are being ignored as they have previously been detected as invalid")
                         new_dirs = candidate_dirs.difference(cached_dirlist)
+                        new_dirs = new_dirs.difference(bad_submission_uuids)
+                        
 
                         if new_dirs:
                             new_dirs = list(new_dirs)
@@ -366,6 +372,7 @@ def watch(watch_dir="", batch_dir="", size_batch=200):
                                     / shard_dir
                                     / sub_shard_dir,
                                     sample_method.name,
+                                    watch_dir,
                                 )
 
                                 # Check if submitting
