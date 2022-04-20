@@ -100,40 +100,40 @@ def create_batch(
 
             if metadata:
                 # Paired fastq for Illumina, single fastq for nanopore
-                if sample_method:
-                    if (
-                        sample_method == "illumina"
-                        and len(set((new_dir_prefix / dir).glob("*.fastq.md5"))) != 2
-                    ):
-                        print(
-                            f"{dir} is not a valid illumina sample, only one on the fastqs is avalaible."
-                        )
-                        validSample = False
-                    elif (
-                        sample_method == "nanopore"
-                        and len(set((new_dir_prefix / dir).glob("*.fastq.md5"))) != 1
-                    ):
-                        print(
-                            f"{dir} is not a valid nanopore sample, there is more than one fastq."
-                        )
-                        validSample = False
-                elif "instrument_platform" in metadata:
-                    if (
-                        str(metadata["instrument_platform"]).lower() == "illumina"
-                        and len(set((new_dir_prefix / dir).glob("*.fastq.gz"))) != 2
-                    ):
-                        print(
-                            f"{dir} is not a valid illumina sample, only one on the fastqs is avalaible."
-                        )
-                        validSample = False
-                    elif (
-                        sample_method == "nanopore"
-                        and len(set((new_dir_prefix / dir).glob("*.fastq.gz"))) != 1
-                    ):
-                        print(
-                            f"{dir} is not a valid nanopore sample, there is more than one fastq."
-                        )
-                        validSample = False
+                if sample_method or "instrument_platform" in metadata:
+                    
+                    # ILLUMINA
+                    if (sample_method == "illumina") or str(metadata["instrument_platform"]).lower() == "illumina":
+                        # check both fastqs are avalaible
+                        if len(set((new_dir_prefix / dir).glob("*.fastq.md5"))) != 2:
+                            print(f"{dir} is not a valid illumina sample, only one on the fastqs is avalaible.")
+                            validSample = False
+                        # Check if there are too many or too few reads to be processed
+                        elif metadata["read_count"].isnumeric():
+                            if (int(metadata["read_count"]) > 4000000):
+                                print(f"{dir} has to many reads, to be able top be processed.")
+                                validSample = False
+                            elif (int(metadata["read_count"]) < 40000):
+                                print(f"{dir} does not have enough reads to be processed.")
+                                validSample = False
+                        else:
+                            print(f"{dir} does not have a read count in the metadata.")
+                            validSample = False
+
+                    # NANOPORE
+                    elif (sample_method == "nanopore") or str(metadata["instrument_platform"]).lower() == "nanopore":
+                        # check that only one fastq exists
+                        if len(set((new_dir_prefix / dir).glob("*.fastq.md5"))) != 1:
+                            print(f"{dir} is not a valid nanopore sample, there is more than one fastq.")
+                            validSample = False
+                        # check if there are too many reads to be processed
+                        elif metadata["read_count"].isnumeric():
+                            if (int(metadata["read_count"]) > 120000):
+                                print(f"{dir} has too many reads, to be able to be processed.")
+                                validSample = False
+                        else:
+                            print(f"{dir} does not have a read count in the metadata.")
+
                 else:
                     print(f"Cannot determine sample method for {dir}.")
                     validSample = False
