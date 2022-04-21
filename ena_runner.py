@@ -110,10 +110,10 @@ def create_batch(
                             validSample = False
                         # Check if there are too many or too few reads to be processed
                         elif utils.is_number(metadata["read_count"]):
-                            if (int(metadata["read_count"]) > 4000000):
+                            if (float(metadata["read_count"]) > 4000000):
                                 print(f"{dir} has to many reads, to be able top be processed.")
                                 validSample = False
-                            elif (int(metadata["read_count"]) < 40000):
+                            elif (float(metadata["read_count"]) < 40000):
                                 print(f"{dir} does not have enough reads to be processed.")
                                 validSample = False
                         else:
@@ -128,7 +128,7 @@ def create_batch(
                             validSample = False
                         # check if there are too many reads to be processed
                         elif utils.is_number(metadata["read_count"]):
-                            if (int(metadata["read_count"]) > 120000):
+                            if (float(metadata["read_count"]) > 120000):
                                 print(f"{dir} has too many reads, to be able to be processed.")
                                 validSample = False
                         else:
