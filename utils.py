@@ -39,4 +39,9 @@ def get_ena_metadata_from_csv(sample_name, watch_dir):
         else:
             return None
 
-
+def is_number(string):
+    try:
+        float(string)
+        return True
+    except ValueError:
+        return False

@@ -109,7 +109,7 @@ def create_batch(
                             print(f"{dir} is not a valid illumina sample, only one on the fastqs is avalaible.")
                             validSample = False
                         # Check if there are too many or too few reads to be processed
-                        elif metadata["read_count"].isnumeric():
+                        elif utils.is_number(metadata["read_count"]):
                             if (int(metadata["read_count"]) > 4000000):
                                 print(f"{dir} has to many reads, to be able top be processed.")
                                 validSample = False
@@ -127,7 +127,7 @@ def create_batch(
                             print(f"{dir} is not a valid nanopore sample, there is more than one fastq.")
                             validSample = False
                         # check if there are too many reads to be processed
-                        elif metadata["read_count"].isnumeric():
+                        elif utils.is_number(metadata["read_count"]):
                             if (int(metadata["read_count"]) > 120000):
                                 print(f"{dir} has too many reads, to be able to be processed.")
                                 validSample = False
