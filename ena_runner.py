@@ -184,7 +184,7 @@ def create_batch(
         return (exisiting_dirs, [])
 
 
-def process_batch(sample_method, samples_to_submit, batch_dir):
+def process_batch(sample_method, samples_to_submit, batch_dir, workflow):
     print(f"processing {samples_to_submit}")
     samples = list()
     sample_shards = dict()
@@ -276,9 +276,14 @@ def process_batch(sample_method, samples_to_submit, batch_dir):
                 "sample_accession": sample.name,
             }
             writer1.writerow(out)
+    
+    if str(workflow).lower() == "sars-cov2_workflows":
+        flow = "oxforduni-gpas-sars-cov2-"
+    else:
+        flow = "oxforduni-ncov2019-artic-nf-"
 
     ret = catsgo.run_covid_ena(
-        f"oxforduni-ncov2019-artic-nf-{sample_method.name}",
+        f"{flow}{sample_method.name}",
         str(ena_batch_csv),
         batch_name,
         upload_bucket,
@@ -301,7 +306,7 @@ def process_batch(sample_method, samples_to_submit, batch_dir):
     return []
 
 
-def watch(watch_dir="", batch_dir="", size_batch=200):
+def watch(watch_dir="", batch_dir="", size_batch=200, flow="ncov2019-artic-nf"):
     """ """
     print(doc)
     watch_dir = Path(watch_dir)
@@ -378,12 +383,12 @@ def watch(watch_dir="", batch_dir="", size_batch=200):
                                 # Check if submitting
                                 if len(samples_to_submit) >= size_batch:
                                     samples_to_submit = process_batch(
-                                        sample_method, samples_to_submit, batch_dir
+                                        sample_method, samples_to_submit, batch_dir, flow
                                     )
             # Should submit leftovers for this sample_method to avoid mixing.
             if len(samples_to_submit) >= 1:
                 samples_to_submit = process_batch(
-                    sample_method, samples_to_submit, batch_dir
+                    sample_method, samples_to_submit, batch_dir, flow
                 )
 
         print("sleeping for 60")
