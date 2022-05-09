@@ -260,12 +260,12 @@ def process_batch(sample_method, samples_to_submit, batch_dir, workflow):
             writer1.writerow(out)
     
     if str(workflow).lower() == "sars-cov2_workflows":
-        flow = "oxforduni-gpas-sars-cov2-"
+        flow = f"oxforduni-gpas-sars-cov2-{sample_method.name}"
     else:
-        flow = "oxforduni-ncov2019-artic-nf-"
+        flow = f"oxforduni-ncov2019-artic-nf-{sample_method.name}"
 
     ret = catsgo.run_covid_ena(
-        f"{flow}{sample_method.name}",
+        flow,
         str(ena_batch_csv),
         batch_name,
         upload_bucket,
