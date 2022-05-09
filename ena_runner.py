@@ -108,17 +108,6 @@ def create_batch(
                         if len(set((new_dir_prefix / dir).glob("*.fastq.md5"))) != 2:
                             print(f"{dir} is not a valid illumina sample, only one on the fastqs is avalaible.")
                             validSample = False
-                        # Check if there are too many or too few reads to be processed
-                        elif utils.is_number(metadata["read_count"]):
-                            if (float(metadata["read_count"]) > 4000000):
-                                print(f"{dir} has to many reads, to be able top be processed.")
-                                validSample = False
-                            elif (float(metadata["read_count"]) < 40000):
-                                print(f"{dir} does not have enough reads to be processed.")
-                                validSample = False
-                        else:
-                            print(f"{dir} does not have a read count in the metadata.")
-                            validSample = False
 
                     # NANOPORE
                     elif (sample_method == "nanopore") or str(metadata["instrument_platform"]).lower() == "nanopore":
@@ -126,14 +115,7 @@ def create_batch(
                         if len(set((new_dir_prefix / dir).glob("*.fastq.md5"))) != 1:
                             print(f"{dir} is not a valid nanopore sample, there is more than one fastq.")
                             validSample = False
-                        # check if there are too many reads to be processed
-                        elif utils.is_number(metadata["read_count"]):
-                            if (float(metadata["read_count"]) > 120000):
-                                print(f"{dir} has too many reads, to be able to be processed.")
-                                validSample = False
-                        else:
-                            print(f"{dir} does not have a read count in the metadata.")
-
+ 
                 else:
                     print(f"Cannot determine sample method for {dir}.")
                     validSample = False
