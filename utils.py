@@ -40,8 +40,13 @@ def get_ena_metadata_from_csv(sample_name, watch_dir):
             return None
 
 def is_number(string):
+    
+    # check for empty strings
+    if not string.strip():
+        return False
+
     try:
         float(string)
         return True
-    except ValueError:
+    except :
         return False
