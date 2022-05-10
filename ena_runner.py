@@ -100,40 +100,22 @@ def create_batch(
 
             if metadata:
                 # Paired fastq for Illumina, single fastq for nanopore
-                if sample_method:
-                    if (
-                        sample_method == "illumina"
-                        and len(set((new_dir_prefix / dir).glob("*.fastq.md5"))) != 2
-                    ):
-                        print(
-                            f"{dir} is not a valid illumina sample, only one on the fastqs is avalaible."
-                        )
-                        validSample = False
-                    elif (
-                        sample_method == "nanopore"
-                        and len(set((new_dir_prefix / dir).glob("*.fastq.md5"))) != 1
-                    ):
-                        print(
-                            f"{dir} is not a valid nanopore sample, there is more than one fastq."
-                        )
-                        validSample = False
-                elif "instrument_platform" in metadata:
-                    if (
-                        str(metadata["instrument_platform"]).lower() == "illumina"
-                        and len(set((new_dir_prefix / dir).glob("*.fastq.gz"))) != 2
-                    ):
-                        print(
-                            f"{dir} is not a valid illumina sample, only one on the fastqs is avalaible."
-                        )
-                        validSample = False
-                    elif (
-                        sample_method == "nanopore"
-                        and len(set((new_dir_prefix / dir).glob("*.fastq.gz"))) != 1
-                    ):
-                        print(
-                            f"{dir} is not a valid nanopore sample, there is more than one fastq."
-                        )
-                        validSample = False
+                if sample_method or "instrument_platform" in metadata:
+                    
+                    # ILLUMINA
+                    if (sample_method == "illumina") or str(metadata["instrument_platform"]).lower() == "illumina":
+                        # check both fastqs are avalaible
+                        if len(set((new_dir_prefix / dir).glob("*.fastq.md5"))) != 2:
+                            print(f"{dir} is not a valid illumina sample, only one on the fastqs is avalaible.")
+                            validSample = False
+
+                    # NANOPORE
+                    elif (sample_method == "nanopore") or str(metadata["instrument_platform"]).lower() == "nanopore":
+                        # check that only one fastq exists
+                        if len(set((new_dir_prefix / dir).glob("*.fastq.md5"))) != 1:
+                            print(f"{dir} is not a valid nanopore sample, there is more than one fastq.")
+                            validSample = False
+ 
                 else:
                     print(f"Cannot determine sample method for {dir}.")
                     validSample = False
@@ -184,7 +166,7 @@ def create_batch(
         return (exisiting_dirs, [])
 
 
-def process_batch(sample_method, samples_to_submit, batch_dir):
+def process_batch(sample_method, samples_to_submit, batch_dir, workflow):
     print(f"processing {samples_to_submit}")
     samples = list()
     sample_shards = dict()
@@ -276,9 +258,14 @@ def process_batch(sample_method, samples_to_submit, batch_dir):
                 "sample_accession": sample.name,
             }
             writer1.writerow(out)
+    
+    if str(workflow).lower() == "sars-cov2_workflows":
+        flow = f"oxforduni-gpas-sars-cov2-{sample_method.name}"
+    else:
+        flow = f"oxforduni-ncov2019-artic-nf-{sample_method.name}"
 
     ret = catsgo.run_covid_ena(
-        f"oxforduni-ncov2019-artic-nf-{sample_method.name}",
+        flow,
         str(ena_batch_csv),
         batch_name,
         upload_bucket,
@@ -301,7 +288,7 @@ def process_batch(sample_method, samples_to_submit, batch_dir):
     return []
 
 
-def watch(watch_dir="", batch_dir="", size_batch=200):
+def watch(watch_dir="", batch_dir="", size_batch=200, flow="ncov2019-artic-nf"):
     """ """
     print(doc)
     watch_dir = Path(watch_dir)
@@ -378,12 +365,12 @@ def watch(watch_dir="", batch_dir="", size_batch=200):
                                 # Check if submitting
                                 if len(samples_to_submit) >= size_batch:
                                     samples_to_submit = process_batch(
-                                        sample_method, samples_to_submit, batch_dir
+                                        sample_method, samples_to_submit, batch_dir, flow
                                     )
             # Should submit leftovers for this sample_method to avoid mixing.
             if len(samples_to_submit) >= 1:
                 samples_to_submit = process_batch(
-                    sample_method, samples_to_submit, batch_dir
+                    sample_method, samples_to_submit, batch_dir, flow
                 )
 
         print("sleeping for 60")
