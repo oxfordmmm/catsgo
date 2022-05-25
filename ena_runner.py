@@ -254,8 +254,8 @@ def process_batch(sample_method, samples_to_submit, batch_dir, workflow):
                 "sample_prefix": str(
                     sample.relative_to(Path("/data/inputs/s3/") / submission["batch"]["bucketName"])
                 )
-                + ".reads/",
-                "sample_accession": sample.name,
+                + "/",
+                "sample_accession": sample.name + ".reads",
             }
             writer1.writerow(out)
     
