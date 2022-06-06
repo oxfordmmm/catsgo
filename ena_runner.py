@@ -1,4 +1,4 @@
-!/env/bin/python3
+#!/env/bin/python3
 
 doc = """
 watches a directory which contains COVID ENA uploaded data and 
