@@ -255,7 +255,7 @@ def process_batch(sample_method, samples_to_submit, batch_dir, workflow):
                     sample.relative_to(Path("/data/inputs/s3/") / submission["batch"]["bucketName"])
                 )
                 + "/",
-                "sample_accession": sample.name + ".reads",
+                "sample_accession": sample.name,
             }
             writer1.writerow(out)
     
@@ -367,12 +367,15 @@ def watch(watch_dir="", batch_dir="", size_batch=200, flow="ncov2019-artic-nf"):
                                     samples_to_submit = process_batch(
                                         sample_method, samples_to_submit, batch_dir, flow
                                     )
+                                    print(f'sleeping for {config["ENA_sleep_time"]}')
+                                    time.sleep(int(config["ENA_sleep_time"]))
             # Should submit leftovers for this sample_method to avoid mixing.
             if len(samples_to_submit) >= 1:
                 samples_to_submit = process_batch(
                     sample_method, samples_to_submit, batch_dir, flow
                 )
-
+                print(f'sleeping for {config["ENA_sleep_time"]}')
+                time.sleep(int(config["ENA_sleep_time"]))
         print("sleeping for 60")
         time.sleep(60)
 
