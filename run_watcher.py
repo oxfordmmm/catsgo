@@ -73,7 +73,7 @@ def get_sample_map_for_run(new_run_uuid):
         for s in data["apex_samples"]["samples"]:
             ret[s["name"]] = s["id"]
     except Exception as e:
-        logging.error("get_sample_map_for_run: {str(e)}")
+        logging.error(f"get_sample_map_for_run: {str(e)}")
         return None
 
     return json.dumps(ret)
