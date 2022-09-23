@@ -177,8 +177,8 @@ def process_batch(sample_method, samples_to_submit, batch_dir, workflow):
         p = {
             "name": sample.name,
             "tags": ["ENA_Data"],
-            "submissionTitle": submission_name,
-            "submissionDescription": submission_name,
+            # "submissionTitle": submission_name,
+            # "submissionDescription": submission_name,
             "control": ena_metadata["control"],
             "collection_date": ena_metadata["collection_date"],
             "status": "Uploaded",
@@ -192,7 +192,7 @@ def process_batch(sample_method, samples_to_submit, batch_dir, workflow):
         }
     
         if sample_method.name == "illumina":
-            p["peReads"] = [
+            p["pe_reads"] = [
                 {
                     "r1_uri": str(Path(sample) / (sample.name + "_1.fastq.gz")),
                     "r1_md5": get_md5_file_hash(str(Path(sample) / (sample.name + "_1.fastq.gz"))),
@@ -200,15 +200,15 @@ def process_batch(sample_method, samples_to_submit, batch_dir, workflow):
                     "r2_md5": get_md5_file_hash(str(Path(sample) / (sample.name + "_2.fastq.gz"))),
                 }
             ]
-            p["seReads"] = []
+            p["se_reads"] = []
         elif sample_method.name == "nanopore":
-            p["seReads"] = [
+            p["se_reads"] = [
                 {
                     "uri": str(Path(sample) / (sample.name + ".fastq.gz")),
                     "md5": get_md5_file_hash(str(Path(sample) / (sample.name + ".fastq.gz"))),
                 }
             ]
-            p["peReads"] = []
+            p["pe_reads"] = []
         else:
             logging.error(f"Invalid sample_method {sample_method}")
         samples.append(p)
@@ -222,13 +222,13 @@ def process_batch(sample_method, samples_to_submit, batch_dir, workflow):
 
     submission = {
         "batch": {
-            "fileName": batch_name,
-            "bucketName": sample_method.parent.parent.name,
+            "file_name": batch_name,
+            "bucket_name": sample_method.parent.parent.name,
             "organisation": "Public Repository Data",
             "site": "ENA Data",
-            "uploadedOn": datetime.datetime.now().isoformat()[:-3] + "Z",
-            # "uploadedBy": "Jeremy.Swann@ndm.ox.ac.uk",
-            "uploadedBy": config["ENA_user"],
+            "uploaded_on": datetime.datetime.now().isoformat()[:-3] + "Z",
+            # "uploaded_by": "Jeremy.Swann@ndm.ox.ac.uk",
+            "uploaded_by": config["ENA_user"],
             "samples": samples,
         }
     }
