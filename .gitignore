@@ -10,3 +10,5 @@ clockwork_config.json
 covid_config.json
 venv
 .DS_Store
+Pipfile
+Pipfile.lock
