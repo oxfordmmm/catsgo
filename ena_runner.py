@@ -23,6 +23,18 @@ import requests
 import db
 import catsgo
 import utils
+import sentry_sdk
+
+config = utils.load_config("config.json")
+
+sentry_sdk.init(
+    dsn=config["sentry_dsn_ena_runner"],
+
+    # Set traces_sample_rate to 1.0 to capture 100%
+    # of transactions for performance monitoring.
+    # We recommend adjusting this value in production.
+    traces_sample_rate=config["sentry_traces_sample_rate"]
+)
 
 myclient = pymongo.MongoClient("mongodb://localhost:27017/")
 mydb = myclient["ena_runner"]
@@ -298,7 +310,7 @@ def watch(watch_dir="", batch_dir="", size_batch=200, flow="ncov2019-artic-nf"):
 
     while True:
         # ENA bucket will have illumina and nanopore data
-        for sample_method in [watch_dir / "illumina", watch_dir / "nanopore"]:
+        for sample_method in [watch_dir / "nanopore", watch_dir / "illumina"]:
             samples_to_submit = []
             # These are the prefixs of the sample asscessions (E.G. ERR408 has, in shards (000-010), samples ERR4080000 - ERR4089999)
             for prefix_dir in set(

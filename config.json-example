@@ -12,5 +12,9 @@
     "save_samtools_gvcf": "false",
     "FN4_bucket_name": "fn4-queue",
     "ENA_user": "USER.NAME@GPAS.ORG",
-    "ENA_sleep_time": "600"
+    "ENA_sleep_time": "600",
+    "sentry_dsn_dir_watcher": "https://",
+    "sentry_dsn_ena_runner": "https://",
+    "sentry_dsn_run_watcher": "https://",
+    "sentry_traces_sample_rate": 1.0
 }
