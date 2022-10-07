@@ -262,9 +262,9 @@ def process_batch(sample_method, samples_to_submit, batch_dir, workflow):
         writer1.writeheader()
         for sample, ena_metadata in samples_to_submit:
             out = {
-                "bucket": submission["batch"]["bucketName"],
+                "bucket": submission["batch"]["bucket_name"],
                 "sample_prefix": str(
-                    sample.relative_to(Path("/data/inputs/s3/") / submission["batch"]["bucketName"])
+                    sample.relative_to(Path("/data/inputs/s3/") / submission["batch"]["bucket_name"])
                 )
                 + "/",
                 "sample_accession": sample.name,
