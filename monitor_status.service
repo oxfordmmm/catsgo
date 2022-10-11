@@ -1,0 +1,10 @@
+[Unit]
+Description=Monitoring dir_watcher, run_watcher and mounts
+
+[Service]
+Restart=on-failure
+RestartSec=30s
+KillMode=process
+WorkingDirectory=/home/ubuntu/catsgo
+ExecStart=/home/ubuntu/env/bin/python /home/ubuntu/catsgo/status.py
+RemainAfterExit=True

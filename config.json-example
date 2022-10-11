@@ -11,10 +11,18 @@
     "save_rmdup_bam": "false",
     "save_samtools_gvcf": "false",
     "FN4_bucket_name": "fn4-queue",
+    "using_ENA_runner": false,
     "ENA_user": "USER.NAME@GPAS.ORG",
+    "ENA_bucket": "",
     "ENA_sleep_time": "600",
+    "oracle_rest": {
+       "host": "https://",
+       "user": "JEFFREY.KNAGGS@NDM.OX.AC.UK",
+       "idcs": "https://"
+    }, 
     "sentry_dsn_dir_watcher": "https://",
     "sentry_dsn_ena_runner": "https://",
     "sentry_dsn_run_watcher": "https://",
+    "sentry_dsn_status": "https://",
     "sentry_traces_sample_rate": 1.0
 }
