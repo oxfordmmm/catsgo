@@ -2,6 +2,7 @@ doc = """
 watches a directory and runs a pipeline on any new subdirectories
 submits metadata to api
 """
+import sys
 
 import csv
 import datetime
