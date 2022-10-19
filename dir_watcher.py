@@ -273,7 +273,7 @@ def process_dir(new_dir, watch_dir, bucket_name, apex_token, max_submission_atte
             logging.info(f''' sp3data file found''')
             with open(Path(watch_dir) / new_dir / "sp3data.csv", 'r') as infile:
                 reader = csv.DictReader(infile)
-                if len(reader.fieldnames()) < 3:
+                if len(reader.fieldnames) < 3:
                     logging.error("Found APEX run {new_dir}, will not attempt to run again.")
                     return False
             
