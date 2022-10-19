@@ -13,8 +13,6 @@ import requests
 
 import utils
 
-import pdb
-
 
 config = utils.load_config("config.json")
 sp3_url = config["sp3_url"]
@@ -33,7 +31,6 @@ def load_cookies():
 
 
 def login():
-    pdb.set_trace()
     try:
         load_cookies()
     except:
@@ -157,6 +154,16 @@ def run_covid_objstore(flow_name, obj_csv):
         "FN4-bucket-name-and---bucketNameFN4": config["FN4_bucket_name"],
         "api": "v1",
     }
+
+    print(f'''
+         "run_name": {run_name},
+        "context": "local",
+        "objstore-and---objstore": "false",
+        "catsup-and---catsup": {indir},
+        "bucket-name-and---bucket": {bucket_name},
+        "upload-bucket-and---uploadBucket": {upload_bucket},
+        "FN4-bucket-name-and---bucketNameFN4": {config["FN4_bucket_name"]},
+        ''')
 
     if (
         flow_name == "oxforduni-ncov2019-artic-nf-illumina"
