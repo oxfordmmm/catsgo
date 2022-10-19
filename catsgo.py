@@ -13,6 +13,9 @@ import requests
 
 import utils
 
+import pdb
+pdb.set_trace()
+
 config = utils.load_config("config.json")
 sp3_url = config["sp3_url"]
 
@@ -37,6 +40,7 @@ def login():
         pass
     response = session.get(sp3_url + "/am_i_logged_in")
     if response.text == "yes":
+        logging.info(f'''LOGIN OK''')
         return
     else:
         data = {"username": config["username"], "password": config["password"]}

@@ -274,7 +274,7 @@ def process_dir(new_dir, watch_dir, bucket_name, apex_token, max_submission_atte
             with open(Path(watch_dir) / new_dir / "sp3data.csv", 'r') as infile:
                 reader = csv.DictReader(infile)
                 if len(reader.fieldnames) < 3:
-                    logging.error("Found APEX run {new_dir}, will not attempt to run again.")
+                    logging.error(f'''Found APEX run {new_dir}, will not attempt to run again.''')
                     return False
             
             pipeline = which_pipeline_csv(watch_dir, new_dir)
