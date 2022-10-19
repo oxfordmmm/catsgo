@@ -192,6 +192,8 @@ def run_covid_catsup(
 
     login()
     response = session.post(url, data=data)
+    print(f'''HTTP CODE {response.status_code}''')
+    print(response)
     return json.loads(response.text)
 
 
