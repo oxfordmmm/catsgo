@@ -250,7 +250,7 @@ def process_dir(new_dir, watch_dir, bucket_name, apex_token, max_submission_atte
         return
     if not (Path(watch_dir) / new_dir / "upload_done.txt").is_file():
         # at the end of the upload, the client uploads an empty file upload_done.txt. This is how we know that the upload has finished and we are ready to run the pipeline on it
-        logging.info(f"dir_watcher: {new_dir} upload in progress?")
+        # logging.info(f"dir_watcher: {new_dir} upload in progress?")
         return
 
     if submission_attempts[new_dir] >= max_submission_attempts:
@@ -268,6 +268,7 @@ def process_dir(new_dir, watch_dir, bucket_name, apex_token, max_submission_atte
     data = {}
     try:
         if (Path(watch_dir) / new_dir / "sp3data.csv").is_file():
+            logging.info(f''' sp3data file found''')
             with open(Path(watch_dir) / new_dir / "sp3data.csv", 'r') as infile:
                 reader = csv.DictReader(infile)
                 if len(reader.fieldnames()) < 3:
@@ -290,6 +291,7 @@ def process_dir(new_dir, watch_dir, bucket_name, apex_token, max_submission_atte
         else:
             # Get metadata for batch from ORDS DB
             batch_samples = db.get_batch_by_name(new_dir, apex_token)
+            logging.info(f''' 01 DIR NAME {new_dir}''')
             if len(batch_samples.keys()) > 0:
                 pipeline = which_pipeline_db(watch_dir, new_dir, batch_samples)
                 if pipeline not in pipelines:
