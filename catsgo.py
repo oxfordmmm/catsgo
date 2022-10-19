@@ -14,7 +14,7 @@ import requests
 import utils
 
 import pdb
-pdb.set_trace()
+
 
 config = utils.load_config("config.json")
 sp3_url = config["sp3_url"]
@@ -33,6 +33,7 @@ def load_cookies():
 
 
 def login():
+    pdb.set_trace()
     try:
         load_cookies()
     except:
