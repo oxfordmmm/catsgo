@@ -1,3 +1,5 @@
+import traceback
+
 doc = """
 watches a directory and runs a pipeline on any new subdirectories
 submits metadata to api
@@ -365,6 +367,7 @@ def process_dir(new_dir, watch_dir, bucket_name, apex_token, max_submission_atte
     except Exception as e:
         logging.error(f"Error occurred processing {new_dir}.")
         logging.error(e)
+        logging.error(traceback.format_exc())
         return False
 
 
