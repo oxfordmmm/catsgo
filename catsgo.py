@@ -6,6 +6,7 @@ import datetime
 import time
 import sys
 import logging
+import traceback
 
 import argh
 import requests
@@ -32,6 +33,7 @@ def login():
     try:
         load_cookies()
     except:
+        logging.info(f'''LOGIN {traceback.format_exc()}''')
         pass
     response = session.get(sp3_url + "/am_i_logged_in")
     if response.text == "yes":
@@ -40,6 +42,7 @@ def login():
         data = {"username": config["username"], "password": config["password"]}
         response = session.post(sp3_url + "/login?api=v1", data=data)
         response = session.get(sp3_url + "/am_i_logged_in")
+        logging.info(f'''LOGIN {response}''')
         if response.text != "yes":
             sys.stderr.write("Error: Couldn't log in\n")
             sys.exit(1)
