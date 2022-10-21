@@ -23,7 +23,6 @@ import requests
 import catsgo
 import db
 
-
 myclient = pymongo.MongoClient("mongodb://localhost:27017/")
 mydb = myclient["dir_watcher"]
 dirlist = mydb["dirlist"]
@@ -51,7 +50,7 @@ def get_cached_dirlist(watch_dir):
 
 
 def add_to_cached_dirlist(
-    watch_dir, new_dir, run_uuid, apex_batch, apex_samples, submitted_metadata
+        watch_dir, new_dir, run_uuid, apex_batch, apex_samples, submitted_metadata
 ):
     """
     add the uuid to the list of uuids that have been run on sp3
@@ -127,7 +126,8 @@ def which_pipeline_csv(watch_dir, new_dir):
     # default illumina
     return "illumina-1"
 
-def which_pipeline_db(watch_dir, new_dir, metadata_dict = None):
+
+def which_pipeline_db(watch_dir, new_dir, metadata_dict=None):
     for sample in metadata_dict['samples'].values():
         platform = sample['instrumentPlatform']
         platform_lower_words = [word.lower() for word in platform.split()]
@@ -138,6 +138,7 @@ def which_pipeline_db(watch_dir, new_dir, metadata_dict = None):
 
     # default illumina
     return "illumina-1"
+
 
 def get_and_format_metadata(watch_dir, new_dir):
     data_file = Path(watch_dir) / new_dir / "sp3data.csv"
@@ -264,7 +265,6 @@ def process_dir(new_dir, watch_dir, bucket_name, apex_token, max_submission_atte
     submission_attempts[new_dir] += 1
     logging.info(f"attempt {submission_attempts[new_dir]}")
 
-
     pipelines = ["illumina-1", "nanopore-1"]
     pipeline = pipelines[0]
     apex_batch = {}
@@ -279,7 +279,7 @@ def process_dir(new_dir, watch_dir, bucket_name, apex_token, max_submission_atte
                 if len(reader.fieldnames) < 3:
                     logging.error(f'''Found APEX run {new_dir}, will not attempt to run again.''')
                     return False
-            
+
             pipeline = which_pipeline_csv(watch_dir, new_dir)
             if pipeline not in pipelines:
                 logging.warning(f"unknown pipeline: {pipeline} not in {pipelines}")
@@ -309,8 +309,8 @@ def process_dir(new_dir, watch_dir, bucket_name, apex_token, max_submission_atte
                     writer1.writeheader()
                     for sample in batch_samples['samples'].values():
                         out = {
-                            'submission_uuid4' : sample['batchFileName'],
-                            'sample_uuid4' : sample['name']
+                            'submission_uuid4': sample['batchFileName'],
+                            'sample_uuid4': sample['name']
                         }
                         writer1.writerow(out)
                 apex_batch = batch_samples
@@ -375,10 +375,10 @@ def process_dir(new_dir, watch_dir, bucket_name, apex_token, max_submission_atte
 
 
 def watch(
-    watch_dir="/data/inputs/s3/oracle-test",
-    bucket_name="catsup-test",
-    max_submission_attempts=3,
-    flow="ncov2019-artic-nf"
+        watch_dir="/data/inputs/s3/oracle-test",
+        bucket_name="catsup-test",
+        max_submission_attempts=3,
+        flow="ncov2019-artic-nf"
 ):
     """
     watch watch_dir for new directories that have the upload_done.txt file (signaling that an upload was successful)
@@ -407,7 +407,7 @@ def watch(
 
         if new_dirs:
             apex_token = db.get_apex_token()
-        for new_dir in new_dirs:  #  new_dir is the catsup upload uuid
+        for new_dir in new_dirs:  # new_dir is the catsup upload uuid
             r = process_dir(
                 new_dir, watch_dir, bucket_name, apex_token, max_submission_attempts, flow
             )
@@ -419,8 +419,10 @@ def watch(
         print("sleeping for 60")
         time.sleep(60)
 
+
 def get_apex_token():
     return db.get_apex_token()
+
 
 if __name__ == "__main__":
     logging.getLogger().setLevel(logging.INFO)

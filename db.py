@@ -70,11 +70,13 @@ def get_organisations(apex_token, config=config):
         return []
 
 def get_batch_samples(batch_id, apex_token, config=config):
+    pdb.set_trace()
     url = f"{config['host']}/batches/{batch_id}"
     method = "GET"
     headers = {"Authorization": f"Bearer {apex_token}"}
     response = requests.get(url, headers=headers)
     try:
+        print(response)
         return response.json()
     except:
         logging.error(f"unexpected response from GET {url}: {response.text}")
