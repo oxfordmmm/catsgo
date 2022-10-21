@@ -189,16 +189,6 @@ def run_covid_catsup(
         "api": "v1",
     }
 
-    print(f'''
-         "run_name": {run_name},
-        "context": "local",
-        "objstore-and---objstore": "false",
-        "catsup-and---catsup": {indir},
-        "bucket-name-and---bucket": {bucket_name},
-        "upload-bucket-and---uploadBucket": {upload_bucket},
-        "FN4-bucket-name-and---bucketNameFN4": {config["FN4_bucket_name"]},
-        ''')
-
     if (
         flow_name == "oxforduni-ncov2019-artic-nf-illumina"
         or flow_name == "oxforduni-ncov2019-artic-nf-nanopore"
