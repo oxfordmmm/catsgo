@@ -22,7 +22,7 @@ import requests
 
 import catsgo
 import db
-
+import pdb
 myclient = pymongo.MongoClient("mongodb://localhost:27017/")
 mydb = myclient["dir_watcher"]
 dirlist = mydb["dirlist"]
@@ -262,6 +262,7 @@ def process_dir(new_dir, watch_dir, bucket_name, apex_token, max_submission_atte
 
     submission_attempts[new_dir] += 1
     logging.info(f"attempt {submission_attempts[new_dir]}")
+    pdb.set_trace()
 
     pipelines = ["illumina-1", "nanopore-1"]
     pipeline = pipelines[0]
@@ -269,6 +270,7 @@ def process_dir(new_dir, watch_dir, bucket_name, apex_token, max_submission_atte
     apex_samples = {}
     data = {}
     try:
+
         if (Path(watch_dir) / new_dir / "sp3data.csv").is_file():
             logging.info(f''' sp3data file found''')
             with open(Path(watch_dir) / new_dir / "sp3data.csv", 'r') as infile:
