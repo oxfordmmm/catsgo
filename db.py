@@ -7,7 +7,7 @@ from datetime import datetime
 from collections import KeysView
 
 import utils
-
+import pdb
 
 config = utils.load_oracle_config("config.json")
 
@@ -227,7 +227,7 @@ def get_output_bucket_from_input(input_bucket, apex_token, config=config):
         return None
 
 def post_metadata_to_apex(data, apex_token):
-    # logging.info(apex_token)
+    pdb.set_trace()
     batch_response = requests.post(
         f"{config['host']}/batches",
         headers={"Authorization": f"Bearer {apex_token}"},
