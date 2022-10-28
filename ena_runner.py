@@ -192,7 +192,7 @@ def process_batch(sample_method, samples_to_submit, batch_dir, workflow):
         }
     
         if sample_method.name == "illumina":
-            p["peReads"] = [
+            p["pe_reads"] = [
                 {
                     "r1_uri": str(Path(sample) / (sample.name + "_1.fastq.gz")),
                     "r1_md5": get_md5_file_hash(str(Path(sample) / (sample.name + "_1.fastq.gz"))),
@@ -200,15 +200,15 @@ def process_batch(sample_method, samples_to_submit, batch_dir, workflow):
                     "r2_md5": get_md5_file_hash(str(Path(sample) / (sample.name + "_2.fastq.gz"))),
                 }
             ]
-            p["seReads"] = []
+            p["se_reads"] = []
         elif sample_method.name == "nanopore":
-            p["seReads"] = [
+            p["se_reads"] = [
                 {
                     "uri": str(Path(sample) / (sample.name + ".fastq.gz")),
                     "md5": get_md5_file_hash(str(Path(sample) / (sample.name + ".fastq.gz"))),
                 }
             ]
-            p["peReads"] = []
+            p["pe_reads"] = []
         else:
             logging.error(f"Invalid sample_method {sample_method}")
         samples.append(p)
