@@ -192,7 +192,7 @@ def process_batch(sample_method, samples_to_submit, batch_dir, workflow):
         }
     
         if sample_method.name == "illumina":
-            p["pe_reads"] = [
+            p["peReads"] = [
                 {
                     "r1_uri": str(Path(sample) / (sample.name + "_1.fastq.gz")),
                     "r1_md5": get_md5_file_hash(str(Path(sample) / (sample.name + "_1.fastq.gz"))),
@@ -200,15 +200,15 @@ def process_batch(sample_method, samples_to_submit, batch_dir, workflow):
                     "r2_md5": get_md5_file_hash(str(Path(sample) / (sample.name + "_2.fastq.gz"))),
                 }
             ]
-            p["se_reads"] = []
+            p["seReads"] = []
         elif sample_method.name == "nanopore":
-            p["se_reads"] = [
+            p["seReads"] = [
                 {
                     "uri": str(Path(sample) / (sample.name + ".fastq.gz")),
                     "md5": get_md5_file_hash(str(Path(sample) / (sample.name + ".fastq.gz"))),
                 }
             ]
-            p["pe_reads"] = []
+            p["peReads"] = []
         else:
             logging.error(f"Invalid sample_method {sample_method}")
         samples.append(p)
@@ -227,7 +227,6 @@ def process_batch(sample_method, samples_to_submit, batch_dir, workflow):
             "organisation": "Public Repository Data",
             "site": "ENA Data",
             "uploaded_on": datetime.datetime.now().isoformat()[:-3] + "Z",
-            # "uploaded_by": "Jeremy.Swann@ndm.ox.ac.uk",
             "uploaded_by": config["ENA_user"],
             "samples": samples,
         }
