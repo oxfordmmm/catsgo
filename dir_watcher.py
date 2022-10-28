@@ -1,7 +1,10 @@
+import traceback
+
 doc = """
 watches a directory and runs a pipeline on any new subdirectories
 submits metadata to api
 """
+import sys
 
 import csv
 import datetime
@@ -269,8 +272,8 @@ def process_dir(new_dir, watch_dir, bucket_name, apex_token, max_submission_atte
         if (Path(watch_dir) / new_dir / "sp3data.csv").is_file():
             with open(Path(watch_dir) / new_dir / "sp3data.csv", 'r') as infile:
                 reader = csv.DictReader(infile)
-                if len(reader.fieldnames()) < 3:
-                    logging.error("Found APEX run {new_dir}, will not attempt to run again.")
+                if len(reader.fieldnames) < 3:
+                    logging.error(f'''Found APEX run {new_dir}, will not attempt to run again.''')
                     return False
             
             pipeline = which_pipeline_csv(watch_dir, new_dir)
@@ -362,6 +365,7 @@ def process_dir(new_dir, watch_dir, bucket_name, apex_token, max_submission_atte
     except Exception as e:
         logging.error(f"Error occurred processing {new_dir}.")
         logging.error(e)
+        logging.error(traceback.format_exc())
         return False
 
 
