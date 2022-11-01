@@ -1,11 +1,8 @@
-import traceback
-
 doc = """
 watches a directory and runs a pipeline on any new subdirectories
 submits metadata to api
 """
 import sys
-
 import csv
 import datetime
 import json
@@ -14,12 +11,11 @@ import os
 import time
 from collections import defaultdict
 from pathlib import Path
-
+import traceback
 import argh
 import gridfs
 import pymongo
 import requests
-
 import catsgo
 import db
 
@@ -273,7 +269,7 @@ def process_dir(new_dir, watch_dir, bucket_name, apex_token, max_submission_atte
             with open(Path(watch_dir) / new_dir / "sp3data.csv", 'r') as infile:
                 reader = csv.DictReader(infile)
                 if len(reader.fieldnames) < 3:
-                    logging.error(f'''Found APEX run {new_dir}, will not attempt to run again.''')
+                    logging.error(f"Found APEX run {new_dir}, will not attempt to run again.")
                     return False
             
             pipeline = which_pipeline_csv(watch_dir, new_dir)
