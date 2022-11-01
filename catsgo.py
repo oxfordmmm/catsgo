@@ -33,7 +33,7 @@ def login():
     try:
         load_cookies()
     except:
-        logging.error(f'''Login {traceback.format_exc()}''')
+        logging.error(f"Login {traceback.format_exc()}")
         pass
     response = session.get(sp3_url + "/am_i_logged_in")
     if response.text == "yes":
