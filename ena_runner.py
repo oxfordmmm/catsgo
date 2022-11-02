@@ -239,7 +239,6 @@ def process_batch(sample_method, samples_to_submit, batch_dir, workflow):
             "organisation": "Public Repository Data",
             "site": "ENA Data",
             "uploaded_on": datetime.datetime.now().isoformat()[:-3] + "Z",
-            # "uploaded_by": "Jeremy.Swann@ndm.ox.ac.uk",
             "uploaded_by": config["ENA_user"],
             "samples": samples,
         }

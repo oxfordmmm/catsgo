@@ -6,6 +6,7 @@ import datetime
 import time
 import sys
 import logging
+import traceback
 
 import argh
 import requests
@@ -32,6 +33,7 @@ def login():
     try:
         load_cookies()
     except:
+        logging.error(f"Login {traceback.format_exc()}")
         pass
     response = session.get(sp3_url + "/am_i_logged_in")
     if response.text == "yes":
