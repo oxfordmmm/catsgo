@@ -19,6 +19,26 @@ import requests
 import catsgo
 import utils
 import db
+import sentry_sdk
+
+config = utils.load_config("config.json")
+
+def before_send(event, hint):
+    if 'exc_info' in hint:
+        exc_type, exc_value, tb = hint['exc_info']
+        if exc_value.args[0] in ["The "+make_viridian_sample_header.vn+" file could not be found"]:
+            return None
+    return event
+
+sentry_sdk.init(
+    dsn=config["sentry_dsn_run_watcher"],
+
+    # Set traces_sample_rate to 1.0 to capture 100%
+    # of transactions for performance monitoring.
+    # We recommend adjusting this value in production.
+    traces_sample_rate=config["sentry_traces_sample_rate"],
+        before_send=before_send
+)
 
 myclient = pymongo.MongoClient("mongodb://localhost:27017/")
 mydb = myclient["dir_watcher"]

@@ -19,6 +19,18 @@ import requests
 
 import catsgo
 import db
+import sentry_sdk
+
+config = utils.load_config("config.json")
+
+sentry_sdk.init(
+    dsn=config['sentry_dsn_dir_watcher'],
+
+    # Set traces_sample_rate to 1.0 to capture 100%
+    # of transactions for performance monitoring.
+    # We recommend adjusting this value in production.
+    traces_sample_rate=config['sentry_traces_sample_rate']
+)
 
 myclient = pymongo.MongoClient("mongodb://localhost:27017/")
 mydb = myclient["dir_watcher"]
