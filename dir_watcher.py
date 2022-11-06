@@ -1,5 +1,3 @@
-import utils
-
 doc = """
 watches a directory and runs a pipeline on any new subdirectories
 submits metadata to api
@@ -21,6 +19,7 @@ import requests
 import catsgo
 import db
 import sentry_sdk
+import utils
 
 config = utils.load_config("config.json")
 

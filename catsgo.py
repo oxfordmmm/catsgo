@@ -33,7 +33,7 @@ def login():
     try:
         load_cookies()
     except:
-        logging.error(f"Login {traceback.format_exc()}")
+        logging.info(f"Login {traceback.format_exc()}")
         pass
     response = session.get(sp3_url + "/am_i_logged_in")
     if response.text == "yes":
@@ -42,6 +42,7 @@ def login():
         data = {"username": config["username"], "password": config["password"]}
         response = session.post(sp3_url + "/login?api=v1", data=data)
         response = session.get(sp3_url + "/am_i_logged_in")
+        print(response.text)
         if response.text != "yes":
             sys.stderr.write("Error: Couldn't log in\n")
             sys.exit(1)
@@ -194,6 +195,8 @@ def run_covid_catsup(
 
     login()
     response = session.post(url, data=data)
+    print(response.status_code)
+    print(json.loads(response.text))
     return json.loads(response.text)
 
 
