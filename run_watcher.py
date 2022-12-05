@@ -219,7 +219,7 @@ def make_sample_data(new_run_uuid, sp3_sample_name):
                         gene, name = i.split(":")
                         sample["variants"].append({"gene": gene, "name": name})
                     except ValueError as e:
-                        logging.error(f"parse error: str(e)")
+                        logging.error(f"parse error: {str(e)}")
 
         return {**log, **sample}
     else:
@@ -329,12 +329,16 @@ def process_run(new_run_uuid, config, apex_token):
     send_output_data_to_api(new_run_uuid, config, apex_token)
 
 
-def get_finished_ok_sp3_runs(pipeline_name):
-    return (
-        catsgo.get_all_runs2(pipeline_name)
-        .get("status_to_run_uuid", dict())
-        .get("OK", list())
-    )
+def get_finished_sp3_runs(pipeline_name):
+    """
+    This will return all the runs that have finished
+    with a status of OK or ERR
+    """
+    ok_lst = catsgo.get_all_runs2(pipeline_name) \
+        .get("status_to_run_uuid", dict()).get("OK", list())
+    err_lst = catsgo.get_all_runs2(pipeline_name) \
+        .get("status_to_run_uuid", dict()).get("OK", list())
+    return ok_lst + err_lst
 
 
 def watch(flow_name="oxforduni-gpas-sars-cov2-illumina"):
@@ -351,11 +355,11 @@ def watch(flow_name="oxforduni-gpas-sars-cov2-illumina"):
             apex_token = db.get_apex_token()
             apex_token_time = time_now
 
-        # new runs to submit are sp3 runs that have finished with status OK
+        # new runs to submit are sp3 runs that have finished with status of OK or ERR
         # minus runs that have been marked as already submitted
-        finished_ok_sp3_runs = set(get_finished_ok_sp3_runs(flow_name))
+        finished_sp3_runs = set(get_finished_sp3_runs(flow_name))
         submitted_runs = set(get_submitted_runlist(flow_name))
-        new_runs_to_submit = finished_ok_sp3_runs.difference(submitted_runs)
+        new_runs_to_submit = finished_sp3_runs.difference(submitted_runs)
 
         for new_run_uuid in new_runs_to_submit:
             logging.info(f"new run: {new_run_uuid}")
