@@ -337,7 +337,7 @@ def get_finished_sp3_runs(pipeline_name):
     ok_lst = catsgo.get_all_runs2(pipeline_name) \
         .get("status_to_run_uuid", dict()).get("OK", list())
     err_lst = catsgo.get_all_runs2(pipeline_name) \
-        .get("status_to_run_uuid", dict()).get("OK", list())
+        .get("status_to_run_uuid", dict()).get("ERR", list())
     return ok_lst + err_lst
 
 
