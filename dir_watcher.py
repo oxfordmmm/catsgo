@@ -69,14 +69,7 @@ def acked(err, msg):
                 msg.topic(), msg.partition(), msg.offset()
             )
         )
-        
-def produce_message(key: str, id: str, message: str):
-    rec_value = {
-        "id": id,
-        "message": message,
-    }
-    rec_value = json.dumps(rec_value)
-    producer.produce(topic, key=key, value=rec_value, on_delivery=acked)
+
 
 def get_cached_dirlist(watch_dir):
     """
