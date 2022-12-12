@@ -21,6 +21,9 @@ import utils
 import db
 import sentry_sdk
 
+import certifi
+from confluent_kafka import Producer
+
 config = utils.load_config("config.json")
 
 def before_send(event, hint):
@@ -45,12 +48,33 @@ mydb = myclient["dir_watcher"]
 metadata = mydb["metadata"]
 runlist = mydb["runlist"]
 
+# Setup the message producer
+topic = config["message_topic_stream_name"]
+conf = {
+    "bootstrap.servers": config["message_bootstrap_servers_endpoints"],
+    "security.protocol": "SASL_SSL",
+    "ssl.ca.location": certifi.where(),
+    "sasl.mechanism": "PLAIN",
+    "sasl.username": f'{config["message_oci_tenancy_name"]}/{config["message_oci_user_name"]}/{config["message_stream_pool_ocid"]}',
+    "sasl.password": config["message_oci_user_auth_token"],
+}
+producer = Producer(**conf)
 
 logging.basicConfig(
     level=logging.DEBUG,
     format="%(asctime)s.%(msecs)03d %(levelname)s %(module)s - %(funcName)s: %(message)s",
     datefmt="%Y-%m-%d %H:%M:%S",
 )
+
+def acked(err, msg):
+    if err is not None:
+        logging.error("Failed to deliver message: {}".format(err))
+    else:
+        logging.info(
+            "Produced record to topic {} partition [{}] @ offset {}".format(
+                msg.topic(), msg.partition(), msg.offset()
+            )
+        )
 
 
 def get_submitted_runlist(pipeline_name):
@@ -323,7 +347,26 @@ def send_output_data_to_api(new_run_uuid, config, apex_token):
                 "Couldn't get sample data",
                 apex_database_sample_name=apex_database_sample_name,
             )
-
+        producer.produce(
+            topic,
+            key='sample',
+            value=json.dumps({
+                "sample_id": sp3_sample_name, 
+                "start_time": datetime.datetime.now().isoformat()[:-3] + "Z",
+                "message": "Sample finished processing. Sent to APEX."
+            })
+        )
+        producer.poll(0)
+    producer.produce(
+        topic,
+        key="batch",
+        value=json.dumps({
+            "batch_id": new_run_uuid, 
+            "end_time": datetime.datetime.now().isoformat()[:-3] + "Z",
+            "message": "Batch finished. Sent to APEX."
+        })
+    )
+    producer.poll(0)
 
 def process_run(new_run_uuid, config, apex_token):
     send_output_data_to_api(new_run_uuid, config, apex_token)

@@ -44,14 +44,14 @@ ignore_list = mydb["ignore_list"]
 
 # Setup the message producer
 topic = config["message_topic_stream_name"]
-conf = [
+conf = {
     "bootstrap.servers": config["message_bootstrap_servers_endpoints"],
     "security.protocol": "SASL_SSL",
     "ssl.ca.location": certifi.where(),
     "sasl.mechanism": "PLAIN",
-    "sasl.username": f'{config["message_oci_tenancy_name"]/{config["message_oci_user_name"]}/{config["message_stream_pool_ocid"]}',
+    "sasl.username": f'{config["message_oci_tenancy_name"]}/{config["message_oci_user_name"]}/{config["message_stream_pool_ocid"]}',
     "sasl.password": config["message_oci_user_auth_token"],
-]
+}
 producer = Producer(**conf)
 
 logging.basicConfig(
@@ -62,7 +62,7 @@ logging.basicConfig(
 
 def acked(err, msg):
     if err is not None:
-        print("Failed to deliver message: {}".format(err))
+        logging.error("Failed to deliver message: {}".format(err))
     else:
         logging.info(
             "Produced record to topic {} partition [{}] @ offset {}".format(
@@ -486,7 +486,8 @@ def watch(
                 # if we've started a run then stop processing and go to sleep. This prevents
                 # the system from being overwhelmed with nextflow starting
                 break
-
+        
+        producer.flush()
         print("sleeping for 60")
         time.sleep(60)
 
