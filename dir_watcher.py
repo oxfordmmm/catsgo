@@ -22,6 +22,9 @@ import catsgo
 import db
 import sentry_sdk
 
+import certifi
+from confluent_kafka import Producer
+
 config = utils.load_config("config.json")
 
 sentry_sdk.init(
@@ -39,12 +42,41 @@ dirlist = mydb["dirlist"]
 metadata = mydb["metadata"]
 ignore_list = mydb["ignore_list"]
 
+# Setup the message producer
+topic = config["message_topic_stream_name"]
+conf = [
+    "bootstrap.servers": config["message_bootstrap_servers_endpoints"],
+    "security.protocol": "SASL_SSL",
+    "ssl.ca.location": certifi.where(),
+    "sasl.mechanism": "PLAIN",
+    "sasl.username": f'{config["message_oci_tenancy_name"]/{config["message_oci_user_name"]}/{config["message_stream_pool_ocid"]}',
+    "sasl.password": config["message_oci_user_auth_token"],
+]
+producer = Producer(**conf)
+
 logging.basicConfig(
     level=logging.DEBUG,
     format="%(asctime)s.%(msecs)03d %(levelname)s %(module)s - %(funcName)s: %(message)s",
     datefmt="%Y-%m-%d %H:%M:%S",
 )
 
+def acked(err, msg):
+    if err is not None:
+        print("Failed to deliver message: {}".format(err))
+    else:
+        logging.info(
+            "Produced record to topic {} partition [{}] @ offset {}".format(
+                msg.topic(), msg.partition(), msg.offset()
+            )
+        )
+        
+def produce_message(key: str, id: str, message: str):
+    rec_value = {
+        "id": id,
+        "message": message,
+    }
+    rec_value = json.dumps(rec_value)
+    producer.produce(topic, key=key, value=rec_value, on_delivery=acked)
 
 def get_cached_dirlist(watch_dir):
     """
@@ -318,6 +350,18 @@ def process_dir(new_dir, watch_dir, bucket_name, apex_token, max_submission_atte
                             'sample_uuid4' : sample['name']
                         }
                         writer1.writerow(out)
+
+                        producer.produce(
+                            topic, 
+                            key='sample', 
+                            value=json.dumps({
+                                "sample_id": sample['name'], 
+                                "submission_id": sample['batchFileName'],
+                                "start_time": datetime.datetime.now().isoformat()[:-3] + "Z",
+                                "message": "Started sample processing."
+                            })
+                        )
+                        producer.poll(0)
                 apex_batch = batch_samples
                 data = batch_samples
                 apex_samples = db.get_batch_samples(apex_batch['id'], apex_token)
@@ -342,6 +386,17 @@ def process_dir(new_dir, watch_dir, bucket_name, apex_token, max_submission_atte
                     upload_bucket,
                     new_dir,
                 )
+            producer.produce(
+                topic, 
+                key="batch", 
+                value=json.dumps({
+                    "batch_id": new_dir, 
+                    "pipeline": "illumina",
+                    "start_time": datetime.datetime.now().isoformat()[:-3] + "Z",
+                    "message": "Submitted batch to workflow."
+                })
+            )
+            producer.poll(0)
         elif pipeline == "nanopore-1":
             if str(workflow).lower() == "sars-cov2_workflows":
                 ret = catsgo.run_covid_catsup(
@@ -359,6 +414,17 @@ def process_dir(new_dir, watch_dir, bucket_name, apex_token, max_submission_atte
                     upload_bucket,
                     new_dir,
                 )
+            producer.produce(
+                topic, 
+                key="batch", 
+                value=json.dumps({
+                    "batch_id": new_dir, 
+                    "pipeline": "nanopore",
+                    "start_time": datetime.datetime.now().isoformat()[:-3] + "Z",
+                    "message": "Submitted batch to workflow."
+                })
+            )
+            producer.poll(0)
         else:
             logging.error("unknown pipeline: {pipeline}. This shouldn't be reachable")
 

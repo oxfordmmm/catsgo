@@ -24,5 +24,11 @@
     "sentry_dsn_ena_runner": "https://",
     "sentry_dsn_run_watcher": "https://",
     "sentry_dsn_status": "https://",
-    "sentry_traces_sample_rate": 1.0
+    "sentry_traces_sample_rate": 1.0,
+    "message_topic_stream_name": "",
+    "message_bootstrap_servers_endpoints": "",
+    "message_oci_tenancy_name": "",
+    "message_oci_user_name": "",
+    "message_stream_pool_ocid": "",
+    "message_oci_user_auth_token": ""
 }
