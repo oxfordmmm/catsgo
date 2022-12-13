@@ -351,7 +351,8 @@ def send_output_data_to_api(new_run_uuid, config, apex_token):
             topic,
             key='sample',
             value=json.dumps({
-                "sample_id": sp3_sample_name, 
+                "type": "sample",
+                "sample_id": sp3_sample_name,
                 "start_time": datetime.datetime.now().isoformat()[:-3] + "Z",
                 "message": "Sample finished processing. Sent to APEX."
             })
@@ -361,7 +362,8 @@ def send_output_data_to_api(new_run_uuid, config, apex_token):
         topic,
         key="batch",
         value=json.dumps({
-            "batch_id": new_run_uuid, 
+            "type": "batch",
+            "batch_id": new_run_uuid,
             "end_time": datetime.datetime.now().isoformat()[:-3] + "Z",
             "message": "Batch finished. Sent to APEX."
         })

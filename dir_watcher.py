@@ -346,9 +346,10 @@ def process_dir(new_dir, watch_dir, bucket_name, apex_token, max_submission_atte
 
                         producer.produce(
                             topic, 
-                            key='sample', 
+                            key='sample',
                             value=json.dumps({
-                                "sample_id": sample['name'], 
+                                "type": "sample",
+                                "sample_id": sample['name'],
                                 "submission_id": sample['batchFileName'],
                                 "start_time": datetime.datetime.now().isoformat()[:-3] + "Z",
                                 "message": "Started sample processing."
@@ -383,7 +384,8 @@ def process_dir(new_dir, watch_dir, bucket_name, apex_token, max_submission_atte
                 topic, 
                 key="batch", 
                 value=json.dumps({
-                    "batch_id": new_dir, 
+                    "type": "batch",
+                    "batch_id": new_dir,
                     "pipeline": "illumina",
                     "start_time": datetime.datetime.now().isoformat()[:-3] + "Z",
                     "message": "Submitted batch to workflow."
@@ -408,10 +410,11 @@ def process_dir(new_dir, watch_dir, bucket_name, apex_token, max_submission_atte
                     new_dir,
                 )
             producer.produce(
-                topic, 
-                key="batch", 
+                topic,
+                key="batch",
                 value=json.dumps({
-                    "batch_id": new_dir, 
+                    "type": "batch",
+                    "batch_id": new_dir,
                     "pipeline": "nanopore",
                     "start_time": datetime.datetime.now().isoformat()[:-3] + "Z",
                     "message": "Submitted batch to workflow."
