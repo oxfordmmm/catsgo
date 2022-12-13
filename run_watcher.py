@@ -353,7 +353,7 @@ def send_output_data_to_api(new_run_uuid, config, apex_token):
             value=json.dumps({
                 "type": "sample",
                 "sample_id": sp3_sample_name,
-                "start_time": datetime.datetime.now().isoformat()[:-3] + "Z",
+                "end_time": datetime.datetime.now().isoformat()[:-3] + "Z",
                 "message": "Sample finished processing. Sent to APEX."
             })
         )
