@@ -424,11 +424,7 @@ def process_dir(new_dir, watch_dir, bucket_name, apex_token, max_submission_atte
             data,
         )
         
-        for i in apex_samples["samples"]:
-            sample = apex_samples["samples"][i]
-            logging.info(sample)
-            smp = sample[0]
-            logging.info(smp)
+        for s in apex_samples["samples"]:
             producer.produce(
                 topic,
                 key="sample",
@@ -436,7 +432,7 @@ def process_dir(new_dir, watch_dir, bucket_name, apex_token, max_submission_atte
                     "type": "sample",
                     "batch_id": new_dir,
                     "run_id": ret.get("run_uuid", ""),
-                    "sample_id": sample["name"],
+                    "sample_id": s["name"],
                     "start_time": datetime.datetime.now().isoformat()[:-3] + "Z",
                     "message": "Started sample processing."
                 }),
