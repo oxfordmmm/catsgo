@@ -344,18 +344,6 @@ def process_dir(new_dir, watch_dir, bucket_name, apex_token, max_submission_atte
                         }
                         writer1.writerow(out)
 
-                        producer.produce(
-                            topic, 
-                            key='sample',
-                            value=json.dumps({
-                                "type": "sample",
-                                "sample_id": sample['name'],
-                                "submission_id": sample['batchFileName'],
-                                "start_time": datetime.datetime.now().isoformat()[:-3] + "Z",
-                                "message": "Started sample processing."
-                            })
-                        )
-                        producer.poll(0)
                 apex_batch = batch_samples
                 data = batch_samples
                 apex_samples = db.get_batch_samples(apex_batch['id'], apex_token)
@@ -386,6 +374,7 @@ def process_dir(new_dir, watch_dir, bucket_name, apex_token, max_submission_atte
                 value=json.dumps({
                     "type": "batch",
                     "batch_id": new_dir,
+                    "run_id": ret.get("run_uuid", ""),
                     "pipeline": "illumina",
                     "start_time": datetime.datetime.now().isoformat()[:-3] + "Z",
                     "message": "Submitted batch to workflow."
@@ -415,6 +404,7 @@ def process_dir(new_dir, watch_dir, bucket_name, apex_token, max_submission_atte
                 value=json.dumps({
                     "type": "batch",
                     "batch_id": new_dir,
+                    "run_id": ret.get("run_uuid", ""),
                     "pipeline": "nanopore",
                     "start_time": datetime.datetime.now().isoformat()[:-3] + "Z",
                     "message": "Submitted batch to workflow."
@@ -433,6 +423,21 @@ def process_dir(new_dir, watch_dir, bucket_name, apex_token, max_submission_atte
             apex_samples,
             data,
         )
+        
+        producer.produce(
+            topic,
+            key="sample",
+            value=json.dumps({
+                "type": "sample",
+                "batch_id": new_dir,
+                "run_id": ret.get("run_uuid", ""),
+                "sample_id": apex_samples["samples"]["name"],
+                "start_time": datetime.datetime.now().isoformat()[:-3] + "Z",
+                "message": "Started sample processing."
+            }),
+        )
+        producer.poll(0)
+        
         return True  # we've restarted a run
     except Exception as e:
         logging.error(f"Error occurred processing {new_dir}.")

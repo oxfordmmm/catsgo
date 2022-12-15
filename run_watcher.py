@@ -352,6 +352,7 @@ def send_output_data_to_api(new_run_uuid, config, apex_token):
             key='sample',
             value=json.dumps({
                 "type": "sample",
+                "run_id": new_run_uuid,
                 "sample_id": sp3_sample_name,
                 "end_time": datetime.datetime.now().isoformat()[:-3] + "Z",
                 "message": "Sample finished processing. Sent to APEX."
@@ -363,7 +364,7 @@ def send_output_data_to_api(new_run_uuid, config, apex_token):
         key="batch",
         value=json.dumps({
             "type": "batch",
-            "batch_id": new_run_uuid,
+            "run_id": new_run_uuid,
             "end_time": datetime.datetime.now().isoformat()[:-3] + "Z",
             "message": "Batch finished. Sent to APEX."
         })
