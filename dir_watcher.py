@@ -424,18 +424,22 @@ def process_dir(new_dir, watch_dir, bucket_name, apex_token, max_submission_atte
             data,
         )
         
-        producer.produce(
-            topic,
-            key="sample",
-            value=json.dumps({
-                "type": "sample",
-                "batch_id": new_dir,
-                "run_id": ret.get("run_uuid", ""),
-                "sample_id": apex_samples["samples"]["name"],
-                "start_time": datetime.datetime.now().isoformat()[:-3] + "Z",
-                "message": "Started sample processing."
-            }),
-        )
+        for _, sample in apex_samples["samples"]:
+            logging.info(sample)
+            smp = sample[0]
+            logging.info(smp)
+            producer.produce(
+                topic,
+                key="sample",
+                value=json.dumps({
+                    "type": "sample",
+                    "batch_id": new_dir,
+                    "run_id": ret.get("run_uuid", ""),
+                    "sample_id": smp["name"],
+                    "start_time": datetime.datetime.now().isoformat()[:-3] + "Z",
+                    "message": "Started sample processing."
+                }),
+            )
         producer.poll(0)
         
         return True  # we've restarted a run
